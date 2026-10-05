@@ -2,7 +2,7 @@
   "month": "October",
   "year": 2026,
   "total_days_in_month": 31,
-  "days_elapsed": 2,
+  "days_elapsed": 5,
   "kpis": {
     "budget": 1100,
     "signups": 450,
@@ -16,27 +16,41 @@
     "opened": 0,
     "clicked": 0,
     "unsub": 0,
-    "budget": 70.96,
-    "signups": 9,
-    "users": 1,
-    "revenue": 150.0,
-    "profit": 79.04,
-    "s2p_ratio": "1:9"
+    "budget": 177.4,
+    "signups": 105,
+    "users": 3,
+    "revenue": 300.0,
+    "profit": 122.6,
+    "s2p_ratio": "1:35"
   },
   "advertisers_mtd": [
     {
       "advertiser": "Splash",
-      "signups": 5,
-      "users": 1,
-      "revenue": 150.0,
-      "s2p": "1:5"
+      "signups": 28,
+      "users": 2,
+      "revenue": 300.0,
+      "s2p": "1:14"
     },
     {
       "advertiser": "GameTime Digital",
-      "signups": 4,
+      "signups": 48,
+      "users": 1,
+      "revenue": 0.0,
+      "s2p": "1:48"
+    },
+    {
+      "advertiser": "CHANCED",
+      "signups": 27,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:4"
+      "s2p": "0:27"
+    },
+    {
+      "advertiser": "Basher Agency",
+      "signups": 2,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:2"
     },
     {
       "advertiser": "AFF 66",
@@ -47,27 +61,6 @@
     },
     {
       "advertiser": "ALL IN AFFILIATES",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "advertiser": "CHANCED",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "advertiser": "Basher Agency",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "advertiser": "Purify",
       "signups": 0,
       "users": 0,
       "revenue": 0.0,
@@ -88,6 +81,13 @@
       "s2p": "0:0"
     },
     {
+      "advertiser": "Purify",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
+    },
+    {
       "advertiser": "Acebet",
       "signups": 0,
       "users": 0,
@@ -98,15 +98,47 @@
   "brands_mtd": [
     {
       "brand": "splashcoins",
-      "advertiser": "Splash",
-      "signups": 5,
+      "advertiser": "SPLASH",
+      "signups": 28,
+      "users": 2,
+      "revenue": 300.0,
+      "s2p": "1:14"
+    },
+    {
+      "brand": "Chanced Punt",
+      "advertiser": "CHANCED",
+      "signups": 27,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:27"
+    },
+    {
+      "brand": "LavishLuck",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 13,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:13"
+    },
+    {
+      "brand": "Jackpotgo",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 17,
       "users": 1,
-      "revenue": 150.0,
-      "s2p": "1:5"
+      "revenue": 0.0,
+      "s2p": "1:17"
+    },
+    {
+      "brand": "Baba",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:1"
     },
     {
       "brand": "CoinsBack",
-      "advertiser": "GameTime Digital",
+      "advertiser": "GAMETIME DIGITAL",
       "signups": 2,
       "users": 0,
       "revenue": 0.0,
@@ -114,7 +146,31 @@
     },
     {
       "brand": "LuckyBunny",
-      "advertiser": "GameTime Digital",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:1"
+    },
+    {
+      "brand": "LuckyZino",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 8,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:8"
+    },
+    {
+      "brand": "LuckyZino Sweepstakes Casino",
+      "advertiser": "BASHER AGENCY",
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:1"
+    },
+    {
+      "brand": "LavishLuck Sweepstakes Casino",
+      "advertiser": "BASHER AGENCY",
       "signups": 1,
       "users": 0,
       "revenue": 0.0,
@@ -122,23 +178,39 @@
     },
     {
       "brand": "McLuck",
-      "advertiser": "GameTime Digital",
+      "advertiser": "GAMETIME DIGITAL",
       "signups": 1,
       "users": 0,
       "revenue": 0.0,
       "s2p": "0:1"
     },
     {
-      "brand": "Acebet",
-      "advertiser": "Acebet",
-      "signups": 0,
+      "brand": "Rolla",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 2,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:0"
+      "s2p": "0:2"
     },
     {
-      "brand": "Chanced Punt",
-      "advertiser": "CHANCED",
+      "brand": "Sweet Sweep",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:1"
+    },
+    {
+      "brand": "The Boss",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 2,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:2"
+    },
+    {
+      "brand": "Acebet",
+      "advertiser": "ACEBET",
       "signups": 0,
       "users": 0,
       "revenue": 0.0,
@@ -154,7 +226,7 @@
     },
     {
       "brand": "Coins Royale sweeps",
-      "advertiser": "CoinsRoyale",
+      "advertiser": "COINSROYALE",
       "signups": 0,
       "users": 0,
       "revenue": 0.0,
@@ -191,12 +263,20 @@
       "users": 0,
       "revenue": 0.0,
       "s2p": "0:0"
+    },
+    {
+      "brand": "Slotornado",
+      "advertiser": "ALL IN AFFILIATES",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
     }
   ],
   "esp_mtd_totals": [],
   "team_ops_mtd": {
     "andrea": {
-      "signups": 4,
+      "signups": 27,
       "users": 0
     },
     "jessie": {
@@ -205,15 +285,57 @@
     },
     "signups_by_advertiser": {
       "GAMETIME DIGITAL": {
-        "andrea": 4,
+        "andrea": 25,
         "jessie": 0,
-        "total": 4
+        "total": 25
+      },
+      "BASHER AGENCY": {
+        "andrea": 2,
+        "jessie": 0,
+        "total": 2
+      },
+      "ACEBET": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "AFF 66": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "ALL IN AFFILIATES": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "CHANCED": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "COINSROYALE": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "EPC": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "PURIFY": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
       },
       "SPLASH": {
         "andrea": 0,
         "jessie": 0,
         "total": 0
-      },
+      }
+    },
+    "users_by_advertiser": {
       "ACEBET": {
         "andrea": 0,
         "jessie": 0,
@@ -245,18 +367,6 @@
         "total": 0
       },
       "EPC": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "PURIFY": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      }
-    },
-    "users_by_advertiser": {
-      "SPLASH": {
         "andrea": 0,
         "jessie": 0,
         "total": 0
@@ -266,42 +376,12 @@
         "jessie": 0,
         "total": 0
       },
-      "ACEBET": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "AFF 66": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "ALL IN AFFILIATES": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "BASHER AGENCY": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "CHANCED": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "COINSROYALE": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "EPC": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
       "PURIFY": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "SPLASH": {
         "andrea": 0,
         "jessie": 0,
         "total": 0
@@ -335,19 +415,19 @@
       },
       "brands": {
         "splashcoins": {
-          "advertiser": "Splash",
+          "advertiser": "SPLASH",
           "signups": 3,
           "users": 1,
           "revenue": 150.0
         },
         "CoinsBack": {
-          "advertiser": "GameTime Digital",
+          "advertiser": "GAMETIME DIGITAL",
           "signups": 2,
           "users": 0,
           "revenue": 0.0
         },
         "McLuck": {
-          "advertiser": "GameTime Digital",
+          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
@@ -390,13 +470,13 @@
       },
       "brands": {
         "splashcoins": {
-          "advertiser": "Splash",
+          "advertiser": "SPLASH",
           "signups": 2,
           "users": 0,
           "revenue": 0.0
         },
         "LuckyBunny": {
-          "advertiser": "GameTime Digital",
+          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
@@ -420,16 +500,51 @@
       "opened": 0,
       "clicked": 0,
       "unsub": 0,
-      "budget": 0.0,
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "profit": 0.0,
-      "advertisers": {},
-      "brands": {},
+      "budget": 35.48,
+      "signups": 32,
+      "users": 1,
+      "revenue": 150.0,
+      "profit": 114.52,
+      "advertisers": {
+        "SPLASH": {
+          "signups": 23,
+          "users": 1,
+          "revenue": 150.0
+        },
+        "CHANCED": {
+          "signups": 4,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "GameTime Digital": {
+          "signups": 5,
+          "users": 0,
+          "revenue": 0.0
+        }
+      },
+      "brands": {
+        "splashcoins": {
+          "advertiser": "SPLASH",
+          "signups": 23,
+          "users": 1,
+          "revenue": 150.0
+        },
+        "Chanced Punt": {
+          "advertiser": "CHANCED",
+          "signups": 4,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LavishLuck": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 5,
+          "users": 0,
+          "revenue": 0.0
+        }
+      },
       "ops": {
         "andrea": {
-          "signups": 0,
+          "signups": 23,
           "users": 0
         },
         "jessie": {
@@ -445,13 +560,37 @@
       "opened": 0,
       "clicked": 0,
       "unsub": 0,
-      "budget": 0.0,
-      "signups": 0,
-      "users": 0,
+      "budget": 35.48,
+      "signups": 32,
+      "users": 1,
       "revenue": 0.0,
-      "profit": 0.0,
-      "advertisers": {},
-      "brands": {},
+      "profit": -35.48,
+      "advertisers": {
+        "CHANCED": {
+          "signups": 23,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "GameTime Digital": {
+          "signups": 9,
+          "users": 1,
+          "revenue": 0.0
+        }
+      },
+      "brands": {
+        "Chanced Punt": {
+          "advertiser": "CHANCED",
+          "signups": 23,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Jackpotgo": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 9,
+          "users": 1,
+          "revenue": 0.0
+        }
+      },
       "ops": {
         "andrea": {
           "signups": 0,
@@ -470,13 +609,79 @@
       "opened": 0,
       "clicked": 0,
       "unsub": 0,
-      "budget": 0.0,
-      "signups": 0,
+      "budget": 35.48,
+      "signups": 32,
       "users": 0,
       "revenue": 0.0,
-      "profit": 0.0,
-      "advertisers": {},
-      "brands": {},
+      "profit": -35.48,
+      "advertisers": {
+        "GameTime Digital": {
+          "signups": 30,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Basher Agency": {
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        }
+      },
+      "brands": {
+        "LavishLuck": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 8,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Jackpotgo": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 8,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Baba": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyZino": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 8,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyZino Sweepstakes Casino": {
+          "advertiser": "BASHER AGENCY",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LavishLuck Sweepstakes Casino": {
+          "advertiser": "BASHER AGENCY",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Rolla": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Sweet Sweep": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "The Boss": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        }
+      },
       "ops": {
         "andrea": {
           "signups": 0,
