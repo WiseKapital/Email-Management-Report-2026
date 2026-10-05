@@ -4,11 +4,11 @@
   "total_days_in_month": 31,
   "days_elapsed": 5,
   "kpis": {
-    "budget": 1100,
+    "budget": 934,
     "signups": 450,
     "users": 40,
     "revenue": 4400,
-    "profit": 3300
+    "profit": 3466
   },
   "summary_mtd": {
     "delivered": 0,
@@ -16,11 +16,11 @@
     "opened": 0,
     "clicked": 0,
     "unsub": 0,
-    "budget": 177.4,
+    "budget": 150.65,
     "signups": 105,
     "users": 3,
     "revenue": 300.0,
-    "profit": 122.6,
+    "profit": 149.35,
     "s2p_ratio": "1:35"
   },
   "advertisers_mtd": [
@@ -396,11 +396,11 @@
       "opened": 0,
       "clicked": 0,
       "unsub": 0,
-      "budget": 35.48,
+      "budget": 30.13,
       "signups": 6,
       "users": 1,
       "revenue": 150.0,
-      "profit": 114.52,
+      "profit": 119.87,
       "advertisers": {
         "Splash": {
           "signups": 3,
@@ -451,11 +451,11 @@
       "opened": 0,
       "clicked": 0,
       "unsub": 0,
-      "budget": 35.48,
+      "budget": 30.13,
       "signups": 3,
       "users": 0,
       "revenue": 0.0,
-      "profit": -35.48,
+      "profit": -30.13,
       "advertisers": {
         "Splash": {
           "signups": 2,
@@ -500,11 +500,11 @@
       "opened": 0,
       "clicked": 0,
       "unsub": 0,
-      "budget": 35.48,
+      "budget": 30.13,
       "signups": 32,
       "users": 1,
       "revenue": 150.0,
-      "profit": 114.52,
+      "profit": 119.87,
       "advertisers": {
         "SPLASH": {
           "signups": 23,
@@ -560,11 +560,11 @@
       "opened": 0,
       "clicked": 0,
       "unsub": 0,
-      "budget": 35.48,
+      "budget": 30.13,
       "signups": 32,
       "users": 1,
       "revenue": 0.0,
-      "profit": -35.48,
+      "profit": -30.13,
       "advertisers": {
         "CHANCED": {
           "signups": 23,
@@ -609,11 +609,11 @@
       "opened": 0,
       "clicked": 0,
       "unsub": 0,
-      "budget": 35.48,
+      "budget": 30.13,
       "signups": 32,
       "users": 0,
       "revenue": 0.0,
-      "profit": -35.48,
+      "profit": -30.13,
       "advertisers": {
         "GameTime Digital": {
           "signups": 30,
