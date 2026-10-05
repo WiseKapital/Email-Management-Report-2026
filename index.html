@@ -391,6 +391,39 @@
         </div>
       </section>
 
+      <!-- ================= NUEVA TABLA: ESP / IP BREAKDOWN ================= -->
+      <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-slate-50/50">
+          <div>
+            <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">ESP / IP Breakdown</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Sign Ups & FTDs distribution by ESP / IP, Advertisers and Brands</p>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table id="espIpBreakdownTable" class="w-full text-sm excel-table">
+            <thead>
+              <tr class="theme-header-aff text-white text-xs uppercase tracking-wider font-semibold">
+                <th class="py-2.5 px-4 text-left">ESP / IP</th>
+                <th class="py-2.5 px-4 text-left">Advertisers</th>
+                <th class="py-2.5 px-4 text-left">Brands</th>
+                <th class="py-2.5 px-4 text-right">Sign Ups</th>
+                <th class="py-2.5 px-4 text-right">FTDs</th>
+              </tr>
+            </thead>
+            <tbody id="espIpBreakdownTableBody" class="text-slate-700">
+              <!-- Filas dinámicas -->
+            </tbody>
+            <tfoot class="border-t-2 border-slate-900 bg-slate-50 font-bold text-slate-900">
+              <tr>
+                <td colspan="3" class="py-2.5 px-4 text-left uppercase">Overall Grand Total</td>
+                <td id="espIpGrandSignups" class="py-2.5 px-4 text-right font-mono text-amber-600">0</td>
+                <td id="espIpGrandFtds" class="py-2.5 px-4 text-right font-mono text-indigo-600">0</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </section>
+
       <!-- SECTION 1 CHARTS -->
       <div class="space-y-6">
         <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider">1. ESP Deliverability & Engagement Charts</h3>
@@ -746,29 +779,6 @@
           </table>
         </div>
       </section>
-
-      <!-- AFFILIATE CHARTS -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
-          <div>
-            <h4 class="text-sm font-bold text-slate-900">Sign Ups by Advertiser</h4>
-            <p class="text-xs text-slate-500 mb-4">Total registrations per source</p>
-          </div>
-          <div class="relative h-80">
-            <canvas id="chartAffSignUps"></canvas>
-          </div>
-        </div>
-
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
-          <div>
-            <h4 class="text-sm font-bold text-slate-900">Users by Advertiser</h4>
-            <p class="text-xs text-slate-500 mb-4">Active converted users per source</p>
-          </div>
-          <div class="relative h-80">
-            <canvas id="chartAffUsers"></canvas>
-          </div>
-        </div>
-      </div>
     </div>
 
   </div>
@@ -1930,42 +1940,6 @@
           }
         }
       });
-
-      chartRefs.affSignups = new Chart(document.getElementById('chartAffSignUps'), {
-        type: 'bar',
-        data: {
-          labels: [],
-          datasets: [{ label: 'Sign Ups', data: [], backgroundColor: '#d97706', borderRadius: 6 }]
-        },
-        options: {
-          indexAxis: 'y',
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: {
-            x: { grid: { color: '#f1f5f9' } },
-            y: { grid: { display: false } }
-          }
-        }
-      });
-
-      chartRefs.affUsers = new Chart(document.getElementById('chartAffUsers'), {
-        type: 'bar',
-        data: {
-          labels: [],
-          datasets: [{ label: 'Users', data: [], backgroundColor: '#4f46e5', borderRadius: 6 }]
-        },
-        options: {
-          indexAxis: 'y',
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: {
-            x: { grid: { color: '#f1f5f9' }, ticks: { stepSize: 2 } },
-            y: { grid: { display: false } }
-          }
-        }
-      });
     }
 
     function updateCharts(agg) {
@@ -2013,15 +1987,6 @@
       const clicksOrder = ['Gmail', 'Other', 'Yahoo', 'iCloud', 'Outlook', 'Aol', 'Hotmail'];
       chartRefs.domClicks.data.datasets[0].data = clicksOrder.map(d => domainClicks[d]);
       chartRefs.domClicks.update();
-
-      const sortedAdvNames = Object.keys(agg.advertisers).sort((a, b) => (agg.advertisers[b].signups || 0) - (agg.advertisers[a].signups || 0));
-      chartRefs.affSignups.data.labels = sortedAdvNames;
-      chartRefs.affSignups.data.datasets[0].data = sortedAdvNames.map(k => agg.advertisers[k].signups);
-      chartRefs.affSignups.update();
-
-      chartRefs.affUsers.data.labels = sortedAdvNames;
-      chartRefs.affUsers.data.datasets[0].data = sortedAdvNames.map(k => agg.advertisers[k].users);
-      chartRefs.affUsers.update();
     }
 
     function sortTable(tableId, colIndex, btnElement, type) {
