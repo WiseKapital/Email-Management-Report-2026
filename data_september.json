@@ -1309,236 +1309,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 1
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LuckyZino Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "CoinsBack",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Jackpotgo",
-          "signups": 1,
-          "ftds": 1
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Rolla",
-          "signups": 1,
-          "ftds": 1
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Sweet Sweep",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "WiseSpin",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LuckyZino Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Jackpotgo",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyBunny",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "PlayFame SEO",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Rolla",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "TitanTreasure",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Zunado",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "ChipNWin",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Jackpotgo",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyBunny",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Sweet Sweep",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "The Boss",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 1",
-          "advertiser": "AFF 66",
-          "brand": "SweepJungle",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyBunny",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyZino",
-          "signups": 1,
-          "ftds": 1
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Rolla",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 1
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Crown Coins Email",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 1
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyZino",
-          "signups": 1,
-          "ftds": 1
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "The Boss",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 32,
-        "ftds": 7
       }
     },
     {
@@ -1716,159 +1486,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Jackpotgo",
-          "signups": 1,
-          "ftds": 1
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Rolla",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Sweet Sweep",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "WiseSpin",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LuckyZino Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Rolla",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "TitanTreasure",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "ChipNWin",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Jackpotgo",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyBunny",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Sweet Sweep",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyBunny",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyZino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Rolla",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 1
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyZino",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 21,
-        "ftds": 2
       }
     },
     {
@@ -2028,124 +1645,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Jackpotgo",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Rolla",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "TitanTreasure",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Jackpotgo",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyBunny",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Sweet Sweep",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyBunny",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyZino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Rolla",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyZino",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 16,
-        "ftds": 0
       }
     },
     {
@@ -2293,82 +1792,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Jackpotgo",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Rolla",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyBunny",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyZino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyZino",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 10,
-        "ftds": 0
       }
     },
     {
@@ -2504,75 +1927,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Jackpotgo",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Rolla",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyBunny",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyZino",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 9,
-        "ftds": 0
       }
     },
     {
@@ -2697,54 +2051,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Rolla",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 6,
-        "ftds": 0
       }
     },
     {
@@ -2858,54 +2164,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Rolla",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 6,
-        "ftds": 0
       }
     },
     {
@@ -3013,47 +2271,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 5,
-        "ftds": 0
       }
     },
     {
@@ -3155,47 +2372,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 5,
-        "ftds": 0
       }
     },
     {
@@ -3291,47 +2467,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 5,
-        "ftds": 0
       }
     },
     {
@@ -3427,33 +2562,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 3,
-        "ftds": 0
       }
     },
     {
@@ -3538,33 +2646,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 3,
-        "ftds": 0
       }
     },
     {
@@ -3649,33 +2730,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 3,
-        "ftds": 0
       }
     },
     {
@@ -3760,26 +2814,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 2,
-        "ftds": 0
       }
     },
     {
@@ -3864,19 +2898,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 1,
-        "ftds": 0
       }
     },
     {
@@ -3961,19 +2982,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 1,
-        "ftds": 0
       }
     },
     {
@@ -4052,19 +3060,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 1,
-        "ftds": 0
       }
     },
     {
@@ -4137,19 +3132,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 1,
-        "ftds": 0
       }
     },
     {
@@ -4222,19 +3204,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 1,
-        "ftds": 0
       }
     },
     {
@@ -4307,11 +3276,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [],
-      "esp_ip_summary": {
-        "signups": 0,
-        "ftds": 0
       }
     },
     {
@@ -4378,11 +3342,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [],
-      "esp_ip_summary": {
-        "signups": 0,
-        "ftds": 0
       }
     },
     {
@@ -4449,11 +3408,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [],
-      "esp_ip_summary": {
-        "signups": 0,
-        "ftds": 0
       }
     },
     {
@@ -4514,11 +3468,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [],
-      "esp_ip_summary": {
-        "signups": 0,
-        "ftds": 0
       }
     },
     {
@@ -4579,11 +3528,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [],
-      "esp_ip_summary": {
-        "signups": 0,
-        "ftds": 0
       }
     },
     {
@@ -4644,11 +3588,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [],
-      "esp_ip_summary": {
-        "signups": 0,
-        "ftds": 0
       }
     },
     {
@@ -4709,11 +3648,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [],
-      "esp_ip_summary": {
-        "signups": 0,
-        "ftds": 0
       }
     },
     {
@@ -4774,11 +3708,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [],
-      "esp_ip_summary": {
-        "signups": 0,
-        "ftds": 0
       }
     },
     {
@@ -4839,11 +3768,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [],
-      "esp_ip_summary": {
-        "signups": 0,
-        "ftds": 0
       }
     },
     {
@@ -4904,11 +3828,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [],
-      "esp_ip_summary": {
-        "signups": 0,
-        "ftds": 0
       }
     },
     {
@@ -4969,11 +3888,6 @@
           "signups": 1,
           "users": 0
         }
-      },
-      "esp_ip_breakdown": [],
-      "esp_ip_summary": {
-        "signups": 0,
-        "ftds": 0
       }
     }
   ]
