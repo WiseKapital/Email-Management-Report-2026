@@ -3,87 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- ================= ANTI-CACHE META TAGS ================= -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
-
+  <meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
   <title>Performance Dashboard - Email & Advertisers</title>
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- Google Fonts: Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Inter', sans-serif; }
-    .theme-header { background-color: #1e40af; }
-    .theme-header-ops { background-color: #dbeafe; }
-    .theme-header-aff { background-color: #1e293b; }
-
-    /* ================= CRISP EXCEL GRID ================= */
-    .excel-table {
-      border-collapse: collapse !important;
-      border: 1.5px solid #64748b !important;
-      width: 100%;
-    }
-    .excel-table th, 
-    .excel-table td {
-      border: 1px solid #94a3b8 !important;
-    }
-    .excel-table thead th {
-      border: 1px solid #1e3a8a !important;
-      border-bottom: 2px solid #0f172a !important;
-    }
-
-    /* Clean floating sort buttons row (no cell borders/boxes) */
-    .excel-table thead tr.sort-row th {
-      border: none !important;
-      background-color: #ffffff !important;
-      padding-top: 8px !important;
-      padding-bottom: 8px !important;
-    }
-
-    /* ================= OLIVE DELIVERABILITY TABLE ================= */
-    .esp-table {
-      border-collapse: collapse;
-      width: 100%;
-    }
-    .esp-table th {
-      background-color: #485c44;
-      color: #ffffff;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      border-bottom: 2px solid #3b4c37;
-    }
-    .esp-table tbody tr.esp-summary-row {
-      background-color: #f8faf8;
-      border-bottom: 1.5px solid #cbd5e1;
-      font-weight: 600;
-    }
-    .esp-table tbody tr.esp-summary-row:hover {
-      background-color: #eef2ee;
-    }
-    .esp-table tbody tr.domain-row {
-      border-bottom: 1px solid #f1f5f9;
-      background-color: #ffffff;
-      transition: background-color 0.12s ease;
-    }
-    .esp-table tbody tr.domain-row:hover {
-      background-color: #f8fafc;
-    }
-    .esp-table tfoot {
-      border-top: 2.5px solid #485c44;
-      background-color: #ffffff;
-    }
+    .theme-header { background-color: #1e40af; } .theme-header-ops { background-color: #dbeafe; } .theme-header-aff { background-color: #1e293b; }
+    .excel-table { border-collapse: collapse !important; border: 1.5px solid #64748b !important; width: 100%; }
+    .excel-table th, .excel-table td { border: 1px solid #94a3b8 !important; }
+    .excel-table thead th { border: 1px solid #1e3a8a !important; border-bottom: 2px solid #0f172a !important; }
+    .excel-table thead tr.sort-row th { border: none !important; background: #fff !important; padding: 8px !important; }
+    .esp-table { border-collapse: collapse; width: 100%; }
+    .esp-table th { background: #485c44; color: #fff; font-weight: 700; letter-spacing: 0.05em; border-bottom: 2px solid #3b4c37; }
+    .esp-table tbody tr.esp-summary-row { background: #f8faf8; border-bottom: 1.5px solid #cbd5e1; font-weight: 600; }
+    .esp-table tbody tr.esp-summary-row:hover { background: #eef2ee; }
+    .esp-table tbody tr.domain-row { border-bottom: 1px solid #f1f5f9; background: #fff; }
+    .esp-table tbody tr.domain-row:hover { background: #f8fafc; }
+    .esp-table tfoot { border-top: 2.5px solid #485c44; background: #fff; }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen p-4 md:p-8">
-
   <div class="max-w-7xl mx-auto space-y-8">
 
-    <!-- HEADER WITH CALENDAR BESIDE TITLE -->
+    <!-- HEADER & CALENDAR -->
     <header class="flex flex-col lg:flex-row justify-between items-start lg:items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-200 gap-4">
       <div class="flex flex-col md:flex-row md:items-center gap-5 flex-wrap">
         <div>
@@ -93,297 +38,103 @@
           </div>
           <p class="text-sm text-slate-500 mt-0.5">Email Deliverability by ESP (CSVs) & Advertiser Conversions (Multi-Month)</p>
         </div>
-
-        <!-- DATE RANGE SELECTOR -->
         <div class="relative flex items-center gap-3">
-          <!-- FROM PILL -->
           <div class="flex items-center gap-1.5">
             <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">FROM</span>
-            <button 
-              type="button" 
-              id="fromPillBtn" 
-              onclick="toggleCustomCalendar('from')" 
-              class="flex items-center gap-2 bg-white border border-[#99d5ca] ring-2 ring-[#e1f5f2] rounded-xl px-3 py-1.5 shadow-xs transition-all hover:bg-slate-50 cursor-pointer focus:outline-none"
-            >
+            <button type="button" id="fromPillBtn" onclick="toggleCustomCalendar('from')" class="flex items-center gap-2 bg-white border border-[#99d5ca] ring-2 ring-[#e1f5f2] rounded-xl px-3 py-1.5 shadow-xs transition-all hover:bg-slate-50 cursor-pointer focus:outline-none">
               <span id="fromDisplay" class="text-xs font-bold text-slate-800 font-mono tracking-tight">--/--/----</span>
-              <svg class="w-3.5 h-3.5 text-slate-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-              </svg>
+              <svg class="w-3.5 h-3.5 text-slate-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
             </button>
           </div>
-
-          <!-- TO PILL -->
           <div class="flex items-center gap-1.5">
             <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">TO</span>
-            <button 
-              type="button" 
-              id="toPillBtn" 
-              onclick="toggleCustomCalendar('to')" 
-              class="flex items-center gap-2 bg-white border border-slate-300 rounded-xl px-3 py-1.5 shadow-xs transition-all hover:border-slate-400 cursor-pointer focus:outline-none"
-            >
+            <button type="button" id="toPillBtn" onclick="toggleCustomCalendar('to')" class="flex items-center gap-2 bg-white border border-slate-300 rounded-xl px-3 py-1.5 shadow-xs transition-all hover:border-slate-400 cursor-pointer focus:outline-none">
               <span id="toDisplay" class="text-xs font-bold text-slate-800 font-mono tracking-tight">--/--/----</span>
-              <svg class="w-3.5 h-3.5 text-slate-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-              </svg>
+              <svg class="w-3.5 h-3.5 text-slate-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
             </button>
           </div>
-
-          <!-- CALENDAR POPUP MODAL -->
-          <div 
-            id="customCalendarPopup" 
-            class="hidden absolute top-12 left-0 z-50 w-72 bg-white rounded-[22px] p-5 shadow-2xl border border-slate-100 transition-all select-none"
-          >
-            <!-- Navigation Header -->
+          <div id="customCalendarPopup" class="hidden absolute top-12 left-0 z-50 w-72 bg-white rounded-[22px] p-5 shadow-2xl border border-slate-100 transition-all select-none">
             <div class="flex items-center justify-between mb-4">
-              <button 
-                type="button" 
-                onclick="navigateMonth(-1)" 
-                class="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
-                </svg>
-              </button>
-
-              <span id="calHeaderTitle" class="text-xs font-extrabold text-[#0f172a] uppercase tracking-wider">
-                OCTOBER 2026
-              </span>
-
-              <button 
-                type="button" 
-                id="calNextBtn"
-                onclick="navigateMonth(1)" 
-                class="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
-                </svg>
-              </button>
+              <button type="button" onclick="navigateMonth(-1)" class="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg></button>
+              <span id="calHeaderTitle" class="text-xs font-extrabold text-[#0f172a] uppercase tracking-wider">OCTOBER 2026</span>
+              <button type="button" id="calNextBtn" onclick="navigateMonth(1)" class="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg></button>
             </div>
-
-            <!-- Days of Week (MO TU WE TH FR SA SU) -->
-            <div class="grid grid-cols-7 gap-1 text-center mb-2">
-              <span class="text-[11px] font-extrabold text-slate-800">MO</span>
-              <span class="text-[11px] font-extrabold text-slate-800">TU</span>
-              <span class="text-[11px] font-extrabold text-slate-800">WE</span>
-              <span class="text-[11px] font-extrabold text-slate-800">TH</span>
-              <span class="text-[11px] font-extrabold text-slate-800">FR</span>
-              <span class="text-[11px] font-extrabold text-slate-800">SA</span>
-              <span class="text-[11px] font-extrabold text-slate-800">SU</span>
-            </div>
-
-            <!-- Calendar Days Grid -->
+            <div class="grid grid-cols-7 gap-1 text-center mb-2 text-[11px] font-extrabold text-slate-800"><span>MO</span><span>TU</span><span>WE</span><span>TH</span><span>FR</span><span>SA</span><span>SU</span></div>
             <div id="calDaysGrid" class="grid grid-cols-7 gap-1 text-center text-xs font-bold"></div>
           </div>
         </div>
       </div>
-
-      <!-- ERROR ALERT -->
-      <div class="flex items-center gap-2 self-start lg:self-center">
-        <span id="dataStatusBadge" class="hidden inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-semibold bg-rose-100 text-rose-800 border border-rose-200">
-        </span>
-      </div>
+      <span id="dataStatusBadge" class="hidden inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-semibold bg-rose-100 text-rose-800 border border-rose-200"></span>
     </header>
 
-    <!-- ================= TEAM PERFORMANCE OVERVIEW TABLE ================= -->
+    <!-- TEAM PERFORMANCE OVERVIEW -->
     <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
       <h2 class="text-base font-bold text-slate-900 mb-4 tracking-tight">Team Performance</h2>
       <div class="overflow-x-auto">
         <table class="w-full text-center border-collapse text-xs">
           <thead>
             <tr class="h-10">
-              <th class="w-24 text-left font-bold text-slate-900 text-xs uppercase tracking-wider px-3 align-middle">
-                TEAM
-              </th>
-              <th colspan="5" class="bg-[#2563eb] text-white font-bold text-xs uppercase tracking-wider text-center align-middle">
-                KPIS
-              </th>
-              <th colspan="5" class="bg-[#059669] text-white font-bold text-xs uppercase tracking-wider text-center align-middle">
-                SELECTED PERIOD
-              </th>
-              <th colspan="6" class="bg-[#c25e00] text-white font-bold text-xs uppercase tracking-wider text-center align-middle">
-                RR - RUN-RATE PROJECTION
-              </th>
+              <th class="w-24 text-left font-bold text-slate-900 uppercase px-3">TEAM</th>
+              <th colspan="5" class="bg-[#2563eb] text-white font-bold uppercase">KPIS</th>
+              <th colspan="5" class="bg-[#059669] text-white font-bold uppercase">SELECTED PERIOD</th>
+              <th colspan="6" class="bg-[#c25e00] text-white font-bold uppercase">RR - RUN-RATE PROJECTION</th>
             </tr>
-            <tr class="border-b border-slate-200 text-[11px] font-bold text-slate-400 uppercase tracking-wider h-8 bg-white">
+            <tr class="border-b border-slate-200 text-[11px] font-bold text-slate-400 uppercase h-8 bg-white">
               <th class="px-3 border-r border-slate-100"></th>
-              <!-- KPIS -->
-              <th class="px-2.5 py-2 font-semibold">BUDGET</th>
-              <th class="px-2.5 py-2 font-semibold">SIGNUPS</th>
-              <th class="px-2.5 py-2 font-semibold">USERS</th>
-              <th class="px-2.5 py-2 font-semibold">REVENUE</th>
-              <th class="px-2.5 py-2 font-semibold border-r border-slate-200">PROFIT</th>
-              <!-- Selected -->
-              <th class="px-2.5 py-2 font-semibold">BUDGET</th>
-              <th class="px-2.5 py-2 font-semibold">SIGNUPS</th>
-              <th class="px-2.5 py-2 font-semibold">USERS</th>
-              <th class="px-2.5 py-2 font-semibold">REVENUE</th>
-              <th class="px-2.5 py-2 font-semibold border-r border-slate-200">PROFIT</th>
-              <!-- RR -->
-              <th class="px-2.5 py-2 font-semibold">BUDGET</th>
-              <th class="px-2.5 py-2 font-semibold">SIGNUPS</th>
-              <th class="px-2.5 py-2 font-semibold">USERS</th>
-              <th class="px-2.5 py-2 font-semibold">REVENUE</th>
-              <th class="px-2.5 py-2 font-semibold">PROFIT</th>
-              <th class="px-2.5 py-2 font-semibold">ROI</th>
+              <th class="px-2.5 py-2">BUDGET</th><th class="px-2.5 py-2">SIGNUPS</th><th class="px-2.5 py-2">USERS</th><th class="px-2.5 py-2">REVENUE</th><th class="px-2.5 py-2 border-r border-slate-200">PROFIT</th>
+              <th class="px-2.5 py-2">BUDGET</th><th class="px-2.5 py-2">SIGNUPS</th><th class="px-2.5 py-2">USERS</th><th class="px-2.5 py-2">REVENUE</th><th class="px-2.5 py-2 border-r border-slate-200">PROFIT</th>
+              <th class="px-2.5 py-2">BUDGET</th><th class="px-2.5 py-2">SIGNUPS</th><th class="px-2.5 py-2">USERS</th><th class="px-2.5 py-2">REVENUE</th><th class="px-2.5 py-2">PROFIT</th><th class="px-2.5 py-2">ROI</th>
             </tr>
           </thead>
           <tbody class="text-xs font-bold text-slate-800 divide-y divide-slate-100">
-            <tr class="h-14 hover:bg-slate-50/70 transition-colors">
-              <td class="text-left px-3 border-r border-slate-100">
-                <span class="inline-flex items-center justify-center px-3.5 py-1 rounded-full text-xs font-bold bg-[#edf2fe] text-[#2563eb]">
-                  EMAIL
-                </span>
-              </td>
-              <!-- KPIS Values -->
-              <td id="teamKpiBudget" class="px-2.5 py-3 font-bold text-slate-900 text-sm">$0</td>
-              <td id="teamKpiSignups" class="px-2.5 py-3 font-bold text-slate-900 text-sm">0</td>
-              <td id="teamKpiUsers" class="px-2.5 py-3 font-bold text-slate-900 text-sm">0</td>
-              <td id="teamKpiRevenue" class="px-2.5 py-3 font-bold text-slate-900 text-sm">$0</td>
-              <td id="teamKpiProfit" class="px-2.5 py-3 font-bold text-slate-900 text-sm border-r border-slate-200">$0</td>
-              <!-- Selected Period Values -->
-              <td id="teamMtdBudget" class="px-2.5 py-3 font-bold text-slate-900 text-sm">$0</td>
-              <td id="teamMtdSignups" class="px-2.5 py-3 font-bold text-slate-900 text-sm">0</td>
-              <td id="teamMtdUsers" class="px-2.5 py-3 font-bold text-slate-900 text-sm">0</td>
-              <td id="teamMtdRevenue" class="px-2.5 py-3 font-bold text-slate-900 text-sm">$0</td>
-              <td id="teamMtdProfit" class="px-2.5 py-3 font-bold text-slate-900 text-sm border-r border-slate-200">$0</td>
-              <!-- Run Rate Projections -->
-              <td id="teamRrBudget" class="px-2.5 py-3 font-bold text-sm">$0</td>
-              <td id="teamRrSignups" class="px-2.5 py-3 font-bold text-sm">0</td>
-              <td id="teamRrUsers" class="px-2.5 py-3 font-bold text-sm">0</td>
-              <td id="teamRrRevenue" class="px-2.5 py-3 font-bold text-sm">$0</td>
-              <td id="teamRrProfit" class="px-2.5 py-3 font-bold text-sm">$0</td>
-              <td id="teamRrRoi" class="px-2.5 py-3 font-bold text-slate-900 text-sm">0:0</td>
+            <tr class="h-14 hover:bg-slate-50/70">
+              <td class="text-left px-3 border-r border-slate-100"><span class="px-3.5 py-1 rounded-full text-xs font-bold bg-[#edf2fe] text-[#2563eb]">EMAIL</span></td>
+              <td id="teamKpiBudget" class="px-2.5 py-3 text-sm">$0</td><td id="teamKpiSignups" class="px-2.5 py-3 text-sm">0</td><td id="teamKpiUsers" class="px-2.5 py-3 text-sm">0</td><td id="teamKpiRevenue" class="px-2.5 py-3 text-sm">$0</td><td id="teamKpiProfit" class="px-2.5 py-3 text-sm border-r border-slate-200">$0</td>
+              <td id="teamMtdBudget" class="px-2.5 py-3 text-sm">$0</td><td id="teamMtdSignups" class="px-2.5 py-3 text-sm">0</td><td id="teamMtdUsers" class="px-2.5 py-3 text-sm">0</td><td id="teamMtdRevenue" class="px-2.5 py-3 text-sm">$0</td><td id="teamMtdProfit" class="px-2.5 py-3 text-sm border-r border-slate-200">$0</td>
+              <td id="teamRrBudget" class="px-2.5 py-3 text-sm">$0</td><td id="teamRrSignups" class="px-2.5 py-3 text-sm">0</td><td id="teamRrUsers" class="px-2.5 py-3 text-sm">0</td><td id="teamRrRevenue" class="px-2.5 py-3 text-sm">$0</td><td id="teamRrProfit" class="px-2.5 py-3 text-sm">$0</td><td id="teamRrRoi" class="px-2.5 py-3 text-slate-900 text-sm">0:0</td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <!-- ================= SECTION 1: EMAIL & DOMAIN PERFORMANCE ================= -->
+    <!-- SECTION 1: ESP & ENGAGEMENT -->
     <div class="space-y-6">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-2 gap-2">
-        <div class="flex items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded bg-blue-800 text-white text-xs font-bold uppercase">Section 1</span>
-          <h2 class="text-lg font-bold text-slate-800">ESP Deliverability & Engagement</h2>
-        </div>
-        <span id="dateRangeNotice" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-800 border border-blue-200 w-fit">
-          Filtered Period
-        </span>
+        <div class="flex items-center gap-2"><span class="px-2.5 py-0.5 rounded bg-blue-800 text-white text-xs font-bold uppercase">Section 1</span><h2 class="text-lg font-bold text-slate-800">ESP Deliverability & Engagement</h2></div>
+        <span id="dateRangeNotice" class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-800 border border-blue-200">Filtered Period</span>
       </div>
 
-      <!-- KPI CARDS (10 CARDS) -->
-      <section class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 xl:grid-cols-10 gap-3">
-        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-          <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Delivered</p>
-          <p id="kpiDelivered" class="text-xl font-bold text-slate-900 mt-1">0</p>
-          <span class="text-[10px] text-slate-400 mt-1">Filtered sent</span>
-        </div>
-
-        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-          <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Open</p>
-          <p id="kpiOpened" class="text-xl font-bold text-emerald-700 mt-1">0</p>
-          <span id="kpiOpenRate" class="text-[10px] font-semibold text-emerald-600 mt-1">0.00% Open Rate</span>
-        </div>
-
-        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-          <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Click</p>
-          <p id="kpiClicked" class="text-xl font-bold text-sky-700 mt-1">0</p>
-          <span id="kpiClickRate" class="text-[10px] font-semibold text-sky-600 mt-1">0.00% Click Rate</span>
-        </div>
-
-        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-          <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Bounced</p>
-          <p id="kpiBounced" class="text-xl font-bold text-rose-600 mt-1">0</p>
-          <span id="kpiBounceRate" class="text-[10px] text-slate-400 mt-1">0.00% bounce</span>
-        </div>
-
-        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-          <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Unsub / Block</p>
-          <p id="kpiUnsub" class="text-xl font-bold text-purple-700 mt-1">0</p>
-          <span class="text-[10px] text-slate-400 mt-1">Total opt-outs</span>
-        </div>
-
-        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-          <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Registration</p>
-          <p id="kpiSignups" class="text-xl font-bold text-amber-600 mt-1">0</p>
-          <div class="flex flex-wrap items-center gap-1 mt-1 text-[10px]">
-            <span class="font-bold text-slate-900" id="cardKpiSignupsSub">KPI: 0</span>
-            <span class="text-slate-300">•</span>
-            <span class="font-bold text-rose-600" id="cardRrSignupsSub">RR: 0</span>
-          </div>
-        </div>
-
-        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-          <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Users</p>
-          <p id="kpiUsers" class="text-xl font-bold text-indigo-600 mt-1">0</p>
-          <div class="flex flex-wrap items-center gap-1 mt-1 text-[10px]">
-            <span class="font-bold text-slate-900" id="cardKpiUsersSub">KPI: 0</span>
-            <span class="text-slate-300">•</span>
-            <span class="font-bold text-rose-600" id="cardRrUsersSub">RR: 0</span>
-          </div>
-        </div>
-
-        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-          <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Revenue</p>
-          <p id="kpiRevenue" class="text-xl font-bold text-emerald-600 mt-1">$0</p>
-          <div class="flex flex-wrap items-center gap-1 mt-1 text-[10px]">
-            <span class="font-bold text-slate-900" id="cardKpiRevenueSub">KPI: $0</span>
-            <span class="text-slate-300">•</span>
-            <span class="font-bold text-rose-600" id="cardRrRevenueSub">RR: $0</span>
-          </div>
-        </div>
-
-        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-          <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Budget</p>
-          <p id="kpiBudget" class="text-xl font-bold text-slate-900 mt-1">$0</p>
-          <div class="flex flex-wrap items-center gap-1 mt-1 text-[10px]">
-            <span class="font-bold text-slate-900" id="cardKpiBudgetSub">KPI: $0</span>
-            <span class="text-slate-300">•</span>
-            <span class="font-bold text-rose-600" id="cardRrBudgetSub">RR: $0</span>
-          </div>
-        </div>
-
-        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-          <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Profit</p>
-          <p id="kpiProfit" class="text-xl font-bold text-emerald-600 mt-1">$0</p>
-          <div class="flex flex-wrap items-center gap-1 mt-1 text-[10px]">
-            <span class="font-bold text-slate-900" id="cardKpiProfitSub">KPI: $0</span>
-            <span class="text-slate-300">•</span>
-            <span class="font-bold text-rose-600" id="cardRrProfitSub">RR: $0</span>
-          </div>
-        </div>
+      <!-- KPI CARDS -->
+      <section class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 xl:grid-cols-10 gap-3 text-xs">
+        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Delivered</p><p id="kpiDelivered" class="text-xl font-bold text-slate-900 mt-1">0</p><span class="text-[10px] text-slate-400 mt-1">Filtered sent</span></div>
+        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Open</p><p id="kpiOpened" class="text-xl font-bold text-emerald-700 mt-1">0</p><span id="kpiOpenRate" class="text-[10px] font-semibold text-emerald-600 mt-1">0.00% Open Rate</span></div>
+        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Click</p><p id="kpiClicked" class="text-xl font-bold text-sky-700 mt-1">0</p><span id="kpiClickRate" class="text-[10px] font-semibold text-sky-600 mt-1">0.00% Click Rate</span></div>
+        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Bounced</p><p id="kpiBounced" class="text-xl font-bold text-rose-600 mt-1">0</p><span id="kpiBounceRate" class="text-[10px] text-slate-400 mt-1">0.00% bounce</span></div>
+        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Unsub / Block</p><p id="kpiUnsub" class="text-xl font-bold text-purple-700 mt-1">0</p><span class="text-[10px] text-slate-400 mt-1">Total opt-outs</span></div>
+        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Registration</p><p id="kpiSignups" class="text-xl font-bold text-amber-600 mt-1">0</p><div class="flex items-center gap-1 mt-1 text-[10px]"><span id="cardKpiSignupsSub" class="font-bold text-slate-900">KPI: 0</span><span class="text-slate-300">•</span><span id="cardRrSignupsSub" class="font-bold text-rose-600">RR: 0</span></div></div>
+        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Users</p><p id="kpiUsers" class="text-xl font-bold text-indigo-600 mt-1">0</p><div class="flex items-center gap-1 mt-1 text-[10px]"><span id="cardKpiUsersSub" class="font-bold text-slate-900">KPI: 0</span><span class="text-slate-300">•</span><span id="cardRrUsersSub" class="font-bold text-rose-600">RR: 0</span></div></div>
+        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Revenue</p><p id="kpiRevenue" class="text-xl font-bold text-emerald-600 mt-1">$0</p><div class="flex items-center gap-1 mt-1 text-[10px]"><span id="cardKpiRevenueSub" class="font-bold text-slate-900">KPI: $0</span><span class="text-slate-300">•</span><span id="cardRrRevenueSub" class="font-bold text-rose-600">RR: $0</span></div></div>
+        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Budget</p><p id="kpiBudget" class="text-xl font-bold text-slate-900 mt-1">$0</p><div class="flex items-center gap-1 mt-1 text-[10px]"><span id="cardKpiBudgetSub" class="font-bold text-slate-900">KPI: $0</span><span class="text-slate-300">•</span><span id="cardRrBudgetSub" class="font-bold text-rose-600">RR: $0</span></div></div>
+        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Profit</p><p id="kpiProfit" class="text-xl font-bold text-emerald-600 mt-1">$0</p><div class="flex items-center gap-1 mt-1 text-[10px]"><span id="cardKpiProfitSub" class="font-bold text-slate-900">KPI: $0</span><span class="text-slate-300">•</span><span id="cardRrProfitSub" class="font-bold text-rose-600">RR: $0</span></div></div>
       </section>
 
-      <!-- DATA TABLE: EMAIL PERFORMANCE BY ESP (Direct from CSVs) -->
+      <!-- ESP TABLE -->
       <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="px-6 py-3.5 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-slate-50/50">
+        <div class="px-6 py-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
           <div class="flex items-center gap-3">
             <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Email Performance by ESP</h3>
-            
-            <button id="toggleTableBtn" onclick="toggleTableDetails()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold bg-[#485c44] hover:bg-[#3b4c37] active:bg-[#2f3d2c] text-white shadow-sm transition-all focus:outline-none">
-              <svg id="btnIcon" class="w-3.5 h-3.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            <button id="toggleTableBtn" onclick="toggleTableDetails()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold bg-[#485c44] hover:bg-[#3b4c37] text-white shadow-sm">
+              <svg id="btnIcon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
               <span id="btnText">Show All</span>
             </button>
           </div>
-
           <span id="dateRangeSubtitle" class="text-xs text-slate-500 font-medium">Select period</span>
         </div>
-        
         <div class="overflow-x-auto">
           <table class="w-full text-sm text-right esp-table">
             <thead>
-              <tr>
-                <th class="py-3 px-4 text-left font-bold text-xs uppercase tracking-wider">ESP ▲</th>
-                <th class="py-3 px-4 font-bold text-xs uppercase tracking-wider">VOLUME</th>
-                <th class="py-3 px-4 font-bold text-xs uppercase tracking-wider">Delivered</th>
-                <th class="py-3 px-4 font-bold text-xs uppercase tracking-wider">Soft Bounce</th>
-                <th class="py-3 px-4 font-bold text-xs uppercase tracking-wider">Hard Bounce</th>
-                <th class="py-3 px-4 font-bold text-xs uppercase tracking-wider">Opened</th>
-                <th class="py-3 px-4 font-bold text-xs uppercase tracking-wider">Clicked</th>
-                <th class="py-3 px-4 font-bold text-xs uppercase tracking-wider">SIGNUPS</th>
-                <th class="py-3 px-4 font-bold text-xs uppercase tracking-wider">PLAYERS</th>
-              </tr>
+              <tr><th class="py-3 px-4 text-left font-bold text-xs uppercase">ESP ▲</th><th class="py-3 px-4">VOLUME</th><th class="py-3 px-4">Delivered</th><th class="py-3 px-4">Soft Bounce</th><th class="py-3 px-4">Hard Bounce</th><th class="py-3 px-4">Opened</th><th class="py-3 px-4">Clicked</th><th class="py-3 px-4">SIGNUPS</th><th class="py-3 px-4">PLAYERS</th></tr>
             </thead>
             <tbody id="espTableBody" class="text-slate-700"></tbody>
             <tfoot id="espTableFoot"></tfoot>
@@ -391,28 +142,20 @@
         </div>
       </section>
 
-      <!-- ================= NUEVA TABLA: ESP / IP BREAKDOWN ================= -->
+      <!-- TABLA: ESP / IP BREAKDOWN -->
       <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="px-6 py-4 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-slate-50/50">
-          <div>
-            <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">ESP / IP Breakdown</h3>
-            <p class="text-xs text-slate-500 mt-0.5">Sign Ups & FTDs distribution by ESP / IP, Advertisers and Brands</p>
-          </div>
+        <div class="px-6 py-4 border-b border-slate-100 bg-slate-50/50">
+          <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">ESP / IP Breakdown</h3>
+          <p class="text-xs text-slate-500 mt-0.5">Sign Ups & FTDs distribution by ESP / IP, Advertisers and Brands</p>
         </div>
         <div class="overflow-x-auto">
           <table id="espIpBreakdownTable" class="w-full text-sm excel-table">
             <thead>
               <tr class="theme-header-aff text-white text-xs uppercase tracking-wider font-semibold">
-                <th class="py-2.5 px-4 text-left">ESP / IP</th>
-                <th class="py-2.5 px-4 text-left">Advertisers</th>
-                <th class="py-2.5 px-4 text-left">Brands</th>
-                <th class="py-2.5 px-4 text-right">Sign Ups</th>
-                <th class="py-2.5 px-4 text-right">FTDs</th>
+                <th class="py-2.5 px-4 text-left">ESP / IP</th><th class="py-2.5 px-4 text-left">Advertisers</th><th class="py-2.5 px-4 text-left">Brands</th><th class="py-2.5 px-4 text-right">Sign Ups</th><th class="py-2.5 px-4 text-right">FTDs</th>
               </tr>
             </thead>
-            <tbody id="espIpBreakdownTableBody" class="text-slate-700">
-              <!-- Filas dinámicas -->
-            </tbody>
+            <tbody id="espIpBreakdownTableBody" class="text-slate-700"></tbody>
             <tfoot class="border-t-2 border-slate-900 bg-slate-50 font-bold text-slate-900">
               <tr>
                 <td colspan="3" class="py-2.5 px-4 text-left uppercase">Overall Grand Total</td>
@@ -424,1026 +167,336 @@
         </div>
       </section>
 
-      <!-- SECTION 1 CHARTS -->
+      <!-- CHARTS SECTION 1 -->
       <div class="space-y-6">
         <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider">1. ESP Deliverability & Engagement Charts</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
-            <div>
-              <h4 class="text-xs font-bold text-slate-900 uppercase">Delivered vs. Open</h4>
-              <p class="text-[11px] text-slate-500 mb-2">Volume comparison by ESP</p>
-            </div>
-            <div class="relative h-60">
-              <canvas id="chartEspVolumen"></canvas>
-            </div>
-          </div>
-
-          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
-            <div>
-              <h4 class="text-xs font-bold text-slate-900 uppercase">Clicks by ESP</h4>
-              <p class="text-[11px] text-slate-500 mb-2">Exact click counts</p>
-            </div>
-            <div class="relative h-60">
-              <canvas id="chartEspClicks"></canvas>
-            </div>
-          </div>
-
-          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
-            <div>
-              <h4 class="text-xs font-bold text-slate-900 uppercase">Open Rate (%) by ESP</h4>
-              <p class="text-[11px] text-slate-500 mb-2">Open efficiency per IP</p>
-            </div>
-            <div class="relative h-60">
-              <canvas id="chartEspOpenRate"></canvas>
-            </div>
-          </div>
+          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 h-72 flex flex-col justify-between"><div><h4 class="text-xs font-bold text-slate-900 uppercase">Delivered vs. Open</h4><p class="text-[11px] text-slate-500 mb-2">Volume comparison by ESP</p></div><div class="relative h-52"><canvas id="chartEspVolumen"></canvas></div></div>
+          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 h-72 flex flex-col justify-between"><div><h4 class="text-xs font-bold text-slate-900 uppercase">Clicks by ESP</h4><p class="text-[11px] text-slate-500 mb-2">Exact click counts</p></div><div class="relative h-52"><canvas id="chartEspClicks"></canvas></div></div>
+          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 h-72 flex flex-col justify-between"><div><h4 class="text-xs font-bold text-slate-900 uppercase">Open Rate (%) by ESP</h4><p class="text-[11px] text-slate-500 mb-2">Open efficiency per IP</p></div><div class="relative h-52"><canvas id="chartEspOpenRate"></canvas></div></div>
         </div>
-
         <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider pt-2">2. Mailbox Domain Deliverability Charts</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
-            <div>
-              <h4 class="text-xs font-bold text-slate-900 uppercase">Delivered by Domain</h4>
-              <p class="text-[11px] text-slate-500 mb-2">Total volume sent per domain</p>
-            </div>
-            <div class="relative h-60">
-              <canvas id="chartDomainDelivered"></canvas>
-            </div>
-          </div>
-
-          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
-            <div>
-              <h4 class="text-xs font-bold text-slate-900 uppercase">Open Rate (%) by Domain</h4>
-              <p class="text-[11px] text-slate-500 mb-2">Aperture rate by domain</p>
-            </div>
-            <div class="relative h-60">
-              <canvas id="chartDomainOpenRate"></canvas>
-            </div>
-          </div>
-
-          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
-            <div>
-              <h4 class="text-xs font-bold text-slate-900 uppercase">Clicks by Domain</h4>
-              <p class="text-[11px] text-slate-500 mb-2">Clicks generated per domain</p>
-            </div>
-            <div class="relative h-60">
-              <canvas id="chartDomainClicks"></canvas>
-            </div>
-          </div>
+          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 h-72 flex flex-col justify-between"><div><h4 class="text-xs font-bold text-slate-900 uppercase">Delivered by Domain</h4><p class="text-[11px] text-slate-500 mb-2">Total volume sent per domain</p></div><div class="relative h-52"><canvas id="chartDomainDelivered"></canvas></div></div>
+          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 h-72 flex flex-col justify-between"><div><h4 class="text-xs font-bold text-slate-900 uppercase">Open Rate (%) by Domain</h4><p class="text-[11px] text-slate-500 mb-2">Aperture rate by domain</p></div><div class="relative h-52"><canvas id="chartDomainOpenRate"></canvas></div></div>
+          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 h-72 flex flex-col justify-between"><div><h4 class="text-xs font-bold text-slate-900 uppercase">Clicks by Domain</h4><p class="text-[11px] text-slate-500 mb-2">Clicks generated per domain</p></div><div class="relative h-52"><canvas id="chartDomainClicks"></canvas></div></div>
         </div>
       </div>
     </div>
 
-    <!-- ================= OPS TEAM PERFORMANCE TABLES ================= -->
+    <!-- OPS TEAM SECTION -->
     <div class="space-y-6 pt-2">
       <div class="flex items-center justify-between border-b border-slate-200 pb-2">
-        <div class="flex items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded bg-indigo-800 text-white text-xs font-bold uppercase">Team Ops</span>
-          <h2 class="text-lg font-bold text-slate-800">Email Operations Performance</h2>
-        </div>
-        <span id="opsPeriodBadge" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-800 border border-indigo-200 w-fit">
-          Filtered Period
-        </span>
+        <div class="flex items-center gap-2"><span class="px-2.5 py-0.5 rounded bg-indigo-800 text-white text-xs font-bold uppercase">Team Ops</span><h2 class="text-lg font-bold text-slate-800">Email Operations Performance</h2></div>
+        <span id="opsPeriodBadge" class="px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-800 border border-indigo-200">Filtered Period</span>
       </div>
-
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Jessie -->
         <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
           <h3 class="text-base font-bold text-slate-900 mb-3">Jessie – Email-Ops</h3>
-          <div class="overflow-x-auto">
-            <table class="w-full text-sm text-center excel-table">
-              <thead class="theme-header-ops font-bold text-slate-800 text-xs uppercase">
-                <tr>
-                  <th class="py-2 px-3 text-left">Item</th>
-                  <th class="py-2 px-3">KPIs</th>
-                  <th class="py-2 px-3">Selected</th>
-                  <th class="py-2 px-3">RR</th>
-                </tr>
-              </thead>
-              <tbody class="text-slate-800 font-medium">
-                <tr class="bg-white">
-                  <td class="py-2 px-3 text-left font-bold">Registrations</td>
-                  <td id="jessieKpiReg" class="py-2 px-3 font-bold text-slate-900">250</td>
-                  <td id="jessieRegMtd" class="py-2 px-3 font-bold">0</td>
-                  <td id="jessieRegRr" class="py-2 px-3 font-bold text-rose-600">0</td>
-                </tr>
-                <tr class="bg-slate-50/50">
-                  <td class="py-2 px-3 text-left font-bold">Users</td>
-                  <td id="jessieKpiUsers" class="py-2 px-3 font-bold text-slate-900">20</td>
-                  <td id="jessieUsersMtd" class="py-2 px-3 font-bold">0</td>
-                  <td id="jessieUsersRr" class="py-2 px-3 font-bold text-rose-600">0</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <table class="w-full text-sm text-center excel-table">
+            <thead class="theme-header-ops font-bold text-slate-800 text-xs uppercase"><tr><th class="py-2 px-3 text-left">Item</th><th>KPIs</th><th>Selected</th><th>RR</th></tr></thead>
+            <tbody>
+              <tr><td class="py-2 px-3 text-left font-bold">Registrations</td><td id="jessieKpiReg" class="font-bold">250</td><td id="jessieRegMtd" class="font-bold">0</td><td id="jessieRegRr" class="font-bold">0</td></tr>
+              <tr class="bg-slate-50/50"><td class="py-2 px-3 text-left font-bold">Users</td><td id="jessieKpiUsers" class="font-bold">20</td><td id="jessieUsersMtd" class="font-bold">0</td><td id="jessieUsersRr" class="font-bold">0</td></tr>
+            </tbody>
+          </table>
         </div>
-
-        <!-- Andrea -->
         <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
           <h3 class="text-base font-bold text-slate-900 mb-3">Andrea – Email Ops</h3>
-          <div class="overflow-x-auto">
-            <table class="w-full text-sm text-center excel-table">
-              <thead class="theme-header-ops font-bold text-slate-800 text-xs uppercase">
-                <tr>
-                  <th class="py-2 px-3 text-left">ITEM</th>
-                  <th class="py-2 px-3">KPIs</th>
-                  <th class="py-2 px-3">Selected</th>
-                  <th class="py-2 px-3">RR</th>
-                </tr>
-              </thead>
-              <tbody class="text-slate-800 font-medium">
-                <tr class="bg-white">
-                  <td class="py-2 px-3 text-left font-bold">Registrations</td>
-                  <td id="andreaKpiReg" class="py-2 px-3 font-bold text-slate-900">250</td>
-                  <td id="andreaRegMtd" class="py-2 px-3 font-bold">0</td>
-                  <td id="andreaRegRr" class="py-2 px-3 font-bold text-emerald-600">0</td>
-                </tr>
-                <tr class="bg-slate-50/50">
-                  <td class="py-2 px-3 text-left font-bold">Users</td>
-                  <td id="andreaKpiUsers" class="py-2 px-3 font-bold text-slate-900">20</td>
-                  <td id="andreaUsersMtd" class="py-2 px-3 font-bold">0</td>
-                  <td id="andreaUsersRr" class="py-2 px-3 font-bold text-rose-600">0</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <table class="w-full text-sm text-center excel-table">
+            <thead class="theme-header-ops font-bold text-slate-800 text-xs uppercase"><tr><th class="py-2 px-3 text-left">ITEM</th><th>KPIs</th><th>Selected</th><th>RR</th></tr></thead>
+            <tbody>
+              <tr><td class="py-2 px-3 text-left font-bold">Registrations</td><td id="andreaKpiReg" class="font-bold">250</td><td id="andreaRegMtd" class="font-bold">0</td><td id="andreaRegRr" class="font-bold">0</td></tr>
+              <tr class="bg-slate-50/50"><td class="py-2 px-3 text-left font-bold">Users</td><td id="andreaKpiUsers" class="font-bold">20</td><td id="andreaUsersMtd" class="font-bold">0</td><td id="andreaUsersRr" class="font-bold">0</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
-
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Ops Signups -->
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
-          <div>
-            <h3 class="text-base font-bold text-slate-900 mb-3">Registrations by team</h3>
-            <div class="overflow-x-auto">
-              <table class="w-full text-sm text-right excel-table">
-                <thead class="theme-header-aff text-white text-xs uppercase tracking-wider font-semibold">
-                  <tr>
-                    <th class="py-2.5 px-3 text-left">Advertiser</th>
-                    <th class="py-2.5 px-3">Andrea ('a')</th>
-                    <th class="py-2.5 px-3">Jessie ('j')</th>
-                    <th class="py-2.5 px-3">Total</th>
-                  </tr>
-                </thead>
-                <tbody id="opsSignupsTableBody" class="text-slate-700"></tbody>
-                <tfoot class="border-t-2 border-slate-900 bg-slate-50 font-bold text-slate-900">
-                  <tr>
-                    <td class="py-2 px-3 text-left">Grand Total</td>
-                    <td id="opsSignupsAndreaTotal" class="py-2 px-3 font-mono text-amber-600">0</td>
-                    <td id="opsSignupsJessieTotal" class="py-2 px-3 font-mono text-amber-600">0</td>
-                    <td id="opsSignupsGrandTotal" class="py-2 px-3 font-mono text-amber-700">0</td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <h3 class="text-base font-bold text-slate-900 mb-3">Registrations by team</h3>
+          <table class="w-full text-sm text-right excel-table">
+            <thead class="theme-header-aff text-white text-xs uppercase font-semibold"><tr><th class="py-2 px-3 text-left">Advertiser</th><th class="py-2 px-3">Andrea ('a')</th><th class="py-2 px-3">Jessie ('j')</th><th class="py-2 px-3">Total</th></tr></thead>
+            <tbody id="opsSignupsTableBody"></tbody>
+            <tfoot class="border-t-2 border-slate-900 bg-slate-50 font-bold"><tr><td class="py-2 px-3 text-left">Grand Total</td><td id="opsSignupsAndreaTotal" class="font-mono text-amber-600">0</td><td id="opsSignupsJessieTotal" class="font-mono text-amber-600">0</td><td id="opsSignupsGrandTotal" class="font-mono text-amber-700">0</td></tr></tfoot>
+          </table>
         </div>
-
-        <!-- Ops Users -->
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
-          <div>
-            <h3 class="text-base font-bold text-slate-900 mb-3">Users / FTD by team</h3>
-            <div class="overflow-x-auto">
-              <table class="w-full text-sm text-right excel-table">
-                <thead class="theme-header-aff text-white text-xs uppercase tracking-wider font-semibold">
-                  <tr>
-                    <th class="py-2.5 px-3 text-left">Advertiser</th>
-                    <th class="py-2.5 px-3">Andrea ('a')</th>
-                    <th class="py-2.5 px-3">Jessie ('j')</th>
-                    <th class="py-2.5 px-3">Total</th>
-                  </tr>
-                </thead>
-                <tbody id="opsUsersTableBody" class="text-slate-700"></tbody>
-                <tfoot class="border-t-2 border-slate-900 bg-slate-50 font-bold text-slate-900">
-                  <tr>
-                    <td class="py-2 px-3 text-left">Grand Total</td>
-                    <td id="opsUsersAndreaTotal" class="py-2 px-3 font-mono text-indigo-600">0</td>
-                    <td id="opsUsersJessieTotal" class="py-2 px-3 font-mono text-indigo-600">0</td>
-                    <td id="opsUsersGrandTotal" class="py-2 px-3 font-mono text-indigo-700">0</td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <h3 class="text-base font-bold text-slate-900 mb-3">Users / FTD by team</h3>
+          <table class="w-full text-sm text-right excel-table">
+            <thead class="theme-header-aff text-white text-xs uppercase font-semibold"><tr><th class="py-2 px-3 text-left">Advertiser</th><th class="py-2 px-3">Andrea ('a')</th><th class="py-2 px-3">Jessie ('j')</th><th class="py-2 px-3">Total</th></tr></thead>
+            <tbody id="opsUsersTableBody"></tbody>
+            <tfoot class="border-t-2 border-slate-900 bg-slate-50 font-bold"><tr><td class="py-2 px-3 text-left">Grand Total</td><td id="opsUsersAndreaTotal" class="font-mono text-indigo-600">0</td><td id="opsUsersJessieTotal" class="font-mono text-indigo-600">0</td><td id="opsUsersGrandTotal" class="font-mono text-indigo-700">0</td></tr></tfoot>
+          </table>
         </div>
       </div>
     </div>
 
-    <!-- ================= SECTION 2: ADVERTISER & BRAND PERFORMANCE ================= -->
+    <!-- SECTION 2: ADVERTISER & BRAND -->
     <div class="space-y-6 pt-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-2 gap-2">
-        <div class="flex items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded bg-slate-900 text-white text-xs font-bold uppercase">Section 2</span>
-          <h2 class="text-lg font-bold text-slate-800">Advertiser Performance & Revenue</h2>
-        </div>
-      </div>
-
-      <!-- 1. ADVERTISER BREAKDOWN TABLE -->
+      <div class="flex items-center gap-2 border-b border-slate-200 pb-2"><span class="px-2.5 py-0.5 rounded bg-slate-900 text-white text-xs font-bold uppercase">Section 2</span><h2 class="text-lg font-bold text-slate-800">Advertiser Performance & Revenue</h2></div>
+      
+      <!-- ADVERTISER TABLE -->
       <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="px-6 py-4 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-slate-50/50">
-          <div>
-            <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Advertiser Breakdown Table</h3>
-            <p class="text-xs text-slate-500 mt-0.5">Metrics: Conversion S2P Ratio (1:X) & Revenue</p>
-          </div>
-          <button onclick="resetTable('advertiserTable')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 active:bg-slate-100 shadow-sm transition-all cursor-pointer">
-            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-            </svg>
-            <span>Clear / Reset Table</span>
-          </button>
+        <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+          <div><h3 class="text-sm font-bold text-slate-800 uppercase">Advertiser Breakdown Table</h3><p class="text-xs text-slate-500">Metrics: Conversion S2P Ratio (1:X) & Revenue</p></div>
+          <button onclick="resetTable('advertiserTable')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 bg-white hover:bg-slate-50">Clear / Reset Table</button>
         </div>
         <div class="overflow-x-auto">
           <table id="advertiserTable" class="w-full text-sm text-right excel-table">
             <thead>
               <tr class="sort-row">
                 <th class="w-1/4"></th>
-                <th class="text-center">
-                  <div class="flex justify-center">
-                    <button onclick="sortTable('advertiserTable', 1, this, 'num')" class="sort-btn inline-flex items-center justify-center gap-1 px-3 py-1 rounded-md border border-slate-300 bg-white text-[11px] font-semibold text-slate-700 shadow-xs hover:bg-slate-50 cursor-pointer">
-                      <span>Sort</span><span class="sort-icon text-slate-400">⇅</span>
-                    </button>
-                  </div>
-                </th>
-                <th class="text-center">
-                  <div class="flex justify-center">
-                    <button onclick="sortTable('advertiserTable', 2, this, 'num')" class="sort-btn inline-flex items-center justify-center gap-1 px-3 py-1 rounded-md border border-slate-300 bg-white text-[11px] font-semibold text-slate-700 shadow-xs hover:bg-slate-50 cursor-pointer">
-                      <span>Sort</span><span class="sort-icon text-slate-400">⇅</span>
-                    </button>
-                  </div>
-                </th>
-                <th class="text-center">
-                  <div class="flex justify-center">
-                    <button onclick="sortTable('advertiserTable', 3, this, 'currency')" class="sort-btn inline-flex items-center justify-center gap-1 px-3 py-1 rounded-md border border-slate-300 bg-white text-[11px] font-semibold text-slate-700 shadow-xs hover:bg-slate-50 cursor-pointer">
-                      <span>Sort</span><span class="sort-icon text-slate-400">⇅</span>
-                    </button>
-                  </div>
-                </th>
-                <th class="text-center">
-                  <div class="flex justify-center">
-                    <button onclick="sortTable('advertiserTable', 4, this, 'ratio')" class="sort-btn inline-flex items-center justify-center gap-1 px-3 py-1 rounded-md border border-slate-300 bg-white text-[11px] font-semibold text-slate-700 shadow-xs hover:bg-slate-50 cursor-pointer">
-                      <span>Sort</span><span class="sort-icon text-slate-400">⇅</span>
-                    </button>
-                  </div>
-                </th>
+                <th><button onclick="sortTable('advertiserTable', 1, this, 'num')" class="sort-btn px-2 py-1 border rounded text-[11px]">Sort <span class="sort-icon">⇅</span></button></th>
+                <th><button onclick="sortTable('advertiserTable', 2, this, 'num')" class="sort-btn px-2 py-1 border rounded text-[11px]">Sort <span class="sort-icon">⇅</span></button></th>
+                <th><button onclick="sortTable('advertiserTable', 3, this, 'currency')" class="sort-btn px-2 py-1 border rounded text-[11px]">Sort <span class="sort-icon">⇅</span></button></th>
+                <th><button onclick="sortTable('advertiserTable', 4, this, 'ratio')" class="sort-btn px-2 py-1 border rounded text-[11px]">Sort <span class="sort-icon">⇅</span></button></th>
               </tr>
-              <tr class="theme-header-aff text-white text-xs uppercase tracking-wider font-semibold">
-                <th class="py-2.5 px-4 text-left">Advertiser</th>
-                <th class="py-2.5 px-4">Sign Ups</th>
-                <th class="py-2.5 px-4">Users</th>
-                <th class="py-2.5 px-4">Revenue</th>
-                <th class="py-2.5 px-4">S2P (Ratio)</th>
+              <tr class="theme-header-aff text-white text-xs uppercase font-semibold">
+                <th class="py-2.5 px-4 text-left">Advertiser</th><th class="py-2.5 px-4">Sign Ups</th><th class="py-2.5 px-4">Users</th><th class="py-2.5 px-4">Revenue</th><th class="py-2.5 px-4">S2P (Ratio)</th>
               </tr>
             </thead>
-            <tbody id="advertiserTableBody" class="text-slate-700"></tbody>
-            <tfoot class="border-t-2 border-slate-900 bg-slate-50 font-bold text-slate-900">
-              <tr>
-                <td class="py-2.5 px-4 text-left">Grand total</td>
-                <td id="advGrandSignups" class="py-2.5 px-4 font-mono text-amber-600">0</td>
-                <td id="advGrandUsers" class="py-2.5 px-4 font-mono text-indigo-600">0</td>
-                <td id="advGrandRevenue" class="py-2.5 px-4 font-mono text-emerald-600 font-bold">$0</td>
-                <td id="advGrandS2p" class="py-2.5 px-4 font-mono text-emerald-600 font-bold">0:0</td>
-              </tr>
+            <tbody id="advertiserTableBody"></tbody>
+            <tfoot class="border-t-2 border-slate-900 bg-slate-50 font-bold">
+              <tr><td class="py-2.5 px-4 text-left">Grand total</td><td id="advGrandSignups" class="font-mono text-amber-600">0</td><td id="advGrandUsers" class="font-mono text-indigo-600">0</td><td id="advGrandRevenue" class="font-mono text-emerald-600">$0</td><td id="advGrandS2p" class="font-mono text-emerald-600">0:0</td></tr>
             </tfoot>
           </table>
         </div>
       </section>
 
-      <!-- 2. BRAND BREAKDOWN TABLE -->
+      <!-- BRAND TABLE -->
       <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="px-6 py-4 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-slate-50/50">
-          <div>
-            <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Brand Breakdown Table</h3>
-            <p class="text-xs text-slate-500 mt-0.5">Performance by Brand & Conversion S2P Ratio</p>
-          </div>
-          <button onclick="resetTable('brandTable')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 active:bg-slate-100 shadow-sm transition-all cursor-pointer">
-            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-            </svg>
-            <span>Clear / Reset Table</span>
-          </button>
+        <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+          <div><h3 class="text-sm font-bold text-slate-800 uppercase">Brand Breakdown Table</h3><p class="text-xs text-slate-500">Performance by Brand & Conversion S2P Ratio</p></div>
+          <button onclick="resetTable('brandTable')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 bg-white hover:bg-slate-50">Clear / Reset Table</button>
         </div>
         <div class="overflow-x-auto">
           <table id="brandTable" class="w-full text-sm text-right excel-table">
             <thead>
               <tr class="sort-row">
-                <th class="w-1/4"></th>
-                <th></th>
-                <th class="text-center">
-                  <div class="flex justify-center">
-                    <button onclick="sortTable('brandTable', 2, this, 'num')" class="sort-btn inline-flex items-center justify-center gap-1 px-3 py-1 rounded-md border border-slate-300 bg-white text-[11px] font-semibold text-slate-700 shadow-xs hover:bg-slate-50 cursor-pointer">
-                      <span>Sort</span><span class="sort-icon text-slate-400">⇅</span>
-                    </button>
-                  </div>
-                </th>
-                <th class="text-center">
-                  <div class="flex justify-center">
-                    <button onclick="sortTable('brandTable', 3, this, 'num')" class="sort-btn inline-flex items-center justify-center gap-1 px-3 py-1 rounded-md border border-slate-300 bg-white text-[11px] font-semibold text-slate-700 shadow-xs hover:bg-slate-50 cursor-pointer">
-                      <span>Sort</span><span class="sort-icon text-slate-400">⇅</span>
-                    </button>
-                  </div>
-                </th>
-                <th class="text-center">
-                  <div class="flex justify-center">
-                    <button onclick="sortTable('brandTable', 4, this, 'currency')" class="sort-btn inline-flex items-center justify-center gap-1 px-3 py-1 rounded-md border border-slate-300 bg-white text-[11px] font-semibold text-slate-700 shadow-xs hover:bg-slate-50 cursor-pointer">
-                      <span>Sort</span><span class="sort-icon text-slate-400">⇅</span>
-                    </button>
-                  </div>
-                </th>
-                <th class="text-center">
-                  <div class="flex justify-center">
-                    <button onclick="sortTable('brandTable', 5, this, 'ratio')" class="sort-btn inline-flex items-center justify-center gap-1 px-3 py-1 rounded-md border border-slate-300 bg-white text-[11px] font-semibold text-slate-700 shadow-xs hover:bg-slate-50 cursor-pointer">
-                      <span>Sort</span><span class="sort-icon text-slate-400">⇅</span>
-                    </button>
-                  </div>
-                </th>
+                <th class="w-1/4"></th><th></th>
+                <th><button onclick="sortTable('brandTable', 2, this, 'num')" class="sort-btn px-2 py-1 border rounded text-[11px]">Sort <span class="sort-icon">⇅</span></button></th>
+                <th><button onclick="sortTable('brandTable', 3, this, 'num')" class="sort-btn px-2 py-1 border rounded text-[11px]">Sort <span class="sort-icon">⇅</span></button></th>
+                <th><button onclick="sortTable('brandTable', 4, this, 'currency')" class="sort-btn px-2 py-1 border rounded text-[11px]">Sort <span class="sort-icon">⇅</span></button></th>
+                <th><button onclick="sortTable('brandTable', 5, this, 'ratio')" class="sort-btn px-2 py-1 border rounded text-[11px]">Sort <span class="sort-icon">⇅</span></button></th>
               </tr>
-              <tr class="theme-header-aff text-white text-xs uppercase tracking-wider font-semibold">
-                <th class="py-2.5 px-4 text-left">Brand</th>
-                <th class="py-2.5 px-4 text-left">Advertiser</th>
-                <th class="py-2.5 px-4">Signups</th>
-                <th class="py-2.5 px-4">FTD / Users</th>
-                <th class="py-2.5 px-4">Revenue</th>
-                <th class="py-2.5 px-4">S2P (Ratio)</th>
+              <tr class="theme-header-aff text-white text-xs uppercase font-semibold">
+                <th class="py-2.5 px-4 text-left">Brand</th><th class="py-2.5 px-4 text-left">Advertiser</th><th class="py-2.5 px-4">Signups</th><th class="py-2.5 px-4">FTD / Users</th><th class="py-2.5 px-4">Revenue</th><th class="py-2.5 px-4">S2P (Ratio)</th>
               </tr>
             </thead>
-            <tbody id="brandTableBody" class="text-slate-700"></tbody>
-            <tfoot class="border-t-2 border-slate-900 bg-slate-50 font-bold text-slate-900">
-              <tr>
-                <td colspan="2" class="py-2.5 px-4 text-left">Grand total</td>
-                <td id="brandGrandSignups" class="py-2.5 px-4 font-mono text-amber-600">0</td>
-                <td id="brandGrandUsers" class="py-2.5 px-4 font-mono text-indigo-600">0</td>
-                <td id="brandGrandRevenue" class="py-2.5 px-4 font-mono text-emerald-600 font-bold">$0</td>
-                <td id="brandGrandS2p" class="py-2.5 px-4 font-mono text-emerald-600 font-bold">0:0</td>
-              </tr>
+            <tbody id="brandTableBody"></tbody>
+            <tfoot class="border-t-2 border-slate-900 bg-slate-50 font-bold">
+              <tr><td colspan="2" class="py-2.5 px-4 text-left">Grand total</td><td id="brandGrandSignups" class="font-mono text-amber-600">0</td><td id="brandGrandUsers" class="font-mono text-indigo-600">0</td><td id="brandGrandRevenue" class="font-mono text-emerald-600">$0</td><td id="brandGrandS2p" class="font-mono text-emerald-600">0:0</td></tr>
             </tfoot>
           </table>
         </div>
       </section>
     </div>
-
   </div>
 
-  <!-- ================= SCRIPTS ================= -->
+  <!-- JAVASCRIPT COMPACTO Y COMPLETO -->
   <script>
-    const MONTH_KEYS = [
-      'january', 'february', 'march', 'april', 'may', 'june',
-      'july', 'august', 'september', 'october', 'november', 'december'
-    ];
+    const $ = id => document.getElementById(id);
+    const setT = (id, val) => { const el = $(id); if (el) el.textContent = val; };
+    const MONTH_KEYS = ['january','february','march','april','may','june','july','august','september','october','november','december'];
+    const MONTH_NAMES = MONTH_KEYS.map(m => m.toUpperCase());
 
-    let globalLoadedMonths = [];
-    let areDetailsExpanded = false;
-    let chartRefs = {};
-    const initialTableState = {};
-    const tableSortDirections = {};
-    const csvCache = {};
+    let globalLoadedMonths = [], areDetailsExpanded = false, chartRefs = {};
+    const initialTableState = {}, tableSortDirections = {}, csvCache = {};
 
-    function getTodayIso() {
-      const now = new Date();
-      const y = now.getFullYear();
-      const m = String(now.getMonth() + 1).padStart(2, '0');
-      const d = String(now.getDate()).padStart(2, '0');
-      return `${y}-${m}-${d}`;
-    }
-
+    const getTodayIso = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; };
     const _initialToday = getTodayIso();
-    let currentStartDate = _initialToday.substring(0, 8) + '01';
-    let currentEndDate = _initialToday;
-    let activeCalTarget = 'from';
-    let calViewYear = new Date().getFullYear();
-    let calViewMonth = new Date().getMonth();
+    let currentStartDate = _initialToday.substring(0, 8) + '01', currentEndDate = _initialToday;
+    let activeCalTarget = 'from', calViewYear = new Date().getFullYear(), calViewMonth = new Date().getMonth();
 
-    const MONTH_NAMES = [
-      'JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE',
-      'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'
-    ];
-
-    function formatS2P(signups, users) {
-      if (users > 0) {
-        if (signups === 0) return '0:1';
-        return `1:${Math.round(signups / users)}`;
-      }
-      if (signups > 0) return `0:${signups}`;
-      return '0:0';
-    }
-
-    function isoToDisplay(isoStr) {
-      if (!isoStr) return '';
-      const [y, m, d] = isoStr.split('-');
-      return `${m}/${d}/${y}`;
-    }
+    const formatS2P = (s, u) => u > 0 ? (s === 0 ? '0:1' : `1:${Math.round(s/u)}`) : (s > 0 ? `0:${s}` : '0:0');
+    const isoToDisplay = s => s ? `${s.split('-')[1]}/${s.split('-')[2]}/${s.split('-')[0]}` : '';
 
     async function fetchMonthFile(mKey) {
-      const timestamp = Date.now();
-      const candidates = [
-        `data_${mKey}.json?t=${timestamp}`,
-        `./data_${mKey}.json?t=${timestamp}`,
-        `data/data_${mKey}.json?t=${timestamp}`,
-        `./data/data_${mKey}.json?t=${timestamp}`
-      ];
-
-      for (const p of candidates) {
+      const ts = Date.now(), c = [`data_${mKey}.json?t=${ts}`, `./data_${mKey}.json?t=${ts}`, `data/data_${mKey}.json?t=${ts}`];
+      for (const p of c) {
         try {
-          const res = await fetch(p, {
-            cache: 'no-store',
-            headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
-          });
-          if (res.ok) {
-            const data = await res.json();
-            if (data && (data.daily_records || data.summary_mtd)) {
-              return data;
-            }
-          }
-        } catch (e) {}
+          const r = await fetch(p, { cache: 'no-store' });
+          if (r.ok) { const d = await r.json(); if (d && (d.daily_records || d.summary_mtd)) return d; }
+        } catch(e) {}
       }
       return null;
     }
-
-    async function loadAllMonths() {
-      const promises = MONTH_KEYS.map(m => fetchMonthFile(m));
-      const loaded = await Promise.all(promises);
-      return loaded.filter(m => m !== null);
-    }
+    const loadAllMonths = async () => (await Promise.all(MONTH_KEYS.map(fetchMonthFile))).filter(Boolean);
 
     function getMinDataDate(months) {
       let minD = '9999-12-31';
-      months.forEach(m => {
-        if (m.daily_records) {
-          m.daily_records.forEach(r => {
-            if (r.date < minD) minD = r.date;
-          });
-        }
-      });
+      months.forEach(m => (m.daily_records || []).forEach(r => { if (r.date < minD) minD = r.date; }));
       return minD !== '9999-12-31' ? minD : `${new Date().getFullYear()}-01-01`;
     }
 
-    function getEffectiveMaxDate() {
-      return getTodayIso();
-    }
-
-    function initDateControls(months) {
-      const maxAllowed = getEffectiveMaxDate();
+    function initDateControls() {
+      const maxAllowed = getTodayIso();
       currentStartDate = maxAllowed.substring(0, 8) + '01';
       currentEndDate = maxAllowed;
-
-      document.getElementById('fromDisplay').textContent = isoToDisplay(currentStartDate);
-      document.getElementById('toDisplay').textContent = isoToDisplay(currentEndDate);
-
-      const now = new Date();
-      calViewYear = now.getFullYear();
-      calViewMonth = now.getMonth();
+      setT('fromDisplay', isoToDisplay(currentStartDate));
+      setT('toDisplay', isoToDisplay(currentEndDate));
     }
 
     function toggleCustomCalendar(target) {
-      const popup = document.getElementById('customCalendarPopup');
-      const fromBtn = document.getElementById('fromPillBtn');
-      const toBtn = document.getElementById('toPillBtn');
-
-      if (!popup.classList.contains('hidden') && activeCalTarget === target) {
-        popup.classList.add('hidden');
-        resetPillStyles();
-        return;
-      }
-
+      const pop = $('customCalendarPopup');
+      if (!pop.classList.contains('hidden') && activeCalTarget === target) { pop.classList.add('hidden'); resetPillStyles(); return; }
       activeCalTarget = target;
-      popup.classList.remove('hidden');
-
-      if (target === 'from') {
-        fromBtn.className = "flex items-center gap-2 bg-white border border-[#99d5ca] ring-2 ring-[#e1f5f2] rounded-xl px-3 py-1.5 shadow-xs transition-all cursor-pointer focus:outline-none";
-        toBtn.className = "flex items-center gap-2 bg-white border border-slate-300 rounded-xl px-3 py-1.5 shadow-xs transition-all hover:border-slate-400 cursor-pointer focus:outline-none";
-        popup.style.left = "0px";
-
-        calViewYear = parseInt(currentStartDate.substring(0, 4), 10);
-        calViewMonth = parseInt(currentStartDate.substring(5, 7), 10) - 1;
-      } else {
-        toBtn.className = "flex items-center gap-2 bg-white border border-[#99d5ca] ring-2 ring-[#e1f5f2] rounded-xl px-3 py-1.5 shadow-xs transition-all cursor-pointer focus:outline-none";
-        fromBtn.className = "flex items-center gap-2 bg-white border border-slate-300 rounded-xl px-3 py-1.5 shadow-xs transition-all hover:border-slate-400 cursor-pointer focus:outline-none";
-        popup.style.left = "130px";
-
-        calViewYear = parseInt(currentEndDate.substring(0, 4), 10);
-        calViewMonth = parseInt(currentEndDate.substring(5, 7), 10) - 1;
-      }
-
+      pop.classList.remove('hidden');
+      pop.style.left = target === 'from' ? '0px' : '130px';
+      const d = target === 'from' ? currentStartDate : currentEndDate;
+      calViewYear = parseInt(d.substring(0, 4), 10);
+      calViewMonth = parseInt(d.substring(5, 7), 10) - 1;
       renderCustomCalendar();
     }
+    const resetPillStyles = () => ['fromPillBtn', 'toPillBtn'].forEach(id => $(id).className = "flex items-center gap-2 bg-white border border-slate-300 rounded-xl px-3 py-1.5 shadow-xs hover:border-slate-400 cursor-pointer focus:outline-none");
 
-    function resetPillStyles() {
-      document.getElementById('fromPillBtn').className = "flex items-center gap-2 bg-white border border-slate-300 rounded-xl px-3 py-1.5 shadow-xs transition-all hover:border-slate-400 cursor-pointer focus:outline-none";
-      document.getElementById('toPillBtn').className = "flex items-center gap-2 bg-white border border-slate-300 rounded-xl px-3 py-1.5 shadow-xs transition-all hover:border-slate-400 cursor-pointer focus:outline-none";
-    }
-
-    function navigateMonth(direction) {
-      calViewMonth += direction;
-      if (calViewMonth < 0) {
-        calViewMonth = 11;
-        calViewYear--;
-      } else if (calViewMonth > 11) {
-        calViewMonth = 0;
-        calViewYear++;
-      }
+    function navigateMonth(dir) {
+      calViewMonth += dir;
+      if (calViewMonth < 0) { calViewMonth = 11; calViewYear--; } else if (calViewMonth > 11) { calViewMonth = 0; calViewYear++; }
       renderCustomCalendar();
     }
 
     function renderCustomCalendar() {
-      const headerTitle = document.getElementById('calHeaderTitle');
-      const grid = document.getElementById('calDaysGrid');
-      const nextBtn = document.getElementById('calNextBtn');
-      const maxAllowed = getEffectiveMaxDate();
-      const minAllowed = getMinDataDate(globalLoadedMonths);
-
-      headerTitle.textContent = `${MONTH_NAMES[calViewMonth]} ${calViewYear}`;
-
-      const maxYear = parseInt(maxAllowed.substring(0, 4), 10);
-      const maxMonth = parseInt(maxAllowed.substring(5, 7), 10) - 1;
-      if (calViewYear > maxYear || (calViewYear === maxYear && calViewMonth >= maxMonth)) {
-        nextBtn.classList.add('opacity-30', 'pointer-events-none');
-      } else {
-        nextBtn.classList.remove('opacity-30', 'pointer-events-none');
-      }
-
+      setT('calHeaderTitle', `${MONTH_NAMES[calViewMonth]} ${calViewYear}`);
+      const grid = $('calDaysGrid'), maxAllowed = getTodayIso(), minAllowed = getMinDataDate(globalLoadedMonths);
       grid.innerHTML = '';
-
-      const firstDayDate = new Date(calViewYear, calViewMonth, 1);
-      const daysInMonth = new Date(calViewYear, calViewMonth + 1, 0).getDate();
-
-      const dayOfWeek = firstDayDate.getDay();
-      const mondayFirstOffset = (dayOfWeek + 6) % 7;
-
-      for (let i = 0; i < mondayFirstOffset; i++) {
-        const blank = document.createElement('div');
-        blank.className = 'p-1.5';
-        grid.appendChild(blank);
-      }
-
-      for (let day = 1; day <= daysInMonth; day++) {
-        const mStr = String(calViewMonth + 1).padStart(2, '0');
-        const dStr = String(day).padStart(2, '0');
-        const dateIso = `${calViewYear}-${mStr}-${dStr}`;
-
-        const cell = document.createElement('button');
-        cell.type = 'button';
-        cell.textContent = day;
-
-        const isPastToday = dateIso > maxAllowed;
-        const isBeforeMin = dateIso < minAllowed;
-
-        if (isPastToday || isBeforeMin) {
-          cell.className = 'p-1.5 text-slate-300 font-bold rounded-xl cursor-not-allowed pointer-events-none';
+      const first = new Date(calViewYear, calViewMonth, 1), days = new Date(calViewYear, calViewMonth + 1, 0).getDate();
+      const offset = (first.getDay() + 6) % 7;
+      for (let i = 0; i < offset; i++) grid.appendChild(document.createElement('div'));
+      for (let day = 1; day <= days; day++) {
+        const iso = `${calViewYear}-${String(calViewMonth + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+        const btn = document.createElement('button'); btn.type = 'button'; btn.textContent = day;
+        if (iso > maxAllowed || iso < minAllowed) {
+          btn.className = 'p-1.5 text-slate-300 font-bold rounded-xl cursor-not-allowed';
         } else {
-          const isSelected = (activeCalTarget === 'from' && dateIso === currentStartDate) ||
-                             (activeCalTarget === 'to' && dateIso === currentEndDate);
-
-          if (isSelected) {
-            cell.className = 'p-1.5 bg-[#0ea57a] text-white font-bold rounded-xl shadow-xs transition-transform transform active:scale-95 cursor-pointer';
-          } else {
-            cell.className = 'p-1.5 text-slate-800 hover:bg-slate-100 font-bold rounded-xl transition-colors cursor-pointer';
-          }
-
-          cell.onclick = () => selectCalendarDate(dateIso);
+          const sel = (activeCalTarget === 'from' && iso === currentStartDate) || (activeCalTarget === 'to' && iso === currentEndDate);
+          btn.className = `p-1.5 font-bold rounded-xl ${sel ? 'bg-[#0ea57a] text-white shadow-xs' : 'text-slate-800 hover:bg-slate-100 cursor-pointer'}`;
+          btn.onclick = () => selectCalendarDate(iso);
         }
-
-        grid.appendChild(cell);
+        grid.appendChild(btn);
       }
     }
 
-    async function selectCalendarDate(dateIso) {
+    async function selectCalendarDate(iso) {
       if (activeCalTarget === 'from') {
-        currentStartDate = dateIso;
-        if (currentStartDate > currentEndDate) {
-          currentEndDate = currentStartDate;
-        }
+        currentStartDate = iso; if (currentStartDate > currentEndDate) currentEndDate = currentStartDate;
         toggleCustomCalendar('to');
       } else {
-        currentEndDate = dateIso;
-        if (currentEndDate < currentStartDate) {
-          currentStartDate = currentEndDate;
-        }
-        document.getElementById('customCalendarPopup').classList.add('hidden');
-        resetPillStyles();
+        currentEndDate = iso; if (currentEndDate < currentStartDate) currentStartDate = currentEndDate;
+        $('customCalendarPopup').classList.add('hidden'); resetPillStyles();
       }
-
-      document.getElementById('fromDisplay').textContent = isoToDisplay(currentStartDate);
-      document.getElementById('toDisplay').textContent = isoToDisplay(currentEndDate);
-
+      setT('fromDisplay', isoToDisplay(currentStartDate));
+      setT('toDisplay', isoToDisplay(currentEndDate));
       await updateDashboardForDateRange();
     }
 
-    document.addEventListener('click', (e) => {
-      const popup = document.getElementById('customCalendarPopup');
-      const fromBtn = document.getElementById('fromPillBtn');
-      const toBtn = document.getElementById('toPillBtn');
-      if (popup && !popup.contains(e.target) && !fromBtn.contains(e.target) && !toBtn.contains(e.target)) {
-        popup.classList.add('hidden');
-        resetPillStyles();
+    document.addEventListener('click', e => {
+      const p = $('customCalendarPopup');
+      if (p && !p.contains(e.target) && !$('fromPillBtn').contains(e.target) && !$('toPillBtn').contains(e.target)) {
+        p.classList.add('hidden'); resetPillStyles();
       }
     });
 
-    // ================= CSV PARSER & GITHUB PAGES INTEGRATION =================
-    function parseCsvLine(line) {
-      const result = [];
-      let current = '';
-      let inQuotes = false;
-      for (let i = 0; i < line.length; i++) {
-        const char = line[i];
-        if (char === '"') {
-          inQuotes = !inQuotes;
-        } else if (char === ',' && !inQuotes) {
-          result.push(current.trim());
-          current = '';
-        } else {
-          current += char;
+    // CSV PARSER
+    const parseNum = v => parseFloat(String(v || 0).replace(/["', ]/g, '')) || 0;
+    function parseDailyCsv(txt) {
+      const lines = txt.split(/\r?\n/), map = {};
+      let curEsp = '', curIp = '';
+      for (const line of lines) {
+        if (!line.trim() || line.toLowerCase().includes('date') || line.includes('GRAND TOTAL')) continue;
+        const c = line.split(',').map(s => s.replace(/^"|"$/g, '').trim());
+        if (c[0]?.toUpperCase().startsWith('IP')) { curIp = c[0]; continue; }
+        if (c[0]) { curEsp = c[0]; curIp = ''; continue; }
+        if (!c[0] && c[1] && c[1].toUpperCase() !== 'DOMAIN' && c[1].toUpperCase() !== 'TOTAL') {
+          const full = curIp ? `${curEsp} ${curIp}` : curEsp;
+          if (!map[full]) map[full] = { esp: full, delivered: 0, softBounce: 0, hardBounce: 0, bounced: 0, opened: 0, clicked: 0, unsub: 0, signups: 0, players: 0, domains: {} };
+          const [d, sb, hb, o, cl, un, reg, pl] = [parseNum(c[2]), parseNum(c[3]), parseNum(c[4]), parseNum(c[5]), parseNum(c[7]), parseNum(c[11]), parseNum(c[12]), parseNum(c[13])];
+          const item = map[full];
+          item.delivered += d; item.softBounce += sb; item.hardBounce += hb; item.bounced += (sb + hb); item.opened += o; item.clicked += cl; item.unsub += un; item.signups += reg; item.players += pl;
+          if (!item.domains[c[1]]) item.domains[c[1]] = { delivered: 0, softBounce: 0, hardBounce: 0, bounced: 0, opened: 0, clicked: 0, unsub: 0, signups: 0, players: 0 };
+          const dom = item.domains[c[1]];
+          dom.delivered += d; dom.softBounce += sb; dom.hardBounce += hb; dom.bounced += (sb + hb); dom.opened += o; dom.clicked += cl; dom.unsub += un; dom.signups += reg; dom.players += pl;
         }
       }
-      result.push(current.trim());
-      return result;
+      return map;
     }
 
-    function parseCleanNum(val) {
-      if (!val) return 0;
-      const clean = String(val).replace(/["', ]/g, '');
-      const num = parseFloat(clean);
-      return isNaN(num) ? 0 : num;
-    }
-
-    function parseDailyCsv(csvText) {
-      const lines = csvText.split(/\r?\n/);
-      let currentEsp = '';
-      let currentIp = '';
-      const espMap = {};
-
-      for (let i = 0; i < lines.length; i++) {
-        const line = lines[i].trim();
-        if (!line) continue;
-        const cols = parseCsvLine(line);
-
-        const col0 = (cols[0] || '').trim();
-        const col1 = (cols[1] || '').trim();
-
-        if (col0.toLowerCase().includes('date') || col0 === 'ESP' || line.includes('Change dates')) {
-          continue;
-        }
-        if (col0.toUpperCase() === 'GRAND TOTAL') {
-          continue;
-        }
-
-        if (col0.toUpperCase().startsWith('IP ') || col0.toUpperCase() === 'IP' || /^IP\b/i.test(col0)) {
-          currentIp = col0;
-          continue;
-        }
-
-        if (col0 !== '') {
-          currentEsp = col0;
-          currentIp = '';
-          continue;
-        }
-
-        if (col0 === '' && col1 !== '' && col1.toUpperCase() !== 'DOMAIN') {
-          if (!currentEsp) continue;
-          const fullEspName = currentIp ? `${currentEsp} ${currentIp}` : currentEsp;
-
-          if (!espMap[fullEspName]) {
-            espMap[fullEspName] = {
-              esp: fullEspName,
-              delivered: 0,
-              softBounce: 0,
-              hardBounce: 0,
-              bounced: 0,
-              opened: 0,
-              clicked: 0,
-              unsub: 0,
-              signups: 0,
-              players: 0,
-              domains: {}
-            };
-          }
-
-          if (col1.toUpperCase() === 'TOTAL') {
-            continue; // Totals are automatically calculated from domain breakdown
-          }
-
-          const domainName = col1;
-          const deliv = parseCleanNum(cols[2]);
-          const softBounce = parseCleanNum(cols[3]);
-          const hardBounce = parseCleanNum(cols[4]);
-          const totalBounce = softBounce + hardBounce;
-          const open = parseCleanNum(cols[5]);
-          const click = parseCleanNum(cols[7]);
-          const unsub = parseCleanNum(cols[11]);
-          const reg = parseCleanNum(cols[12]);
-          const players = parseCleanNum(cols[13]);
-
-          if (!espMap[fullEspName].domains[domainName]) {
-            espMap[fullEspName].domains[domainName] = {
-              delivered: 0,
-              softBounce: 0,
-              hardBounce: 0,
-              bounced: 0,
-              opened: 0,
-              clicked: 0,
-              unsub: 0,
-              signups: 0,
-              players: 0
-            };
-          }
-
-          const d = espMap[fullEspName].domains[domainName];
-          d.delivered += deliv;
-          d.softBounce += softBounce;
-          d.hardBounce += hardBounce;
-          d.bounced += totalBounce;
-          d.opened += open;
-          d.clicked += click;
-          d.unsub += unsub;
-          d.signups += reg;
-          d.players += players;
-
-          const e = espMap[fullEspName];
-          e.delivered += deliv;
-          e.softBounce += softBounce;
-          e.hardBounce += hardBounce;
-          e.bounced += totalBounce;
-          e.opened += open;
-          e.clicked += click;
-          e.unsub += unsub;
-          e.signups += reg;
-          e.players += players;
-        }
-      }
-
-      return espMap;
-    }
-
-    async function fetchCsvDay(monthKey, dayStr) {
-      const cacheKey = `${monthKey}/${dayStr}`;
-      if (csvCache[cacheKey] !== undefined) {
-        return csvCache[cacheKey];
-      }
-
-      const timestamp = Date.now();
-      const dayNum = parseInt(dayStr, 10);
-
-      const candidates = [
-        `maildata_${monthKey}/${dayStr}.csv?t=${timestamp}`,
-        `./maildata_${monthKey}/${dayStr}.csv?t=${timestamp}`,
-        `maildata_${monthKey}/${dayNum}.csv?t=${timestamp}`,
-        `./maildata_${monthKey}/${dayNum}.csv?t=${timestamp}`
-      ];
-
-      for (const p of candidates) {
+    async function fetchCsvDay(m, d) {
+      const k = `${m}/${d}`; if (csvCache[k] !== undefined) return csvCache[k];
+      const ts = Date.now(), urls = [`maildata_${m}/${d}.csv?t=${ts}`, `./maildata_${m}/${d}.csv?t=${ts}`];
+      for (const u of urls) {
         try {
-          const res = await fetch(p, { cache: 'no-store' });
-          if (res.ok) {
-            const text = await res.text();
-            if (
-              text && 
-              !text.trim().startsWith('<!DOCTYPE') && 
-              !text.trim().startsWith('<html') && 
-              (text.includes('Delivered') || text.includes('ESP'))
-            ) {
-              const parsed = parseDailyCsv(text);
-              csvCache[cacheKey] = parsed;
-              return parsed;
-            }
-          }
-        } catch (e) {}
+          const r = await fetch(u, { cache: 'no-store' });
+          if (r.ok) { const txt = await r.text(); if (txt && !txt.startsWith('<') && txt.includes('ESP')) return (csvCache[k] = parseDailyCsv(txt)); }
+        } catch(e) {}
       }
-
-      csvCache[cacheKey] = null;
-      return null;
+      return (csvCache[k] = null);
     }
 
-    async function aggregateCsvForRange(startDate, endDate) {
-      const [sy, sm, sd] = startDate.split('-').map(Number);
-      const [ey, em, ed] = endDate.split('-').map(Number);
-
-      const cur = new Date(sy, sm - 1, sd);
-      const end = new Date(ey, em - 1, ed);
-
-      const dates = [];
+    async function aggregateCsvForRange(s, e) {
+      const cur = new Date(s), end = new Date(e), dates = [];
       while (cur <= end) {
-        const mKey = MONTH_KEYS[cur.getMonth()];
-        const dayStr = String(cur.getDate()).padStart(2, '0');
-        dates.push({ monthKey: mKey, dayStr });
+        dates.push({ m: MONTH_KEYS[cur.getMonth()], d: String(cur.getDate()).padStart(2, '0') });
         cur.setDate(cur.getDate() + 1);
       }
-
-      const results = await Promise.all(dates.map(d => fetchCsvDay(d.monthKey, d.dayStr)));
-      const mergedEsp = {};
-
-      results.forEach(dayEspMap => {
-        if (!dayEspMap) return;
-        Object.keys(dayEspMap).forEach(espName => {
-          if (!mergedEsp[espName]) {
-            mergedEsp[espName] = {
-              esp: espName,
-              delivered: 0,
-              softBounce: 0,
-              hardBounce: 0,
-              bounced: 0,
-              opened: 0,
-              clicked: 0,
-              unsub: 0,
-              signups: 0,
-              players: 0,
-              domains: {}
-            };
-          }
-          const s = dayEspMap[espName];
-          const t = mergedEsp[espName];
-
-          t.delivered += s.delivered;
-          t.softBounce += (s.softBounce || 0);
-          t.hardBounce += (s.hardBounce || 0);
-          t.bounced += s.bounced;
-          t.opened += s.opened;
-          t.clicked += s.clicked;
-          t.unsub += s.unsub;
-          t.signups += s.signups;
-          t.players += s.players;
-
-          Object.keys(s.domains).forEach(dom => {
-            if (!t.domains[dom]) {
-              t.domains[dom] = {
-                delivered: 0,
-                softBounce: 0,
-                hardBounce: 0,
-                bounced: 0,
-                opened: 0,
-                clicked: 0,
-                unsub: 0,
-                signups: 0,
-                players: 0
-              };
-            }
-            const sd = s.domains[dom];
-            const td = t.domains[dom];
-            td.delivered += sd.delivered;
-            td.softBounce += (sd.softBounce || 0);
-            td.hardBounce += (sd.hardBounce || 0);
-            td.bounced += sd.bounced;
-            td.opened += sd.opened;
-            td.clicked += sd.clicked;
-            td.unsub += sd.unsub;
-            td.signups += sd.signups;
-            td.players += sd.players;
-          });
+      const days = await Promise.all(dates.map(x => fetchCsvDay(x.m, x.d))), merged = {};
+      days.filter(Boolean).forEach(m => Object.entries(m).forEach(([esp, v]) => {
+        if (!merged[esp]) merged[esp] = { ...v, domains: {} };
+        else {
+          ['delivered','softBounce','hardBounce','bounced','opened','clicked','unsub','signups','players'].forEach(k => merged[esp][k] += v[k]);
+        }
+        Object.entries(v.domains).forEach(([dom, dv]) => {
+          if (!merged[esp].domains[dom]) merged[esp].domains[dom] = { ...dv };
+          else ['delivered','softBounce','hardBounce','bounced','opened','clicked','unsub','signups','players'].forEach(k => merged[esp].domains[dom][k] += dv[k]);
         });
-      });
-
-      return mergedEsp;
+      }));
+      return merged;
     }
 
-    // ================= JSON AGGREGATOR (Financials, Ops, Affiliates) =================
-    function aggregateJsonData(startDate, endDate) {
+    // JSON AGGREGATOR
+    function aggregateJsonData(s, e) {
       const agg = {
-        budget: 0,
-        signups: 0,
-        users: 0,
-        revenue: 0,
+        budget: 0, signups: 0, users: 0, revenue: 0, daysElapsedInRange: 0, totalMonthDays: 0,
         kpi: { budget: 0, signups: 0, users: 0, revenue: 0, profit: 0 },
-        totalMonthDays: 0,
-        daysElapsedInRange: 0,
-        advertisers: {},
-        brands: {},
-        ops: {
-          jessie: { signups: 0, users: 0 },
-          andrea: { signups: 0, users: 0 },
-          signups_by_advertiser: {},
-          users_by_advertiser: {}
-        }
+        advertisers: {}, brands: {}, esp_ip_breakdown: [],
+        ops: { jessie: { signups: 0, users: 0 }, andrea: { signups: 0, users: 0 }, signups_by_advertiser: {}, users_by_advertiser: {} }
       };
 
-      const activeMonthsInRange = globalLoadedMonths.filter(m => {
-        if (!m.daily_records || m.daily_records.length === 0) return false;
-        return m.daily_records.some(r => r.date >= startDate && r.date <= endDate);
-      });
-
-      activeMonthsInRange.forEach(m => {
-        if (!m.kpis) return;
-        agg.kpi.budget += (m.kpis.budget || 0);
-        agg.kpi.signups += Math.round(m.kpis.signups || 0);
-        agg.kpi.users += Math.round(m.kpis.users || 0);
-        agg.kpi.revenue += (m.kpis.revenue || 0);
-        agg.kpi.profit += (m.kpis.profit || 0);
+      const months = globalLoadedMonths.filter(m => (m.daily_records || []).some(r => r.date >= s && r.date <= e));
+      months.forEach(m => {
+        if (m.kpis) { ['budget','signups','users','revenue','profit'].forEach(k => agg.kpi[k] += (m.kpis[k] || 0)); }
         agg.totalMonthDays += (m.total_days_in_month || 30);
+        const rows = m.esp_ip_breakdown?.by_row || m.esp_mtd_totals || [];
+        if (rows.length) agg.esp_ip_breakdown = agg.esp_ip_breakdown.concat(rows);
       });
 
-      activeMonthsInRange.forEach(m => {
-        if (m.advertisers_mtd) {
-          m.advertisers_mtd.forEach(a => {
-            if (!agg.advertisers[a.advertiser]) {
-              agg.advertisers[a.advertiser] = { signups: 0, users: 0, revenue: 0 };
-            }
+      months.forEach(m => (m.daily_records || []).forEach(r => {
+        if (r.date >= s && r.date <= e) {
+          agg.daysElapsedInRange++; agg.budget += r.budget || 0; agg.signups += r.signups || 0; agg.users += r.users || 0; agg.revenue += r.revenue || 0;
+          Object.entries(r.advertisers || {}).forEach(([adv, v]) => {
+            if (!agg.advertisers[adv]) agg.advertisers[adv] = { signups: 0, users: 0, revenue: 0 };
+            agg.advertisers[adv].signups += v.signups || 0; agg.advertisers[adv].users += v.users || 0; agg.advertisers[adv].revenue += v.revenue || 0;
           });
-        }
-        if (m.brands_mtd) {
-          m.brands_mtd.forEach(b => {
-            if (!agg.brands[b.brand]) {
-              agg.brands[b.brand] = { 
-                advertiser: b.advertiser || '-', 
-                signups: 0, 
-                users: 0, 
-                revenue: 0 
-              };
-            }
+          Object.entries(r.brands || {}).forEach(([br, v]) => {
+            if (!agg.brands[br]) agg.brands[br] = { advertiser: v.advertiser || '-', signups: 0, users: 0, revenue: 0 };
+            agg.brands[br].signups += v.signups || 0; agg.brands[br].users += v.users || 0; agg.brands[br].revenue += v.revenue || 0;
           });
-        }
-        if (m.team_ops_mtd && m.team_ops_mtd.signups_by_advertiser) {
-          Object.keys(m.team_ops_mtd.signups_by_advertiser).forEach(adv => {
-            if (!agg.ops.signups_by_advertiser[adv]) {
-              agg.ops.signups_by_advertiser[adv] = { andrea: 0, jessie: 0, total: 0 };
-            }
-          });
-        }
-        if (m.team_ops_mtd && m.team_ops_mtd.users_by_advertiser) {
-          Object.keys(m.team_ops_mtd.users_by_advertiser).forEach(adv => {
-            if (!agg.ops.users_by_advertiser[adv]) {
-              agg.ops.users_by_advertiser[adv] = { andrea: 0, jessie: 0, total: 0 };
-            }
-          });
-        }
-      });
-
-      activeMonthsInRange.forEach(m => {
-        let monthDaysCount = 0;
-        if (m.daily_records) {
-          m.daily_records.forEach(record => {
-            if (record.date >= startDate && record.date <= endDate) {
-              monthDaysCount++;
-              agg.daysElapsedInRange++;
-              agg.budget += record.budget || 0;
-              agg.signups += record.signups || 0;
-              agg.users += record.users || 0;
-              agg.revenue += record.revenue || 0;
-
-              if (record.advertisers) {
-                Object.keys(record.advertisers).forEach(adv => {
-                  if (!agg.advertisers[adv]) agg.advertisers[adv] = { signups: 0, users: 0, revenue: 0 };
-                  agg.advertisers[adv].signups += record.advertisers[adv].signups || 0;
-                  agg.advertisers[adv].users += record.advertisers[adv].users || 0;
-                  agg.advertisers[adv].revenue += record.advertisers[adv].revenue || 0;
-                });
-              }
-
-              if (record.brands) {
-                Object.keys(record.brands).forEach(br => {
-                  const bRec = record.brands[br];
-                  if (!agg.brands[br]) {
-                    agg.brands[br] = { 
-                      advertiser: (bRec && bRec.advertiser) || '-', 
-                      signups: 0, 
-                      users: 0, 
-                      revenue: 0 
-                    };
-                  } else if ((!agg.brands[br].advertiser || agg.brands[br].advertiser === '-') && bRec && bRec.advertiser) {
-                    agg.brands[br].advertiser = bRec.advertiser;
-                  }
-                  agg.brands[br].signups += (bRec && bRec.signups) || 0;
-                  agg.brands[br].users += (bRec && bRec.users) || 0;
-                  agg.brands[br].revenue += (bRec && bRec.revenue) || 0;
-                });
-              }
-
-              if (record.ops) {
-                if (record.ops.andrea) {
-                  agg.ops.andrea.signups += record.ops.andrea.signups || 0;
-                  agg.ops.andrea.users += record.ops.andrea.users || 0;
-                }
-                if (record.ops.jessie) {
-                  agg.ops.jessie.signups += record.ops.jessie.signups || 0;
-                  agg.ops.jessie.users += record.ops.jessie.users || 0;
-                }
-              }
-            }
-          });
-        }
-
-        if (monthDaysCount > 0) {
-          const ratio = (monthDaysCount >= (m.days_elapsed || m.total_days_in_month || 28)) 
-                        ? 1 
-                        : (monthDaysCount / (m.days_elapsed || m.total_days_in_month || 28));
-
-          if (m.team_ops_mtd && m.team_ops_mtd.signups_by_advertiser) {
-            Object.keys(m.team_ops_mtd.signups_by_advertiser).forEach(adv => {
-              const src = m.team_ops_mtd.signups_by_advertiser[adv];
-              const aVal = Math.round(src.andrea * ratio);
-              const jVal = Math.round(src.jessie * ratio);
-              agg.ops.signups_by_advertiser[adv].andrea += aVal;
-              agg.ops.signups_by_advertiser[adv].jessie += jVal;
-              agg.ops.signups_by_advertiser[adv].total += (aVal + jVal);
-            });
-          }
-
-          if (m.team_ops_mtd && m.team_ops_mtd.users_by_advertiser) {
-            Object.keys(m.team_ops_mtd.users_by_advertiser).forEach(adv => {
-              const src = m.team_ops_mtd.users_by_advertiser[adv];
-              const aVal = Math.round(src.andrea * ratio);
-              const jVal = Math.round(src.jessie * ratio);
-              agg.ops.users_by_advertiser[adv].andrea += aVal;
-              agg.ops.users_by_advertiser[adv].jessie += jVal;
-              agg.ops.users_by_advertiser[adv].total += (aVal + jVal);
-            });
+          if (r.ops) {
+            ['andrea','jessie'].forEach(p => { if (r.ops[p]) { agg.ops[p].signups += r.ops[p].signups || 0; agg.ops[p].users += r.ops[p].users || 0; } });
           }
         }
+      }));
+
+      months.forEach(m => {
+        const opsMtd = m.team_ops_mtd;
+        if (!opsMtd) return;
+        ['signups_by_advertiser', 'users_by_advertiser'].forEach(prop => {
+          Object.entries(opsMtd[prop] || {}).forEach(([adv, v]) => {
+            if (!agg.ops[prop][adv]) agg.ops[prop][adv] = { andrea: 0, jessie: 0, total: 0 };
+            agg.ops[prop][adv].andrea += v.andrea || 0; agg.ops[prop][adv].jessie += v.jessie || 0; agg.ops[prop][adv].total += (v.andrea || 0) + (v.jessie || 0);
+          });
+        });
       });
 
       agg.profit = agg.revenue - agg.budget;
@@ -1452,638 +505,192 @@
 
     async function updateDashboardForDateRange() {
       const agg = aggregateJsonData(currentStartDate, currentEndDate);
-      const csvEspMap = await aggregateCsvForRange(currentStartDate, currentEndDate);
-      const csvEspList = Object.values(csvEspMap);
-
-      if (csvEspList.length > 0) {
-        const activeEspList = csvEspList.filter(e => e.delivered > 0 || e.signups > 0 || e.opened > 0);
-        agg.esp = activeEspList.length > 0 ? activeEspList : csvEspList;
-
-        let totalDeliv = 0, totalSoftBounce = 0, totalHardBounce = 0, totalBounce = 0;
-        let totalOpen = 0, totalClick = 0, totalUnsub = 0;
-        let totalEspSignups = 0, totalEspPlayers = 0;
-
-        agg.esp.forEach(e => {
-          totalDeliv += e.delivered;
-          totalSoftBounce += (e.softBounce || 0);
-          totalHardBounce += (e.hardBounce || 0);
-          totalBounce += e.bounced;
-          totalOpen += e.opened;
-          totalClick += e.clicked;
-          totalUnsub += e.unsub;
-          totalEspSignups += e.signups;
-          totalEspPlayers += e.players;
-        });
-
-        agg.delivered = totalDeliv;
-        agg.softBounce = totalSoftBounce;
-        agg.hardBounce = totalHardBounce;
-        agg.bounced = totalBounce;
-        agg.opened = totalOpen;
-        agg.clicked = totalClick;
-        agg.unsub = totalUnsub;
-        agg.espSignups = totalEspSignups;
-        agg.espPlayers = totalEspPlayers;
-      } else {
-        agg.esp = [];
-        agg.delivered = 0;
-        agg.softBounce = 0;
-        agg.hardBounce = 0;
-        agg.bounced = 0;
-        agg.opened = 0;
-        agg.clicked = 0;
-        agg.unsub = 0;
-        agg.espSignups = 0;
-        agg.espPlayers = 0;
-      }
-
+      const csvMap = await aggregateCsvForRange(currentStartDate, currentEndDate);
+      const list = Object.values(csvMap);
+      agg.esp = list.filter(e => e.delivered > 0 || e.signups > 0 || e.opened > 0);
+      ['delivered','softBounce','hardBounce','bounced','opened','clicked','unsub'].forEach(k => {
+        agg[k] = agg.esp.reduce((acc, cur) => acc + (cur[k] || 0), 0);
+      });
+      agg.espSignups = agg.esp.reduce((acc, cur) => acc + (cur.signups || 0), 0);
+      agg.espPlayers = agg.esp.reduce((acc, cur) => acc + (cur.players || 0), 0);
       renderDashboard(agg, currentStartDate, currentEndDate);
     }
 
-    function renderDashboard(agg, startDate, endDate) {
-      const daysCount = Math.max(1, agg.daysElapsedInRange || 1);
-      const rrFactor = agg.totalMonthDays > 0 ? (agg.totalMonthDays / daysCount) : (30 / daysCount);
+    function renderDashboard(agg, s, e) {
+      const rrF = agg.totalMonthDays > 0 ? (agg.totalMonthDays / Math.max(1, agg.daysElapsedInRange)) : 1;
+      const [rrB, rrS, rrU, rrR, rrP] = [agg.budget, agg.signups, agg.users, agg.revenue, agg.profit].map(v => Math.round(v * rrF));
 
-      // 1. Team Performance Overview
-      document.getElementById('teamKpiBudget').textContent = `$${Math.round(agg.kpi.budget).toLocaleString()}`;
-      document.getElementById('teamKpiSignups').textContent = Math.round(agg.kpi.signups).toLocaleString();
-      document.getElementById('teamKpiUsers').textContent = Math.round(agg.kpi.users).toLocaleString();
-      document.getElementById('teamKpiRevenue').textContent = `$${Math.round(agg.kpi.revenue).toLocaleString()}`;
-      document.getElementById('teamKpiProfit').textContent = `$${Math.round(agg.kpi.profit).toLocaleString()}`;
+      // Team Table
+      setT('teamKpiBudget', `$${Math.round(agg.kpi.budget).toLocaleString()}`);
+      setT('teamKpiSignups', Math.round(agg.kpi.signups).toLocaleString());
+      setT('teamKpiUsers', Math.round(agg.kpi.users).toLocaleString());
+      setT('teamKpiRevenue', `$${Math.round(agg.kpi.revenue).toLocaleString()}`);
+      setT('teamKpiProfit', `$${Math.round(agg.kpi.profit).toLocaleString()}`);
+      setT('teamMtdBudget', `$${Math.round(agg.budget).toLocaleString()}`);
+      setT('teamMtdSignups', agg.signups.toLocaleString());
+      setT('teamMtdUsers', agg.users.toLocaleString());
+      setT('teamMtdRevenue', `$${Math.round(agg.revenue).toLocaleString()}`);
+      setT('teamMtdProfit', `$${Math.round(agg.profit).toLocaleString()}`);
+      setT('teamRrBudget', `$${rrB.toLocaleString()}`); setT('teamRrSignups', rrS.toLocaleString());
+      setT('teamRrUsers', rrU.toLocaleString()); setT('teamRrRevenue', `$${rrR.toLocaleString()}`);
+      setT('teamRrProfit', `$${rrP.toLocaleString()}`);
+      setT('teamRrRoi', `1:${rrB > 0 ? (rrR / rrB).toFixed(1) : '0.0'}`);
 
-      document.getElementById('teamMtdBudget').textContent = `$${Math.round(agg.budget).toLocaleString()}`;
-      document.getElementById('teamMtdSignups').textContent = agg.signups.toLocaleString();
-      document.getElementById('teamMtdUsers').textContent = agg.users.toLocaleString();
-      document.getElementById('teamMtdRevenue').textContent = `$${Math.round(agg.revenue).toLocaleString()}`;
-      document.getElementById('teamMtdProfit').textContent = `$${Math.round(agg.profit).toLocaleString()}`;
+      // Cards
+      setT('kpiDelivered', (agg.delivered||0).toLocaleString()); setT('kpiOpened', (agg.opened||0).toLocaleString());
+      setT('kpiClicked', (agg.clicked||0).toLocaleString()); setT('kpiBounced', (agg.bounced||0).toLocaleString());
+      setT('kpiUnsub', (agg.unsub||0).toLocaleString()); setT('kpiSignups', agg.signups.toLocaleString());
+      setT('kpiUsers', agg.users.toLocaleString()); setT('kpiRevenue', `$${Math.round(agg.revenue).toLocaleString()}`);
+      setT('kpiBudget', `$${Math.round(agg.budget).toLocaleString()}`); setT('kpiProfit', `$${Math.round(agg.profit).toLocaleString()}`);
+      
+      setT('kpiOpenRate', `${agg.delivered > 0 ? ((agg.opened/agg.delivered)*100).toFixed(2) : '0.00'}% Open Rate`);
+      setT('kpiClickRate', `${agg.delivered > 0 ? ((agg.clicked/agg.delivered)*100).toFixed(2) : '0.00'}% Click Rate`);
+      setT('kpiBounceRate', `${agg.delivered > 0 ? ((agg.bounced/agg.delivered)*100).toFixed(2) : '0.00'}% bounce`);
+      
+      setT('cardKpiSignupsSub', `KPI: ${Math.round(agg.kpi.signups)}`); setT('cardRrSignupsSub', `RR: ${rrS}`);
+      setT('cardKpiUsersSub', `KPI: ${Math.round(agg.kpi.users)}`); setT('cardRrUsersSub', `RR: ${rrU}`);
+      setT('cardKpiRevenueSub', `KPI: $${(agg.kpi.revenue/1000).toFixed(1)}k`); setT('cardRrRevenueSub', `RR: $${(rrR/1000).toFixed(1)}k`);
+      setT('cardKpiBudgetSub', `KPI: $${(agg.kpi.budget/1000).toFixed(1)}k`); setT('cardRrBudgetSub', `RR: $${(rrB/1000).toFixed(1)}k`);
+      setT('cardKpiProfitSub', `KPI: $${(agg.kpi.profit/1000).toFixed(1)}k`); setT('cardRrProfitSub', `RR: $${(rrP/1000).toFixed(1)}k`);
 
-      const rrBudget = Math.round(agg.budget * rrFactor);
-      const rrSignups = Math.round(agg.signups * rrFactor);
-      const rrUsers = Math.round(agg.users * rrFactor);
-      const rrRevenue = Math.round(agg.revenue * rrFactor);
-      const rrProfit = Math.round(agg.profit * rrFactor);
-      const roiRatio = rrBudget > 0 ? (rrRevenue / rrBudget).toFixed(1) : '0.0';
+      const rangeTxt = `${s} – ${e}`;
+      setT('dateRangeNotice', rangeTxt); setT('dateRangeSubtitle', rangeTxt); setT('opsPeriodBadge', rangeTxt);
 
-      const rrBudgetEl = document.getElementById('teamRrBudget');
-      rrBudgetEl.textContent = `$${rrBudget.toLocaleString()}`;
-      rrBudgetEl.className = `px-2.5 py-3 font-bold text-sm ${rrBudget >= agg.kpi.budget ? 'text-[#16a34a]' : 'text-[#dc2626]'}`;
-
-      const rrSignupsEl = document.getElementById('teamRrSignups');
-      rrSignupsEl.textContent = rrSignups.toLocaleString();
-      rrSignupsEl.className = `px-2.5 py-3 font-bold text-sm ${rrSignups >= agg.kpi.signups ? 'text-[#16a34a]' : 'text-[#dc2626]'}`;
-
-      const rrUsersEl = document.getElementById('teamRrUsers');
-      rrUsersEl.textContent = rrUsers.toLocaleString();
-      rrUsersEl.className = `px-2.5 py-3 font-bold text-sm ${rrUsers >= agg.kpi.users ? 'text-[#16a34a]' : 'text-[#dc2626]'}`;
-
-      const rrRevenueEl = document.getElementById('teamRrRevenue');
-      rrRevenueEl.textContent = `$${rrRevenue.toLocaleString()}`;
-      rrRevenueEl.className = `px-2.5 py-3 font-bold text-sm ${rrRevenue >= agg.kpi.revenue ? 'text-[#16a34a]' : 'text-[#dc2626]'}`;
-
-      const rrProfitEl = document.getElementById('teamRrProfit');
-      rrProfitEl.textContent = `$${rrProfit.toLocaleString()}`;
-      rrProfitEl.className = `px-2.5 py-3 font-bold text-sm ${rrProfit >= agg.kpi.profit ? 'text-[#16a34a]' : 'text-[#dc2626]'}`;
-
-      document.getElementById('teamRrRoi').textContent = `1:${roiRatio}`;
-
-      // 2. Section 1 Top 10 KPI Cards
-      document.getElementById('kpiDelivered').textContent = (agg.delivered || 0).toLocaleString();
-      document.getElementById('kpiOpened').textContent = (agg.opened || 0).toLocaleString();
-      document.getElementById('kpiClicked').textContent = (agg.clicked || 0).toLocaleString();
-      document.getElementById('kpiBounced').textContent = (agg.bounced || 0).toLocaleString();
-      document.getElementById('kpiUnsub').textContent = (agg.unsub || 0).toLocaleString();
-      document.getElementById('kpiSignups').textContent = agg.signups.toLocaleString();
-      document.getElementById('kpiUsers').textContent = agg.users.toLocaleString();
-      document.getElementById('kpiRevenue').textContent = `$${Math.round(agg.revenue).toLocaleString()}`;
-      document.getElementById('kpiBudget').textContent = `$${Math.round(agg.budget).toLocaleString()}`;
-      document.getElementById('kpiProfit').textContent = `$${Math.round(agg.profit).toLocaleString()}`;
-
-      const openRate = agg.delivered > 0 ? ((agg.opened / agg.delivered) * 100).toFixed(2) : '0.00';
-      const clickRate = agg.delivered > 0 ? ((agg.clicked / agg.delivered) * 100).toFixed(2) : '0.00';
-      const bounceRate = agg.delivered > 0 ? ((agg.bounced / agg.delivered) * 100).toFixed(2) : '0.00';
-
-      document.getElementById('kpiOpenRate').textContent = `${openRate}% Open Rate`;
-      document.getElementById('kpiClickRate').textContent = `${clickRate}% Click Rate`;
-      document.getElementById('kpiBounceRate').textContent = `${bounceRate}% bounce`;
-
-      document.getElementById('cardKpiSignupsSub').textContent = `KPI: ${Math.round(agg.kpi.signups).toLocaleString()}`;
-      document.getElementById('cardKpiUsersSub').textContent = `KPI: ${Math.round(agg.kpi.users).toLocaleString()}`;
-      document.getElementById('cardKpiRevenueSub').textContent = `KPI: $${(Math.round(agg.kpi.revenue) / 1000).toFixed(1)}k`;
-      document.getElementById('cardKpiBudgetSub').textContent = `KPI: $${(Math.round(agg.kpi.budget) / 1000).toFixed(1)}k`;
-      document.getElementById('cardKpiProfitSub').textContent = `KPI: $${(Math.round(agg.kpi.profit) / 1000).toFixed(1)}k`;
-
-      const cardRrSignupsSub = document.getElementById('cardRrSignupsSub');
-      cardRrSignupsSub.textContent = `RR: ${rrSignups}`;
-      cardRrSignupsSub.className = `font-bold ${rrSignups >= agg.kpi.signups ? 'text-emerald-600' : 'text-rose-600'}`;
-
-      const cardRrUsersSub = document.getElementById('cardRrUsersSub');
-      cardRrUsersSub.textContent = `RR: ${rrUsers}`;
-      cardRrUsersSub.className = `font-bold ${rrUsers >= agg.kpi.users ? 'text-emerald-600' : 'text-rose-600'}`;
-
-      const cardRrRevenueSub = document.getElementById('cardRrRevenueSub');
-      cardRrRevenueSub.textContent = `RR: $${(rrRevenue / 1000).toFixed(1)}k`;
-      cardRrRevenueSub.className = `font-bold ${rrRevenue >= agg.kpi.revenue ? 'text-emerald-600' : 'text-rose-600'}`;
-
-      const cardRrBudgetSub = document.getElementById('cardRrBudgetSub');
-      cardRrBudgetSub.textContent = `RR: $${(rrBudget / 1000).toFixed(1)}k`;
-      cardRrBudgetSub.className = `font-bold ${rrBudget >= agg.kpi.budget ? 'text-emerald-600' : 'text-rose-600'}`;
-
-      const cardRrProfitSub = document.getElementById('cardRrProfitSub');
-      cardRrProfitSub.textContent = `RR: $${(rrProfit / 1000).toFixed(1)}k`;
-      cardRrProfitSub.className = `font-bold ${rrProfit >= agg.kpi.profit ? 'text-emerald-600' : 'text-rose-600'}`;
-
-      const dateText = `${startDate} – ${endDate}`;
-      document.getElementById('dateRangeNotice').textContent = dateText;
-      document.getElementById('dateRangeSubtitle').textContent = dateText;
-      document.getElementById('opsPeriodBadge').textContent = dateText;
-
-      // 3. Render ESP Deliverability Table with VOLUME
       renderEspTable(agg.esp, agg);
-
-      // 4. Render Ops Team Tables
-      renderOpsTeam(agg.ops, rrFactor, agg.kpi);
-
-      // 5. Render Advertiser Breakdown Table
-      renderAdvertiserTable(agg.advertisers, agg.signups, agg.users, agg.revenue);
-
-      // 6. Render Brand Breakdown Table
-      renderBrandTable(agg.brands, agg.signups, agg.users, agg.revenue);
-
-      // 7. Update Charts
+      renderEspIpBreakdown(agg.esp_ip_breakdown);
+      renderOpsTeam(agg.ops, rrF, agg.kpi);
+      renderAdvAndBrand(agg);
       updateCharts(agg);
     }
 
-    function renderEspTable(espList, agg) {
-      const tbody = document.getElementById('espTableBody');
-      const tfoot = document.getElementById('espTableFoot');
-      tbody.innerHTML = '';
-
-      if (!espList || espList.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="9" class="py-6 text-center text-slate-400 italic">No deliverability CSV files found for this date range.</td></tr>`;
-        tfoot.innerHTML = '';
-        return;
-      }
-
-      espList.forEach(item => {
-        const itemSoft = item.softBounce || 0;
-        const itemHard = item.hardBounce || 0;
-        const itemVol = item.delivered + itemSoft + itemHard;
-
-        const summaryTr = document.createElement('tr');
-        summaryTr.className = 'esp-summary-row';
-        summaryTr.innerHTML = `
-          <td class="py-3 px-4 text-left font-bold text-slate-900">${item.esp}</td>
-          <td class="py-3 px-4 font-mono font-bold text-slate-800">${itemVol.toLocaleString()}</td>
-          <td class="py-3 px-4 font-mono font-bold">${item.delivered.toLocaleString()}</td>
-          <td class="py-3 px-4 font-mono text-amber-700 font-semibold">${itemSoft.toLocaleString()}</td>
-          <td class="py-3 px-4 font-mono text-rose-700 font-semibold">${itemHard.toLocaleString()}</td>
-          <td class="py-3 px-4 font-mono font-semibold text-emerald-700">${item.opened.toLocaleString()}</td>
-          <td class="py-3 px-4 font-mono font-semibold text-sky-700">${item.clicked.toLocaleString()}</td>
-          <td class="py-3 px-4 font-mono text-amber-600 font-bold">${item.signups.toLocaleString()}</td>
-          <td class="py-3 px-4 font-mono text-indigo-600 font-bold">${item.players.toLocaleString()}</td>
-        `;
-        tbody.appendChild(summaryTr);
-
-        if (item.domains) {
-          Object.keys(item.domains).forEach(domName => {
-            const d = item.domains[domName];
-            const dSoft = d.softBounce || 0;
-            const dHard = d.hardBounce || 0;
-            const dVol = d.delivered + dSoft + dHard;
-
-            const domTr = document.createElement('tr');
-            domTr.className = `domain-row text-xs text-slate-600 ${areDetailsExpanded ? '' : 'hidden'}`;
-            domTr.innerHTML = `
-              <td class="py-1.5 px-4 text-left pl-8 font-medium">${domName}</td>
-              <td class="font-mono text-slate-700 font-semibold">${dVol.toLocaleString()}</td>
-              <td>${d.delivered.toLocaleString()}</td>
-              <td class="text-amber-700">${dSoft.toLocaleString()}</td>
-              <td class="text-rose-700">${dHard.toLocaleString()}</td>
-              <td class="text-emerald-700">${d.opened.toLocaleString()}</td>
-              <td class="text-sky-700">${d.clicked.toLocaleString()}</td>
-              <td>${d.signups.toLocaleString()}</td>
-              <td>${d.players.toLocaleString()}</td>
-            `;
-            tbody.appendChild(domTr);
-          });
+    function renderEspIpBreakdown(rows) {
+      const tbody = $('espIpBreakdownTableBody'); tbody.innerHTML = '';
+      let gSig = 0, gFtd = 0, hasOverall = false;
+      if (!rows || !rows.length) { tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-400 italic">No breakdown data available.</td></tr>`; return; }
+      
+      rows.forEach(r => {
+        if (r.is_overall || r.esp_ip?.toUpperCase().includes('OVERALL GRAND TOTAL')) { gSig = r.signups||0; gFtd = r.ftds||0; hasOverall = true; return; }
+        const tr = document.createElement('tr');
+        if (r.is_total || r.esp_ip?.toUpperCase().startsWith('GRAND TOTAL')) {
+          tr.className = 'bg-slate-100 font-bold text-slate-900';
+          tr.innerHTML = `<td colspan="3" class="py-2 px-4 text-left uppercase">${r.esp_ip}</td><td class="py-2 px-4 text-right font-mono text-amber-600">${(r.signups||0).toLocaleString()}</td><td class="py-2 px-4 text-right font-mono text-indigo-600">${(r.ftds||0).toLocaleString()}</td>`;
+        } else {
+          tr.className = 'hover:bg-slate-50 bg-white';
+          tr.innerHTML = `<td class="py-2 px-4 text-left font-medium">${r.esp_ip||'-'}</td><td class="py-2 px-4 text-left">${r.advertiser||'-'}</td><td class="py-2 px-4 text-left">${r.brand||'-'}</td><td class="py-2 px-4 text-right font-mono font-bold text-amber-600">${(r.signups||0).toLocaleString()}</td><td class="py-2 px-4 text-right font-mono font-bold text-indigo-600">${(r.ftds||0).toLocaleString()}</td>`;
+          if (!hasOverall) { gSig += r.signups||0; gFtd += r.ftds||0; }
         }
-      });
-
-      const grandSignups = (agg.espSignups !== undefined) ? agg.espSignups : agg.signups;
-      const grandPlayers = (agg.espPlayers !== undefined) ? agg.espPlayers : agg.users;
-      const grandSoft = agg.softBounce || 0;
-      const grandHard = agg.hardBounce || 0;
-      const grandVol = (agg.delivered || 0) + grandSoft + grandHard;
-
-      tfoot.innerHTML = `
-        <tr class="font-bold text-slate-900 text-sm">
-          <td class="py-3.5 px-4 text-left font-bold">Grand total</td>
-          <td class="py-3.5 px-4 font-mono font-bold text-slate-900">${grandVol.toLocaleString()}</td>
-          <td class="py-3.5 px-4 font-mono font-bold">${agg.delivered.toLocaleString()}</td>
-          <td class="py-3.5 px-4 font-mono font-bold text-amber-700">${grandSoft.toLocaleString()}</td>
-          <td class="py-3.5 px-4 font-mono font-bold text-rose-700">${grandHard.toLocaleString()}</td>
-          <td class="py-3.5 px-4 font-mono font-bold text-emerald-700">${agg.opened.toLocaleString()}</td>
-          <td class="py-3.5 px-4 font-mono font-bold text-sky-700">${agg.clicked.toLocaleString()}</td>
-          <td class="py-3.5 px-4 font-mono font-bold text-amber-600">${grandSignups.toLocaleString()}</td>
-          <td class="py-3.5 px-4 font-mono font-bold text-indigo-600">${grandPlayers.toLocaleString()}</td>
-        </tr>
-      `;
-    }
-
-    function renderOpsTeam(ops, rrFactor, kpi) {
-      const opsKpiReg = Math.round(kpi.signups / 2);
-      const opsKpiUsers = Math.round(kpi.users / 2);
-
-      document.getElementById('jessieKpiReg').textContent = opsKpiReg.toLocaleString();
-      document.getElementById('jessieKpiUsers').textContent = opsKpiUsers.toLocaleString();
-      document.getElementById('andreaKpiReg').textContent = opsKpiReg.toLocaleString();
-      document.getElementById('andreaKpiUsers').textContent = opsKpiUsers.toLocaleString();
-
-      const jessieRegRrVal = Math.round(ops.jessie.signups * rrFactor);
-      const jessieUsersRrVal = Math.round(ops.jessie.users * rrFactor);
-      const andreaRegRrVal = Math.round(ops.andrea.signups * rrFactor);
-      const andreaUsersRrVal = Math.round(ops.andrea.users * rrFactor);
-
-      document.getElementById('jessieRegMtd').textContent = ops.jessie.signups;
-      const jessieRegRrEl = document.getElementById('jessieRegRr');
-      jessieRegRrEl.textContent = jessieRegRrVal;
-      jessieRegRrEl.className = `py-2 px-3 font-bold ${jessieRegRrVal >= opsKpiReg ? 'text-emerald-600' : 'text-rose-600'}`;
-
-      document.getElementById('jessieUsersMtd').textContent = ops.jessie.users;
-      const jessieUsersRrEl = document.getElementById('jessieUsersRr');
-      jessieUsersRrEl.textContent = jessieUsersRrVal;
-      jessieUsersRrEl.className = `py-2 px-3 font-bold ${jessieUsersRrVal >= opsKpiUsers ? 'text-emerald-600' : 'text-rose-600'}`;
-
-      document.getElementById('andreaRegMtd').textContent = ops.andrea.signups;
-      const andreaRegRrEl = document.getElementById('andreaRegRr');
-      andreaRegRrEl.textContent = andreaRegRrVal;
-      andreaRegRrEl.className = `py-2 px-3 font-bold ${andreaRegRrVal >= opsKpiReg ? 'text-emerald-600' : 'text-rose-600'}`;
-
-      document.getElementById('andreaUsersMtd').textContent = ops.andrea.users;
-      const andreaUsersRrEl = document.getElementById('andreaUsersRr');
-      andreaUsersRrEl.textContent = andreaUsersRrVal;
-      andreaUsersRrEl.className = `py-2 px-3 font-bold ${andreaUsersRrVal >= opsKpiUsers ? 'text-emerald-600' : 'text-rose-600'}`;
-
-      const tbodySignups = document.getElementById('opsSignupsTableBody');
-      tbodySignups.innerHTML = '';
-      let totA_sig = 0, totJ_sig = 0;
-
-      const signupsMaster = ops.signups_by_advertiser || {};
-      Object.keys(signupsMaster).forEach(adv => {
-        const row = signupsMaster[adv];
-        totA_sig += row.andrea;
-        totJ_sig += row.jessie;
-        const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-50 bg-white';
-        tr.innerHTML = `
-          <td class="py-1.5 px-3 text-left font-medium text-slate-900">${adv}</td>
-          <td class="py-1.5 px-3 font-mono font-bold">${row.andrea}</td>
-          <td class="py-1.5 px-3 font-mono font-bold">${row.jessie}</td>
-          <td class="py-1.5 px-3 font-mono font-bold">${row.total}</td>
-        `;
-        tbodySignups.appendChild(tr);
-      });
-      document.getElementById('opsSignupsAndreaTotal').textContent = totA_sig;
-      document.getElementById('opsSignupsJessieTotal').textContent = totJ_sig;
-      document.getElementById('opsSignupsGrandTotal').textContent = totA_sig + totJ_sig;
-
-      const tbodyUsers = document.getElementById('opsUsersTableBody');
-      tbodyUsers.innerHTML = '';
-      let totA_usr = 0, totJ_usr = 0;
-
-      const usersMaster = ops.users_by_advertiser || {};
-      Object.keys(usersMaster).forEach(adv => {
-        const row = usersMaster[adv];
-        totA_usr += row.andrea;
-        totJ_usr += row.jessie;
-        const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-50 bg-white';
-        tr.innerHTML = `
-          <td class="py-1.5 px-3 text-left font-medium text-slate-900">${adv}</td>
-          <td class="py-1.5 px-3 font-mono font-bold">${row.andrea}</td>
-          <td class="py-1.5 px-3 font-mono font-bold">${row.jessie}</td>
-          <td class="py-1.5 px-3 font-mono font-bold">${row.total}</td>
-        `;
-        tbodyUsers.appendChild(tr);
-      });
-      document.getElementById('opsUsersAndreaTotal').textContent = totA_usr;
-      document.getElementById('opsUsersJessieTotal').textContent = totJ_usr;
-      document.getElementById('opsUsersGrandTotal').textContent = totA_usr + totJ_usr;
-    }
-
-    function renderAdvertiserTable(advMap, totalSignups, totalUsers, totalRev) {
-      const tbody = document.getElementById('advertiserTableBody');
-      tbody.innerHTML = '';
-
-      const advKeys = Object.keys(advMap).sort((a, b) => (advMap[b].revenue || 0) - (advMap[a].revenue || 0));
-      advKeys.forEach(advName => {
-        const item = advMap[advName];
-        const s2pStr = formatS2P(item.signups, item.users);
-        const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-50 bg-white';
-        tr.innerHTML = `
-          <td class="py-2.5 px-4 text-left font-medium text-slate-900">${advName}</td>
-          <td class="py-2.5 px-4 font-mono font-bold text-amber-600">${item.signups}</td>
-          <td class="py-2.5 px-4 font-mono font-bold text-indigo-600">${item.users}</td>
-          <td class="py-2.5 px-4 font-mono font-bold text-emerald-600">$${Math.round(item.revenue).toLocaleString()}</td>
-          <td class="py-2.5 px-4 font-mono font-semibold text-emerald-600">${s2pStr}</td>
-        `;
         tbody.appendChild(tr);
       });
-
-      document.getElementById('advGrandSignups').textContent = totalSignups;
-      document.getElementById('advGrandUsers').textContent = totalUsers;
-      document.getElementById('advGrandRevenue').textContent = `$${Math.round(totalRev).toLocaleString()}`;
-      document.getElementById('advGrandS2p').textContent = formatS2P(totalSignups, totalUsers);
-
-      initialTableState['advertiserTable'] = tbody.innerHTML;
+      setT('espIpGrandSignups', gSig.toLocaleString());
+      setT('espIpGrandFtds', gFtd.toLocaleString());
     }
 
-    function renderBrandTable(brandMap, totalSignups, totalUsers, totalRev) {
-      const tbody = document.getElementById('brandTableBody');
-      tbody.innerHTML = '';
-
-      const brandKeys = Object.keys(brandMap).sort((a, b) => {
-        if ((brandMap[b].revenue || 0) !== (brandMap[a].revenue || 0)) {
-          return (brandMap[b].revenue || 0) - (brandMap[a].revenue || 0);
-        }
-        return (brandMap[b].signups || 0) - (brandMap[a].signups || 0);
+    function renderEspTable(list, agg) {
+      const tb = $('espTableBody'), tf = $('espTableFoot'); tb.innerHTML = '';
+      list.forEach(i => {
+        const v = i.delivered + (i.softBounce||0) + (i.hardBounce||0);
+        tb.innerHTML += `<tr class="esp-summary-row"><td class="py-3 px-4 text-left font-bold">${i.esp}</td><td class="py-3 px-4 font-mono">${v.toLocaleString()}</td><td class="py-3 px-4 font-mono">${i.delivered.toLocaleString()}</td><td class="py-3 px-4 font-mono text-amber-700">${(i.softBounce||0).toLocaleString()}</td><td class="py-3 px-4 font-mono text-rose-700">${(i.hardBounce||0).toLocaleString()}</td><td class="py-3 px-4 font-mono text-emerald-700">${i.opened.toLocaleString()}</td><td class="py-3 px-4 font-mono text-sky-700">${i.clicked.toLocaleString()}</td><td class="py-3 px-4 font-mono text-amber-600">${i.signups.toLocaleString()}</td><td class="py-3 px-4 font-mono text-indigo-600">${i.players.toLocaleString()}</td></tr>`;
+        Object.entries(i.domains||{}).forEach(([dom, d]) => {
+          tb.innerHTML += `<tr class="domain-row text-xs text-slate-600 ${areDetailsExpanded?'':'hidden'}"><td class="py-1.5 px-4 text-left pl-8">${dom}</td><td class="font-mono">${(d.delivered+d.softBounce+d.hardBounce).toLocaleString()}</td><td>${d.delivered.toLocaleString()}</td><td class="text-amber-700">${d.softBounce.toLocaleString()}</td><td class="text-rose-700">${d.hardBounce.toLocaleString()}</td><td class="text-emerald-700">${d.opened.toLocaleString()}</td><td class="text-sky-700">${d.clicked.toLocaleString()}</td><td>${d.signups.toLocaleString()}</td><td>${d.players.toLocaleString()}</td></tr>`;
+        });
       });
+      const totVol = (agg.delivered||0) + (agg.softBounce||0) + (agg.hardBounce||0);
+      tf.innerHTML = `<tr class="font-bold text-slate-900 text-sm"><td class="py-3.5 px-4 text-left">Grand total</td><td class="py-3.5 px-4 font-mono">${totVol.toLocaleString()}</td><td class="py-3.5 px-4 font-mono">${(agg.delivered||0).toLocaleString()}</td><td class="py-3.5 px-4 font-mono text-amber-700">${(agg.softBounce||0).toLocaleString()}</td><td class="py-3.5 px-4 font-mono text-rose-700">${(agg.hardBounce||0).toLocaleString()}</td><td class="py-3.5 px-4 font-mono text-emerald-700">${(agg.opened||0).toLocaleString()}</td><td class="py-3.5 px-4 font-mono text-sky-700">${(agg.clicked||0).toLocaleString()}</td><td class="py-3.5 px-4 font-mono text-amber-600">${(agg.espSignups||0).toLocaleString()}</td><td class="py-3.5 px-4 font-mono text-indigo-600">${(agg.espPlayers||0).toLocaleString()}</td></tr>`;
+    }
 
-      brandKeys.forEach(bName => {
-        const item = brandMap[bName];
-        const s2pStr = formatS2P(item.signups, item.users);
-        const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-50 bg-white';
-        tr.innerHTML = `
-          <td class="py-2 px-4 text-left font-medium text-slate-700">${item.advertiser || '-'}</td>
-          <td class="py-2 px-4 text-left font-semibold text-slate-900">${bName}</td>
-          <td class="py-2 px-4 font-mono font-bold text-amber-600">${item.signups}</td>
-          <td class="py-2 px-4 font-mono font-bold text-indigo-600">${item.users}</td>
-          <td class="py-2 px-4 font-mono font-bold text-emerald-600">$${Math.round(item.revenue).toLocaleString()}</td>
-          <td class="py-2 px-4 font-mono font-semibold text-emerald-600">${s2pStr}</td>
-        `;
-        tbody.appendChild(tr);
+    function renderOpsTeam(ops, rrF, kpi) {
+      const regKpi = Math.round(kpi.signups/2), userKpi = Math.round(kpi.users/2);
+      ['jessie','andrea'].forEach(p => {
+        setT(`${p}KpiReg`, regKpi); setT(`${p}KpiUsers`, userKpi);
+        setT(`${p}RegMtd`, ops[p].signups); setT(`${p}UsersMtd`, ops[p].users);
+        setT(`${p}RegRr`, Math.round(ops[p].signups * rrF)); setT(`${p}UsersRr`, Math.round(ops[p].users * rrF));
       });
+      ['signups','users'].forEach(kind => {
+        const tb = $(`ops${kind==='signups'?'Signups':'Users'}TableBody`), master = ops[`${kind}_by_advertiser`];
+        tb.innerHTML = '';
+        let [tA, tJ] = [0, 0];
+        Object.entries(master||{}).forEach(([adv, r]) => {
+          tA += r.andrea; tJ += r.jessie;
+          tb.innerHTML += `<tr class="hover:bg-slate-50 bg-white"><td class="py-1.5 px-3 text-left font-medium text-slate-900">${adv}</td><td class="py-1.5 px-3 font-mono font-bold">${r.andrea}</td><td class="py-1.5 px-3 font-mono font-bold">${r.jessie}</td><td class="py-1.5 px-3 font-mono font-bold">${r.total}</td></tr>`;
+        });
+        setT(`ops${kind==='signups'?'Signups':'Users'}AndreaTotal`, tA);
+        setT(`ops${kind==='signups'?'Signups':'Users'}JessieTotal`, tJ);
+        setT(`ops${kind==='signups'?'Signups':'Users'}GrandTotal`, tA + tJ);
+      });
+    }
 
-      document.getElementById('brandGrandSignups').textContent = totalSignups;
-      document.getElementById('brandGrandUsers').textContent = totalUsers;
-      document.getElementById('brandGrandRevenue').textContent = `$${Math.round(totalRev).toLocaleString()}`;
-      document.getElementById('brandGrandS2p').textContent = formatS2P(totalSignups, totalUsers);
-
-      initialTableState['brandTable'] = tbody.innerHTML;
+    function renderAdvAndBrand(agg) {
+      const aTb = $('advertiserTableBody'), bTb = $('brandTableBody'); aTb.innerHTML = ''; bTb.innerHTML = '';
+      Object.entries(agg.advertisers).sort((a,b) => b[1].revenue - a[1].revenue).forEach(([name, d]) => {
+        aTb.innerHTML += `<tr class="hover:bg-slate-50 bg-white"><td class="py-2.5 px-4 text-left font-medium">${name}</td><td class="py-2.5 px-4 font-mono font-bold text-amber-600">${d.signups}</td><td class="py-2.5 px-4 font-mono font-bold text-indigo-600">${d.users}</td><td class="py-2.5 px-4 font-mono font-bold text-emerald-600">$${Math.round(d.revenue).toLocaleString()}</td><td class="py-2.5 px-4 font-mono">${formatS2P(d.signups, d.users)}</td></tr>`;
+      });
+      Object.entries(agg.brands).sort((a,b) => b[1].revenue - a[1].revenue).forEach(([bName, d]) => {
+        bTb.innerHTML += `<tr class="hover:bg-slate-50 bg-white"><td class="py-2 px-4 text-left">${bName}</td><td class="py-2 px-4 text-left font-medium">${d.advertiser}</td><td class="py-2 px-4 font-mono font-bold text-amber-600">${d.signups}</td><td class="py-2 px-4 font-mono font-bold text-indigo-600">${d.users}</td><td class="py-2 px-4 font-mono font-bold text-emerald-600">$${Math.round(d.revenue).toLocaleString()}</td><td class="py-2 px-4 font-mono">${formatS2P(d.signups, d.users)}</td></tr>`;
+      });
+      ['adv','brand'].forEach(p => {
+        setT(`${p}GrandSignups`, agg.signups); setT(`${p}GrandUsers`, agg.users);
+        setT(`${p}GrandRevenue`, `$${Math.round(agg.revenue).toLocaleString()}`);
+        setT(`${p}GrandS2p`, formatS2P(agg.signups, agg.users));
+      });
+      initialTableState['advertiserTable'] = aTb.innerHTML;
+      initialTableState['brandTable'] = bTb.innerHTML;
     }
 
     function initCharts() {
-      chartRefs.espVol = new Chart(document.getElementById('chartEspVolumen'), {
-        type: 'bar',
-        data: {
-          labels: [],
-          datasets: [
-            { label: 'Delivered', data: [], backgroundColor: '#2563eb', borderRadius: 4 },
-            { label: 'Open', data: [], backgroundColor: '#10b981', borderRadius: 4 }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { position: 'top', labels: { boxWidth: 10, font: { size: 10 } } } },
-          scales: {
-            y: { grid: { color: '#f1f5f9' }, ticks: { callback: v => (v >= 1000 ? (v / 1000) + 'k' : v), font: { size: 9 } } },
-            x: { grid: { display: false }, ticks: { font: { size: 9 } } }
-          }
-        }
-      });
-
-      chartRefs.espClicks = new Chart(document.getElementById('chartEspClicks'), {
-        type: 'bar',
-        data: {
-          labels: [],
-          datasets: [{ label: 'Clicks', data: [], backgroundColor: '#0284c7', borderRadius: 4 }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: {
-            y: { grid: { color: '#f1f5f9' }, ticks: { font: { size: 9 } } },
-            x: { grid: { display: false }, ticks: { font: { size: 9 } } }
-          }
-        }
-      });
-
-      chartRefs.espOpenRate = new Chart(document.getElementById('chartEspOpenRate'), {
-        type: 'bar',
-        data: {
-          labels: [],
-          datasets: [{ label: 'Open Rate (%)', data: [], backgroundColor: '#10b981', borderRadius: 4 }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: {
-            y: { grid: { color: '#f1f5f9' }, ticks: { callback: v => v + '%', font: { size: 9 } } },
-            x: { grid: { display: false }, ticks: { font: { size: 9 } } }
-          }
-        }
-      });
-
-      chartRefs.domDeliv = new Chart(document.getElementById('chartDomainDelivered'), {
-        type: 'bar',
-        data: {
-          labels: ['Gmail', 'Other', 'Yahoo', 'iCloud', 'Outlook', 'Hotmail', 'Aol'],
-          datasets: [{ label: 'Delivered', data: [], backgroundColor: '#3b82f6', borderRadius: 4 }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: {
-            y: { grid: { color: '#f1f5f9' }, ticks: { callback: v => (v >= 1000 ? (v / 1000) + 'k' : v), font: { size: 9 } } },
-            x: { grid: { display: false }, ticks: { font: { size: 9 } } }
-          }
-        }
-      });
-
-      chartRefs.domOpenRate = new Chart(document.getElementById('chartDomainOpenRate'), {
-        type: 'bar',
-        data: {
-          labels: ['iCloud', 'Outlook', 'Yahoo', 'Aol', 'Hotmail', 'Gmail', 'Other'],
-          datasets: [{ label: 'Open Rate (%)', data: [], backgroundColor: '#10b981', borderRadius: 4 }]
-        },
-        options: {
-          indexAxis: 'y',
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: {
-            x: { grid: { color: '#f1f5f9' }, ticks: { callback: v => v + '%', font: { size: 9 } } },
-            y: { grid: { display: false }, ticks: { font: { size: 9 } } }
-          }
-        }
-      });
-
-      chartRefs.domClicks = new Chart(document.getElementById('chartDomainClicks'), {
-        type: 'bar',
-        data: {
-          labels: ['Gmail', 'Other', 'Yahoo', 'iCloud', 'Outlook', 'Aol', 'Hotmail'],
-          datasets: [{ label: 'Clicks', data: [], backgroundColor: '#0284c7', borderRadius: 4 }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: {
-            y: { grid: { color: '#f1f5f9' }, ticks: { font: { size: 9 } } },
-            x: { grid: { display: false }, ticks: { font: { size: 9 } } }
-          }
-        }
-      });
+      const opt = (cb) => ({ responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { color: '#f1f5f9' }, ticks: { font: { size: 9 }, callback: cb } }, x: { grid: { display: false }, ticks: { font: { size: 9 } } } } });
+      chartRefs.espVol = new Chart($('chartEspVolumen'), { type: 'bar', data: { labels: [], datasets: [{ label: 'Delivered', data: [], backgroundColor: '#2563eb' }, { label: 'Open', data: [], backgroundColor: '#10b981' }] }, options: { ...opt(v => v >= 1000 ? v/1000+'k' : v), plugins: { legend: { position: 'top' } } } });
+      chartRefs.espClicks = new Chart($('chartEspClicks'), { type: 'bar', data: { labels: [], datasets: [{ label: 'Clicks', data: [], backgroundColor: '#0284c7' }] }, options: opt() });
+      chartRefs.espOpenRate = new Chart($('chartEspOpenRate'), { type: 'bar', data: { labels: [], datasets: [{ label: 'Open Rate (%)', data: [], backgroundColor: '#10b981' }] }, options: opt(v => v + '%') });
+      chartRefs.domDeliv = new Chart($('chartDomainDelivered'), { type: 'bar', data: { labels: ['Gmail','Other','Yahoo','iCloud','Outlook','Hotmail','Aol'], datasets: [{ data: [], backgroundColor: '#3b82f6' }] }, options: opt(v => v >= 1000 ? v/1000+'k' : v) });
+      chartRefs.domOpenRate = new Chart($('chartDomainOpenRate'), { type: 'bar', data: { labels: ['iCloud','Outlook','Yahoo','Aol','Hotmail','Gmail','Other'], datasets: [{ data: [], backgroundColor: '#10b981' }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { color: '#f1f5f9' }, ticks: { callback: v => v+'%', font: { size: 9 } } }, y: { grid: { display: false }, ticks: { font: { size: 9 } } } } } });
+      chartRefs.domClicks = new Chart($('chartDomainClicks'), { type: 'bar', data: { labels: ['Gmail','Other','Yahoo','iCloud','Outlook','Aol','Hotmail'], datasets: [{ data: [], backgroundColor: '#0284c7' }] }, options: opt() });
     }
 
     function updateCharts(agg) {
       if (!chartRefs.espVol) return;
+      const espLabels = (agg.esp||[]).map(e => e.esp.replace(' (Mailjet)','').replace(' (Sendgrid)',''));
+      chartRefs.espVol.data.labels = espLabels; chartRefs.espVol.data.datasets[0].data = agg.esp.map(e => e.delivered); chartRefs.espVol.data.datasets[1].data = agg.esp.map(e => e.opened); chartRefs.espVol.update();
+      chartRefs.espClicks.data.labels = espLabels; chartRefs.espClicks.data.datasets[0].data = agg.esp.map(e => e.clicked); chartRefs.espClicks.update();
+      chartRefs.espOpenRate.data.labels = espLabels; chartRefs.espOpenRate.data.datasets[0].data = agg.esp.map(e => e.delivered > 0 ? +((e.opened/e.delivered)*100).toFixed(2) : 0); chartRefs.espOpenRate.update();
 
-      const dynamicEspLabels = (agg.esp || []).map(e => e.esp.replace(' (Mailjet)', '').replace(' (Sendgrid)', ''));
-
-      chartRefs.espVol.data.labels = dynamicEspLabels;
-      chartRefs.espVol.data.datasets[0].data = (agg.esp || []).map(e => e.delivered);
-      chartRefs.espVol.data.datasets[1].data = (agg.esp || []).map(e => e.opened);
-      chartRefs.espVol.update();
-
-      chartRefs.espClicks.data.labels = dynamicEspLabels;
-      chartRefs.espClicks.data.datasets[0].data = (agg.esp || []).map(e => e.clicked);
-      chartRefs.espClicks.update();
-
-      chartRefs.espOpenRate.data.labels = dynamicEspLabels;
-      chartRefs.espOpenRate.data.datasets[0].data = (agg.esp || []).map(e => e.delivered > 0 ? +((e.opened / e.delivered) * 100).toFixed(2) : 0);
-      chartRefs.espOpenRate.update();
-
-      const domainAgg = { Gmail: 0, Other: 0, Yahoo: 0, iCloud: 0, Outlook: 0, Hotmail: 0, Aol: 0 };
-      const domainOpens = { Gmail: 0, Other: 0, Yahoo: 0, iCloud: 0, Outlook: 0, Hotmail: 0, Aol: 0 };
-      const domainClicks = { Gmail: 0, Other: 0, Yahoo: 0, iCloud: 0, Outlook: 0, Hotmail: 0, Aol: 0 };
-
-      (agg.esp || []).forEach(e => {
-        if (e.domains) {
-          Object.keys(e.domains).forEach(dom => {
-            if (domainAgg[dom] !== undefined) {
-              domainAgg[dom] += e.domains[dom].delivered;
-              domainOpens[dom] += e.domains[dom].opened;
-              domainClicks[dom] += e.domains[dom].clicked;
-            }
-          });
-        }
-      });
-
-      const domOrder = ['Gmail', 'Other', 'Yahoo', 'iCloud', 'Outlook', 'Hotmail', 'Aol'];
-      chartRefs.domDeliv.data.datasets[0].data = domOrder.map(d => domainAgg[d]);
-      chartRefs.domDeliv.update();
-
-      const openRateOrder = ['iCloud', 'Outlook', 'Yahoo', 'Aol', 'Hotmail', 'Gmail', 'Other'];
-      chartRefs.domOpenRate.data.datasets[0].data = openRateOrder.map(d => domainAgg[d] > 0 ? +((domainOpens[d] / domainAgg[d]) * 100).toFixed(2) : 0);
-      chartRefs.domOpenRate.update();
-
-      const clicksOrder = ['Gmail', 'Other', 'Yahoo', 'iCloud', 'Outlook', 'Aol', 'Hotmail'];
-      chartRefs.domClicks.data.datasets[0].data = clicksOrder.map(d => domainClicks[d]);
-      chartRefs.domClicks.update();
+      const dAgg = { Gmail:0, Other:0, Yahoo:0, iCloud:0, Outlook:0, Hotmail:0, Aol:0 }, dOp = { ...dAgg }, dCl = { ...dAgg };
+      (agg.esp||[]).forEach(e => Object.entries(e.domains||{}).forEach(([dom, v]) => { if (dAgg[dom]!==undefined) { dAgg[dom]+=v.delivered; dOp[dom]+=v.opened; dCl[dom]+=v.clicked; } }));
+      chartRefs.domDeliv.data.datasets[0].data = ['Gmail','Other','Yahoo','iCloud','Outlook','Hotmail','Aol'].map(d => dAgg[d]); chartRefs.domDeliv.update();
+      chartRefs.domOpenRate.data.datasets[0].data = ['iCloud','Outlook','Yahoo','Aol','Hotmail','Gmail','Other'].map(d => dAgg[d] > 0 ? +((dOp[d]/dAgg[d])*100).toFixed(2) : 0); chartRefs.domOpenRate.update();
+      chartRefs.domClicks.data.datasets[0].data = ['Gmail','Other','Yahoo','iCloud','Outlook','Aol','Hotmail'].map(d => dCl[d]); chartRefs.domClicks.update();
     }
 
-    function sortTable(tableId, colIndex, btnElement, type) {
-      const tbody = document.querySelector(`#${tableId} tbody`);
-      if (!tbody) return;
-
-      const rows = Array.from(tbody.querySelectorAll('tr'));
-      if (!tableSortDirections[tableId]) tableSortDirections[tableId] = {};
-      const currentDir = tableSortDirections[tableId][colIndex] || 'none';
-      const newDir = (currentDir === 'desc') ? 'asc' : 'desc';
-      tableSortDirections[tableId] = { [colIndex]: newDir };
-
-      const tableElement = document.getElementById(tableId);
-      tableElement.querySelectorAll('.sort-btn').forEach(btn => {
-        btn.querySelector('.sort-icon').textContent = '⇅';
-        btn.classList.remove('bg-blue-50', 'border-blue-400', 'text-blue-700');
-        btn.classList.add('bg-white', 'border-slate-300', 'text-slate-700');
+    function sortTable(tableId, col, btn, type) {
+      const tbody = $(tableId).querySelector('tbody'); if (!tbody) return;
+      const rows = Array.from(tbody.querySelectorAll('tr')), dir = (tableSortDirections[tableId]?.[col] === 'desc') ? 'asc' : 'desc';
+      tableSortDirections[tableId] = { [col]: dir };
+      $(tableId).querySelectorAll('.sort-btn .sort-icon').forEach(i => i.textContent = '⇅');
+      btn.querySelector('.sort-icon').textContent = dir === 'desc' ? '▼' : '▲';
+      rows.sort((a, b) => {
+        const vA = a.children[col].innerText.trim(), vB = b.children[col].innerText.trim();
+        const numA = parseFloat(vA.replace(/[^0-9.-]/g, '')) || 0, numB = parseFloat(vB.replace(/[^0-9.-]/g, '')) || 0;
+        return dir === 'desc' ? (numB - numA) : (numA - numB);
       });
-
-      btnElement.querySelector('.sort-icon').textContent = (newDir === 'desc') ? '▼' : '▲';
-      btnElement.classList.remove('bg-white', 'border-slate-300', 'text-slate-700');
-      btnElement.classList.add('bg-blue-50', 'border-blue-400', 'text-blue-700');
-
-      rows.sort((rowA, rowB) => {
-        const cellA = rowA.children[colIndex].innerText.trim();
-        const cellB = rowB.children[colIndex].innerText.trim();
-
-        let valA, valB;
-        if (type === 'num' || type === 'currency') {
-          valA = parseFloat(cellA.replace(/[^0-9.-]/g, '')) || 0;
-          valB = parseFloat(cellB.replace(/[^0-9.-]/g, '')) || 0;
-        } else if (type === 'ratio') {
-          const parseRatio = (rStr) => {
-            const parts = rStr.split(':').map(p => parseFloat(p.trim()) || 0);
-            if (parts.length === 2 && parts[1] > 0) return parts[0] / parts[1];
-            return 0;
-          };
-          valA = parseRatio(cellA);
-          valB = parseRatio(cellB);
-        } else {
-          valA = cellA.toLowerCase();
-          valB = cellB.toLowerCase();
-          return (newDir === 'desc') ? valB.localeCompare(valA) : valA.localeCompare(valB);
-        }
-
-        return (newDir === 'desc') ? (valB - valA) : (valA - valB);
-      });
-
-      tbody.innerHTML = '';
-      rows.forEach(r => tbody.appendChild(r));
+      tbody.innerHTML = ''; rows.forEach(r => tbody.appendChild(r));
     }
 
     function resetTable(tableId) {
-      const tbody = document.querySelector(`#${tableId} tbody`);
-      if (!tbody || !initialTableState[tableId]) return;
-
-      tbody.innerHTML = initialTableState[tableId];
-      tableSortDirections[tableId] = {};
-
-      const tableElement = document.getElementById(tableId);
-      tableElement.querySelectorAll('.sort-btn').forEach(btn => {
-        btn.querySelector('.sort-icon').textContent = '⇅';
-        btn.classList.remove('bg-blue-50', 'border-blue-400', 'text-blue-700');
-        btn.classList.add('bg-white', 'border-slate-300', 'text-slate-700');
-      });
+      const tbody = $(tableId).querySelector('tbody');
+      if (tbody && initialTableState[tableId]) { tbody.innerHTML = initialTableState[tableId]; tableSortDirections[tableId] = {}; }
     }
 
     function toggleTableDetails() {
       areDetailsExpanded = !areDetailsExpanded;
-      const domainRows = document.querySelectorAll('.domain-row');
-      const btnText = document.getElementById('btnText');
-      const btnIcon = document.getElementById('btnIcon');
-
-      if (areDetailsExpanded) {
-        domainRows.forEach(row => row.classList.remove('hidden'));
-        btnText.textContent = 'Collapse All';
-        btnIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>';
-      } else {
-        domainRows.forEach(row => row.classList.add('hidden'));
-        btnText.textContent = 'Show All';
-        btnIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>';
-      }
+      document.querySelectorAll('.domain-row').forEach(r => r.classList.toggle('hidden', !areDetailsExpanded));
+      setT('btnText', areDetailsExpanded ? 'Collapse All' : 'Show All');
     }
 
     document.addEventListener('DOMContentLoaded', async () => {
-      initDateControls([]);
+      initDateControls();
       initCharts();
-
       globalLoadedMonths = await loadAllMonths();
-
-      const badge = document.getElementById('dataStatusBadge');
-      if (badge) badge.classList.add('hidden');
-
-      initDateControls(globalLoadedMonths);
       await updateDashboardForDateRange();
     });
   </script>
-
 </body>
 </html>
