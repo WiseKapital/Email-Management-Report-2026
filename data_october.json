@@ -2,7 +2,7 @@
   "month": "October",
   "year": 2026,
   "total_days_in_month": 31,
-  "days_elapsed": 5,
+  "days_elapsed": 6,
   "kpis": {
     "budget": 934,
     "signups": 450,
@@ -16,12 +16,12 @@
     "opened": 0,
     "clicked": 0,
     "unsub": 0,
-    "budget": 150.65,
-    "signups": 105,
-    "users": 3,
+    "budget": 180.78,
+    "signups": 120,
+    "users": 2,
     "revenue": 300.0,
-    "profit": 149.35,
-    "s2p_ratio": "1:35"
+    "profit": 119.22,
+    "s2p_ratio": "1:60"
   },
   "advertisers_mtd": [
     {
@@ -33,10 +33,10 @@
     },
     {
       "advertiser": "GameTime Digital",
-      "signups": 48,
-      "users": 1,
+      "signups": 63,
+      "users": 0,
       "revenue": 0.0,
-      "s2p": "1:48"
+      "s2p": "0:63"
     },
     {
       "advertiser": "CHANCED",
@@ -105,36 +105,12 @@
       "s2p": "1:14"
     },
     {
-      "brand": "Chanced Punt",
-      "advertiser": "CHANCED",
-      "signups": 27,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:27"
-    },
-    {
-      "brand": "LavishLuck",
-      "advertiser": "GAMETIME DIGITAL",
-      "signups": 13,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:13"
-    },
-    {
-      "brand": "Jackpotgo",
-      "advertiser": "GAMETIME DIGITAL",
-      "signups": 17,
-      "users": 1,
-      "revenue": 0.0,
-      "s2p": "1:17"
-    },
-    {
       "brand": "Baba",
       "advertiser": "GAMETIME DIGITAL",
-      "signups": 1,
+      "signups": 2,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:1"
+      "s2p": "0:2"
     },
     {
       "brand": "CoinsBack",
@@ -145,23 +121,31 @@
       "s2p": "0:2"
     },
     {
-      "brand": "LuckyBunny",
+      "brand": "Crown Coins Email",
       "advertiser": "GAMETIME DIGITAL",
-      "signups": 1,
+      "signups": 2,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:1"
+      "s2p": "0:2"
     },
     {
-      "brand": "LuckyZino",
-      "advertiser": "GAMETIME DIGITAL",
-      "signups": 8,
+      "brand": "Chanced Punt",
+      "advertiser": "CHANCED",
+      "signups": 27,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:8"
+      "s2p": "0:27"
     },
     {
-      "brand": "LuckyZino Sweepstakes Casino",
+      "brand": "Jackpotgo",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 17,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:17"
+    },
+    {
+      "brand": "LavishLuck Sweepstakes Casino",
       "advertiser": "BASHER AGENCY",
       "signups": 1,
       "users": 0,
@@ -169,7 +153,23 @@
       "s2p": "0:1"
     },
     {
-      "brand": "LavishLuck Sweepstakes Casino",
+      "brand": "LavishLuck",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 13,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:13"
+    },
+    {
+      "brand": "LuckyZino",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 10,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:10"
+    },
+    {
+      "brand": "LuckyZino Sweepstakes Casino",
       "advertiser": "BASHER AGENCY",
       "signups": 1,
       "users": 0,
@@ -185,12 +185,28 @@
       "s2p": "0:1"
     },
     {
+      "brand": "LuckyBunny",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 2,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:2"
+    },
+    {
       "brand": "Rolla",
       "advertiser": "GAMETIME DIGITAL",
       "signups": 2,
       "users": 0,
       "revenue": 0.0,
       "s2p": "0:2"
+    },
+    {
+      "brand": "Rolling Riches",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 9,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:9"
     },
     {
       "brand": "Sweet Sweep",
@@ -276,7 +292,7 @@
   "esp_mtd_totals": [],
   "team_ops_mtd": {
     "andrea": {
-      "signups": 27,
+      "signups": 31,
       "users": 0
     },
     "jessie": {
@@ -285,9 +301,9 @@
     },
     "signups_by_advertiser": {
       "GAMETIME DIGITAL": {
-        "andrea": 25,
+        "andrea": 29,
         "jessie": 0,
-        "total": 25
+        "total": 29
       },
       "BASHER AGENCY": {
         "andrea": 2,
@@ -562,7 +578,7 @@
       "unsub": 0,
       "budget": 30.13,
       "signups": 32,
-      "users": 1,
+      "users": 0,
       "revenue": 0.0,
       "profit": -30.13,
       "advertisers": {
@@ -573,7 +589,7 @@
         },
         "GameTime Digital": {
           "signups": 9,
-          "users": 1,
+          "users": 0,
           "revenue": 0.0
         }
       },
@@ -587,7 +603,7 @@
         "Jackpotgo": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 9,
-          "users": 1,
+          "users": 0,
           "revenue": 0.0
         }
       },
@@ -700,16 +716,53 @@
       "opened": 0,
       "clicked": 0,
       "unsub": 0,
-      "budget": 0.0,
-      "signups": 0,
+      "budget": 30.13,
+      "signups": 15,
       "users": 0,
       "revenue": 0.0,
-      "profit": 0.0,
-      "advertisers": {},
-      "brands": {},
+      "profit": -30.13,
+      "advertisers": {
+        "GameTime Digital": {
+          "signups": 15,
+          "users": 0,
+          "revenue": 0.0
+        }
+      },
+      "brands": {
+        "Baba": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyBunny": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyZino": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Crown Coins Email": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Rolling Riches": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 9,
+          "users": 0,
+          "revenue": 0.0
+        }
+      },
       "ops": {
         "andrea": {
-          "signups": 0,
+          "signups": 4,
           "users": 0
         },
         "jessie": {
