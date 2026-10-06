@@ -17,19 +17,19 @@
     "clicked": 0,
     "unsub": 0,
     "budget": 980.0,
-    "signups": 491,
+    "signups": 441,
     "users": 23,
     "revenue": 3500.0,
     "profit": 2520.0,
-    "s2p_ratio": "1:21"
+    "s2p_ratio": "1:19"
   },
   "advertisers_mtd": [
     {
       "advertiser": "GameTime Digital",
-      "signups": 382,
+      "signups": 332,
       "users": 19,
       "revenue": 2930.0,
-      "s2p": "1:20"
+      "s2p": "1:17"
     },
     {
       "advertiser": "Basher Agency",
@@ -99,7 +99,7 @@
     {
       "brand": "LavishLuck",
       "advertiser": "GAMETIME DIGITAL",
-      "signups": 215,
+      "signups": 214,
       "users": 6,
       "revenue": 1080.0,
       "s2p": "1:36"
@@ -123,18 +123,18 @@
     {
       "brand": "Jackpotgo",
       "advertiser": "GAMETIME DIGITAL",
-      "signups": 45,
+      "signups": 16,
       "users": 2,
       "revenue": 340.0,
-      "s2p": "1:22"
+      "s2p": "1:8"
     },
     {
       "brand": "The Boss",
       "advertiser": "GAMETIME DIGITAL",
-      "signups": 11,
+      "signups": 8,
       "users": 2,
       "revenue": 340.0,
-      "s2p": "1:6"
+      "s2p": "1:4"
     },
     {
       "brand": "LuckyZino",
@@ -145,20 +145,20 @@
       "s2p": "1:4"
     },
     {
-      "brand": "splashcoins",
-      "advertiser": "SPLASH",
-      "signups": 11,
-      "users": 1,
-      "revenue": 150.0,
-      "s2p": "1:11"
-    },
-    {
       "brand": "Sweet Sweep",
       "advertiser": "GAMETIME DIGITAL",
       "signups": 7,
       "users": 1,
       "revenue": 150.0,
       "s2p": "1:7"
+    },
+    {
+      "brand": "splashcoins",
+      "advertiser": "SPLASH",
+      "signups": 11,
+      "users": 1,
+      "revenue": 150.0,
+      "s2p": "1:11"
     },
     {
       "brand": "Rolla",
@@ -182,22 +182,6 @@
       "signups": 0,
       "users": 0,
       "revenue": 75.0,
-      "s2p": "0:0"
-    },
-    {
-      "brand": "BetRiot",
-      "advertiser": "ALL IN AFFILIATES",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "brand": "Betnjet",
-      "advertiser": "ALL IN AFFILIATES",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
       "s2p": "0:0"
     },
     {
@@ -225,6 +209,14 @@
       "s2p": "0:0"
     },
     {
+      "brand": "Betnjet",
+      "advertiser": "ALL IN AFFILIATES",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
+    },
+    {
       "brand": "Chanced Punt",
       "advertiser": "CHANCED",
       "signups": 43,
@@ -241,12 +233,12 @@
       "s2p": "0:0"
     },
     {
-      "brand": "CardCrush",
-      "advertiser": "GAMETIME DIGITAL",
-      "signups": 3,
+      "brand": "BetRiot",
+      "advertiser": "ALL IN AFFILIATES",
+      "signups": 0,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:3"
+      "s2p": "0:0"
     },
     {
       "brand": "Go Go Gold Win",
@@ -259,10 +251,10 @@
     {
       "brand": "High5Casino",
       "advertiser": "GAMETIME DIGITAL",
-      "signups": 15,
+      "signups": 1,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:15"
+      "s2p": "0:1"
     },
     {
       "brand": "ChipNWin",
@@ -417,7 +409,562 @@
       "s2p": "0:1"
     }
   ],
-  "esp_mtd_totals": [],
+  "esp_mtd_totals": [
+    {
+      "esp_ip": "MLJ (Mailjet) IP 1",
+      "advertiser": "BASHER AGENCY",
+      "brand": "LavishLuck Sweepstakes Casino",
+      "signups": 19,
+      "ftds": 1
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 1",
+      "advertiser": "BASHER AGENCY",
+      "brand": "LuckyZino Sweepstakes Casino",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 1",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "CoinsBack",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 1",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "Jackpotgo",
+      "signups": 5,
+      "ftds": 2
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 1",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "LavishLuck",
+      "signups": 13,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 1",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "Rolla",
+      "signups": 7,
+      "ftds": 1
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 1",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "Sweet Sweep",
+      "signups": 2,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 1",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "WiseSpin",
+      "signups": 2,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 1",
+      "advertiser": "",
+      "brand": "",
+      "signups": 50,
+      "ftds": 4,
+      "is_total": true
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 2",
+      "advertiser": "BASHER AGENCY",
+      "brand": "LavishLuck Sweepstakes Casino",
+      "signups": 3,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 2",
+      "advertiser": "BASHER AGENCY",
+      "brand": "LuckyZino Sweepstakes Casino",
+      "signups": 2,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 2",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "Jackpotgo",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 2",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "LavishLuck",
+      "signups": 10,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 2",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "LuckyBunny",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 2",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "PlayFame SEO",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 2",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "Rolla",
+      "signups": 2,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 2",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "TitanTreasure",
+      "signups": 3,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 2",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "Zunado",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 2",
+      "advertiser": "",
+      "brand": "",
+      "signups": 24,
+      "ftds": 0,
+      "is_total": true
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "ChipNWin",
+      "signups": 2,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "Jackpotgo",
+      "signups": 3,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "LavishLuck",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "LuckyBunny",
+      "signups": 3,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "Sweet Sweep",
+      "signups": 3,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "The Boss",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 3 / SH",
+      "advertiser": "",
+      "brand": "",
+      "signups": 13,
+      "ftds": 0,
+      "is_total": true
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 1",
+      "advertiser": "AFF 66",
+      "brand": "SweepJungle",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 1",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "LuckyBunny",
+      "signups": 5,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 1",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "LuckyZino",
+      "signups": 4,
+      "ftds": 1
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 1",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "Rolla",
+      "signups": 3,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 1",
+      "advertiser": "",
+      "brand": "",
+      "signups": 13,
+      "ftds": 1,
+      "is_total": true
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "BASHER AGENCY",
+      "brand": "LavishLuck Sweepstakes Casino",
+      "signups": 14,
+      "ftds": 2
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "Crown Coins Email",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "LavishLuck",
+      "signups": 10,
+      "ftds": 1
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "LuckyZino",
+      "signups": 5,
+      "ftds": 1
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "The Boss",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "",
+      "brand": "",
+      "signups": 31,
+      "ftds": 4,
+      "is_total": true
+    },
+    {
+      "esp_ip": "OVERALL GRAND TOTAL",
+      "advertiser": "",
+      "brand": "",
+      "signups": 131,
+      "ftds": 9,
+      "is_total": true,
+      "is_overall": true
+    }
+  ],
+  "esp_ip_breakdown": {
+    "by_row": [
+      {
+        "esp_ip": "MLJ (Mailjet) IP 1",
+        "advertiser": "BASHER AGENCY",
+        "brand": "LavishLuck Sweepstakes Casino",
+        "signups": 19,
+        "ftds": 1
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 1",
+        "advertiser": "BASHER AGENCY",
+        "brand": "LuckyZino Sweepstakes Casino",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 1",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "CoinsBack",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 1",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "Jackpotgo",
+        "signups": 5,
+        "ftds": 2
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 1",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "LavishLuck",
+        "signups": 13,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 1",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "Rolla",
+        "signups": 7,
+        "ftds": 1
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 1",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "Sweet Sweep",
+        "signups": 2,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 1",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "WiseSpin",
+        "signups": 2,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 1",
+        "advertiser": "",
+        "brand": "",
+        "signups": 50,
+        "ftds": 4,
+        "is_total": true
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 2",
+        "advertiser": "BASHER AGENCY",
+        "brand": "LavishLuck Sweepstakes Casino",
+        "signups": 3,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 2",
+        "advertiser": "BASHER AGENCY",
+        "brand": "LuckyZino Sweepstakes Casino",
+        "signups": 2,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 2",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "Jackpotgo",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 2",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "LavishLuck",
+        "signups": 10,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 2",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "LuckyBunny",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 2",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "PlayFame SEO",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 2",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "Rolla",
+        "signups": 2,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 2",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "TitanTreasure",
+        "signups": 3,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 2",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "Zunado",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 2",
+        "advertiser": "",
+        "brand": "",
+        "signups": 24,
+        "ftds": 0,
+        "is_total": true
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "ChipNWin",
+        "signups": 2,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "Jackpotgo",
+        "signups": 3,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "LavishLuck",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "LuckyBunny",
+        "signups": 3,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "Sweet Sweep",
+        "signups": 3,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "The Boss",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 3 / SH",
+        "advertiser": "",
+        "brand": "",
+        "signups": 13,
+        "ftds": 0,
+        "is_total": true
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 1",
+        "advertiser": "AFF 66",
+        "brand": "SweepJungle",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 1",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "LuckyBunny",
+        "signups": 5,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 1",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "LuckyZino",
+        "signups": 4,
+        "ftds": 1
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 1",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "Rolla",
+        "signups": 3,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 1",
+        "advertiser": "",
+        "brand": "",
+        "signups": 13,
+        "ftds": 1,
+        "is_total": true
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "BASHER AGENCY",
+        "brand": "LavishLuck Sweepstakes Casino",
+        "signups": 14,
+        "ftds": 2
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "Crown Coins Email",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "LavishLuck",
+        "signups": 10,
+        "ftds": 1
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "LuckyZino",
+        "signups": 5,
+        "ftds": 1
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "The Boss",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "",
+        "brand": "",
+        "signups": 31,
+        "ftds": 4,
+        "is_total": true
+      },
+      {
+        "esp_ip": "OVERALL GRAND TOTAL",
+        "advertiser": "",
+        "brand": "",
+        "signups": 131,
+        "ftds": 9,
+        "is_total": true,
+        "is_overall": true
+      }
+    ],
+    "overall": {
+      "signups": 131,
+      "ftds": 9
+    }
+  },
   "team_ops_mtd": {
     "andrea": {
       "signups": 356,
@@ -541,15 +1088,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 17,
+      "signups": 15,
       "users": 1,
-      "revenue": 121.18,
-      "profit": 88.51,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 28,
-          "users": 9,
-          "revenue": 247.5534177025285
+          "signups": 26,
+          "users": 10,
+          "revenue": 265.4710009463995
         },
         "BASHER AGENCY": {
           "signups": 4,
@@ -582,7 +1129,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 8,
           "users": 1,
-          "revenue": 40.18604651162791
+          "revenue": 40.37383177570093
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -598,15 +1145,15 @@
         },
         "Jackpotgo": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
+          "signups": 1,
           "users": 1,
-          "revenue": 15.111111111111112
+          "revenue": 21.25
         },
         "The Boss": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 1,
-          "revenue": 30.90909090909091
+          "revenue": 42.5
         },
         "LuckyZino": {
           "advertiser": "GAMETIME DIGITAL",
@@ -614,17 +1161,17 @@
           "users": 1,
           "revenue": 31.11111111111111
         },
-        "splashcoins": {
-          "advertiser": "SPLASH",
-          "signups": 1,
-          "users": 1,
-          "revenue": 13.636363636363637
-        },
         "Sweet Sweep": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 1,
           "revenue": 21.428571428571427
+        },
+        "splashcoins": {
+          "advertiser": "SPLASH",
+          "signups": 1,
+          "users": 1,
+          "revenue": 13.636363636363637
         },
         "Rolla": {
           "advertiser": "GAMETIME DIGITAL",
@@ -647,18 +1194,12 @@
         "BankRolla": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 0,
-          "users": 1,
+          "users": 2,
           "revenue": 0.0
         },
         "Chanced Punt": {
           "advertiser": "CHANCED",
           "signups": 2,
-          "users": 0,
-          "revenue": 0.0
-        },
-        "CardCrush": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
@@ -761,7 +1302,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 16,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -778,15 +1319,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 17,
+      "signups": 15,
       "users": 1,
-      "revenue": 121.18,
-      "profit": 88.51,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 22,
+          "signups": 19,
           "users": 5,
-          "revenue": 172.5534177025285
+          "revenue": 190.4710009463995
         },
         "BASHER AGENCY": {
           "signups": 4,
@@ -819,7 +1360,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 8,
           "users": 1,
-          "revenue": 40.18604651162791
+          "revenue": 40.37383177570093
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -835,15 +1376,15 @@
         },
         "Jackpotgo": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
+          "signups": 1,
           "users": 1,
-          "revenue": 15.111111111111112
+          "revenue": 21.25
         },
         "The Boss": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 1,
-          "revenue": 30.90909090909091
+          "revenue": 42.5
         },
         "LuckyZino": {
           "advertiser": "GAMETIME DIGITAL",
@@ -851,17 +1392,17 @@
           "users": 1,
           "revenue": 31.11111111111111
         },
-        "splashcoins": {
-          "advertiser": "SPLASH",
-          "signups": 1,
-          "users": 0,
-          "revenue": 13.636363636363637
-        },
         "Sweet Sweep": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 21.428571428571427
+        },
+        "splashcoins": {
+          "advertiser": "SPLASH",
+          "signups": 1,
+          "users": 0,
+          "revenue": 13.636363636363637
         },
         "Rolla": {
           "advertiser": "GAMETIME DIGITAL",
@@ -878,18 +1419,6 @@
         "Chanced Punt": {
           "advertiser": "CHANCED",
           "signups": 2,
-          "users": 0,
-          "revenue": 0.0
-        },
-        "CardCrush": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
-        },
-        "High5Casino": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
@@ -950,7 +1479,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 16,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -967,15 +1496,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 17,
+      "signups": 15,
       "users": 1,
-      "revenue": 121.18,
-      "profit": 88.51,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 21,
+          "signups": 18,
           "users": 2,
-          "revenue": 172.5534177025285
+          "revenue": 190.4710009463995
         },
         "BASHER AGENCY": {
           "signups": 3,
@@ -1008,7 +1537,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 8,
           "users": 1,
-          "revenue": 40.18604651162791
+          "revenue": 40.37383177570093
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -1024,15 +1553,15 @@
         },
         "Jackpotgo": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
+          "signups": 1,
           "users": 0,
-          "revenue": 15.111111111111112
+          "revenue": 21.25
         },
         "The Boss": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
-          "revenue": 30.90909090909091
+          "revenue": 42.5
         },
         "LuckyZino": {
           "advertiser": "GAMETIME DIGITAL",
@@ -1040,17 +1569,17 @@
           "users": 0,
           "revenue": 31.11111111111111
         },
-        "splashcoins": {
-          "advertiser": "SPLASH",
-          "signups": 1,
-          "users": 0,
-          "revenue": 13.636363636363637
-        },
         "Sweet Sweep": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 21.428571428571427
+        },
+        "splashcoins": {
+          "advertiser": "SPLASH",
+          "signups": 1,
+          "users": 0,
+          "revenue": 13.636363636363637
         },
         "Rolla": {
           "advertiser": "GAMETIME DIGITAL",
@@ -1067,18 +1596,6 @@
         "Chanced Punt": {
           "advertiser": "CHANCED",
           "signups": 2,
-          "users": 0,
-          "revenue": 0.0
-        },
-        "CardCrush": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
-        },
-        "High5Casino": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
@@ -1121,7 +1638,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 16,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -1138,15 +1655,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 17,
+      "signups": 15,
       "users": 1,
-      "revenue": 121.18,
-      "profit": 88.51,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 18,
+          "signups": 16,
           "users": 1,
-          "revenue": 172.5534177025285
+          "revenue": 190.4710009463995
         },
         "BASHER AGENCY": {
           "signups": 3,
@@ -1179,7 +1696,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 8,
           "users": 1,
-          "revenue": 40.18604651162791
+          "revenue": 40.37383177570093
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -1195,15 +1712,15 @@
         },
         "Jackpotgo": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
+          "signups": 1,
           "users": 0,
-          "revenue": 15.111111111111112
+          "revenue": 21.25
         },
         "The Boss": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
-          "revenue": 30.90909090909091
+          "revenue": 42.5
         },
         "LuckyZino": {
           "advertiser": "GAMETIME DIGITAL",
@@ -1211,17 +1728,17 @@
           "users": 0,
           "revenue": 31.11111111111111
         },
-        "splashcoins": {
-          "advertiser": "SPLASH",
-          "signups": 1,
-          "users": 0,
-          "revenue": 13.636363636363637
-        },
         "Sweet Sweep": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 21.428571428571427
+        },
+        "splashcoins": {
+          "advertiser": "SPLASH",
+          "signups": 1,
+          "users": 0,
+          "revenue": 13.636363636363637
         },
         "Rolla": {
           "advertiser": "GAMETIME DIGITAL",
@@ -1238,12 +1755,6 @@
         "Chanced Punt": {
           "advertiser": "CHANCED",
           "signups": 2,
-          "users": 0,
-          "revenue": 0.0
-        },
-        "High5Casino": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
@@ -1274,7 +1785,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 16,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -1291,15 +1802,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 17,
+      "signups": 15,
       "users": 1,
-      "revenue": 121.18,
-      "profit": 88.51,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 17,
+          "signups": 14,
           "users": 1,
-          "revenue": 172.5534177025285
+          "revenue": 185.4242719744369
         },
         "BASHER AGENCY": {
           "signups": 2,
@@ -1330,9 +1841,9 @@
       "brands": {
         "LavishLuck": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 8,
+          "signups": 7,
           "users": 1,
-          "revenue": 40.18604651162791
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -1348,15 +1859,15 @@
         },
         "Jackpotgo": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
+          "signups": 1,
           "users": 0,
-          "revenue": 15.111111111111112
+          "revenue": 21.25
         },
         "The Boss": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
-          "revenue": 30.90909090909091
+          "revenue": 42.5
         },
         "LuckyZino": {
           "advertiser": "GAMETIME DIGITAL",
@@ -1364,17 +1875,17 @@
           "users": 0,
           "revenue": 31.11111111111111
         },
-        "splashcoins": {
-          "advertiser": "SPLASH",
-          "signups": 1,
-          "users": 0,
-          "revenue": 13.636363636363637
-        },
         "Sweet Sweep": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 21.428571428571427
+        },
+        "splashcoins": {
+          "advertiser": "SPLASH",
+          "signups": 1,
+          "users": 0,
+          "revenue": 13.636363636363637
         },
         "Rolla": {
           "advertiser": "GAMETIME DIGITAL",
@@ -1394,12 +1905,6 @@
           "users": 0,
           "revenue": 0.0
         },
-        "High5Casino": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
-        },
         "Ice Casino": {
           "advertiser": "ALL IN AFFILIATES",
           "signups": 1,
@@ -1415,7 +1920,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 16,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -1432,15 +1937,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 17,
+      "signups": 15,
       "users": 1,
-      "revenue": 121.18,
-      "profit": 88.51,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 16,
+          "signups": 14,
           "users": 1,
-          "revenue": 167.530161888575
+          "revenue": 185.4242719744369
         },
         "BASHER AGENCY": {
           "signups": 2,
@@ -1468,7 +1973,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 1,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -1484,15 +1989,15 @@
         },
         "Jackpotgo": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
+          "signups": 1,
           "users": 0,
-          "revenue": 15.111111111111112
+          "revenue": 21.25
         },
         "The Boss": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
-          "revenue": 30.90909090909091
+          "revenue": 42.5
         },
         "LuckyZino": {
           "advertiser": "GAMETIME DIGITAL",
@@ -1500,17 +2005,17 @@
           "users": 0,
           "revenue": 31.11111111111111
         },
-        "splashcoins": {
-          "advertiser": "SPLASH",
-          "signups": 1,
-          "users": 0,
-          "revenue": 13.636363636363637
-        },
         "Sweet Sweep": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 21.428571428571427
+        },
+        "splashcoins": {
+          "advertiser": "SPLASH",
+          "signups": 1,
+          "users": 0,
+          "revenue": 13.636363636363637
         },
         "Rolla": {
           "advertiser": "GAMETIME DIGITAL",
@@ -1530,12 +2035,6 @@
           "users": 0,
           "revenue": 0.0
         },
-        "High5Casino": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
-        },
         "SweepJungle": {
           "advertiser": "AFF 66",
           "signups": 1,
@@ -1545,7 +2044,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 16,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -1562,15 +2061,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 17,
+      "signups": 15,
       "users": 1,
-      "revenue": 121.18,
-      "profit": 88.51,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 16,
+          "signups": 14,
           "users": 0,
-          "revenue": 167.530161888575
+          "revenue": 185.4242719744369
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -1593,7 +2092,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -1609,15 +2108,15 @@
         },
         "Jackpotgo": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
+          "signups": 1,
           "users": 0,
-          "revenue": 15.111111111111112
+          "revenue": 21.25
         },
         "The Boss": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
-          "revenue": 30.90909090909091
+          "revenue": 42.5
         },
         "LuckyZino": {
           "advertiser": "GAMETIME DIGITAL",
@@ -1625,17 +2124,17 @@
           "users": 0,
           "revenue": 31.11111111111111
         },
-        "splashcoins": {
-          "advertiser": "SPLASH",
-          "signups": 1,
-          "users": 0,
-          "revenue": 13.636363636363637
-        },
         "Sweet Sweep": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 21.428571428571427
+        },
+        "splashcoins": {
+          "advertiser": "SPLASH",
+          "signups": 1,
+          "users": 0,
+          "revenue": 13.636363636363637
         },
         "Rolla": {
           "advertiser": "GAMETIME DIGITAL",
@@ -1654,17 +2153,11 @@
           "signups": 2,
           "users": 0,
           "revenue": 0.0
-        },
-        "High5Casino": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
         }
       },
       "ops": {
         "andrea": {
-          "signups": 16,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -1681,15 +2174,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 17,
+      "signups": 15,
       "users": 1,
-      "revenue": 121.18,
-      "profit": 88.51,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 15,
+          "signups": 13,
           "users": 0,
-          "revenue": 146.1015904600036
+          "revenue": 163.99570054586547
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -1712,7 +2205,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -1728,15 +2221,15 @@
         },
         "Jackpotgo": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
+          "signups": 1,
           "users": 0,
-          "revenue": 15.111111111111112
+          "revenue": 21.25
         },
         "The Boss": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
-          "revenue": 30.90909090909091
+          "revenue": 42.5
         },
         "LuckyZino": {
           "advertiser": "GAMETIME DIGITAL",
@@ -1767,17 +2260,11 @@
           "signups": 2,
           "users": 0,
           "revenue": 0.0
-        },
-        "High5Casino": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
         }
       },
       "ops": {
         "andrea": {
-          "signups": 16,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -1794,15 +2281,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 17,
+      "signups": 15,
       "users": 1,
-      "revenue": 121.18,
-      "profit": 88.51,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 15,
+          "signups": 12,
           "users": 0,
-          "revenue": 146.1015904600036
+          "revenue": 121.49570054586547
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -1825,7 +2312,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -1841,15 +2328,9 @@
         },
         "Jackpotgo": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
-          "users": 0,
-          "revenue": 15.111111111111112
-        },
-        "The Boss": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
-          "revenue": 30.90909090909091
+          "revenue": 21.25
         },
         "LuckyZino": {
           "advertiser": "GAMETIME DIGITAL",
@@ -1880,17 +2361,11 @@
           "signups": 2,
           "users": 0,
           "revenue": 0.0
-        },
-        "High5Casino": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
         }
       },
       "ops": {
         "andrea": {
-          "signups": 16,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -1907,15 +2382,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 17,
+      "signups": 15,
       "users": 1,
-      "revenue": 121.18,
-      "profit": 88.51,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 14,
+          "signups": 11,
           "users": 0,
-          "revenue": 114.99047934889248
+          "revenue": 90.38458943475436
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -1938,7 +2413,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -1954,15 +2429,9 @@
         },
         "Jackpotgo": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
-          "users": 0,
-          "revenue": 15.111111111111112
-        },
-        "The Boss": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
-          "revenue": 30.90909090909091
+          "revenue": 21.25
         },
         "splashcoins": {
           "advertiser": "SPLASH",
@@ -1987,17 +2456,11 @@
           "signups": 2,
           "users": 0,
           "revenue": 0.0
-        },
-        "High5Casino": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
         }
       },
       "ops": {
         "andrea": {
-          "signups": 16,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -2014,15 +2477,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 17,
+      "signups": 15,
       "users": 1,
-      "revenue": 121.18,
-      "profit": 88.51,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 14,
+          "signups": 11,
           "users": 0,
-          "revenue": 114.99047934889248
+          "revenue": 90.38458943475436
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -2045,7 +2508,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -2061,15 +2524,9 @@
         },
         "Jackpotgo": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
-          "users": 0,
-          "revenue": 15.111111111111112
-        },
-        "The Boss": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
-          "revenue": 30.90909090909091
+          "revenue": 21.25
         },
         "splashcoins": {
           "advertiser": "SPLASH",
@@ -2094,17 +2551,11 @@
           "signups": 2,
           "users": 0,
           "revenue": 0.0
-        },
-        "High5Casino": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
         }
       },
       "ops": {
         "andrea": {
-          "signups": 16,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -2121,15 +2572,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 16,
+      "signups": 15,
       "users": 1,
-      "revenue": 114.05,
-      "profit": 81.39,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 13,
+          "signups": 11,
           "users": 0,
-          "revenue": 84.08138843980157
+          "revenue": 90.38458943475436
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -2147,7 +2598,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -2163,9 +2614,9 @@
         },
         "Jackpotgo": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
+          "signups": 1,
           "users": 0,
-          "revenue": 15.111111111111112
+          "revenue": 21.25
         },
         "Rolla": {
           "advertiser": "GAMETIME DIGITAL",
@@ -2184,17 +2635,11 @@
           "signups": 2,
           "users": 0,
           "revenue": 0.0
-        },
-        "High5Casino": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
         }
       },
       "ops": {
         "andrea": {
-          "signups": 15,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -2211,15 +2656,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 16,
+      "signups": 15,
       "users": 1,
-      "revenue": 114.05,
-      "profit": 81.39,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 13,
+          "signups": 11,
           "users": 0,
-          "revenue": 84.08138843980157
+          "revenue": 90.38458943475436
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -2237,7 +2682,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -2253,9 +2698,9 @@
         },
         "Jackpotgo": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
+          "signups": 1,
           "users": 0,
-          "revenue": 15.111111111111112
+          "revenue": 21.25
         },
         "Rolla": {
           "advertiser": "GAMETIME DIGITAL",
@@ -2274,17 +2719,11 @@
           "signups": 2,
           "users": 0,
           "revenue": 0.0
-        },
-        "High5Casino": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
         }
       },
       "ops": {
         "andrea": {
-          "signups": 15,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -2301,15 +2740,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 16,
+      "signups": 15,
       "users": 1,
-      "revenue": 114.05,
-      "profit": 81.39,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 13,
+          "signups": 11,
           "users": 0,
-          "revenue": 84.08138843980157
+          "revenue": 90.38458943475436
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -2327,7 +2766,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -2343,9 +2782,9 @@
         },
         "Jackpotgo": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
+          "signups": 1,
           "users": 0,
-          "revenue": 15.111111111111112
+          "revenue": 21.25
         },
         "Rolla": {
           "advertiser": "GAMETIME DIGITAL",
@@ -2364,17 +2803,11 @@
           "signups": 1,
           "users": 0,
           "revenue": 0.0
-        },
-        "High5Casino": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
         }
       },
       "ops": {
         "andrea": {
-          "signups": 15,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -2391,15 +2824,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 16,
+      "signups": 15,
       "users": 1,
-      "revenue": 114.05,
-      "profit": 81.39,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 13,
+          "signups": 11,
           "users": 0,
-          "revenue": 84.08138843980157
+          "revenue": 90.38458943475436
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -2417,7 +2850,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -2433,9 +2866,9 @@
         },
         "Jackpotgo": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
+          "signups": 1,
           "users": 0,
-          "revenue": 15.111111111111112
+          "revenue": 21.25
         },
         "Rolla": {
           "advertiser": "GAMETIME DIGITAL",
@@ -2454,17 +2887,11 @@
           "signups": 1,
           "users": 0,
           "revenue": 0.0
-        },
-        "High5Casino": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
         }
       },
       "ops": {
         "andrea": {
-          "signups": 15,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -2481,15 +2908,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 16,
+      "signups": 15,
       "users": 1,
-      "revenue": 114.05,
-      "profit": 81.39,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
           "signups": 11,
           "users": 0,
-          "revenue": 76.52583288424601
+          "revenue": 90.38458943475436
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -2507,7 +2934,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -2525,7 +2952,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
-          "revenue": 7.555555555555556
+          "revenue": 21.25
         },
         "Rolla": {
           "advertiser": "GAMETIME DIGITAL",
@@ -2548,7 +2975,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 15,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -2565,15 +2992,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 16,
+      "signups": 15,
       "users": 1,
-      "revenue": 114.05,
-      "profit": 81.39,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 11,
+          "signups": 10,
           "users": 0,
-          "revenue": 76.52583288424601
+          "revenue": 69.13458943475436
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -2591,7 +3018,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -2604,12 +3031,6 @@
           "signups": 1,
           "users": 0,
           "revenue": 21.0
-        },
-        "Jackpotgo": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 7.555555555555556
         },
         "Rolla": {
           "advertiser": "GAMETIME DIGITAL",
@@ -2632,7 +3053,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 15,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -2649,15 +3070,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 16,
+      "signups": 15,
       "users": 1,
-      "revenue": 114.05,
-      "profit": 81.39,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 10,
+          "signups": 9,
           "users": 0,
-          "revenue": 69.17289170777543
+          "revenue": 61.78164825828377
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -2675,7 +3096,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -2688,12 +3109,6 @@
           "signups": 1,
           "users": 0,
           "revenue": 21.0
-        },
-        "Jackpotgo": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 7.555555555555556
         },
         "LuckyBunny": {
           "advertiser": "GAMETIME DIGITAL",
@@ -2710,7 +3125,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 15,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -2727,15 +3142,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 16,
+      "signups": 15,
       "users": 1,
-      "revenue": 114.05,
-      "profit": 81.39,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 10,
+          "signups": 9,
           "users": 0,
-          "revenue": 69.17289170777543
+          "revenue": 61.78164825828377
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -2753,7 +3168,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -2766,12 +3181,6 @@
           "signups": 1,
           "users": 0,
           "revenue": 21.0
-        },
-        "Jackpotgo": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 7.555555555555556
         },
         "LuckyBunny": {
           "advertiser": "GAMETIME DIGITAL",
@@ -2788,7 +3197,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 15,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -2805,15 +3214,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 16,
+      "signups": 15,
       "users": 1,
-      "revenue": 114.05,
-      "profit": 81.39,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 10,
+          "signups": 9,
           "users": 0,
-          "revenue": 69.17289170777543
+          "revenue": 61.78164825828377
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -2831,7 +3240,7 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
@@ -2844,12 +3253,6 @@
           "signups": 1,
           "users": 0,
           "revenue": 21.0
-        },
-        "Jackpotgo": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 7.555555555555556
         },
         "LuckyBunny": {
           "advertiser": "GAMETIME DIGITAL",
@@ -2866,7 +3269,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 15,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -2883,15 +3286,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 16,
+      "signups": 15,
       "users": 1,
-      "revenue": 114.05,
-      "profit": 81.39,
+      "revenue": 119.05,
+      "profit": 86.38,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 9,
+          "signups": 8,
           "users": 0,
-          "revenue": 48.17289170777543
+          "revenue": 40.78164825828377
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -2909,19 +3312,13 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
           "signups": 1,
           "users": 0,
           "revenue": 11.666666666666666
-        },
-        "Jackpotgo": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 7.555555555555556
         },
         "LuckyBunny": {
           "advertiser": "GAMETIME DIGITAL",
@@ -2938,7 +3335,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 15,
+          "signups": 14,
           "users": 1
         },
         "jessie": {
@@ -2955,15 +3352,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 16,
+      "signups": 14,
       "users": 1,
-      "revenue": 114.05,
-      "profit": 81.39,
+      "revenue": 111.11,
+      "profit": 78.44,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 9,
+          "signups": 8,
           "users": 0,
-          "revenue": 48.17289170777543
+          "revenue": 40.78164825828377
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -2981,19 +3378,13 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
           "signups": 1,
           "users": 0,
           "revenue": 11.666666666666666
-        },
-        "Jackpotgo": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 7.555555555555556
         },
         "LuckyBunny": {
           "advertiser": "GAMETIME DIGITAL",
@@ -3010,7 +3401,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 15,
+          "signups": 13,
           "users": 1
         },
         "jessie": {
@@ -3027,15 +3418,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 16,
+      "signups": 14,
       "users": 1,
-      "revenue": 114.05,
-      "profit": 81.39,
+      "revenue": 111.11,
+      "profit": 78.44,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 8,
+          "signups": 7,
           "users": 0,
-          "revenue": 42.718346253229974
+          "revenue": 35.32710280373831
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -3053,19 +3444,13 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
           "signups": 1,
           "users": 0,
           "revenue": 11.666666666666666
-        },
-        "Jackpotgo": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 7.555555555555556
         },
         "Chanced Punt": {
           "advertiser": "CHANCED",
@@ -3076,7 +3461,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 15,
+          "signups": 13,
           "users": 1
         },
         "jessie": {
@@ -3093,15 +3478,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 16,
+      "signups": 14,
       "users": 0,
-      "revenue": 114.05,
-      "profit": 81.39,
+      "revenue": 111.11,
+      "profit": 78.44,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 8,
+          "signups": 7,
           "users": 0,
-          "revenue": 42.718346253229974
+          "revenue": 35.32710280373831
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -3119,19 +3504,13 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
           "signups": 1,
           "users": 0,
           "revenue": 11.666666666666666
-        },
-        "Jackpotgo": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 7.555555555555556
         },
         "Chanced Punt": {
           "advertiser": "CHANCED",
@@ -3142,7 +3521,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 15,
+          "signups": 13,
           "users": 0
         },
         "jessie": {
@@ -3159,15 +3538,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 16,
+      "signups": 14,
       "users": 0,
-      "revenue": 114.05,
-      "profit": 81.39,
+      "revenue": 111.11,
+      "profit": 78.44,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 8,
+          "signups": 7,
           "users": 0,
-          "revenue": 42.718346253229974
+          "revenue": 35.32710280373831
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -3185,19 +3564,13 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
           "signups": 1,
           "users": 0,
           "revenue": 11.666666666666666
-        },
-        "Jackpotgo": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 7.555555555555556
         },
         "Chanced Punt": {
           "advertiser": "CHANCED",
@@ -3208,7 +3581,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 15,
+          "signups": 13,
           "users": 0
         },
         "jessie": {
@@ -3225,15 +3598,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 16,
+      "signups": 14,
       "users": 0,
-      "revenue": 114.05,
-      "profit": 81.39,
+      "revenue": 111.11,
+      "profit": 78.44,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 8,
+          "signups": 7,
           "users": 0,
-          "revenue": 42.718346253229974
+          "revenue": 35.32710280373831
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -3251,19 +3624,13 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
           "signups": 1,
           "users": 0,
           "revenue": 11.666666666666666
-        },
-        "Jackpotgo": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 7.555555555555556
         },
         "Chanced Punt": {
           "advertiser": "CHANCED",
@@ -3274,7 +3641,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 15,
+          "signups": 13,
           "users": 0
         },
         "jessie": {
@@ -3291,15 +3658,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 16,
+      "signups": 14,
       "users": 0,
-      "revenue": 114.05,
-      "profit": 81.39,
+      "revenue": 111.11,
+      "profit": 78.44,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 8,
+          "signups": 7,
           "users": 0,
-          "revenue": 42.718346253229974
+          "revenue": 35.32710280373831
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -3317,19 +3684,13 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
           "signups": 1,
           "users": 0,
           "revenue": 11.666666666666666
-        },
-        "Jackpotgo": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 7.555555555555556
         },
         "Chanced Punt": {
           "advertiser": "CHANCED",
@@ -3340,7 +3701,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 15,
+          "signups": 13,
           "users": 0
         },
         "jessie": {
@@ -3357,15 +3718,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 16,
+      "signups": 14,
       "users": 0,
-      "revenue": 114.05,
-      "profit": 81.39,
+      "revenue": 111.11,
+      "profit": 78.44,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 8,
+          "signups": 7,
           "users": 0,
-          "revenue": 42.718346253229974
+          "revenue": 35.32710280373831
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -3383,19 +3744,13 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
           "signups": 1,
           "users": 0,
           "revenue": 11.666666666666666
-        },
-        "Jackpotgo": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 7.555555555555556
         },
         "Chanced Punt": {
           "advertiser": "CHANCED",
@@ -3406,7 +3761,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 15,
+          "signups": 13,
           "users": 0
         },
         "jessie": {
@@ -3423,15 +3778,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 16,
+      "signups": 14,
       "users": 0,
-      "revenue": 114.05,
-      "profit": 81.39,
+      "revenue": 111.11,
+      "profit": 78.44,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 8,
+          "signups": 7,
           "users": 0,
-          "revenue": 42.718346253229974
+          "revenue": 35.32710280373831
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -3449,19 +3804,13 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
           "signups": 1,
           "users": 0,
           "revenue": 11.666666666666666
-        },
-        "Jackpotgo": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 7.555555555555556
         },
         "Chanced Punt": {
           "advertiser": "CHANCED",
@@ -3472,7 +3821,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 15,
+          "signups": 13,
           "users": 0
         },
         "jessie": {
@@ -3489,15 +3838,15 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 32.67,
-      "signups": 16,
+      "signups": 14,
       "users": 0,
-      "revenue": 114.05,
-      "profit": 81.39,
+      "revenue": 111.11,
+      "profit": 78.44,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 8,
+          "signups": 7,
           "users": 0,
-          "revenue": 42.718346253229974
+          "revenue": 35.32710280373831
         },
         "BASHER AGENCY": {
           "signups": 1,
@@ -3515,19 +3864,13 @@
           "advertiser": "GAMETIME DIGITAL",
           "signups": 7,
           "users": 0,
-          "revenue": 35.16279069767442
+          "revenue": 35.32710280373831
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
           "signups": 1,
           "users": 0,
           "revenue": 11.666666666666666
-        },
-        "Jackpotgo": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 7.555555555555556
         },
         "Chanced Punt": {
           "advertiser": "CHANCED",
@@ -3538,7 +3881,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 15,
+          "signups": 13,
           "users": 0
         },
         "jessie": {
