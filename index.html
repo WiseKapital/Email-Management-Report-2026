@@ -56,7 +56,7 @@
           <div id="customCalendarPopup" class="hidden absolute top-12 left-0 z-50 w-72 bg-white rounded-[22px] p-5 shadow-2xl border border-slate-100 transition-all select-none">
             <div class="flex items-center justify-between mb-4">
               <button type="button" onclick="navigateMonth(-1)" class="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg></button>
-              <span id="calHeaderTitle" class="text-xs font-extrabold text-[#0f172a] uppercase tracking-wider">SEPTEMBER 2026</span>
+              <span id="calHeaderTitle" class="text-xs font-extrabold text-[#0f172a] uppercase tracking-wider">OCTOBER 2026</span>
               <button type="button" id="calNextBtn" onclick="navigateMonth(1)" class="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg></button>
             </div>
             <div class="grid grid-cols-7 gap-1 text-center mb-2 text-[11px] font-extrabold text-slate-800"><span>MO</span><span>TU</span><span>WE</span><span>TH</span><span>FR</span><span>SA</span><span>SU</span></div>
@@ -142,7 +142,7 @@
         </div>
       </section>
 
-      <!-- TABLA: ESP / IP BREAKDOWN (CON FILTRO CORREGIDO) -->
+      <!-- TABLA: ESP / IP BREAKDOWN -->
       <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div class="px-6 py-4 border-b border-slate-100 bg-slate-50/50">
           <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">ESP / IP Breakdown</h3>
@@ -294,6 +294,7 @@
     </div>
   </div>
 
+  <!-- JAVASCRIPT COMPACTO Y COMPLETO -->
   <script>
     const $ = id => document.getElementById(id);
     const setT = (id, val) => { const el = $(id); if (el) el.textContent = val; };
@@ -303,22 +304,17 @@
     let globalLoadedMonths = [], areDetailsExpanded = false, chartRefs = {};
     const initialTableState = {}, tableSortDirections = {}, csvCache = {};
 
-    let currentStartDate = '2026-09-01', currentEndDate = '2026-09-30';
-    let minDataDate = '2026-01-01', maxDataDate = '2026-12-31';
-    let activeCalTarget = 'from', calViewYear = 2026, calViewMonth = 8; // Septiembre
+    const getTodayIso = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; };
+    const _initialToday = getTodayIso();
+    let currentStartDate = _initialToday.substring(0, 8) + '01', currentEndDate = _initialToday;
+    let activeCalTarget = 'from', calViewYear = new Date().getFullYear(), calViewMonth = new Date().getMonth();
 
     const formatS2P = (s, u) => u > 0 ? (s === 0 ? '0:1' : `1:${Math.round(s/u)}`) : (s > 0 ? `0:${s}` : '0:0');
     const isoToDisplay = s => s ? `${s.split('-')[1]}/${s.split('-')[2]}/${s.split('-')[0]}` : '';
 
-    // Carga soportando minúsculas y mayúsculas en el nombre del JSON
     async function fetchMonthFile(mKey) {
-      const capKey = mKey.charAt(0).toUpperCase() + mKey.slice(1);
-      const ts = Date.now();
-      const candidates = [
-        `data_${mKey}.json?t=${ts}`, `./data_${mKey}.json?t=${ts}`, `data/data_${mKey}.json?t=${ts}`,
-        `data_${capKey}.json?t=${ts}`, `./data_${capKey}.json?t=${ts}`, `data/data_${capKey}.json?t=${ts}`
-      ];
-      for (const p of candidates) {
+      const ts = Date.now(), c = [`data_${mKey}.json?t=${ts}`, `./data_${mKey}.json?t=${ts}`, `data/data_${mKey}.json?t=${ts}`];
+      for (const p of c) {
         try {
           const r = await fetch(p, { cache: 'no-store' });
           if (r.ok) { const d = await r.json(); if (d && (d.daily_records || d.summary_mtd)) return d; }
@@ -328,25 +324,16 @@
     }
     const loadAllMonths = async () => (await Promise.all(MONTH_KEYS.map(fetchMonthFile))).filter(Boolean);
 
-    // Detección automática del rango de fechas presente en los archivos cargados
-    function detectDateRange(months) {
-      let minD = '9999-12-31', maxD = '0000-01-01';
-      months.forEach(m => (m.daily_records || []).forEach(r => {
-        if (r.date < minD) minD = r.date;
-        if (r.date > maxD) maxD = r.date;
-      }));
-      if (minD === '9999-12-31') return { min: '2026-09-01', max: '2026-09-30' };
-      return { min: minD, max: maxD };
+    function getMinDataDate(months) {
+      let minD = '9999-12-31';
+      months.forEach(m => (m.daily_records || []).forEach(r => { if (r.date < minD) minD = r.date; }));
+      return minD !== '9999-12-31' ? minD : `${new Date().getFullYear()}-01-01`;
     }
 
-    function initDateControls(months) {
-      const range = detectDateRange(months);
-      minDataDate = range.min;
-      maxDataDate = range.max;
-      currentStartDate = range.min;
-      currentEndDate = range.max;
-      calViewYear = parseInt(currentStartDate.substring(0, 4), 10);
-      calViewMonth = parseInt(currentStartDate.substring(5, 7), 10) - 1;
+    function initDateControls() {
+      const maxAllowed = getTodayIso();
+      currentStartDate = maxAllowed.substring(0, 8) + '01';
+      currentEndDate = maxAllowed;
       setT('fromDisplay', isoToDisplay(currentStartDate));
       setT('toDisplay', isoToDisplay(currentEndDate));
     }
@@ -372,7 +359,7 @@
 
     function renderCustomCalendar() {
       setT('calHeaderTitle', `${MONTH_NAMES[calViewMonth]} ${calViewYear}`);
-      const grid = $('calDaysGrid');
+      const grid = $('calDaysGrid'), maxAllowed = getTodayIso(), minAllowed = getMinDataDate(globalLoadedMonths);
       grid.innerHTML = '';
       const first = new Date(calViewYear, calViewMonth, 1), days = new Date(calViewYear, calViewMonth + 1, 0).getDate();
       const offset = (first.getDay() + 6) % 7;
@@ -380,9 +367,7 @@
       for (let day = 1; day <= days; day++) {
         const iso = `${calViewYear}-${String(calViewMonth + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
         const btn = document.createElement('button'); btn.type = 'button'; btn.textContent = day;
-        
-        // Bloquea solo si está fuera del rango total existente de datos
-        if (iso > maxDataDate || iso < minDataDate) {
+        if (iso > maxAllowed || iso < minAllowed) {
           btn.className = 'p-1.5 text-slate-300 font-bold rounded-xl cursor-not-allowed';
         } else {
           const sel = (activeCalTarget === 'from' && iso === currentStartDate) || (activeCalTarget === 'to' && iso === currentEndDate);
@@ -395,14 +380,11 @@
 
     async function selectCalendarDate(iso) {
       if (activeCalTarget === 'from') {
-        currentStartDate = iso; 
-        if (currentStartDate > currentEndDate) currentEndDate = currentStartDate;
+        currentStartDate = iso; if (currentStartDate > currentEndDate) currentEndDate = currentStartDate;
         toggleCustomCalendar('to');
       } else {
-        currentEndDate = iso; 
-        if (currentEndDate < currentStartDate) currentStartDate = currentEndDate;
-        $('customCalendarPopup').classList.add('hidden'); 
-        resetPillStyles();
+        currentEndDate = iso; if (currentEndDate < currentStartDate) currentStartDate = currentEndDate;
+        $('customCalendarPopup').classList.add('hidden'); resetPillStyles();
       }
       setT('fromDisplay', isoToDisplay(currentStartDate));
       setT('toDisplay', isoToDisplay(currentEndDate));
@@ -453,11 +435,7 @@
     }
 
     async function aggregateCsvForRange(s, e) {
-      const [sy, sm, sd] = s.split('-').map(Number);
-      const [ey, em, ed] = e.split('-').map(Number);
-      const cur = new Date(sy, sm - 1, sd);
-      const end = new Date(ey, em - 1, ed);
-      const dates = [];
+      const cur = new Date(s), end = new Date(e), dates = [];
       while (cur <= end) {
         dates.push({ m: MONTH_KEYS[cur.getMonth()], d: String(cur.getDate()).padStart(2, '0') });
         cur.setDate(cur.getDate() + 1);
@@ -476,7 +454,7 @@
       return merged;
     }
 
-    // AGREGACIÓN DINÁMICA POR FECHA DE JSON
+    // JSON AGGREGATOR
     function aggregateJsonData(s, e) {
       const agg = {
         budget: 0, signups: 0, users: 0, revenue: 0, daysElapsedInRange: 0, totalMonthDays: 0,
@@ -489,100 +467,26 @@
       months.forEach(m => {
         if (m.kpis) { ['budget','signups','users','revenue','profit'].forEach(k => agg.kpi[k] += (m.kpis[k] || 0)); }
         agg.totalMonthDays += (m.total_days_in_month || 30);
+        const rows = m.esp_ip_breakdown?.by_row || m.esp_mtd_totals || [];
+        if (rows.length) agg.esp_ip_breakdown = agg.esp_ip_breakdown.concat(rows);
       });
-
-      const espIpMap = {};
-      let hasDailyEspData = false;
 
       months.forEach(m => (m.daily_records || []).forEach(r => {
         if (r.date >= s && r.date <= e) {
           agg.daysElapsedInRange++; agg.budget += r.budget || 0; agg.signups += r.signups || 0; agg.users += r.users || 0; agg.revenue += r.revenue || 0;
-          
           Object.entries(r.advertisers || {}).forEach(([adv, v]) => {
             if (!agg.advertisers[adv]) agg.advertisers[adv] = { signups: 0, users: 0, revenue: 0 };
             agg.advertisers[adv].signups += v.signups || 0; agg.advertisers[adv].users += v.users || 0; agg.advertisers[adv].revenue += v.revenue || 0;
           });
-          
           Object.entries(r.brands || {}).forEach(([br, v]) => {
             if (!agg.brands[br]) agg.brands[br] = { advertiser: v.advertiser || '-', signups: 0, users: 0, revenue: 0 };
             agg.brands[br].signups += v.signups || 0; agg.brands[br].users += v.users || 0; agg.brands[br].revenue += v.revenue || 0;
           });
-          
           if (r.ops) {
             ['andrea','jessie'].forEach(p => { if (r.ops[p]) { agg.ops[p].signups += r.ops[p].signups || 0; agg.ops[p].users += r.ops[p].users || 0; } });
           }
-
-          // Agrupación y suma día a día del desglose de ESP/IP
-          if (Array.isArray(r.esp_ip_breakdown) && r.esp_ip_breakdown.length > 0) {
-            hasDailyEspData = true;
-            r.esp_ip_breakdown.forEach(item => {
-              const espIp = item.esp_ip || 'Other';
-              const adv = item.advertiser || '-';
-              const br = item.brand || '-';
-              const key = `${adv}___${br}`;
-
-              if (!espIpMap[espIp]) {
-                espIpMap[espIp] = { items: {}, order: [] };
-              }
-              if (!espIpMap[espIp].items[key]) {
-                espIpMap[espIp].items[key] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
-                espIpMap[espIp].order.push(key);
-              }
-              espIpMap[espIp].items[key].signups += (item.signups || 0);
-              espIpMap[espIp].items[key].ftds += (item.ftds || 0);
-            });
-          }
         }
       }));
-
-      // Si encontramos datos diarios en el rango, construimos la lista agrupada con subtotales
-      if (hasDailyEspData) {
-        const rows = [];
-        let grandSig = 0, grandFtd = 0;
-
-        Object.entries(espIpMap).forEach(([espIp, group]) => {
-          let subSig = 0, subFtd = 0;
-          group.order.forEach(k => {
-            const row = group.items[k];
-            if (row.signups > 0 || row.ftds > 0) {
-              rows.push(row);
-              subSig += row.signups;
-              subFtd += row.ftds;
-            }
-          });
-
-          if (subSig > 0 || subFtd > 0) {
-            rows.push({
-              esp_ip: `GRAND TOTAL ${espIp}`,
-              advertiser: '',
-              brand: '',
-              signups: subSig,
-              ftds: subFtd,
-              is_total: true
-            });
-            grandSig += subSig;
-            grandFtd += subFtd;
-          }
-        });
-
-        rows.push({
-          esp_ip: 'OVERALL GRAND TOTAL',
-          advertiser: '',
-          brand: '',
-          signups: grandSig,
-          ftds: grandFtd,
-          is_total: true,
-          is_overall: true
-        });
-
-        agg.esp_ip_breakdown = rows;
-      } else {
-        // Si el rango no contiene filas diarias de breakdown (o es archivo legado), usa MTD como fallback
-        months.forEach(m => {
-          const rows = m.esp_ip_breakdown?.by_row || m.esp_mtd_totals || [];
-          if (rows.length) agg.esp_ip_breakdown = agg.esp_ip_breakdown.concat(rows);
-        });
-      }
 
       months.forEach(m => {
         const opsMtd = m.team_ops_mtd;
@@ -662,7 +566,7 @@
     function renderEspIpBreakdown(rows) {
       const tbody = $('espIpBreakdownTableBody'); tbody.innerHTML = '';
       let gSig = 0, gFtd = 0, hasOverall = false;
-      if (!rows || !rows.length) { tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-400 italic">No breakdown data available for this range.</td></tr>`; return; }
+      if (!rows || !rows.length) { tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-400 italic">No breakdown data available.</td></tr>`; return; }
       
       rows.forEach(r => {
         if (r.is_overall || r.esp_ip?.toUpperCase().includes('OVERALL GRAND TOTAL')) { gSig = r.signups||0; gFtd = r.ftds||0; hasOverall = true; return; }
@@ -782,9 +686,9 @@
     }
 
     document.addEventListener('DOMContentLoaded', async () => {
+      initDateControls();
       initCharts();
       globalLoadedMonths = await loadAllMonths();
-      initDateControls(globalLoadedMonths);
       await updateDashboardForDateRange();
     });
   </script>
