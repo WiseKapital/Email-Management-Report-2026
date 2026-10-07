@@ -142,7 +142,7 @@
         </div>
       </section>
 
-      <!-- TABLA: ESP / IP BREAKDOWN (CON FILTRO CORREGIDO) -->
+      <!-- TABLA: ESP / IP BREAKDOWN -->
       <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div class="px-6 py-4 border-b border-slate-100 bg-slate-50/50">
           <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">ESP / IP Breakdown</h3>
@@ -312,7 +312,11 @@
     const isoToDisplay = s => s ? `${s.split('-')[1]}/${s.split('-')[2]}/${s.split('-')[0]}` : '';
 
     async function fetchMonthFile(mKey) {
-      const ts = Date.now(), c = [`data_${mKey}.json?t=${ts}`, `./data_${mKey}.json?t=${ts}`, `data/data_${mKey}.json?t=${ts}`];
+      const capKey = mKey.charAt(0).toUpperCase() + mKey.slice(1);
+      const ts = Date.now(), c = [
+        `data_${mKey}.json?t=${ts}`, `./data_${mKey}.json?t=${ts}`, `data/data_${mKey}.json?t=${ts}`,
+        `data_${capKey}.json?t=${ts}`, `./data_${capKey}.json?t=${ts}`, `data/data_${capKey}.json?t=${ts}`
+      ];
       for (const p of c) {
         try {
           const r = await fetch(p, { cache: 'no-store' });
@@ -330,9 +334,19 @@
     }
 
     function initDateControls() {
-      const maxAllowed = getTodayIso();
-      currentStartDate = maxAllowed.substring(0, 8) + '01';
-      currentEndDate = maxAllowed;
+      let minD = '9999-12-31', maxD = '0000-01-01';
+      globalLoadedMonths.forEach(m => (m.daily_records || []).forEach(r => {
+        if (r.date < minD) minD = r.date;
+        if (r.date > maxD) maxD = r.date;
+      }));
+      if (maxD !== '0000-01-01') {
+        currentStartDate = maxD.substring(0, 8) + '01';
+        currentEndDate = maxD;
+      } else {
+        const maxAllowed = getTodayIso();
+        currentStartDate = maxAllowed.substring(0, 8) + '01';
+        currentEndDate = maxAllowed;
+      }
       setT('fromDisplay', isoToDisplay(currentStartDate));
       setT('toDisplay', isoToDisplay(currentEndDate));
     }
@@ -358,7 +372,7 @@
 
     function renderCustomCalendar() {
       setT('calHeaderTitle', `${MONTH_NAMES[calViewMonth]} ${calViewYear}`);
-      const grid = $('calDaysGrid'), maxAllowed = getTodayIso(), minAllowed = getMinDataDate(globalLoadedMonths);
+      const grid = $('calDaysGrid'), minAllowed = getMinDataDate(globalLoadedMonths);
       grid.innerHTML = '';
       const first = new Date(calViewYear, calViewMonth, 1), days = new Date(calViewYear, calViewMonth + 1, 0).getDate();
       const offset = (first.getDay() + 6) % 7;
@@ -366,7 +380,7 @@
       for (let day = 1; day <= days; day++) {
         const iso = `${calViewYear}-${String(calViewMonth + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
         const btn = document.createElement('button'); btn.type = 'button'; btn.textContent = day;
-        if (iso > maxAllowed || iso < minAllowed) {
+        if (iso < minAllowed) {
           btn.className = 'p-1.5 text-slate-300 font-bold rounded-xl cursor-not-allowed';
         } else {
           const sel = (activeCalTarget === 'from' && iso === currentStartDate) || (activeCalTarget === 'to' && iso === currentEndDate);
@@ -423,7 +437,11 @@
 
     async function fetchCsvDay(m, d) {
       const k = `${m}/${d}`; if (csvCache[k] !== undefined) return csvCache[k];
-      const ts = Date.now(), urls = [`maildata_${m}/${d}.csv?t=${ts}`, `./maildata_${m}/${d}.csv?t=${ts}`];
+      const capM = m.charAt(0).toUpperCase() + m.slice(1);
+      const ts = Date.now(), urls = [
+        `maildata_${m}/${d}.csv?t=${ts}`, `./maildata_${m}/${d}.csv?t=${ts}`,
+        `maildata_${capM}/${d}.csv?t=${ts}`, `./maildata_${capM}/${d}.csv?t=${ts}`
+      ];
       for (const u of urls) {
         try {
           const r = await fetch(u, { cache: 'no-store' });
@@ -433,12 +451,24 @@
       return (csvCache[k] = null);
     }
 
+    // AGREGADOR CSV CON HORA LOCAL AL MEDIODÍA PARA EVITAR DESFASES DE ZONA HORARIA
     async function aggregateCsvForRange(s, e) {
-      const cur = new Date(s), end = new Date(e), dates = [];
+      const [sy, sm, sd] = s.split('-').map(Number);
+      const [ey, em, ed] = e.split('-').map(Number);
+      
+      // Forzar 12:00:00 (mediodía) local para que nunca reste ni sume un día por husos horarios
+      const cur = new Date(sy, sm - 1, sd, 12, 0, 0);
+      const end = new Date(ey, em - 1, ed, 12, 0, 0);
+      const dates = [];
+      
       while (cur <= end) {
-        dates.push({ m: MONTH_KEYS[cur.getMonth()], d: String(cur.getDate()).padStart(2, '0') });
+        dates.push({ 
+          m: MONTH_KEYS[cur.getMonth()], 
+          d: String(cur.getDate()).padStart(2, '0') 
+        });
         cur.setDate(cur.getDate() + 1);
       }
+      
       const days = await Promise.all(dates.map(x => fetchCsvDay(x.m, x.d))), merged = {};
       days.filter(Boolean).forEach(m => Object.entries(m).forEach(([esp, v]) => {
         if (!merged[esp]) merged[esp] = { ...v, domains: {} };
@@ -453,7 +483,7 @@
       return merged;
     }
 
-    // JSON AGGREGATOR CORREGIDO CON FILTRADO EXACTO POR FECHA PARA ESP / IP BREAKDOWN
+    // JSON AGGREGATOR
     function aggregateJsonData(s, e) {
       const agg = {
         budget: 0, signups: 0, users: 0, revenue: 0, daysElapsedInRange: 0, totalMonthDays: 0,
@@ -468,7 +498,6 @@
         agg.totalMonthDays += (m.total_days_in_month || 30);
       });
 
-      // Estructura temporal para acumular por ESP/IP día a día dentro del rango
       const espIpMap = {};
       let hasDailyEspData = false;
 
@@ -490,7 +519,6 @@
             ['andrea','jessie'].forEach(p => { if (r.ops[p]) { agg.ops[p].signups += r.ops[p].signups || 0; agg.ops[p].users += r.ops[p].users || 0; } });
           }
 
-          // Agregación de r.esp_ip_breakdown día por día
           if (Array.isArray(r.esp_ip_breakdown) && r.esp_ip_breakdown.length > 0) {
             hasDailyEspData = true;
             r.esp_ip_breakdown.forEach(item => {
@@ -503,7 +531,7 @@
                 espIpMap[espIp] = { items: {}, order: [] };
               }
               if (!espIpMap[espIp].items[key]) {
-                espIpMap[espIp].items[key] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
+                espIpMap[espIp] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
                 espIpMap[espIp].order.push(key);
               }
               espIpMap[espIp].items[key].signups += (item.signups || 0);
@@ -513,7 +541,6 @@
         }
       }));
 
-      // Si encontramos datos diarios en el rango, construimos filas y subtotales dinámicamente
       if (hasDailyEspData) {
         const rows = [];
         let grandSig = 0, grandFtd = 0;
@@ -555,7 +582,6 @@
 
         agg.esp_ip_breakdown = rows;
       } else {
-        // Fallback para meses antiguos que no tengan daily_records.esp_ip_breakdown
         months.forEach(m => {
           const rows = m.esp_ip_breakdown?.by_row || m.esp_mtd_totals || [];
           if (rows.length) agg.esp_ip_breakdown = agg.esp_ip_breakdown.concat(rows);
@@ -760,9 +786,9 @@
     }
 
     document.addEventListener('DOMContentLoaded', async () => {
-      initDateControls();
       initCharts();
       globalLoadedMonths = await loadAllMonths();
+      initDateControls();
       await updateDashboardForDateRange();
     });
   </script>
