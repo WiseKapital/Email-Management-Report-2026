@@ -135,7 +135,7 @@
         <div class="overflow-x-auto">
           <table class="w-full text-sm text-right esp-table">
             <thead>
-              <tr><th class="py-3 px-4 text-left font-bold text-xs uppercase">ESP ▲</th><th class="py-3 px-4">VOLUME</th><th class="py-3 px-4">Delivered</th><th class="py-3 px-4">Soft Bounce</th><th class="py-3 px-4">Hard Bounce</th><th class="py-3 px-4">Opened</th><th class="py-3 px-4">Clicked</th><th class="py-3 px-4">SIGNUPS</th><th class="py-3 px-4">PLAYERS</th></tr>
+              <tr><th class="py-3 px-4 text-left font-bold text-xs uppercase">ESP ▲</th><th class="py-3 px-4">VOLUME</th><th class="py-3 px-4">Delivered</th><th class="py-3 px-4">Soft Bounce</th><th class="py-3 px-4">Hard Bounce</th><th class="py-3 px-4">Opened</th><th class="py-3 px-4">Clicks</th><th class="py-3 px-4">SIGNUPS</th><th class="py-3 px-4">PLAYERS</th></tr>
             </thead>
             <tbody id="espTableBody" class="text-slate-700"></tbody>
             <tfoot id="espTableFoot"></tfoot>
@@ -479,7 +479,7 @@
           const sb = parseNum(c[3]);
           const hb = parseNum(c[4]);
           const o = parseNum(c[5]);
-          const cl = parseNum(c[7]) || parseNum(c[6]);
+          const cl = parseNum(c[7]); // Exactly column 7: 'Click'
           const un = parseNum(c[11]);
 
           const item = map[full];
