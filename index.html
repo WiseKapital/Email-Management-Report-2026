@@ -303,7 +303,6 @@
     let globalLoadedMonths = [], areDetailsExpanded = false, chartRefs = {};
     const initialTableState = {}, tableSortDirections = {}, csvCache = {};
 
-    // Absolute minimum allowed date: July 1, 2026
     const MIN_ALLOWED_DATE = '2026-07-01';
 
     const getTodayIso = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; };
@@ -481,15 +480,13 @@
           const o = parseNum(c[5]);
           const cl = parseNum(c[7]) || parseNum(c[6]);
           const un = parseNum(c[11]);
-          const reg = parseNum(c[12]);
-          const pl = parseNum(c[13]);
 
           const item = map[full];
-          item.delivered += d; item.softBounce += sb; item.hardBounce += hb; item.bounced += (sb + hb); item.opened += o; item.clicked += cl; item.unsub += un; item.signups += reg; item.players += pl;
+          item.delivered += d; item.softBounce += sb; item.hardBounce += hb; item.bounced += (sb + hb); item.opened += o; item.clicked += cl; item.unsub += un;
           
           if (!item.domains[domName]) item.domains[domName] = { delivered: 0, softBounce: 0, hardBounce: 0, bounced: 0, opened: 0, clicked: 0, unsub: 0, signups: 0, players: 0 };
           const dom = item.domains[domName];
-          dom.delivered += d; dom.softBounce += sb; dom.hardBounce += hb; dom.bounced += (sb + hb); dom.opened += o; dom.clicked += cl; dom.unsub += un; dom.signups += reg; dom.players += pl;
+          dom.delivered += d; dom.softBounce += sb; dom.hardBounce += hb; dom.bounced += (sb + hb); dom.opened += o; dom.clicked += cl; dom.unsub += un;
         }
       }
       return Object.keys(map).length > 0 ? map : null;
@@ -565,11 +562,11 @@
       validDays.forEach(m => Object.entries(m).forEach(([esp, v]) => {
         if (!merged[esp]) merged[esp] = { ...v, domains: {} };
         else {
-          ['delivered','softBounce','hardBounce','bounced','opened','clicked','unsub','signups','players'].forEach(k => merged[esp][k] += v[k]);
+          ['delivered','softBounce','hardBounce','bounced','opened','clicked','unsub'].forEach(k => merged[esp][k] += v[k]);
         }
         Object.entries(v.domains).forEach(([dom, dv]) => {
           if (!merged[esp].domains[dom]) merged[esp].domains[dom] = { ...dv };
-          else ['delivered','softBounce','hardBounce','bounced','opened','clicked','unsub','signups','players'].forEach(k => merged[esp].domains[dom][k] += dv[k]);
+          else ['delivered','softBounce','hardBounce','bounced','opened','clicked','unsub'].forEach(k => merged[esp].domains[dom][k] += dv[k]);
         });
       }));
       return merged;
@@ -614,16 +611,16 @@
           if (Array.isArray(r.esp_ip_breakdown) && r.esp_ip_breakdown.length > 0) {
             hasDailyEspData = true;
             r.esp_ip_breakdown.forEach(item => {
-              const espIp = item.esp_ip || 'Other';
-              const adv = item.advertiser || '-';
-              const br = item.brand || '-';
+              const espIp = (item.esp_ip || 'Other').trim();
+              const adv = (item.advertiser || '-').trim();
+              const br = (item.brand || '-').trim();
               const key = `${adv}___${br}`;
 
               if (!espIpMap[espIp]) {
                 espIpMap[espIp] = { items: {}, order: [] };
               }
               if (!espIpMap[espIp].items[key]) {
-                espIpMap[espIp] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
+                espIpMap[espIp].items[key] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
                 espIpMap[espIp].order.push(key);
               }
               espIpMap[espIp].items[key].signups += (item.signups || 0);
@@ -698,13 +695,65 @@
     async function updateDashboardForDateRange() {
       const agg = aggregateJsonData(currentStartDate, currentEndDate);
       const csvMap = await aggregateCsvForRange(currentStartDate, currentEndDate);
+
+      // Sincronización: Calcular totales de Signups y FTDs directamente desde ESP / IP Breakdown
+      const espTotalsFromBreakdown = {};
+      let totalBreakdownSignups = 0;
+      let totalBreakdownFtds = 0;
+
+      (agg.esp_ip_breakdown || []).forEach(r => {
+        if (r.is_total || r.is_overall) return;
+        const key = (r.esp_ip || '').trim();
+        if (!key) return;
+        if (!espTotalsFromBreakdown[key]) {
+          espTotalsFromBreakdown[key] = { signups: 0, ftds: 0 };
+        }
+        espTotalsFromBreakdown[key].signups += (r.signups || 0);
+        espTotalsFromBreakdown[key].ftds += (r.ftds || 0);
+        totalBreakdownSignups += (r.signups || 0);
+        totalBreakdownFtds += (r.ftds || 0);
+      });
+
+      const norm = s => (s || '').toLowerCase().replace(/\s+/g, ' ').trim();
+      function getBreakdownForEsp(espName) {
+        const target = norm(espName);
+        for (const [k, v] of Object.entries(espTotalsFromBreakdown)) {
+          if (norm(k) === target) return v;
+        }
+        for (const [k, v] of Object.entries(espTotalsFromBreakdown)) {
+          if (norm(k).includes(target) || target.includes(norm(k))) return v;
+        }
+        return { signups: 0, ftds: 0 };
+      }
+
+      // Asegurar que los ESPs de breakdown aparezcan en el mapa aunque no tengan envíos en el CSV
+      Object.keys(espTotalsFromBreakdown).forEach(espName => {
+        if (!csvMap[espName]) {
+          csvMap[espName] = {
+            esp: espName, delivered: 0, softBounce: 0, hardBounce: 0,
+            bounced: 0, opened: 0, clicked: 0, unsub: 0, signups: 0, players: 0, domains: {}
+          };
+        }
+      });
+
+      // Sobrescribir SIGNUPS y PLAYERS con los datos exactos del Breakdown
+      Object.values(csvMap).forEach(item => {
+        const bd = getBreakdownForEsp(item.esp);
+        item.signups = bd.signups;
+        item.players = bd.ftds;
+      });
+
       const list = Object.values(csvMap);
-      agg.esp = list.filter(e => e.delivered > 0 || e.signups > 0 || e.opened > 0);
+      agg.esp = list.filter(e => e.delivered > 0 || e.signups > 0 || e.opened > 0 || e.players > 0);
+      
       ['delivered','softBounce','hardBounce','bounced','opened','clicked','unsub'].forEach(k => {
         agg[k] = agg.esp.reduce((acc, cur) => acc + (cur[k] || 0), 0);
       });
-      agg.espSignups = agg.esp.reduce((acc, cur) => acc + (cur.signups || 0), 0);
-      agg.espPlayers = agg.esp.reduce((acc, cur) => acc + (cur.players || 0), 0);
+
+      // El total general de Signups y Players se toma del ESP / IP Breakdown
+      agg.espSignups = totalBreakdownSignups;
+      agg.espPlayers = totalBreakdownFtds;
+
       renderDashboard(agg, currentStartDate, currentEndDate);
     }
 
@@ -781,9 +830,9 @@
       const tb = $('espTableBody'), tf = $('espTableFoot'); tb.innerHTML = '';
       list.forEach(i => {
         const v = i.delivered + (i.softBounce||0) + (i.hardBounce||0);
-        tb.innerHTML += `<tr class="esp-summary-row"><td class="py-3 px-4 text-left font-bold">${i.esp}</td><td class="py-3 px-4 font-mono">${v.toLocaleString()}</td><td class="py-3 px-4 font-mono">${i.delivered.toLocaleString()}</td><td class="py-3 px-4 font-mono text-amber-700">${(i.softBounce||0).toLocaleString()}</td><td class="py-3 px-4 font-mono text-rose-700">${(i.hardBounce||0).toLocaleString()}</td><td class="py-3 px-4 font-mono text-emerald-700">${i.opened.toLocaleString()}</td><td class="py-3 px-4 font-mono text-sky-700">${i.clicked.toLocaleString()}</td><td class="py-3 px-4 font-mono text-amber-600">${i.signups.toLocaleString()}</td><td class="py-3 px-4 font-mono text-indigo-600">${i.players.toLocaleString()}</td></tr>`;
+        tb.innerHTML += `<tr class="esp-summary-row"><td class="py-3 px-4 text-left font-bold">${i.esp}</td><td class="py-3 px-4 font-mono">${v.toLocaleString()}</td><td class="py-3 px-4 font-mono">${i.delivered.toLocaleString()}</td><td class="py-3 px-4 font-mono text-amber-700">${(i.softBounce||0).toLocaleString()}</td><td class="py-3 px-4 font-mono text-rose-700">${(i.hardBounce||0).toLocaleString()}</td><td class="py-3 px-4 font-mono text-emerald-700">${i.opened.toLocaleString()}</td><td class="py-3 px-4 font-mono text-sky-700">${i.clicked.toLocaleString()}</td><td class="py-3 px-4 font-mono text-amber-600">${(i.signups||0).toLocaleString()}</td><td class="py-3 px-4 font-mono text-indigo-600">${(i.players||0).toLocaleString()}</td></tr>`;
         Object.entries(i.domains||{}).forEach(([dom, d]) => {
-          tb.innerHTML += `<tr class="domain-row text-xs text-slate-600 ${areDetailsExpanded?'':'hidden'}"><td class="py-1.5 px-4 text-left pl-8">${dom}</td><td class="font-mono">${(d.delivered+d.softBounce+d.hardBounce).toLocaleString()}</td><td>${d.delivered.toLocaleString()}</td><td class="text-amber-700">${d.softBounce.toLocaleString()}</td><td class="text-rose-700">${d.hardBounce.toLocaleString()}</td><td class="text-emerald-700">${d.opened.toLocaleString()}</td><td class="text-sky-700">${d.clicked.toLocaleString()}</td><td>${d.signups.toLocaleString()}</td><td>${d.players.toLocaleString()}</td></tr>`;
+          tb.innerHTML += `<tr class="domain-row text-xs text-slate-600 ${areDetailsExpanded?'':'hidden'}"><td class="py-1.5 px-4 text-left pl-8">${dom}</td><td class="font-mono">${(d.delivered+d.softBounce+d.hardBounce).toLocaleString()}</td><td>${d.delivered.toLocaleString()}</td><td class="text-amber-700">${d.softBounce.toLocaleString()}</td><td class="text-rose-700">${d.hardBounce.toLocaleString()}</td><td class="text-emerald-700">${d.opened.toLocaleString()}</td><td class="text-sky-700">${d.clicked.toLocaleString()}</td><td class="text-slate-400 font-mono text-center">-</td><td class="text-slate-400 font-mono text-center">-</td></tr>`;
         });
       });
       const totVol = (agg.delivered||0) + (agg.softBounce||0) + (agg.hardBounce||0);
