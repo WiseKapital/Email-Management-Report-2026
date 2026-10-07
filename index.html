@@ -83,7 +83,8 @@
               <th class="px-3 border-r border-slate-100"></th>
               <th class="px-2.5 py-2">BUDGET</th><th class="px-2.5 py-2">SIGNUPS</th><th class="px-2.5 py-2">USERS</th><th class="px-2.5 py-2">REVENUE</th><th class="px-2.5 py-2 border-r border-slate-200">PROFIT</th>
               <th class="px-2.5 py-2">BUDGET</th><th class="px-2.5 py-2">SIGNUPS</th><th class="px-2.5 py-2">USERS</th><th class="px-2.5 py-2">REVENUE</th><th class="px-2.5 py-2 border-r border-slate-200">PROFIT</th>
-              <th class="px-2.5 py-2">BUDGET</th><th class="px-2.5 py-2">SIGNUPS</th><th class="px-2.5 py-2">USERS</th><th class="px-2.5 py-2">REVENUE</th><th class="px-2.5 py-2">PROFIT</th><th class="px-2.5 py-2">ROI</th>
+              <th class="px-2.5 py-2">BUDGET</th><th class="px-2.5 py-2">SIGNUPS</th><th class="px-2.5 py-2">USERS</th><th class="px-2.5 py-2">REVENUE</th><th class="px-2.5 py-2 border-r border-slate-200">PROFIT</th>
+              <th class="px-2.5 py-2">ROI</th>
             </tr>
           </thead>
           <tbody class="text-xs font-bold text-slate-800 divide-y divide-slate-100">
@@ -258,7 +259,7 @@
             </thead>
             <tbody id="advertiserTableBody"></tbody>
             <tfoot class="border-t-2 border-slate-900 bg-slate-50 font-bold">
-              <tr><td class="py-2.5 px-4 text-left">Grand total</td><td id="advGrandSignups" class="font-mono text-amber-600">0</td><td id="advGrandUsers" class="font-mono text-indigo-600">0</td><td id="advGrandRevenue" class="font-mono text-emerald-600">$0</td><td id="advGrandS2p" class="font-mono text-emerald-600">0:0</td></tr>
+              <tr><td colspan="1" class="py-2.5 px-4 text-left">Grand total</td><td id="advGrandSignups" class="font-mono text-amber-600">0</td><td id="advGrandUsers" class="font-mono text-indigo-600">0</td><td id="advGrandRevenue" class="font-mono text-emerald-600">$0</td><td id="advGrandS2p" class="font-mono text-emerald-600">0:0</td></tr>
             </tfoot>
           </table>
         </div>
@@ -528,7 +529,6 @@
           }
         } catch(e) {}
       }
-      console.warn(`[CSV Not Found] Could not load file for day ${d} (${m})`);
       return null;
     }
 
@@ -572,7 +572,7 @@
       return merged;
     }
 
-    // JSON AGGREGATOR
+    // JSON AGGREGATOR MULTI-MES INTEGRADO
     function aggregateJsonData(s, e) {
       const agg = {
         budget: 0, signups: 0, users: 0, revenue: 0, daysElapsedInRange: 0, totalMonthDays: 0,
@@ -587,78 +587,109 @@
         agg.totalMonthDays += (m.total_days_in_month || 30);
       });
 
+      // Estructura única para agrupar TODOS los meses e IPs sin duplicar bloques
       const espIpMap = {};
-      let hasDailyEspData = false;
 
-      months.forEach(m => (m.daily_records || []).forEach(r => {
-        if (r.date >= s && r.date <= e) {
-          agg.daysElapsedInRange++; agg.budget += r.budget || 0; agg.signups += r.signups || 0; agg.users += r.users || 0; agg.revenue += r.revenue || 0;
-          
+      function addBreakdownItem(espIpRaw, advRaw, brRaw, sig, ftd) {
+        const espIp = (espIpRaw || 'Other').trim();
+        const adv = (advRaw || '-').trim();
+        const br = (brRaw || '-').trim();
+        if (!espIp || espIp.toUpperCase().includes('TOTAL')) return;
+
+        const key = `${adv}___${br}`;
+        if (!espIpMap[espIp]) {
+          espIpMap[espIp] = { items: {}, order: [] };
+        }
+        if (!espIpMap[espIp].items[key]) {
+          espIpMap[espIp].items[key] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
+          espIpMap[espIp].order.push(key);
+        }
+        espIpMap[espIp].items[key].signups += (sig || 0);
+        espIpMap[espIp].items[key].ftds += (ftd || 0);
+      }
+
+      months.forEach(m => {
+        const dailyInRange = (m.daily_records || []).filter(r => r.date >= s && r.date <= e);
+        const hasDailyBreakdown = dailyInRange.some(r => Array.isArray(r.esp_ip_breakdown) && r.esp_ip_breakdown.length > 0);
+
+        // Agregación diaria
+        dailyInRange.forEach(r => {
+          agg.daysElapsedInRange++; 
+          agg.budget += r.budget || 0; 
+          agg.signups += r.signups || 0; 
+          agg.users += r.users || 0; 
+          agg.revenue += r.revenue || 0;
+
           Object.entries(r.advertisers || {}).forEach(([adv, v]) => {
             if (!agg.advertisers[adv]) agg.advertisers[adv] = { signups: 0, users: 0, revenue: 0 };
-            agg.advertisers[adv].signups += v.signups || 0; agg.advertisers[adv].users += v.users || 0; agg.advertisers[adv].revenue += v.revenue || 0;
+            agg.advertisers[adv].signups += v.signups || 0; 
+            agg.advertisers[adv].users += v.users || 0; 
+            agg.advertisers[adv].revenue += v.revenue || 0;
           });
-          
+
           Object.entries(r.brands || {}).forEach(([br, v]) => {
             if (!agg.brands[br]) agg.brands[br] = { advertiser: v.advertiser || '-', signups: 0, users: 0, revenue: 0 };
-            agg.brands[br].signups += v.signups || 0; agg.brands[br].users += v.users || 0; agg.brands[br].revenue += v.revenue || 0;
+            agg.brands[br].signups += v.signups || 0; 
+            agg.brands[br].users += v.users || 0; 
+            agg.brands[br].revenue += v.revenue || 0;
           });
-          
+
           if (r.ops) {
-            ['andrea','jessie'].forEach(p => { if (r.ops[p]) { agg.ops[p].signups += r.ops[p].signups || 0; agg.ops[p].users += r.ops[p].users || 0; } });
+            ['andrea','jessie'].forEach(p => { 
+              if (r.ops[p]) { 
+                agg.ops[p].signups += r.ops[p].signups || 0; 
+                agg.ops[p].users += r.ops[p].users || 0; 
+              } 
+            });
           }
 
-          if (Array.isArray(r.esp_ip_breakdown) && r.esp_ip_breakdown.length > 0) {
-            hasDailyEspData = true;
+          if (hasDailyBreakdown && Array.isArray(r.esp_ip_breakdown)) {
             r.esp_ip_breakdown.forEach(item => {
-              const espIp = (item.esp_ip || 'Other').trim();
-              const adv = (item.advertiser || '-').trim();
-              const br = (item.brand || '-').trim();
-              const key = `${adv}___${br}`;
-
-              if (!espIpMap[espIp]) {
-                espIpMap[espIp] = { items: {}, order: [] };
-              }
-              if (!espIpMap[espIp].items[key]) {
-                espIpMap[espIp].items[key] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
-                espIpMap[espIp].order.push(key);
-              }
-              espIpMap[espIp].items[key].signups += (item.signups || 0);
-              espIpMap[espIp].items[key].ftds += (item.ftds || 0);
+              addBreakdownItem(item.esp_ip, item.advertiser, item.brand, item.signups, item.ftds);
             });
-          }
-        }
-      }));
-
-      if (hasDailyEspData) {
-        const rows = [];
-        let grandSig = 0, grandFtd = 0;
-
-        Object.entries(espIpMap).forEach(([espIp, group]) => {
-          let subSig = 0, subFtd = 0;
-          group.order.forEach(k => {
-            const row = group.items[k];
-            if (row.signups > 0 || row.ftds > 0) {
-              rows.push(row);
-              subSig += row.signups;
-              subFtd += row.ftds;
-            }
-          });
-
-          if (subSig > 0 || subFtd > 0) {
-            rows.push({
-              esp_ip: `GRAND TOTAL ${espIp}`,
-              advertiser: '',
-              brand: '',
-              signups: subSig,
-              ftds: subFtd,
-              is_total: true
-            });
-            grandSig += subSig;
-            grandFtd += subFtd;
           }
         });
 
+        // Si este mes no tenía desglose diario, usamos sus totales MTD sumándolos al mismo mapa
+        if (!hasDailyBreakdown) {
+          const mtdRows = m.esp_ip_breakdown?.by_row || m.esp_mtd_totals || [];
+          mtdRows.forEach(item => {
+            if (item.is_total || item.is_overall) return;
+            addBreakdownItem(item.esp_ip, item.advertiser, item.brand, item.signups, item.ftds);
+          });
+        }
+      });
+
+      // Construcción consolidada de filas con un solo Grand Total por IP y un solo Overall Total
+      const rows = [];
+      let grandSig = 0, grandFtd = 0;
+
+      Object.entries(espIpMap).forEach(([espIp, group]) => {
+        let subSig = 0, subFtd = 0;
+        group.order.forEach(k => {
+          const row = group.items[k];
+          if (row.signups > 0 || row.ftds > 0) {
+            rows.push(row);
+            subSig += row.signups;
+            subFtd += row.ftds;
+          }
+        });
+
+        if (subSig > 0 || subFtd > 0) {
+          rows.push({
+            esp_ip: `GRAND TOTAL ${espIp}`,
+            advertiser: '',
+            brand: '',
+            signups: subSig,
+            ftds: subFtd,
+            is_total: true
+          });
+          grandSig += subSig;
+          grandFtd += subFtd;
+        }
+      });
+
+      if (rows.length > 0) {
         rows.push({
           esp_ip: 'OVERALL GRAND TOTAL',
           advertiser: '',
@@ -668,14 +699,9 @@
           is_total: true,
           is_overall: true
         });
-
-        agg.esp_ip_breakdown = rows;
-      } else {
-        months.forEach(m => {
-          const rows = m.esp_ip_breakdown?.by_row || m.esp_mtd_totals || [];
-          if (rows.length) agg.esp_ip_breakdown = agg.esp_ip_breakdown.concat(rows);
-        });
       }
+
+      agg.esp_ip_breakdown = rows;
 
       months.forEach(m => {
         const opsMtd = m.team_ops_mtd;
@@ -683,7 +709,9 @@
         ['signups_by_advertiser', 'users_by_advertiser'].forEach(prop => {
           Object.entries(opsMtd[prop] || {}).forEach(([adv, v]) => {
             if (!agg.ops[prop][adv]) agg.ops[prop][adv] = { andrea: 0, jessie: 0, total: 0 };
-            agg.ops[prop][adv].andrea += v.andrea || 0; agg.ops[prop][adv].jessie += v.jessie || 0; agg.ops[prop][adv].total += (v.andrea || 0) + (v.jessie || 0);
+            agg.ops[prop][adv].andrea += v.andrea || 0; 
+            agg.ops[prop][adv].jessie += v.jessie || 0; 
+            agg.ops[prop][adv].total += (v.andrea || 0) + (v.jessie || 0);
           });
         });
       });
@@ -696,7 +724,7 @@
       const agg = aggregateJsonData(currentStartDate, currentEndDate);
       const csvMap = await aggregateCsvForRange(currentStartDate, currentEndDate);
 
-      // Sincronización: Calcular totales de Signups y FTDs directamente desde ESP / IP Breakdown
+      // Sincronización exacta multimes de Signups y FTDs
       const espTotalsFromBreakdown = {};
       let totalBreakdownSignups = 0;
       let totalBreakdownFtds = 0;
@@ -726,7 +754,6 @@
         return { signups: 0, ftds: 0 };
       }
 
-      // Asegurar que los ESPs de breakdown aparezcan en el mapa aunque no tengan envíos en el CSV
       Object.keys(espTotalsFromBreakdown).forEach(espName => {
         if (!csvMap[espName]) {
           csvMap[espName] = {
@@ -736,7 +763,6 @@
         }
       });
 
-      // Sobrescribir SIGNUPS y PLAYERS con los datos exactos del Breakdown
       Object.values(csvMap).forEach(item => {
         const bd = getBreakdownForEsp(item.esp);
         item.signups = bd.signups;
@@ -750,7 +776,6 @@
         agg[k] = agg.esp.reduce((acc, cur) => acc + (cur[k] || 0), 0);
       });
 
-      // El total general de Signups y Players se toma del ESP / IP Breakdown
       agg.espSignups = totalBreakdownSignups;
       agg.espPlayers = totalBreakdownFtds;
 
