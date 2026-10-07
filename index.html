@@ -178,7 +178,7 @@
         <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider pt-2">2. Mailbox Domain Deliverability Charts</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 h-72 flex flex-col justify-between"><div><h4 class="text-xs font-bold text-slate-900 uppercase">Delivered by Domain</h4><p class="text-[11px] text-slate-500 mb-2">Total volume sent per domain</p></div><div class="relative h-52"><canvas id="chartDomainDelivered"></canvas></div></div>
-          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 h-72 flex flex-col justify-between"><div><h4 class="text-xs font-bold text-slate-900 uppercase">Open Rate (%) by Domain</h4><p class="text-[11px] text-slate-500 mb-2">Aperture rate by domain</p></div><div class="relative h-52"><canvas id="chartDomainOpenRate"></canvas></div></div>
+          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 h-72 flex flex-col justify-between"><div><h4 class="text-xs font-bold text-slate-900 uppercase">Open Rate (%) by Domain</h4><p class="text-[11px] text-slate-500 mb-2">Open rate by domain</p></div><div class="relative h-52"><canvas id="chartDomainOpenRate"></canvas></div></div>
           <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 h-72 flex flex-col justify-between"><div><h4 class="text-xs font-bold text-slate-900 uppercase">Clicks by Domain</h4><p class="text-[11px] text-slate-500 mb-2">Clicks generated per domain</p></div><div class="relative h-52"><canvas id="chartDomainClicks"></canvas></div></div>
         </div>
       </div>
@@ -303,13 +303,13 @@
     let globalLoadedMonths = [], areDetailsExpanded = false, chartRefs = {};
     const initialTableState = {}, tableSortDirections = {}, csvCache = {};
 
-    // Mínimo absoluto: 1 de Julio de 2026
+    // Absolute minimum allowed date: July 1, 2026
     const MIN_ALLOWED_DATE = '2026-07-01';
 
     const getTodayIso = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; };
     
     let currentStartDate = '2026-09-01', currentEndDate = '2026-09-30';
-    let activeCalTarget = 'from', calViewYear = 2026, calViewMonth = 8; // Septiembre
+    let activeCalTarget = 'from', calViewYear = 2026, calViewMonth = 8;
 
     const formatS2P = (s, u) => u > 0 ? (s === 0 ? '0:1' : `1:${Math.round(s/u)}`) : (s > 0 ? `0:${s}` : '0:0');
     const isoToDisplay = s => s ? `${s.split('-')[1]}/${s.split('-')[2]}/${s.split('-')[0]}` : '';
@@ -338,7 +338,6 @@
         if (r.date > maxDataDate) maxDataDate = r.date;
       }));
 
-      // Si la última fecha cargada es válida (entre Julio 2026 y Hoy), la toma como inicio predeterminado
       if (maxDataDate >= MIN_ALLOWED_DATE && maxDataDate <= todayIso) {
         currentStartDate = maxDataDate.substring(0, 8) + '01';
         currentEndDate = maxDataDate;
@@ -378,7 +377,6 @@
       const maxYear = parseInt(todayIso.substring(0, 4), 10);
       const maxMonth = parseInt(todayIso.substring(5, 7), 10) - 1;
 
-      // Restricción de navegación: Mínimo Julio 2026 (2026, mes índice 6), Máximo el mes/año actual
       if (nextYear < 2026 || (nextYear === 2026 && nextMonth < 6)) return;
       if (nextYear > maxYear || (nextYear === maxYear && nextMonth > maxMonth)) return;
 
@@ -392,7 +390,7 @@
       const grid = $('calDaysGrid');
       grid.innerHTML = '';
 
-      const todayIso = getTodayIso(); // Día actual como máximo permitido
+      const todayIso = getTodayIso();
       const first = new Date(calViewYear, calViewMonth, 1), days = new Date(calViewYear, calViewMonth + 1, 0).getDate();
       const offset = (first.getDay() + 6) % 7;
       
@@ -402,7 +400,6 @@
         const iso = `${calViewYear}-${String(calViewMonth + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
         const btn = document.createElement('button'); btn.type = 'button'; btn.textContent = day;
         
-        // Bloqueo estricto: anterior a Julio 2026 O posterior al día actual
         if (iso < MIN_ALLOWED_DATE || iso > todayIso) {
           btn.className = 'p-1.5 text-slate-300 font-bold rounded-xl cursor-not-allowed';
         } else {
@@ -534,7 +531,7 @@
           }
         } catch(e) {}
       }
-      console.warn(`[CSV no encontrado] No se pudo leer el archivo para día ${d} (${m})`);
+      console.warn(`[CSV Not Found] Could not load file for day ${d} (${m})`);
       return null;
     }
 
@@ -561,7 +558,7 @@
 
       const sub = $('dateRangeSubtitle');
       if (sub) {
-        sub.innerHTML = `Periodo: ${s} al ${e} &bull; <strong class="${loadedCount === expectedCount ? 'text-emerald-700' : 'text-amber-700'}">CSVs: ${loadedCount} de ${expectedCount} días</strong>`;
+        sub.innerHTML = `Period: ${s} to ${e} &bull; <strong class="${loadedCount === expectedCount ? 'text-emerald-700' : 'text-amber-700'}">CSVs: ${loadedCount} of ${expectedCount} days</strong>`;
       }
 
       const merged = {};
@@ -626,7 +623,7 @@
                 espIpMap[espIp] = { items: {}, order: [] };
               }
               if (!espIpMap[espIp].items[key]) {
-                espIpMap[espIp].items[key] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
+                espIpMap[espIp] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
                 espIpMap[espIp].order.push(key);
               }
               espIpMap[espIp].items[key].signups += (item.signups || 0);
