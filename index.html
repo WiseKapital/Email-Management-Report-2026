@@ -303,10 +303,13 @@
     let globalLoadedMonths = [], areDetailsExpanded = false, chartRefs = {};
     const initialTableState = {}, tableSortDirections = {}, csvCache = {};
 
+    // Mínimo absoluto: 1 de Julio de 2026
+    const MIN_ALLOWED_DATE = '2026-07-01';
+
     const getTodayIso = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; };
+    
     let currentStartDate = '2026-09-01', currentEndDate = '2026-09-30';
-    let minDataDate = '2026-01-01', maxDataDate = '2026-12-31';
-    let activeCalTarget = 'from', calViewYear = 2026, calViewMonth = 8;
+    let activeCalTarget = 'from', calViewYear = 2026, calViewMonth = 8; // Septiembre
 
     const formatS2P = (s, u) => u > 0 ? (s === 0 ? '0:1' : `1:${Math.round(s/u)}`) : (s > 0 ? `0:${s}` : '0:0');
     const isoToDisplay = s => s ? `${s.split('-')[1]}/${s.split('-')[2]}/${s.split('-')[0]}` : '';
@@ -328,22 +331,26 @@
     const loadAllMonths = async () => (await Promise.all(MONTH_KEYS.map(fetchMonthFile))).filter(Boolean);
 
     function initDateControls() {
-      let minD = '9999-12-31', maxD = '0000-01-01';
+      const todayIso = getTodayIso();
+      let maxDataDate = '0000-01-01';
+      
       globalLoadedMonths.forEach(m => (m.daily_records || []).forEach(r => {
-        if (r.date < minD) minD = r.date;
-        if (r.date > maxD) maxD = r.date;
+        if (r.date > maxDataDate) maxDataDate = r.date;
       }));
-      if (maxD !== '0000-01-01') {
-        minDataDate = minD;
-        maxDataDate = maxD;
-        currentStartDate = maxD.substring(0, 8) + '01';
-        currentEndDate = maxD;
+
+      // Si la última fecha cargada es válida (entre Julio 2026 y Hoy), la toma como inicio predeterminado
+      if (maxDataDate >= MIN_ALLOWED_DATE && maxDataDate <= todayIso) {
+        currentStartDate = maxDataDate.substring(0, 8) + '01';
+        currentEndDate = maxDataDate;
       } else {
-        currentStartDate = '2026-09-01';
-        currentEndDate = '2026-09-30';
+        currentStartDate = todayIso.substring(0, 8) + '01';
+        if (currentStartDate < MIN_ALLOWED_DATE) currentStartDate = MIN_ALLOWED_DATE;
+        currentEndDate = todayIso;
       }
+
       calViewYear = parseInt(currentStartDate.substring(0, 4), 10);
       calViewMonth = parseInt(currentStartDate.substring(5, 7), 10) - 1;
+
       setT('fromDisplay', isoToDisplay(currentStartDate));
       setT('toDisplay', isoToDisplay(currentEndDate));
     }
@@ -362,8 +369,21 @@
     const resetPillStyles = () => ['fromPillBtn', 'toPillBtn'].forEach(id => $(id).className = "flex items-center gap-2 bg-white border border-slate-300 rounded-xl px-3 py-1.5 shadow-xs hover:border-slate-400 cursor-pointer focus:outline-none");
 
     function navigateMonth(dir) {
-      calViewMonth += dir;
-      if (calViewMonth < 0) { calViewMonth = 11; calViewYear--; } else if (calViewMonth > 11) { calViewMonth = 0; calViewYear++; }
+      let nextMonth = calViewMonth + dir;
+      let nextYear = calViewYear;
+      if (nextMonth < 0) { nextMonth = 11; nextYear--; }
+      else if (nextMonth > 11) { nextMonth = 0; nextYear++; }
+
+      const todayIso = getTodayIso();
+      const maxYear = parseInt(todayIso.substring(0, 4), 10);
+      const maxMonth = parseInt(todayIso.substring(5, 7), 10) - 1;
+
+      // Restricción de navegación: Mínimo Julio 2026 (2026, mes índice 6), Máximo el mes/año actual
+      if (nextYear < 2026 || (nextYear === 2026 && nextMonth < 6)) return;
+      if (nextYear > maxYear || (nextYear === maxYear && nextMonth > maxMonth)) return;
+
+      calViewMonth = nextMonth;
+      calViewYear = nextYear;
       renderCustomCalendar();
     }
 
@@ -371,13 +391,19 @@
       setT('calHeaderTitle', `${MONTH_NAMES[calViewMonth]} ${calViewYear}`);
       const grid = $('calDaysGrid');
       grid.innerHTML = '';
+
+      const todayIso = getTodayIso(); // Día actual como máximo permitido
       const first = new Date(calViewYear, calViewMonth, 1), days = new Date(calViewYear, calViewMonth + 1, 0).getDate();
       const offset = (first.getDay() + 6) % 7;
+      
       for (let i = 0; i < offset; i++) grid.appendChild(document.createElement('div'));
+      
       for (let day = 1; day <= days; day++) {
         const iso = `${calViewYear}-${String(calViewMonth + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
         const btn = document.createElement('button'); btn.type = 'button'; btn.textContent = day;
-        if (iso < minDataDate) {
+        
+        // Bloqueo estricto: anterior a Julio 2026 O posterior al día actual
+        if (iso < MIN_ALLOWED_DATE || iso > todayIso) {
           btn.className = 'p-1.5 text-slate-300 font-bold rounded-xl cursor-not-allowed';
         } else {
           const sel = (activeCalTarget === 'from' && iso === currentStartDate) || (activeCalTarget === 'to' && iso === currentEndDate);
@@ -408,7 +434,7 @@
       }
     });
 
-    // PARSER CSV RESPETANDO COMILLAS EN NÚMEROS COMO "11,057"
+    // CSV PARSER
     const parseNum = v => parseFloat(String(v || 0).replace(/["', ]/g, '')) || 0;
     
     function parseCsvLine(line) {
@@ -437,7 +463,6 @@
       
       for (const line of lines) {
         const lower = line.toLowerCase();
-        // Omitir cabeceras o filas de total general
         if (lower.startsWith('date,') || lower.startsWith('esp,') || lower.startsWith('"date",') || lower.includes('grand total')) continue;
         
         const c = parseCsvLine(line);
@@ -446,7 +471,6 @@
         if (c[0]?.toUpperCase().startsWith('IP')) { curIp = c[0]; continue; }
         if (c[0]) { curEsp = c[0]; curIp = ''; continue; }
         
-        // Fila de dominio destinatario
         const domName = c[1];
         if (!c[0] && domName && domName.toUpperCase() !== 'DOMAIN' && domName.toUpperCase() !== 'TOTAL') {
           const full = curIp ? `${curEsp} ${curIp}`.trim() : curEsp.trim();
@@ -474,13 +498,12 @@
       return Object.keys(map).length > 0 ? map : null;
     }
 
-    // CARGA DE CSV PROBANDO FORMATOS '01.csv' Y '1.csv'
     async function fetchCsvDay(m, d) {
       const k = `${m}/${d}`;
       if (csvCache[k]) return csvCache[k];
       
       const capM = m.charAt(0).toUpperCase() + m.slice(1);
-      const dNum = String(parseInt(d, 10)); // '1' en lugar de '01'
+      const dNum = String(parseInt(d, 10));
       const ts = Date.now();
       
       const candidatePaths = [
@@ -501,7 +524,6 @@
           const r = await fetch(`${p}?t=${ts}`, { cache: 'no-store' });
           if (r.ok) {
             const txt = await r.text();
-            // Acepta cualquier CSV con comas que no sea una página HTML 404
             if (txt && !txt.trim().startsWith('<') && txt.includes(',')) {
               const parsed = parseDailyCsv(txt);
               if (parsed) {
@@ -516,7 +538,6 @@
       return null;
     }
 
-    // AGREGADOR CSV CON HORA AL MEDIODÍA Y CONTADOR DE ARCHIVOS CARGADOS
     async function aggregateCsvForRange(s, e) {
       const [sy, sm, sd] = s.split('-').map(Number);
       const [ey, em, ed] = e.split('-').map(Number);
@@ -538,7 +559,6 @@
       const loadedCount = validDays.length;
       const expectedCount = dates.length;
 
-      // Muestra en pantalla cuántos archivos CSV se cargaron exitosamente
       const sub = $('dateRangeSubtitle');
       if (sub) {
         sub.innerHTML = `Periodo: ${s} al ${e} &bull; <strong class="${loadedCount === expectedCount ? 'text-emerald-700' : 'text-amber-700'}">CSVs: ${loadedCount} de ${expectedCount} días</strong>`;
