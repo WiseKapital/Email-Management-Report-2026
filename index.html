@@ -56,7 +56,7 @@
           <div id="customCalendarPopup" class="hidden absolute top-12 left-0 z-50 w-72 bg-white rounded-[22px] p-5 shadow-2xl border border-slate-100 transition-all select-none">
             <div class="flex items-center justify-between mb-4">
               <button type="button" onclick="navigateMonth(-1)" class="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg></button>
-              <span id="calHeaderTitle" class="text-xs font-extrabold text-[#0f172a] uppercase tracking-wider">OCTOBER 2026</span>
+              <span id="calHeaderTitle" class="text-xs font-extrabold text-[#0f172a] uppercase tracking-wider">SEPTEMBER 2026</span>
               <button type="button" id="calNextBtn" onclick="navigateMonth(1)" class="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg></button>
             </div>
             <div class="grid grid-cols-7 gap-1 text-center mb-2 text-[11px] font-extrabold text-slate-800"><span>MO</span><span>TU</span><span>WE</span><span>TH</span><span>FR</span><span>SA</span><span>SU</span></div>
@@ -129,7 +129,7 @@
               <span id="btnText">Show All</span>
             </button>
           </div>
-          <span id="dateRangeSubtitle" class="text-xs text-slate-500 font-medium">Select period</span>
+          <span id="dateRangeSubtitle" class="text-xs text-slate-600 font-medium">Select period</span>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-sm text-right esp-table">
@@ -304,9 +304,9 @@
     const initialTableState = {}, tableSortDirections = {}, csvCache = {};
 
     const getTodayIso = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; };
-    const _initialToday = getTodayIso();
-    let currentStartDate = _initialToday.substring(0, 8) + '01', currentEndDate = _initialToday;
-    let activeCalTarget = 'from', calViewYear = new Date().getFullYear(), calViewMonth = new Date().getMonth();
+    let currentStartDate = '2026-09-01', currentEndDate = '2026-09-30';
+    let minDataDate = '2026-01-01', maxDataDate = '2026-12-31';
+    let activeCalTarget = 'from', calViewYear = 2026, calViewMonth = 8;
 
     const formatS2P = (s, u) => u > 0 ? (s === 0 ? '0:1' : `1:${Math.round(s/u)}`) : (s > 0 ? `0:${s}` : '0:0');
     const isoToDisplay = s => s ? `${s.split('-')[1]}/${s.split('-')[2]}/${s.split('-')[0]}` : '';
@@ -327,12 +327,6 @@
     }
     const loadAllMonths = async () => (await Promise.all(MONTH_KEYS.map(fetchMonthFile))).filter(Boolean);
 
-    function getMinDataDate(months) {
-      let minD = '9999-12-31';
-      months.forEach(m => (m.daily_records || []).forEach(r => { if (r.date < minD) minD = r.date; }));
-      return minD !== '9999-12-31' ? minD : `${new Date().getFullYear()}-01-01`;
-    }
-
     function initDateControls() {
       let minD = '9999-12-31', maxD = '0000-01-01';
       globalLoadedMonths.forEach(m => (m.daily_records || []).forEach(r => {
@@ -340,13 +334,16 @@
         if (r.date > maxD) maxD = r.date;
       }));
       if (maxD !== '0000-01-01') {
+        minDataDate = minD;
+        maxDataDate = maxD;
         currentStartDate = maxD.substring(0, 8) + '01';
         currentEndDate = maxD;
       } else {
-        const maxAllowed = getTodayIso();
-        currentStartDate = maxAllowed.substring(0, 8) + '01';
-        currentEndDate = maxAllowed;
+        currentStartDate = '2026-09-01';
+        currentEndDate = '2026-09-30';
       }
+      calViewYear = parseInt(currentStartDate.substring(0, 4), 10);
+      calViewMonth = parseInt(currentStartDate.substring(5, 7), 10) - 1;
       setT('fromDisplay', isoToDisplay(currentStartDate));
       setT('toDisplay', isoToDisplay(currentEndDate));
     }
@@ -372,7 +369,7 @@
 
     function renderCustomCalendar() {
       setT('calHeaderTitle', `${MONTH_NAMES[calViewMonth]} ${calViewYear}`);
-      const grid = $('calDaysGrid'), minAllowed = getMinDataDate(globalLoadedMonths);
+      const grid = $('calDaysGrid');
       grid.innerHTML = '';
       const first = new Date(calViewYear, calViewMonth, 1), days = new Date(calViewYear, calViewMonth + 1, 0).getDate();
       const offset = (first.getDay() + 6) % 7;
@@ -380,7 +377,7 @@
       for (let day = 1; day <= days; day++) {
         const iso = `${calViewYear}-${String(calViewMonth + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
         const btn = document.createElement('button'); btn.type = 'button'; btn.textContent = day;
-        if (iso < minAllowed) {
+        if (iso < minDataDate) {
           btn.className = 'p-1.5 text-slate-300 font-bold rounded-xl cursor-not-allowed';
         } else {
           const sel = (activeCalTarget === 'from' && iso === currentStartDate) || (activeCalTarget === 'to' && iso === currentEndDate);
@@ -411,52 +408,119 @@
       }
     });
 
-    // CSV PARSER
+    // PARSER CSV RESPETANDO COMILLAS EN NÚMEROS COMO "11,057"
     const parseNum = v => parseFloat(String(v || 0).replace(/["', ]/g, '')) || 0;
+    
+    function parseCsvLine(line) {
+      const res = [];
+      let cur = '', inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch === '"') {
+          inQuotes = !inQuotes;
+        } else if (ch === ',' && !inQuotes) {
+          res.push(cur.trim());
+          cur = '';
+        } else {
+          cur += ch;
+        }
+      }
+      res.push(cur.trim());
+      return res.map(s => s.replace(/^"|"$/g, '').trim());
+    }
+
     function parseDailyCsv(txt) {
-      const lines = txt.split(/\r?\n/), map = {};
+      if (!txt || typeof txt !== 'string') return null;
+      const lines = txt.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+      const map = {};
       let curEsp = '', curIp = '';
+      
       for (const line of lines) {
-        if (!line.trim() || line.toLowerCase().includes('date') || line.includes('GRAND TOTAL')) continue;
-        const c = line.split(',').map(s => s.replace(/^"|"$/g, '').trim());
+        const lower = line.toLowerCase();
+        // Omitir cabeceras o filas de total general
+        if (lower.startsWith('date,') || lower.startsWith('esp,') || lower.startsWith('"date",') || lower.includes('grand total')) continue;
+        
+        const c = parseCsvLine(line);
+        if (!c.length) continue;
+
         if (c[0]?.toUpperCase().startsWith('IP')) { curIp = c[0]; continue; }
         if (c[0]) { curEsp = c[0]; curIp = ''; continue; }
-        if (!c[0] && c[1] && c[1].toUpperCase() !== 'DOMAIN' && c[1].toUpperCase() !== 'TOTAL') {
-          const full = curIp ? `${curEsp} ${curIp}` : curEsp;
+        
+        // Fila de dominio destinatario
+        const domName = c[1];
+        if (!c[0] && domName && domName.toUpperCase() !== 'DOMAIN' && domName.toUpperCase() !== 'TOTAL') {
+          const full = curIp ? `${curEsp} ${curIp}`.trim() : curEsp.trim();
+          if (!full) continue;
+
           if (!map[full]) map[full] = { esp: full, delivered: 0, softBounce: 0, hardBounce: 0, bounced: 0, opened: 0, clicked: 0, unsub: 0, signups: 0, players: 0, domains: {} };
-          const [d, sb, hb, o, cl, un, reg, pl] = [parseNum(c[2]), parseNum(c[3]), parseNum(c[4]), parseNum(c[5]), parseNum(c[7]), parseNum(c[11]), parseNum(c[12]), parseNum(c[13])];
+          
+          const d = parseNum(c[2]);
+          const sb = parseNum(c[3]);
+          const hb = parseNum(c[4]);
+          const o = parseNum(c[5]);
+          const cl = parseNum(c[7]) || parseNum(c[6]);
+          const un = parseNum(c[11]);
+          const reg = parseNum(c[12]);
+          const pl = parseNum(c[13]);
+
           const item = map[full];
           item.delivered += d; item.softBounce += sb; item.hardBounce += hb; item.bounced += (sb + hb); item.opened += o; item.clicked += cl; item.unsub += un; item.signups += reg; item.players += pl;
-          if (!item.domains[c[1]]) item.domains[c[1]] = { delivered: 0, softBounce: 0, hardBounce: 0, bounced: 0, opened: 0, clicked: 0, unsub: 0, signups: 0, players: 0 };
-          const dom = item.domains[c[1]];
+          
+          if (!item.domains[domName]) item.domains[domName] = { delivered: 0, softBounce: 0, hardBounce: 0, bounced: 0, opened: 0, clicked: 0, unsub: 0, signups: 0, players: 0 };
+          const dom = item.domains[domName];
           dom.delivered += d; dom.softBounce += sb; dom.hardBounce += hb; dom.bounced += (sb + hb); dom.opened += o; dom.clicked += cl; dom.unsub += un; dom.signups += reg; dom.players += pl;
         }
       }
-      return map;
+      return Object.keys(map).length > 0 ? map : null;
     }
 
+    // CARGA DE CSV PROBANDO FORMATOS '01.csv' Y '1.csv'
     async function fetchCsvDay(m, d) {
-      const k = `${m}/${d}`; if (csvCache[k] !== undefined) return csvCache[k];
+      const k = `${m}/${d}`;
+      if (csvCache[k]) return csvCache[k];
+      
       const capM = m.charAt(0).toUpperCase() + m.slice(1);
-      const ts = Date.now(), urls = [
-        `maildata_${m}/${d}.csv?t=${ts}`, `./maildata_${m}/${d}.csv?t=${ts}`,
-        `maildata_${capM}/${d}.csv?t=${ts}`, `./maildata_${capM}/${d}.csv?t=${ts}`
+      const dNum = String(parseInt(d, 10)); // '1' en lugar de '01'
+      const ts = Date.now();
+      
+      const candidatePaths = [
+        `maildata_${m}/${d}.csv`,
+        `./maildata_${m}/${d}.csv`,
+        `maildata_${m}/${dNum}.csv`,
+        `./maildata_${m}/${dNum}.csv`,
+        `maildata_${capM}/${d}.csv`,
+        `./maildata_${capM}/${d}.csv`,
+        `maildata_${capM}/${dNum}.csv`,
+        `./maildata_${capM}/${dNum}.csv`,
+        `data/maildata_${m}/${d}.csv`,
+        `data/maildata_${capM}/${d}.csv`
       ];
-      for (const u of urls) {
+
+      for (const p of candidatePaths) {
         try {
-          const r = await fetch(u, { cache: 'no-store' });
-          if (r.ok) { const txt = await r.text(); if (txt && !txt.startsWith('<') && txt.includes('ESP')) return (csvCache[k] = parseDailyCsv(txt)); }
+          const r = await fetch(`${p}?t=${ts}`, { cache: 'no-store' });
+          if (r.ok) {
+            const txt = await r.text();
+            // Acepta cualquier CSV con comas que no sea una página HTML 404
+            if (txt && !txt.trim().startsWith('<') && txt.includes(',')) {
+              const parsed = parseDailyCsv(txt);
+              if (parsed) {
+                csvCache[k] = parsed;
+                return parsed;
+              }
+            }
+          }
         } catch(e) {}
       }
-      return (csvCache[k] = null);
+      console.warn(`[CSV no encontrado] No se pudo leer el archivo para día ${d} (${m})`);
+      return null;
     }
 
-    // AGREGADOR CSV CON HORA LOCAL AL MEDIODÍA PARA EVITAR DESFASES DE ZONA HORARIA
+    // AGREGADOR CSV CON HORA AL MEDIODÍA Y CONTADOR DE ARCHIVOS CARGADOS
     async function aggregateCsvForRange(s, e) {
       const [sy, sm, sd] = s.split('-').map(Number);
       const [ey, em, ed] = e.split('-').map(Number);
       
-      // Forzar 12:00:00 (mediodía) local para que nunca reste ni sume un día por husos horarios
       const cur = new Date(sy, sm - 1, sd, 12, 0, 0);
       const end = new Date(ey, em - 1, ed, 12, 0, 0);
       const dates = [];
@@ -469,8 +533,19 @@
         cur.setDate(cur.getDate() + 1);
       }
       
-      const days = await Promise.all(dates.map(x => fetchCsvDay(x.m, x.d))), merged = {};
-      days.filter(Boolean).forEach(m => Object.entries(m).forEach(([esp, v]) => {
+      const days = await Promise.all(dates.map(x => fetchCsvDay(x.m, x.d)));
+      const validDays = days.filter(Boolean);
+      const loadedCount = validDays.length;
+      const expectedCount = dates.length;
+
+      // Muestra en pantalla cuántos archivos CSV se cargaron exitosamente
+      const sub = $('dateRangeSubtitle');
+      if (sub) {
+        sub.innerHTML = `Periodo: ${s} al ${e} &bull; <strong class="${loadedCount === expectedCount ? 'text-emerald-700' : 'text-amber-700'}">CSVs: ${loadedCount} de ${expectedCount} días</strong>`;
+      }
+
+      const merged = {};
+      validDays.forEach(m => Object.entries(m).forEach(([esp, v]) => {
         if (!merged[esp]) merged[esp] = { ...v, domains: {} };
         else {
           ['delivered','softBounce','hardBounce','bounced','opened','clicked','unsub','signups','players'].forEach(k => merged[esp][k] += v[k]);
@@ -531,7 +606,7 @@
                 espIpMap[espIp] = { items: {}, order: [] };
               }
               if (!espIpMap[espIp].items[key]) {
-                espIpMap[espIp] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
+                espIpMap[espIp].items[key] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
                 espIpMap[espIp].order.push(key);
               }
               espIpMap[espIp].items[key].signups += (item.signups || 0);
@@ -654,7 +729,7 @@
       setT('cardKpiProfitSub', `KPI: $${(agg.kpi.profit/1000).toFixed(1)}k`); setT('cardRrProfitSub', `RR: $${(rrP/1000).toFixed(1)}k`);
 
       const rangeTxt = `${s} – ${e}`;
-      setT('dateRangeNotice', rangeTxt); setT('dateRangeSubtitle', rangeTxt); setT('opsPeriodBadge', rangeTxt);
+      setT('dateRangeNotice', rangeTxt); setT('opsPeriodBadge', rangeTxt);
 
       renderEspTable(agg.esp, agg);
       renderEspIpBreakdown(agg.esp_ip_breakdown);
