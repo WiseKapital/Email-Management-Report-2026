@@ -1,5279 +1,2526 @@
 {
-  "metadata": {
-    "month": "October",
-    "year": 2026,
-    "month_key": "2026-10",
-    "date_from": "2026-10-01",
-    "date_to": "2026-10-13",
-    "days_in_month": 31,
-    "days_elapsed": 13,
-    "is_month_closed": false
+  "month": "October",
+  "year": 2026,
+  "total_days_in_month": 31,
+  "days_elapsed": 13,
+  "kpis": {
+    "budget": 934,
+    "signups": 450,
+    "users": 40,
+    "revenue": 4400,
+    "profit": 3466
   },
-  "teams_kpi": {
-    "EMAIL": {
-      "budget": 1100.0,
-      "signups": 450,
-      "users": 40,
-      "revenue": 4400.0,
-      "profit": 3300.0
+  "summary_mtd": {
+    "delivered": 0,
+    "bounced": 0,
+    "opened": 0,
+    "clicked": 0,
+    "unsub": 0,
+    "budget": 391.69,
+    "signups": 159,
+    "users": 5,
+    "revenue": 2370.0,
+    "profit": 1978.31,
+    "s2p_ratio": "1:32"
+  },
+  "advertisers_mtd": [
+    {
+      "advertiser": "CHANCED",
+      "signups": 44,
+      "users": 0,
+      "revenue": 1050.0,
+      "s2p": "0:44"
     },
-    "MEDIA": {
-      "budget": 5500.0,
-      "signups": 1000,
-      "users": 300,
-      "revenue": 16500.0,
-      "profit": 11000.0
+    {
+      "advertiser": "GameTime Digital",
+      "signups": 76,
+      "users": 3,
+      "revenue": 1020.0,
+      "s2p": "1:25"
     },
-    "SOCIAL": {
-      "budget": 1120.0,
-      "signups": 208,
-      "users": 16,
-      "revenue": 2400.0,
-      "profit": 1280.0
+    {
+      "advertiser": "Splash",
+      "signups": 30,
+      "users": 2,
+      "revenue": 300.0,
+      "s2p": "1:15"
     },
-    "Grand total": {
-      "budget": 7720.0,
-      "signups": 1658,
-      "users": 356,
-      "revenue": 23300.0,
-      "profit": 15580.0
+    {
+      "advertiser": "Basher Agency",
+      "signups": 8,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:8"
+    },
+    {
+      "advertiser": "CoinsRoyale",
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:1"
+    },
+    {
+      "advertiser": "AFF 66",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
+    },
+    {
+      "advertiser": "ALL IN AFFILIATES",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
+    },
+    {
+      "advertiser": "EPC",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
+    },
+    {
+      "advertiser": "Purify",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
+    },
+    {
+      "advertiser": "Acebet",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
     }
-  },
-  "catalogs": {
-    "advertisers": [
-      "ACEBET",
-      "AFF 66",
-      "ALL IN AFFILIATES",
-      "BASHER AGENCY",
-      "BETMGMPARTNERS",
-      "CHANCED",
-      "CoinsRoyale",
-      "EPC",
-      "GAMETIME DIGITAL",
-      "IMPACT",
-      "PURIFY",
-      "SPLASH"
-    ],
-    "brands": [
+  ],
+  "brands_mtd": [
+    {
+      "brand": "Chanced Punt",
+      "advertiser": "CHANCED",
+      "signups": 44,
+      "users": 0,
+      "revenue": 1050.0,
+      "s2p": "0:44"
+    },
+    {
+      "brand": "LuckyBunny",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 11,
+      "users": 2,
+      "revenue": 840.0,
+      "s2p": "1:6"
+    },
+    {
+      "brand": "splashcoins",
+      "advertiser": "SPLASH",
+      "signups": 30,
+      "users": 2,
+      "revenue": 300.0,
+      "s2p": "1:15"
+    },
+    {
+      "brand": "LavishLuck",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 12,
+      "users": 1,
+      "revenue": 180.0,
+      "s2p": "1:12"
+    },
+    {
+      "brand": "CardCrush",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 2,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:2"
+    },
+    {
+      "brand": "CoinsBack",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 2,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:2"
+    },
+    {
+      "brand": "Coins Royale sweeps",
+      "advertiser": "COINSROYALE",
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:1"
+    },
+    {
+      "brand": "CrashMania",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 5,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:5"
+    },
+    {
+      "brand": "Baba",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 4,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:4"
+    },
+    {
+      "brand": "LavishLuck Sweepstakes Casino",
+      "advertiser": "BASHER AGENCY",
+      "signups": 7,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:7"
+    },
+    {
+      "brand": "LuckyZino Sweepstakes Casino",
+      "advertiser": "BASHER AGENCY",
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:1"
+    },
+    {
+      "brand": "LuckyZino",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 21,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:21"
+    },
+    {
+      "brand": "Rolla",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 8,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:8"
+    },
+    {
+      "brand": "McLuck",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:1"
+    },
+    {
+      "brand": "Spinblitz SEO",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:1"
+    },
+    {
+      "brand": "Sweet Sweep",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 4,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:4"
+    },
+    {
+      "brand": "The Boss",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 4,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:4"
+    },
+    {
+      "brand": "TitanTreasure",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:1"
+    },
+    {
+      "brand": "Casinio",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
+    },
+    {
+      "brand": "Rolling Riches",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
+    },
+    {
+      "brand": "Acebet",
+      "advertiser": "ACEBET",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
+    },
+    {
+      "brand": "Betnjet",
+      "advertiser": "ALL IN AFFILIATES",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
+    },
+    {
+      "brand": "7Bit Casino",
+      "advertiser": "ALL IN AFFILIATES",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
+    },
+    {
+      "brand": "Casino Smartlink",
+      "advertiser": "ALL IN AFFILIATES",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
+    },
+    {
+      "brand": "FS Casino",
+      "advertiser": "ALL IN AFFILIATES",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
+    },
+    {
+      "brand": "LevelUP",
+      "advertiser": "ALL IN AFFILIATES",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
+    },
+    {
+      "brand": "QBet",
+      "advertiser": "ALL IN AFFILIATES",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
+    },
+    {
+      "brand": "Sixty6",
+      "advertiser": "AFF 66",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
+    },
+    {
+      "brand": "Slotornado",
+      "advertiser": "ALL IN AFFILIATES",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
+    },
+    {
+      "brand": "Smash Casino",
+      "advertiser": "ALL IN AFFILIATES",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
+    },
+    {
+      "brand": "SweepJungle",
+      "advertiser": "AFF 66",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
+    }
+  ],
+  "esp_mtd_totals": [
+    {
+      "esp_ip": "MLJ (Mailjet) IP 1",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "Baba",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 1",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "LavishLuck",
+      "signups": 2,
+      "ftds": 1
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 1",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "McLuck",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 1",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "Rolla",
+      "signups": 3,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 1",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "Sweet Sweep",
+      "signups": 2,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 1",
+      "advertiser": "",
+      "brand": "",
+      "signups": 9,
+      "ftds": 1,
+      "is_total": true
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 2",
+      "advertiser": "BASHER AGENCY",
+      "brand": "LuckyZino Sweepstakes Casino",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 2",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "LuckyBunny",
+      "signups": 0,
+      "ftds": 1
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 2",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "Rolla",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 2",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "The Boss",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 2",
+      "advertiser": "",
+      "brand": "",
+      "signups": 3,
+      "ftds": 1,
+      "is_total": true
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+      "advertiser": "BASHER AGENCY",
+      "brand": "LavishLuck Sweepstakes Casino",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "CoinsBack",
+      "signups": 2,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "LuckyBunny",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "LuckyZino",
+      "signups": 3,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 3 / SH",
+      "advertiser": "",
+      "brand": "",
+      "signups": 7,
+      "ftds": 0,
+      "is_total": true
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 1",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "LuckyBunny",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 1",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "LuckyZino",
+      "signups": 8,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 1",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "Rolla",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 1",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "Sweet Sweep",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 1",
+      "advertiser": "",
+      "brand": "",
+      "signups": 11,
+      "ftds": 0,
+      "is_total": true
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "BASHER AGENCY",
+      "brand": "LavishLuck Sweepstakes Casino",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "",
+      "brand": "",
+      "signups": 1,
+      "ftds": 0,
+      "is_total": true
+    },
+    {
+      "esp_ip": "OVERALL GRAND TOTAL",
+      "advertiser": "",
+      "brand": "",
+      "signups": 31,
+      "ftds": 2,
+      "is_total": true,
+      "is_overall": true
+    }
+  ],
+  "esp_ip_breakdown": {
+    "by_row": [
       {
-        "advertiser": "AFF 66",
-        "brand": "Sixty6",
-        "category": "sweepstakes"
-      },
-      {
-        "advertiser": "AFF 66",
-        "brand": "SweepJungle",
-        "category": "sweepstakes"
-      },
-      {
-        "advertiser": "BASHER AGENCY",
-        "brand": "LuckyZino Sweepstakes Casino",
-        "category": "sweepstakes"
-      },
-      {
-        "advertiser": "BASHER AGENCY",
-        "brand": "LavishLuck Sweepstakes Casino",
-        "category": "sweepstakes"
-      },
-      {
-        "advertiser": "CHANCED",
-        "brand": "Chanced Punt",
-        "category": "sweepstakes"
-      },
-      {
-        "advertiser": "COINSROYALE",
-        "brand": "Coins Royale sweeps",
-        "category": "sweepstakes"
-      },
-      {
-        "advertiser": "COINSROYALE",
-        "brand": "CoinsRoyale",
-        "category": "sweepstakes"
-      },
-      {
-        "advertiser": "GAMETIME DIGITAL",
-        "brand": "Rolling Riches",
-        "category": "sweepstakes"
-      },
-      {
-        "advertiser": "GAMETIME DIGITAL",
-        "brand": "The Boss",
-        "category": "sweepstakes"
-      },
-      {
-        "advertiser": "GAMETIME DIGITAL",
-        "brand": "LuckyBunny",
-        "category": "sweepstakes"
-      },
-      {
+        "esp_ip": "MLJ (Mailjet) IP 1",
         "advertiser": "GAMETIME DIGITAL",
         "brand": "Baba",
-        "category": "sweepstakes"
+        "signups": 1,
+        "ftds": 0
       },
       {
-        "advertiser": "GAMETIME DIGITAL",
-        "brand": "CardCrush",
-        "category": "sweepstakes"
-      },
-      {
+        "esp_ip": "MLJ (Mailjet) IP 1",
         "advertiser": "GAMETIME DIGITAL",
         "brand": "LavishLuck",
-        "category": "sweepstakes"
+        "signups": 2,
+        "ftds": 1
       },
       {
-        "advertiser": "GAMETIME DIGITAL",
-        "brand": "Jackpotgo",
-        "category": "sweepstakes"
-      },
-      {
-        "advertiser": "GAMETIME DIGITAL",
-        "brand": "Spinblitz SEO",
-        "category": "sweepstakes"
-      },
-      {
-        "advertiser": "GAMETIME DIGITAL",
-        "brand": "TitanTreasure",
-        "category": "sweepstakes"
-      },
-      {
-        "advertiser": "GAMETIME DIGITAL",
-        "brand": "Go Go Gold Win",
-        "category": "sweepstakes"
-      },
-      {
-        "advertiser": "GAMETIME DIGITAL",
-        "brand": "Crown Coins Email",
-        "category": "sweepstakes"
-      },
-      {
-        "advertiser": "GAMETIME DIGITAL",
-        "brand": "CoinsBack",
-        "category": "sweepstakes"
-      },
-      {
+        "esp_ip": "MLJ (Mailjet) IP 1",
         "advertiser": "GAMETIME DIGITAL",
         "brand": "McLuck",
-        "category": "sweepstakes"
+        "signups": 1,
+        "ftds": 0
       },
       {
+        "esp_ip": "MLJ (Mailjet) IP 1",
         "advertiser": "GAMETIME DIGITAL",
         "brand": "Rolla",
-        "category": "sweepstakes"
+        "signups": 3,
+        "ftds": 0
       },
       {
-        "advertiser": "GAMETIME DIGITAL",
-        "brand": "Pulsz SEO",
-        "category": "sweepstakes"
-      },
-      {
+        "esp_ip": "MLJ (Mailjet) IP 1",
         "advertiser": "GAMETIME DIGITAL",
         "brand": "Sweet Sweep",
-        "category": "sweepstakes"
+        "signups": 2,
+        "ftds": 0
       },
       {
+        "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 1",
+        "advertiser": "",
+        "brand": "",
+        "signups": 9,
+        "ftds": 1,
+        "is_total": true
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 2",
+        "advertiser": "BASHER AGENCY",
+        "brand": "LuckyZino Sweepstakes Casino",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 2",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "LuckyBunny",
+        "signups": 0,
+        "ftds": 1
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 2",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "Rolla",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 2",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "The Boss",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 2",
+        "advertiser": "",
+        "brand": "",
+        "signups": 3,
+        "ftds": 1,
+        "is_total": true
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+        "advertiser": "BASHER AGENCY",
+        "brand": "LavishLuck Sweepstakes Casino",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "CoinsBack",
+        "signups": 2,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "LuckyBunny",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 3 / SH",
         "advertiser": "GAMETIME DIGITAL",
         "brand": "LuckyZino",
-        "category": "sweepstakes"
+        "signups": 3,
+        "ftds": 0
       },
       {
-        "advertiser": "SPLASH",
-        "brand": "splashcoins",
-        "category": "sweepstakes"
+        "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 3 / SH",
+        "advertiser": "",
+        "brand": "",
+        "signups": 7,
+        "ftds": 0,
+        "is_total": true
       },
       {
-        "advertiser": "ACEBET",
-        "brand": "Acebet",
-        "category": "casino"
-      },
-      {
-        "advertiser": "ALL IN AFFILIATES",
-        "brand": "Casino Smartlink",
-        "category": "casino"
-      },
-      {
-        "advertiser": "ALL IN AFFILIATES",
-        "brand": "Betnjet",
-        "category": "casino"
-      },
-      {
-        "advertiser": "ALL IN AFFILIATES",
-        "brand": "7Bit Casino",
-        "category": "casino"
-      },
-      {
-        "advertiser": "ALL IN AFFILIATES",
-        "brand": "FS Casino",
-        "category": "casino"
-      },
-      {
-        "advertiser": "ALL IN AFFILIATES",
-        "brand": "QBet",
-        "category": "casino"
-      },
-      {
-        "advertiser": "ALL IN AFFILIATES",
-        "brand": "LevelUP",
-        "category": "casino"
-      },
-      {
-        "advertiser": "ALL IN AFFILIATES",
-        "brand": "Smash Casino",
-        "category": "casino"
-      },
-      {
+        "esp_ip": "SEG (Sendgrid) IP 1",
         "advertiser": "GAMETIME DIGITAL",
-        "brand": "Casinio",
-        "category": "casino"
+        "brand": "LuckyBunny",
+        "signups": 1,
+        "ftds": 0
       },
       {
+        "esp_ip": "SEG (Sendgrid) IP 1",
         "advertiser": "GAMETIME DIGITAL",
-        "brand": "PolyCasino",
-        "category": "casino"
+        "brand": "LuckyZino",
+        "signups": 8,
+        "ftds": 0
       },
       {
-        "advertiser": "ALL IN AFFILIATES",
-        "brand": "Slotornado",
-        "category": "other"
-      },
-      {
-        "advertiser": "BETMGMPARTNERS",
-        "brand": "BetMGM casino",
-        "category": "other"
-      },
-      {
-        "advertiser": "COINSROYALE",
-        "brand": "Coins Royale Las Vegas",
-        "category": "other"
-      },
-      {
+        "esp_ip": "SEG (Sendgrid) IP 1",
         "advertiser": "GAMETIME DIGITAL",
-        "brand": "Hello Million",
-        "category": "other"
+        "brand": "Rolla",
+        "signups": 1,
+        "ftds": 0
       },
       {
+        "esp_ip": "SEG (Sendgrid) IP 1",
         "advertiser": "GAMETIME DIGITAL",
-        "brand": "CrashMania",
-        "category": "other"
+        "brand": "Sweet Sweep",
+        "signups": 1,
+        "ftds": 0
       },
       {
-        "advertiser": "GAMETIME DIGITAL",
-        "brand": "Richsweeps",
-        "category": "other"
+        "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 1",
+        "advertiser": "",
+        "brand": "",
+        "signups": 11,
+        "ftds": 0,
+        "is_total": true
       },
       {
-        "advertiser": "IMPACT",
-        "brand": "Borrowell",
-        "category": "other"
+        "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "BASHER AGENCY",
+        "brand": "LavishLuck Sweepstakes Casino",
+        "signups": 1,
+        "ftds": 0
       },
       {
-        "advertiser": "IMPACT",
-        "brand": "Freecash",
-        "category": "other"
+        "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "",
+        "brand": "",
+        "signups": 1,
+        "ftds": 0,
+        "is_total": true
       },
       {
-        "advertiser": "IMPACT",
-        "brand": "MOLOTOV",
-        "category": "other"
-      },
-      {
-        "advertiser": "IMPACT",
-        "brand": "Sesame Care",
-        "category": "other"
+        "esp_ip": "OVERALL GRAND TOTAL",
+        "advertiser": "",
+        "brand": "",
+        "signups": 31,
+        "ftds": 2,
+        "is_total": true,
+        "is_overall": true
       }
     ],
-    "inhouse_brands": [
-      "Bonusclubs",
-      "Jackpotrabbit___c",
-      "ImperialSweeps",
-      "Re",
-      "SuperSlotz sweeps",
-      "Spin2Win  sweeps LP",
-      "Royalzclub sweeps",
-      "test offer",
-      "Sweepzkings",
-      "Testing offer",
-      "Wannnasee USA LP",
-      "Pirates LP"
-    ]
+    "overall": {
+      "signups": 31,
+      "ftds": 2
+    }
+  },
+  "team_ops_mtd": {
+    "andrea": {
+      "signups": 80,
+      "users": 3
+    },
+    "jessie": {
+      "signups": 0,
+      "users": 0
+    },
+    "signups_by_advertiser": {
+      "GAMETIME DIGITAL": {
+        "andrea": 71,
+        "jessie": 0,
+        "total": 71
+      },
+      "BASHER AGENCY": {
+        "andrea": 8,
+        "jessie": 0,
+        "total": 8
+      },
+      "CHANCED": {
+        "andrea": 1,
+        "jessie": 0,
+        "total": 1
+      },
+      "ACEBET": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "AFF 66": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "ALL IN AFFILIATES": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "COINSROYALE": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "EPC": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "PURIFY": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "SPLASH": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      }
+    },
+    "users_by_advertiser": {
+      "GAMETIME DIGITAL": {
+        "andrea": 3,
+        "jessie": 0,
+        "total": 3
+      },
+      "BASHER AGENCY": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "CHANCED": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "SPLASH": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "ACEBET": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "AFF 66": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "ALL IN AFFILIATES": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "COINSROYALE": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "EPC": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      },
+      "PURIFY": {
+        "andrea": 0,
+        "jessie": 0,
+        "total": 0
+      }
+    }
   },
   "daily_records": [
     {
       "date": "2026-10-01",
-      "teams": {
-        "EMAIL": [
-          30.15,
-          12,
-          0,
-          182.31
-        ],
-        "MEDIA": [
-          99.85,
-          26,
-          3,
-          470.31
-        ],
-        "SOCIAL": [
-          18.46,
-          0,
-          0,
-          0.0
-        ]
-      },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 30.13,
+      "signups": 6,
+      "users": 1,
+      "revenue": 150.0,
+      "profit": 119.87,
       "advertisers": {
-        "ACEBET": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "AFF 66": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "ALL IN AFFILIATES": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BASHER AGENCY": [
-          3,
-          0,
-          47.69,
-          0.0
-        ],
-        "BETMGMPARTNERS": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "CHANCED": [
-          3,
-          1,
-          161.54,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "EPC": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "GAMETIME DIGITAL": [
-          53,
-          3,
-          494.62,
-          88.46
-        ],
-        "IMPACT": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "PURIFY": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SPLASH": [
-          2,
-          0,
-          23.08,
-          0.0
-        ]
+        "SPLASH": {
+          "signups": 3,
+          "users": 1,
+          "revenue": 150.0
+        },
+        "GAMETIME DIGITAL": {
+          "signups": 3,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
       "brands": {
-        "Sixty6": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SweepJungle": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino Sweepstakes Casino": [
-          1,
-          1,
-          36.92,
-          0.0
-        ],
-        "LavishLuck Sweepstakes Casino": [
-          1,
-          0,
-          10.77,
-          0.0
-        ],
-        "Chanced Punt": [
-          4,
-          1,
-          161.54,
-          0.0
-        ],
-        "Coins Royale sweeps": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolling Riches": [
-          7,
-          1,
-          184.62,
-          46.15
-        ],
-        "The Boss": [
-          4,
-          0,
-          52.31,
-          0.0
-        ],
-        "LuckyBunny": [
-          3,
-          0,
-          64.62,
-          16.92
-        ],
-        "Baba": [
-          1,
-          0,
-          34.62,
-          0.0
-        ],
-        "CardCrush": [
-          6,
-          0,
-          33.85,
-          0.0
-        ],
-        "LavishLuck": [
-          5,
-          0,
-          27.69,
-          0.0
-        ],
-        "Jackpotgo": [
-          9,
-          1,
-          39.23,
-          16.92
-        ],
-        "Spinblitz SEO": [
-          1,
-          0,
-          15.38,
-          0.0
-        ],
-        "TitanTreasure": [
-          4,
-          0,
-          10.0,
-          0.0
-        ],
-        "Go Go Gold Win": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Crown Coins Email": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsBack": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "McLuck": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolla": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Pulsz SEO": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sweet Sweep": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino": [
-          2,
-          0,
-          0.0,
-          8.46
-        ],
-        "splashcoins": [
-          2,
-          1,
-          23.04,
-          0.0
-        ],
-        "Acebet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casino Smartlink": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Betnjet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "7Bit Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "FS Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "QBet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LevelUP": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Smash Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casinio": [
-          3,
-          0,
-          10.77,
-          0.0
-        ],
-        "PolyCasino": [
-          0,
-          0,
-          10.0,
-          0.0
-        ],
-        "Slotornado": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BetMGM casino": [
-          1,
-          0,
-          27.69,
-          0.0
-        ],
-        "Coins Royale Las Vegas": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Hello Million": [
-          1,
-          0,
-          11.54,
-          0.0
-        ],
-        "CrashMania": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Richsweeps": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Borrowell": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Freecash": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "MOLOTOV": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sesame Care": [
-          0,
-          0,
-          0.0,
-          0.0
-        ]
+        "splashcoins": {
+          "advertiser": "SPLASH",
+          "signups": 3,
+          "users": 1,
+          "revenue": 150.0
+        },
+        "CoinsBack": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "McLuck": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
-      "inhouse": {
-        "Bonusclubs": 0.0,
-        "Jackpotrabbit___c": 0.0,
-        "ImperialSweeps": 0.0,
-        "Re": 0.0,
-        "SuperSlotz sweeps": 0.0,
-        "Spin2Win  sweeps LP": 0.0,
-        "Royalzclub sweeps": 0.0,
-        "test offer": 0.0,
-        "Sweepzkings": 0.0,
-        "Testing offer": 0.0,
-        "Wannnasee USA LP": 0.0,
-        "Pirates LP": 0.46
+      "ops": {
+        "andrea": {
+          "signups": 3,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "Baba",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+          "advertiser": "BASHER AGENCY",
+          "brand": "LavishLuck Sweepstakes Casino",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
+        }
+      ],
+      "esp_ip_summary": {
+        "signups": 3,
+        "ftds": 0
       }
     },
     {
       "date": "2026-10-02",
-      "teams": {
-        "EMAIL": [
-          30.15,
-          12,
-          0,
-          182.31
-        ],
-        "MEDIA": [
-          99.85,
-          25,
-          3,
-          470.31
-        ],
-        "SOCIAL": [
-          18.46,
-          0,
-          0,
-          0.0
-        ]
-      },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 30.13,
+      "signups": 4,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": -30.13,
       "advertisers": {
-        "ACEBET": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "AFF 66": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "ALL IN AFFILIATES": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BASHER AGENCY": [
-          2,
-          0,
-          47.69,
-          0.0
-        ],
-        "BETMGMPARTNERS": [
-          1,
-          0,
-          27.69,
-          0.0
-        ],
-        "CHANCED": [
-          3,
-          1,
-          161.54,
-          0.0
-        ],
-        "CoinsRoyale": [
-          2,
-          0,
-          0.0,
-          0.0
-        ],
-        "EPC": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "GAMETIME DIGITAL": [
-          53,
-          3,
-          494.62,
-          88.46
-        ],
-        "IMPACT": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "PURIFY": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SPLASH": [
-          2,
-          1,
-          23.08,
-          0.0
-        ]
+        "SPLASH": {
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "GAMETIME DIGITAL": {
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
       "brands": {
-        "Sixty6": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SweepJungle": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino Sweepstakes Casino": [
-          1,
-          0,
-          36.92,
-          0.0
-        ],
-        "LavishLuck Sweepstakes Casino": [
-          0,
-          0,
-          10.77,
-          0.0
-        ],
-        "Chanced Punt": [
-          4,
-          1,
-          161.54,
-          0.0
-        ],
-        "Coins Royale sweeps": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolling Riches": [
-          7,
-          1,
-          184.62,
-          46.15
-        ],
-        "The Boss": [
-          4,
-          0,
-          52.28,
-          0.0
-        ],
-        "LuckyBunny": [
-          4,
-          1,
-          64.62,
-          16.92
-        ],
-        "Baba": [
-          1,
-          0,
-          34.56,
-          0.0
-        ],
-        "CardCrush": [
-          6,
-          0,
-          33.85,
-          0.0
-        ],
-        "LavishLuck": [
-          5,
-          0,
-          27.69,
-          0.0
-        ],
-        "Jackpotgo": [
-          9,
-          0,
-          39.23,
-          16.92
-        ],
-        "Spinblitz SEO": [
-          2,
-          0,
-          15.38,
-          0.0
-        ],
-        "TitanTreasure": [
-          5,
-          0,
-          10.0,
-          0.0
-        ],
-        "Go Go Gold Win": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Crown Coins Email": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsBack": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "McLuck": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolla": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Pulsz SEO": [
-          2,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sweet Sweep": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino": [
-          2,
-          0,
-          0.0,
-          8.46
-        ],
-        "splashcoins": [
-          2,
-          1,
-          23.08,
-          0.0
-        ],
-        "Acebet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casino Smartlink": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Betnjet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "7Bit Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "FS Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "QBet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LevelUP": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Smash Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casinio": [
-          3,
-          0,
-          10.77,
-          0.0
-        ],
-        "PolyCasino": [
-          1,
-          1,
-          10.0,
-          0.0
-        ],
-        "Slotornado": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BetMGM casino": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "Coins Royale Las Vegas": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Hello Million": [
-          0,
-          0,
-          11.54,
-          0.0
-        ],
-        "CrashMania": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Richsweeps": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Borrowell": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Freecash": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "MOLOTOV": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sesame Care": [
-          0,
-          0,
-          0.0,
-          0.0
-        ]
+        "splashcoins": {
+          "advertiser": "SPLASH",
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyBunny": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
-      "inhouse": {
-        "Bonusclubs": 0.0,
-        "Jackpotrabbit___c": 0.0,
-        "ImperialSweeps": 0.0,
-        "Re": 0.0,
-        "SuperSlotz sweeps": 0.0,
-        "Spin2Win  sweeps LP": 0.0,
-        "Royalzclub sweeps": 0.0,
-        "test offer": 0.0,
-        "Sweepzkings": 0.0,
-        "Testing offer": 0.0,
-        "Wannnasee USA LP": 0.0,
-        "Pirates LP": 0.46
+      "ops": {
+        "andrea": {
+          "signups": 1,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LavishLuck",
+          "signups": 1,
+          "ftds": 1
+        },
+        {
+          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "CoinsBack",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
+        }
+      ],
+      "esp_ip_summary": {
+        "signups": 3,
+        "ftds": 1
       }
     },
     {
       "date": "2026-10-03",
-      "teams": {
-        "EMAIL": [
-          30.15,
-          13,
-          0,
-          182.31
-        ],
-        "MEDIA": [
-          99.85,
-          26,
-          3,
-          470.31
-        ],
-        "SOCIAL": [
-          18.46,
-          1,
-          0,
-          0.0
-        ]
-      },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 30.13,
+      "signups": 32,
+      "users": 1,
+      "revenue": 150.0,
+      "profit": 119.87,
       "advertisers": {
-        "ACEBET": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "AFF 66": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "ALL IN AFFILIATES": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BASHER AGENCY": [
-          2,
-          0,
-          47.69,
-          0.0
-        ],
-        "BETMGMPARTNERS": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "CHANCED": [
-          3,
-          1,
-          161.54,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "EPC": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "GAMETIME DIGITAL": [
-          53,
-          3,
-          494.62,
-          88.46
-        ],
-        "IMPACT": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "PURIFY": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SPLASH": [
-          2,
-          0,
-          23.08,
-          0.0
-        ]
+        "SPLASH": {
+          "signups": 23,
+          "users": 1,
+          "revenue": 150.0
+        },
+        "CHANCED": {
+          "signups": 4,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "GAMETIME DIGITAL": {
+          "signups": 5,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
       "brands": {
-        "Sixty6": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SweepJungle": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino Sweepstakes Casino": [
-          1,
-          0,
-          36.92,
-          0.0
-        ],
-        "LavishLuck Sweepstakes Casino": [
-          1,
-          0,
-          10.77,
-          0.0
-        ],
-        "Chanced Punt": [
-          4,
-          1,
-          161.54,
-          0.0
-        ],
-        "Coins Royale sweeps": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolling Riches": [
-          7,
-          2,
-          184.62,
-          46.2
-        ],
-        "The Boss": [
-          4,
-          1,
-          52.31,
-          0.0
-        ],
-        "LuckyBunny": [
-          3,
-          0,
-          64.62,
-          16.92
-        ],
-        "Baba": [
-          1,
-          0,
-          34.62,
-          0.0
-        ],
-        "CardCrush": [
-          6,
-          0,
-          33.85,
-          0.0
-        ],
-        "LavishLuck": [
-          5,
-          0,
-          27.69,
-          0.0
-        ],
-        "Jackpotgo": [
-          9,
-          0,
-          39.23,
-          16.96
-        ],
-        "Spinblitz SEO": [
-          1,
-          0,
-          15.38,
-          0.0
-        ],
-        "TitanTreasure": [
-          4,
-          1,
-          10.0,
-          0.0
-        ],
-        "Go Go Gold Win": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Crown Coins Email": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsBack": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "McLuck": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolla": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Pulsz SEO": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sweet Sweep": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino": [
-          1,
-          0,
-          0.0,
-          8.46
-        ],
-        "splashcoins": [
-          2,
-          0,
-          23.08,
-          0.0
-        ],
-        "Acebet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casino Smartlink": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Betnjet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "7Bit Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "FS Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "QBet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LevelUP": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Smash Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casinio": [
-          3,
-          1,
-          10.77,
-          0.0
-        ],
-        "PolyCasino": [
-          1,
-          0,
-          10.0,
-          0.0
-        ],
-        "Slotornado": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BetMGM casino": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "Coins Royale Las Vegas": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Hello Million": [
-          0,
-          0,
-          11.54,
-          0.0
-        ],
-        "CrashMania": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Richsweeps": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Borrowell": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Freecash": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "MOLOTOV": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sesame Care": [
-          0,
-          0,
-          0.0,
-          0.0
-        ]
+        "splashcoins": {
+          "advertiser": "SPLASH",
+          "signups": 23,
+          "users": 1,
+          "revenue": 150.0
+        },
+        "Chanced Punt": {
+          "advertiser": "CHANCED",
+          "signups": 4,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LavishLuck": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 5,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
-      "inhouse": {
-        "Bonusclubs": 0.0,
-        "Jackpotrabbit___c": 0.0,
-        "ImperialSweeps": 0.0,
-        "Re": 0.0,
-        "SuperSlotz sweeps": 0.0,
-        "Spin2Win  sweeps LP": 0.0,
-        "Royalzclub sweeps": 0.0,
-        "test offer": 0.0,
-        "Sweepzkings": 0.0,
-        "Testing offer": 0.0,
-        "Wannnasee USA LP": 0.0,
-        "Pirates LP": 0.46
+      "ops": {
+        "andrea": {
+          "signups": 23,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LavishLuck",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "CoinsBack",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
+        }
+      ],
+      "esp_ip_summary": {
+        "signups": 3,
+        "ftds": 0
       }
     },
     {
       "date": "2026-10-04",
-      "teams": {
-        "EMAIL": [
-          30.2,
-          12,
-          1,
-          182.31
-        ],
-        "MEDIA": [
-          99.85,
-          25,
-          3,
-          470.31
-        ],
-        "SOCIAL": [
-          18.46,
-          0,
-          0,
-          0.0
-        ]
-      },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 30.13,
+      "signups": 32,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": -30.13,
       "advertisers": {
-        "ACEBET": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "AFF 66": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "ALL IN AFFILIATES": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BASHER AGENCY": [
-          3,
-          0,
-          47.69,
-          0.0
-        ],
-        "BETMGMPARTNERS": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "CHANCED": [
-          4,
-          1,
-          161.54,
-          0.0
-        ],
-        "CoinsRoyale": [
-          2,
-          0,
-          0.0,
-          0.0
-        ],
-        "EPC": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "GAMETIME DIGITAL": [
-          53,
-          3,
-          494.62,
-          88.46
-        ],
-        "IMPACT": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "PURIFY": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SPLASH": [
-          1,
-          0,
-          23.08,
-          0.0
-        ]
+        "CHANCED": {
+          "signups": 23,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "GAMETIME DIGITAL": {
+          "signups": 9,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
       "brands": {
-        "Sixty6": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SweepJungle": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino Sweepstakes Casino": [
-          2,
-          1,
-          36.92,
-          0.0
-        ],
-        "LavishLuck Sweepstakes Casino": [
-          1,
-          0,
-          10.77,
-          0.0
-        ],
-        "Chanced Punt": [
-          3,
-          1,
-          161.52,
-          0.0
-        ],
-        "Coins Royale sweeps": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolling Riches": [
-          8,
-          1,
-          184.62,
-          46.15
-        ],
-        "The Boss": [
-          3,
-          0,
-          52.31,
-          0.0
-        ],
-        "LuckyBunny": [
-          3,
-          1,
-          64.62,
-          16.96
-        ],
-        "Baba": [
-          1,
-          0,
-          34.62,
-          0.0
-        ],
-        "CardCrush": [
-          6,
-          0,
-          33.85,
-          0.0
-        ],
-        "LavishLuck": [
-          5,
-          0,
-          27.69,
-          0.0
-        ],
-        "Jackpotgo": [
-          9,
-          0,
-          39.23,
-          16.92
-        ],
-        "Spinblitz SEO": [
-          2,
-          0,
-          15.38,
-          0.0
-        ],
-        "TitanTreasure": [
-          5,
-          0,
-          10.0,
-          0.0
-        ],
-        "Go Go Gold Win": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Crown Coins Email": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsBack": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "McLuck": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolla": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Pulsz SEO": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sweet Sweep": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino": [
-          2,
-          0,
-          0.0,
-          8.46
-        ],
-        "splashcoins": [
-          1,
-          0,
-          23.08,
-          0.0
-        ],
-        "Acebet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casino Smartlink": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Betnjet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "7Bit Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "FS Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "QBet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LevelUP": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Smash Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casinio": [
-          3,
-          0,
-          10.77,
-          0.0
-        ],
-        "PolyCasino": [
-          0,
-          0,
-          10.0,
-          0.0
-        ],
-        "Slotornado": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BetMGM casino": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "Coins Royale Las Vegas": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Hello Million": [
-          1,
-          0,
-          11.52,
-          0.0
-        ],
-        "CrashMania": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Richsweeps": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Borrowell": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Freecash": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "MOLOTOV": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sesame Care": [
-          0,
-          0,
-          0.0,
-          0.0
-        ]
+        "Chanced Punt": {
+          "advertiser": "CHANCED",
+          "signups": 23,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LavishLuck": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 4,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Rolla": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "The Boss": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Sweet Sweep": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
-      "inhouse": {
-        "Bonusclubs": 0.0,
-        "Jackpotrabbit___c": 0.0,
-        "ImperialSweeps": 0.0,
-        "Re": 0.0,
-        "SuperSlotz sweeps": 0.0,
-        "Spin2Win  sweeps LP": 0.0,
-        "Royalzclub sweeps": 0.0,
-        "test offer": 0.0,
-        "Sweepzkings": 0.0,
-        "Testing offer": 0.0,
-        "Wannnasee USA LP": 0.0,
-        "Pirates LP": 0.46
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "McLuck",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyBunny",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "Rolla",
+          "signups": 1,
+          "ftds": 0
+        }
+      ],
+      "esp_ip_summary": {
+        "signups": 3,
+        "ftds": 0
       }
     },
     {
       "date": "2026-10-05",
-      "teams": {
-        "EMAIL": [
-          30.15,
-          12,
-          0,
-          182.31
-        ],
-        "MEDIA": [
-          99.85,
-          25,
-          3,
-          470.31
-        ],
-        "SOCIAL": [
-          18.46,
-          1,
-          0,
-          0.0
-        ]
-      },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 30.13,
+      "signups": 12,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": -30.13,
       "advertisers": {
-        "ACEBET": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "AFF 66": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "ALL IN AFFILIATES": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BASHER AGENCY": [
-          3,
-          1,
-          47.69,
-          0.0
-        ],
-        "BETMGMPARTNERS": [
-          1,
-          1,
-          27.69,
-          0.0
-        ],
-        "CHANCED": [
-          3,
-          1,
-          161.54,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "EPC": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "GAMETIME DIGITAL": [
-          53,
-          3,
-          494.56,
-          88.46
-        ],
-        "IMPACT": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "PURIFY": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SPLASH": [
-          2,
-          0,
-          23.08,
-          0.0
-        ]
+        "GAMETIME DIGITAL": {
+          "signups": 10,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "BASHER AGENCY": {
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
       "brands": {
-        "Sixty6": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SweepJungle": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino Sweepstakes Casino": [
-          2,
-          0,
-          36.92,
-          0.0
-        ],
-        "LavishLuck Sweepstakes Casino": [
-          1,
-          0,
-          10.77,
-          0.0
-        ],
-        "Chanced Punt": [
-          3,
-          1,
-          161.54,
-          0.0
-        ],
-        "Coins Royale sweeps": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolling Riches": [
-          7,
-          1,
-          184.62,
-          46.15
-        ],
-        "The Boss": [
-          4,
-          0,
-          52.31,
-          0.0
-        ],
-        "LuckyBunny": [
-          3,
-          1,
-          64.62,
-          16.92
-        ],
-        "Baba": [
-          1,
-          0,
-          34.62,
-          0.0
-        ],
-        "CardCrush": [
-          6,
-          1,
-          33.85,
-          0.0
-        ],
-        "LavishLuck": [
-          5,
-          0,
-          27.69,
-          0.0
-        ],
-        "Jackpotgo": [
-          9,
-          0,
-          39.23,
-          16.92
-        ],
-        "Spinblitz SEO": [
-          1,
-          0,
-          15.38,
-          0.0
-        ],
-        "TitanTreasure": [
-          5,
-          0,
-          10.0,
-          0.0
-        ],
-        "Go Go Gold Win": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Crown Coins Email": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsBack": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "McLuck": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolla": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Pulsz SEO": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sweet Sweep": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino": [
-          1,
-          0,
-          0.0,
-          8.48
-        ],
-        "splashcoins": [
-          2,
-          0,
-          23.08,
-          0.0
-        ],
-        "Acebet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casino Smartlink": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Betnjet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "7Bit Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "FS Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "QBet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LevelUP": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Smash Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casinio": [
-          3,
-          0,
-          10.77,
-          0.0
-        ],
-        "PolyCasino": [
-          0,
-          0,
-          10.0,
-          0.0
-        ],
-        "Slotornado": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BetMGM casino": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "Coins Royale Las Vegas": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Hello Million": [
-          1,
-          0,
-          11.54,
-          0.0
-        ],
-        "CrashMania": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Richsweeps": [
-          2,
-          0,
-          0.0,
-          0.0
-        ],
-        "Borrowell": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Freecash": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "MOLOTOV": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sesame Care": [
-          0,
-          0,
-          0.0,
-          0.0
-        ]
+        "LuckyZino": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 10,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LavishLuck Sweepstakes Casino": {
+          "advertiser": "BASHER AGENCY",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyZino Sweepstakes Casino": {
+          "advertiser": "BASHER AGENCY",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
-      "inhouse": {
-        "Bonusclubs": 0.0,
-        "Jackpotrabbit___c": 0.0,
-        "ImperialSweeps": 0.0,
-        "Re": 0.0,
-        "SuperSlotz sweeps": 0.0,
-        "Spin2Win  sweeps LP": 0.0,
-        "Royalzclub sweeps": 0.0,
-        "test offer": 0.0,
-        "Sweepzkings": 0.0,
-        "Testing offer": 0.0,
-        "Wannnasee USA LP": 0.0,
-        "Pirates LP": 0.46
+      "ops": {
+        "andrea": {
+          "signups": 2,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "Rolla",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "Sweet Sweep",
+          "signups": 1,
+          "ftds": 0
+        }
+      ],
+      "esp_ip_summary": {
+        "signups": 3,
+        "ftds": 0
       }
     },
     {
       "date": "2026-10-06",
-      "teams": {
-        "EMAIL": [
-          30.15,
-          12,
-          1,
-          182.31
-        ],
-        "MEDIA": [
-          99.8,
-          25,
-          3,
-          470.31
-        ],
-        "SOCIAL": [
-          18.46,
-          0,
-          0,
-          0.0
-        ]
-      },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 30.13,
+      "signups": 2,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": -30.13,
       "advertisers": {
-        "ACEBET": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "AFF 66": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "ALL IN AFFILIATES": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BASHER AGENCY": [
-          2,
-          1,
-          47.69,
-          0.0
-        ],
-        "BETMGMPARTNERS": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "CHANCED": [
-          4,
-          1,
-          161.54,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "EPC": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "GAMETIME DIGITAL": [
-          53,
-          4,
-          494.62,
-          88.46
-        ],
-        "IMPACT": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "PURIFY": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SPLASH": [
-          1,
-          0,
-          23.08,
-          0.0
-        ]
+        "GAMETIME DIGITAL": {
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
       "brands": {
-        "Sixty6": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SweepJungle": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino Sweepstakes Casino": [
-          2,
-          0,
-          36.92,
-          0.0
-        ],
-        "LavishLuck Sweepstakes Casino": [
-          1,
-          1,
-          10.77,
-          0.0
-        ],
-        "Chanced Punt": [
-          3,
-          2,
-          161.54,
-          0.0
-        ],
-        "Coins Royale sweeps": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsRoyale": [
-          2,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolling Riches": [
-          7,
-          2,
-          184.62,
-          46.15
-        ],
-        "The Boss": [
-          3,
-          1,
-          52.31,
-          0.0
-        ],
-        "LuckyBunny": [
-          3,
-          1,
-          64.62,
-          16.92
-        ],
-        "Baba": [
-          1,
-          1,
-          34.62,
-          0.0
-        ],
-        "CardCrush": [
-          6,
-          0,
-          33.85,
-          0.0
-        ],
-        "LavishLuck": [
-          5,
-          0,
-          27.69,
-          0.0
-        ],
-        "Jackpotgo": [
-          9,
-          1,
-          39.23,
-          16.92
-        ],
-        "Spinblitz SEO": [
-          2,
-          0,
-          15.38,
-          0.0
-        ],
-        "TitanTreasure": [
-          5,
-          0,
-          10.0,
-          0.0
-        ],
-        "Go Go Gold Win": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Crown Coins Email": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsBack": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "McLuck": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolla": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Pulsz SEO": [
-          2,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sweet Sweep": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino": [
-          2,
-          0,
-          0.0,
-          8.46
-        ],
-        "splashcoins": [
-          1,
-          0,
-          23.08,
-          0.0
-        ],
-        "Acebet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casino Smartlink": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Betnjet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "7Bit Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "FS Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "QBet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LevelUP": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Smash Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casinio": [
-          3,
-          0,
-          10.77,
-          0.0
-        ],
-        "PolyCasino": [
-          0,
-          0,
-          10.0,
-          0.0
-        ],
-        "Slotornado": [
-          1,
-          0,
-          8.0,
-          2.2
-        ],
-        "BetMGM casino": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "Coins Royale Las Vegas": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Hello Million": [
-          1,
-          0,
-          11.54,
-          0.0
-        ],
-        "CrashMania": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Richsweeps": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Borrowell": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Freecash": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "MOLOTOV": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sesame Care": [
-          0,
-          0,
-          0.0,
-          0.0
-        ]
+        "Baba": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
-      "inhouse": {
-        "Bonusclubs": 0.0,
-        "Jackpotrabbit___c": 0.0,
-        "ImperialSweeps": 0.0,
-        "Re": 0.0,
-        "SuperSlotz sweeps": 0.0,
-        "Spin2Win  sweeps LP": 0.0,
-        "Royalzclub sweeps": 0.0,
-        "test offer": 0.0,
-        "Sweepzkings": 0.0,
-        "Testing offer": 0.0,
-        "Wannnasee USA LP": 0.0,
-        "Pirates LP": 0.46
+      "ops": {
+        "andrea": {
+          "signups": 2,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "Rolla",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+          "advertiser": "BASHER AGENCY",
+          "brand": "LavishLuck Sweepstakes Casino",
+          "signups": 1,
+          "ftds": 0
+        }
+      ],
+      "esp_ip_summary": {
+        "signups": 3,
+        "ftds": 0
       }
     },
     {
       "date": "2026-10-07",
-      "teams": {
-        "EMAIL": [
-          30.15,
-          12,
-          1,
-          182.31
-        ],
-        "MEDIA": [
-          99.85,
-          25,
-          3,
-          470.31
-        ],
-        "SOCIAL": [
-          18.46,
-          0,
-          0,
-          0.0
-        ]
-      },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 30.13,
+      "signups": 4,
+      "users": 1,
+      "revenue": 120.0,
+      "profit": 89.87,
       "advertisers": {
-        "ACEBET": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "AFF 66": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "ALL IN AFFILIATES": [
-          2,
-          0,
-          8.0,
-          2.2
-        ],
-        "BASHER AGENCY": [
-          3,
-          1,
-          47.69,
-          0.0
-        ],
-        "BETMGMPARTNERS": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "CHANCED": [
-          4,
-          2,
-          161.54,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "EPC": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "GAMETIME DIGITAL": [
-          53,
-          4,
-          494.62,
-          88.46
-        ],
-        "IMPACT": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "PURIFY": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SPLASH": [
-          2,
-          1,
-          23.08,
-          0.0
-        ]
+        "SPLASH": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "GAMETIME DIGITAL": {
+          "signups": 3,
+          "users": 1,
+          "revenue": 120.0
+        }
       },
       "brands": {
-        "Sixty6": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SweepJungle": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino Sweepstakes Casino": [
-          2,
-          0,
-          36.92,
-          0.0
-        ],
-        "LavishLuck Sweepstakes Casino": [
-          1,
-          0,
-          10.77,
-          0.0
-        ],
-        "Chanced Punt": [
-          3,
-          1,
-          161.54,
-          0.0
-        ],
-        "Coins Royale sweeps": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolling Riches": [
-          8,
-          2,
-          184.62,
-          46.15
-        ],
-        "The Boss": [
-          3,
-          0,
-          52.31,
-          0.0
-        ],
-        "LuckyBunny": [
-          3,
-          0,
-          64.56,
-          16.92
-        ],
-        "Baba": [
-          2,
-          0,
-          34.62,
-          0.0
-        ],
-        "CardCrush": [
-          6,
-          1,
-          33.85,
-          0.0
-        ],
-        "LavishLuck": [
-          5,
-          1,
-          27.69,
-          0.0
-        ],
-        "Jackpotgo": [
-          9,
-          0,
-          39.23,
-          16.92
-        ],
-        "Spinblitz SEO": [
-          1,
-          0,
-          15.38,
-          0.0
-        ],
-        "TitanTreasure": [
-          5,
-          0,
-          10.0,
-          0.0
-        ],
-        "Go Go Gold Win": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Crown Coins Email": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsBack": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "McLuck": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolla": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Pulsz SEO": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sweet Sweep": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino": [
-          2,
-          0,
-          0.0,
-          8.46
-        ],
-        "splashcoins": [
-          2,
-          0,
-          23.08,
-          0.0
-        ],
-        "Acebet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casino Smartlink": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Betnjet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "7Bit Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "FS Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "QBet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LevelUP": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Smash Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casinio": [
-          3,
-          0,
-          10.77,
-          0.0
-        ],
-        "PolyCasino": [
-          1,
-          0,
-          10.0,
-          0.0
-        ],
-        "Slotornado": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BetMGM casino": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "Coins Royale Las Vegas": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Hello Million": [
-          1,
-          0,
-          11.54,
-          0.0
-        ],
-        "CrashMania": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Richsweeps": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Borrowell": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Freecash": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "MOLOTOV": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sesame Care": [
-          0,
-          0,
-          0.0,
-          0.0
-        ]
+        "splashcoins": {
+          "advertiser": "SPLASH",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyBunny": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 2,
+          "users": 1,
+          "revenue": 120.0
+        },
+        "Spinblitz SEO": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
-      "inhouse": {
-        "Bonusclubs": 0.0,
-        "Jackpotrabbit___c": 0.0,
-        "ImperialSweeps": 0.0,
-        "Re": 0.0,
-        "SuperSlotz sweeps": 0.0,
-        "Spin2Win  sweeps LP": 0.0,
-        "Royalzclub sweeps": 0.0,
-        "test offer": 0.0,
-        "Sweepzkings": 0.0,
-        "Testing offer": 0.0,
-        "Wannnasee USA LP": 0.0,
-        "Pirates LP": 0.46
+      "ops": {
+        "andrea": {
+          "signups": 2,
+          "users": 1
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "Rolla",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
+        }
+      ],
+      "esp_ip_summary": {
+        "signups": 2,
+        "ftds": 0
       }
     },
     {
       "date": "2026-10-08",
-      "teams": {
-        "EMAIL": [
-          30.15,
-          13,
-          0,
-          182.31
-        ],
-        "MEDIA": [
-          99.85,
-          25,
-          3,
-          470.31
-        ],
-        "SOCIAL": [
-          18.48,
-          1,
-          0,
-          0.0
-        ]
-      },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 30.13,
+      "signups": 9,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": -30.13,
       "advertisers": {
-        "ACEBET": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "AFF 66": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "ALL IN AFFILIATES": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BASHER AGENCY": [
-          3,
-          0,
-          47.69,
-          0.0
-        ],
-        "BETMGMPARTNERS": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "CHANCED": [
-          3,
-          1,
-          161.54,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "EPC": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "GAMETIME DIGITAL": [
-          52,
-          3,
-          494.62,
-          88.46
-        ],
-        "IMPACT": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "PURIFY": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SPLASH": [
-          1,
-          0,
-          23.08,
-          0.0
-        ]
+        "BASHER AGENCY": {
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "GAMETIME DIGITAL": {
+          "signups": 7,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
       "brands": {
-        "Sixty6": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SweepJungle": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino Sweepstakes Casino": [
-          2,
-          0,
-          36.92,
-          0.0
-        ],
-        "LavishLuck Sweepstakes Casino": [
-          1,
-          0,
-          10.77,
-          0.0
-        ],
-        "Chanced Punt": [
-          3,
-          1,
-          161.54,
-          0.0
-        ],
-        "Coins Royale sweeps": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolling Riches": [
-          7,
-          1,
-          184.62,
-          46.15
-        ],
-        "The Boss": [
-          4,
-          1,
-          52.31,
-          0.0
-        ],
-        "LuckyBunny": [
-          3,
-          0,
-          64.62,
-          16.92
-        ],
-        "Baba": [
-          1,
-          0,
-          34.62,
-          0.0
-        ],
-        "CardCrush": [
-          6,
-          1,
-          33.85,
-          0.0
-        ],
-        "LavishLuck": [
-          5,
-          0,
-          27.69,
-          0.0
-        ],
-        "Jackpotgo": [
-          9,
-          0,
-          39.23,
-          16.92
-        ],
-        "Spinblitz SEO": [
-          2,
-          0,
-          15.38,
-          0.0
-        ],
-        "TitanTreasure": [
-          5,
-          0,
-          10.0,
-          0.0
-        ],
-        "Go Go Gold Win": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Crown Coins Email": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsBack": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "McLuck": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolla": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Pulsz SEO": [
-          2,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sweet Sweep": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino": [
-          2,
-          0,
-          0.0,
-          8.46
-        ],
-        "splashcoins": [
-          2,
-          0,
-          23.08,
-          0.0
-        ],
-        "Acebet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casino Smartlink": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Betnjet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "7Bit Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "FS Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "QBet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LevelUP": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Smash Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casinio": [
-          3,
-          0,
-          10.77,
-          0.0
-        ],
-        "PolyCasino": [
-          1,
-          0,
-          10.0,
-          0.0
-        ],
-        "Slotornado": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BetMGM casino": [
-          0,
-          1,
-          27.69,
-          0.0
-        ],
-        "Coins Royale Las Vegas": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Hello Million": [
-          0,
-          0,
-          11.54,
-          0.0
-        ],
-        "CrashMania": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Richsweeps": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Borrowell": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Freecash": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "MOLOTOV": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sesame Care": [
-          0,
-          0,
-          0.0,
-          0.0
-        ]
+        "LavishLuck Sweepstakes Casino": {
+          "advertiser": "BASHER AGENCY",
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "CrashMania": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyZino": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyBunny": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Rolla": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "TitanTreasure": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
-      "inhouse": {
-        "Bonusclubs": 0.0,
-        "Jackpotrabbit___c": 0.0,
-        "ImperialSweeps": 0.0,
-        "Re": 0.0,
-        "SuperSlotz sweeps": 0.0,
-        "Spin2Win  sweeps LP": 0.0,
-        "Royalzclub sweeps": 0.0,
-        "test offer": 0.0,
-        "Sweepzkings": 0.0,
-        "Testing offer": 0.0,
-        "Wannnasee USA LP": 0.0,
-        "Pirates LP": 0.46
+      "ops": {
+        "andrea": {
+          "signups": 9,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "Sweet Sweep",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyBunny",
+          "signups": 1,
+          "ftds": 0
+        }
+      ],
+      "esp_ip_summary": {
+        "signups": 2,
+        "ftds": 0
       }
     },
     {
       "date": "2026-10-09",
-      "teams": {
-        "EMAIL": [
-          30.15,
-          12,
-          0,
-          182.31
-        ],
-        "MEDIA": [
-          99.85,
-          25,
-          3,
-          470.31
-        ],
-        "SOCIAL": [
-          18.46,
-          1,
-          0,
-          0.0
-        ]
-      },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 30.13,
+      "signups": 8,
+      "users": 2,
+      "revenue": 300.0,
+      "profit": 269.87,
       "advertisers": {
-        "ACEBET": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "AFF 66": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "ALL IN AFFILIATES": [
-          2,
-          0,
-          8.0,
-          2.15
-        ],
-        "BASHER AGENCY": [
-          2,
-          0,
-          47.69,
-          0.0
-        ],
-        "BETMGMPARTNERS": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "CHANCED": [
-          4,
-          1,
-          161.54,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "EPC": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "GAMETIME DIGITAL": [
-          53,
-          3,
-          494.62,
-          88.46
-        ],
-        "IMPACT": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "PURIFY": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SPLASH": [
-          2,
-          0,
-          23.08,
-          0.0
-        ]
+        "GAMETIME DIGITAL": {
+          "signups": 8,
+          "users": 2,
+          "revenue": 300.0
+        }
       },
       "brands": {
-        "Sixty6": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SweepJungle": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino Sweepstakes Casino": [
-          1,
-          0,
-          36.92,
-          0.0
-        ],
-        "LavishLuck Sweepstakes Casino": [
-          0,
-          0,
-          10.77,
-          0.0
-        ],
-        "Chanced Punt": [
-          4,
-          1,
-          161.54,
-          0.0
-        ],
-        "Coins Royale sweeps": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolling Riches": [
-          7,
-          1,
-          184.56,
-          46.15
-        ],
-        "The Boss": [
-          4,
-          0,
-          52.31,
-          0.0
-        ],
-        "LuckyBunny": [
-          3,
-          0,
-          64.62,
-          16.92
-        ],
-        "Baba": [
-          1,
-          0,
-          34.62,
-          0.0
-        ],
-        "CardCrush": [
-          6,
-          1,
-          33.85,
-          0.0
-        ],
-        "LavishLuck": [
-          5,
-          0,
-          27.69,
-          0.0
-        ],
-        "Jackpotgo": [
-          10,
-          0,
-          39.23,
-          16.92
-        ],
-        "Spinblitz SEO": [
-          2,
-          0,
-          15.38,
-          0.0
-        ],
-        "TitanTreasure": [
-          4,
-          0,
-          10.0,
-          0.0
-        ],
-        "Go Go Gold Win": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Crown Coins Email": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsBack": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "McLuck": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolla": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Pulsz SEO": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sweet Sweep": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino": [
-          1,
-          0,
-          0.0,
-          8.46
-        ],
-        "splashcoins": [
-          2,
-          0,
-          23.08,
-          0.0
-        ],
-        "Acebet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casino Smartlink": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Betnjet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "7Bit Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "FS Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "QBet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LevelUP": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Smash Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casinio": [
-          2,
-          0,
-          10.77,
-          0.0
-        ],
-        "PolyCasino": [
-          0,
-          0,
-          10.0,
-          0.0
-        ],
-        "Slotornado": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BetMGM casino": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "Coins Royale Las Vegas": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Hello Million": [
-          0,
-          0,
-          11.54,
-          0.0
-        ],
-        "CrashMania": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Richsweeps": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Borrowell": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Freecash": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "MOLOTOV": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sesame Care": [
-          0,
-          0,
-          0.0,
-          0.0
-        ]
+        "LuckyBunny": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 2,
+          "users": 1,
+          "revenue": 120.0
+        },
+        "LavishLuck": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 1,
+          "revenue": 180.0
+        },
+        "Baba": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "CardCrush": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Sweet Sweep": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "The Boss": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
-      "inhouse": {
-        "Bonusclubs": 0.0,
-        "Jackpotrabbit___c": 0.0,
-        "ImperialSweeps": 0.0,
-        "Re": 0.0,
-        "SuperSlotz sweeps": 0.0,
-        "Spin2Win  sweeps LP": 0.0,
-        "Royalzclub sweeps": 0.0,
-        "test offer": 0.0,
-        "Sweepzkings": 0.0,
-        "Testing offer": 0.0,
-        "Wannnasee USA LP": 0.0,
-        "Pirates LP": 0.46
+      "ops": {
+        "andrea": {
+          "signups": 8,
+          "users": 2
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "Sweet Sweep",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
+        }
+      ],
+      "esp_ip_summary": {
+        "signups": 2,
+        "ftds": 0
       }
     },
     {
       "date": "2026-10-10",
-      "teams": {
-        "EMAIL": [
-          30.15,
-          12,
-          0,
-          182.31
-        ],
-        "MEDIA": [
-          99.85,
-          25,
-          3,
-          470.31
-        ],
-        "SOCIAL": [
-          18.46,
-          0,
-          0,
-          0.0
-        ]
-      },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 30.13,
+      "signups": 12,
+      "users": 0,
+      "revenue": 350.0,
+      "profit": 319.87,
       "advertisers": {
-        "ACEBET": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "AFF 66": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "ALL IN AFFILIATES": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BASHER AGENCY": [
-          3,
-          0,
-          47.72,
-          0.0
-        ],
-        "BETMGMPARTNERS": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "CHANCED": [
-          3,
-          1,
-          161.52,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "EPC": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "GAMETIME DIGITAL": [
-          52,
-          3,
-          494.62,
-          88.48
-        ],
-        "IMPACT": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "PURIFY": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SPLASH": [
-          2,
-          0,
-          23.08,
-          0.0
-        ]
+        "CHANCED": {
+          "signups": 5,
+          "users": 0,
+          "revenue": 300.0
+        },
+        "BASHER AGENCY": {
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "GAMETIME DIGITAL": {
+          "signups": 4,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "COINSROYALE": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
       "brands": {
-        "Sixty6": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SweepJungle": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino Sweepstakes Casino": [
-          2,
-          1,
-          36.92,
-          0.0
-        ],
-        "LavishLuck Sweepstakes Casino": [
-          1,
-          0,
-          10.77,
-          0.0
-        ],
-        "Chanced Punt": [
-          3,
-          1,
-          161.54,
-          0.0
-        ],
-        "Coins Royale sweeps": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolling Riches": [
-          7,
-          1,
-          184.62,
-          46.15
-        ],
-        "The Boss": [
-          4,
-          1,
-          52.31,
-          0.0
-        ],
-        "LuckyBunny": [
-          4,
-          0,
-          64.62,
-          16.92
-        ],
-        "Baba": [
-          1,
-          1,
-          34.62,
-          0.0
-        ],
-        "CardCrush": [
-          6,
-          0,
-          33.85,
-          0.0
-        ],
-        "LavishLuck": [
-          5,
-          0,
-          27.69,
-          0.0
-        ],
-        "Jackpotgo": [
-          9,
-          0,
-          39.23,
-          16.92
-        ],
-        "Spinblitz SEO": [
-          2,
-          1,
-          15.38,
-          0.0
-        ],
-        "TitanTreasure": [
-          4,
-          0,
-          10.0,
-          0.0
-        ],
-        "Go Go Gold Win": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Crown Coins Email": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsBack": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "McLuck": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolla": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Pulsz SEO": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sweet Sweep": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino": [
-          1,
-          0,
-          0.0,
-          8.46
-        ],
-        "splashcoins": [
-          2,
-          0,
-          23.08,
-          0.0
-        ],
-        "Acebet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casino Smartlink": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Betnjet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "7Bit Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "FS Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "QBet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LevelUP": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Smash Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casinio": [
-          3,
-          0,
-          10.77,
-          0.0
-        ],
-        "PolyCasino": [
-          0,
-          0,
-          10.0,
-          0.0
-        ],
-        "Slotornado": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BetMGM casino": [
-          1,
-          0,
-          27.72,
-          0.0
-        ],
-        "Coins Royale Las Vegas": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Hello Million": [
-          1,
-          0,
-          11.54,
-          0.0
-        ],
-        "CrashMania": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Richsweeps": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Borrowell": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Freecash": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "MOLOTOV": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sesame Care": [
-          0,
-          0,
-          0.0,
-          0.0
-        ]
+        "Chanced Punt": {
+          "advertiser": "CHANCED",
+          "signups": 5,
+          "users": 0,
+          "revenue": 300.0
+        },
+        "LavishLuck Sweepstakes Casino": {
+          "advertiser": "BASHER AGENCY",
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyZino": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 3,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Rolla": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Coins Royale sweeps": {
+          "advertiser": "COINSROYALE",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
-      "inhouse": {
-        "Bonusclubs": 0.0,
-        "Jackpotrabbit___c": 0.0,
-        "ImperialSweeps": 0.0,
-        "Re": 0.0,
-        "SuperSlotz sweeps": 0.0,
-        "Spin2Win  sweeps LP": 0.0,
-        "Royalzclub sweeps": 0.0,
-        "test offer": 0.0,
-        "Sweepzkings": 0.0,
-        "Testing offer": 0.0,
-        "Wannnasee USA LP": 0.0,
-        "Pirates LP": 0.46
+      "ops": {
+        "andrea": {
+          "signups": 7,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 2",
+          "advertiser": "BASHER AGENCY",
+          "brand": "LuckyZino Sweepstakes Casino",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
+        }
+      ],
+      "esp_ip_summary": {
+        "signups": 2,
+        "ftds": 0
       }
     },
     {
       "date": "2026-10-11",
-      "teams": {
-        "EMAIL": [
-          30.15,
-          12,
-          1,
-          182.31
-        ],
-        "MEDIA": [
-          99.85,
-          25,
-          3,
-          470.31
-        ],
-        "SOCIAL": [
-          18.46,
-          0,
-          0,
-          0.0
-        ]
-      },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 30.13,
+      "signups": 12,
+      "users": 0,
+      "revenue": 400.0,
+      "profit": 369.87,
       "advertisers": {
-        "ACEBET": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "AFF 66": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "ALL IN AFFILIATES": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BASHER AGENCY": [
-          2,
-          1,
-          47.69,
-          0.0
-        ],
-        "BETMGMPARTNERS": [
-          0,
-          0,
-          27.72,
-          0.0
-        ],
-        "CHANCED": [
-          3,
-          1,
-          161.54,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "EPC": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "GAMETIME DIGITAL": [
-          53,
-          4,
-          494.62,
-          88.46
-        ],
-        "IMPACT": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "PURIFY": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SPLASH": [
-          2,
-          0,
-          23.04,
-          0.0
-        ]
+        "CHANCED": {
+          "signups": 4,
+          "users": 0,
+          "revenue": 250.0
+        },
+        "SPLASH": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "BASHER AGENCY": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "GAMETIME DIGITAL": {
+          "signups": 6,
+          "users": 0,
+          "revenue": 150.0
+        }
       },
       "brands": {
-        "Sixty6": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SweepJungle": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino Sweepstakes Casino": [
-          1,
-          0,
-          36.92,
-          0.0
-        ],
-        "LavishLuck Sweepstakes Casino": [
-          1,
-          0,
-          10.76,
-          0.0
-        ],
-        "Chanced Punt": [
-          3,
-          1,
-          161.54,
-          0.0
-        ],
-        "Coins Royale sweeps": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolling Riches": [
-          7,
-          1,
-          184.62,
-          46.15
-        ],
-        "The Boss": [
-          4,
-          0,
-          52.31,
-          0.0
-        ],
-        "LuckyBunny": [
-          3,
-          1,
-          64.62,
-          16.92
-        ],
-        "Baba": [
-          1,
-          0,
-          34.62,
-          0.0
-        ],
-        "CardCrush": [
-          6,
-          0,
-          33.85,
-          0.0
-        ],
-        "LavishLuck": [
-          5,
-          0,
-          27.69,
-          0.0
-        ],
-        "Jackpotgo": [
-          9,
-          0,
-          39.23,
-          16.92
-        ],
-        "Spinblitz SEO": [
-          2,
-          0,
-          15.38,
-          0.0
-        ],
-        "TitanTreasure": [
-          5,
-          0,
-          10.0,
-          0.0
-        ],
-        "Go Go Gold Win": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Crown Coins Email": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsBack": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "McLuck": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolla": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Pulsz SEO": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sweet Sweep": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino": [
-          1,
-          0,
-          0.0,
-          8.46
-        ],
-        "splashcoins": [
-          2,
-          0,
-          23.08,
-          0.0
-        ],
-        "Acebet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casino Smartlink": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Betnjet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "7Bit Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "FS Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "QBet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LevelUP": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Smash Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casinio": [
-          3,
-          0,
-          10.77,
-          0.0
-        ],
-        "PolyCasino": [
-          1,
-          0,
-          10.0,
-          0.0
-        ],
-        "Slotornado": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BetMGM casino": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "Coins Royale Las Vegas": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Hello Million": [
-          0,
-          0,
-          11.54,
-          0.0
-        ],
-        "CrashMania": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Richsweeps": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Borrowell": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Freecash": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "MOLOTOV": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sesame Care": [
-          0,
-          0,
-          0.0,
-          0.0
-        ]
+        "Chanced Punt": {
+          "advertiser": "CHANCED",
+          "signups": 4,
+          "users": 0,
+          "revenue": 250.0
+        },
+        "splashcoins": {
+          "advertiser": "SPLASH",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LavishLuck Sweepstakes Casino": {
+          "advertiser": "BASHER AGENCY",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyBunny": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 2,
+          "users": 0,
+          "revenue": 120.0
+        },
+        "LuckyZino": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "CrashMania": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Sweet Sweep": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
-      "inhouse": {
-        "Bonusclubs": 0.0,
-        "Jackpotrabbit___c": 0.0,
-        "ImperialSweeps": 0.0,
-        "Re": 0.0,
-        "SuperSlotz sweeps": 0.0,
-        "Spin2Win  sweeps LP": 0.0,
-        "Royalzclub sweeps": 0.0,
-        "test offer": 0.0,
-        "Sweepzkings": 0.0,
-        "Testing offer": 0.0,
-        "Wannnasee USA LP": 0.0,
-        "Pirates LP": 0.48
+      "ops": {
+        "andrea": {
+          "signups": 8,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 2",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyBunny",
+          "signups": 0,
+          "ftds": 1
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
+        }
+      ],
+      "esp_ip_summary": {
+        "signups": 1,
+        "ftds": 1
       }
     },
     {
       "date": "2026-10-12",
-      "teams": {
-        "EMAIL": [
-          30.15,
-          12,
-          1,
-          182.31
-        ],
-        "MEDIA": [
-          99.85,
-          25,
-          3,
-          470.31
-        ],
-        "SOCIAL": [
-          18.46,
-          1,
-          0,
-          0.0
-        ]
-      },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 30.13,
+      "signups": 13,
+      "users": 0,
+      "revenue": 500.0,
+      "profit": 469.87,
       "advertisers": {
-        "ACEBET": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "AFF 66": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "ALL IN AFFILIATES": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BASHER AGENCY": [
-          2,
-          1,
-          47.69,
-          0.0
-        ],
-        "BETMGMPARTNERS": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "CHANCED": [
-          4,
-          1,
-          161.54,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "EPC": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "GAMETIME DIGITAL": [
-          53,
-          4,
-          494.62,
-          88.46
-        ],
-        "IMPACT": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "PURIFY": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SPLASH": [
-          2,
-          0,
-          23.08,
-          0.0
-        ]
+        "CHANCED": {
+          "signups": 4,
+          "users": 0,
+          "revenue": 250.0
+        },
+        "BASHER AGENCY": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "GAMETIME DIGITAL": {
+          "signups": 8,
+          "users": 0,
+          "revenue": 250.0
+        }
       },
       "brands": {
-        "Sixty6": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SweepJungle": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino Sweepstakes Casino": [
-          2,
-          1,
-          36.92,
-          0.0
-        ],
-        "LavishLuck Sweepstakes Casino": [
-          1,
-          0,
-          10.77,
-          0.0
-        ],
-        "Chanced Punt": [
-          3,
-          1,
-          161.54,
-          0.0
-        ],
-        "Coins Royale sweeps": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolling Riches": [
-          7,
-          1,
-          184.62,
-          46.15
-        ],
-        "The Boss": [
-          3,
-          0,
-          52.31,
-          0.0
-        ],
-        "LuckyBunny": [
-          3,
-          1,
-          64.62,
-          16.92
-        ],
-        "Baba": [
-          1,
-          1,
-          34.62,
-          0.0
-        ],
-        "CardCrush": [
-          6,
-          0,
-          33.85,
-          0.0
-        ],
-        "LavishLuck": [
-          5,
-          1,
-          27.72,
-          0.0
-        ],
-        "Jackpotgo": [
-          10,
-          1,
-          39.24,
-          16.92
-        ],
-        "Spinblitz SEO": [
-          2,
-          0,
-          15.44,
-          0.0
-        ],
-        "TitanTreasure": [
-          5,
-          0,
-          10.0,
-          0.0
-        ],
-        "Go Go Gold Win": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Crown Coins Email": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsBack": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "McLuck": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolla": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Pulsz SEO": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sweet Sweep": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino": [
-          2,
-          0,
-          0.0,
-          8.46
-        ],
-        "splashcoins": [
-          1,
-          0,
-          23.08,
-          0.0
-        ],
-        "Acebet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casino Smartlink": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Betnjet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "7Bit Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "FS Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "QBet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LevelUP": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Smash Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casinio": [
-          3,
-          0,
-          10.77,
-          0.0
-        ],
-        "PolyCasino": [
-          0,
-          0,
-          10.0,
-          0.0
-        ],
-        "Slotornado": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BetMGM casino": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "Coins Royale Las Vegas": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Hello Million": [
-          1,
-          0,
-          11.54,
-          0.0
-        ],
-        "CrashMania": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Richsweeps": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Borrowell": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Freecash": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "MOLOTOV": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sesame Care": [
-          0,
-          0,
-          0.0,
-          0.0
-        ]
+        "Chanced Punt": {
+          "advertiser": "CHANCED",
+          "signups": 4,
+          "users": 0,
+          "revenue": 250.0
+        },
+        "LavishLuck Sweepstakes Casino": {
+          "advertiser": "BASHER AGENCY",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyBunny": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 120.0
+        },
+        "LavishLuck": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "CrashMania": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyZino": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 3,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Rolla": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "The Boss": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
-      "inhouse": {
-        "Bonusclubs": 0.0,
-        "Jackpotrabbit___c": 0.0,
-        "ImperialSweeps": 0.0,
-        "Re": 0.0,
-        "SuperSlotz sweeps": 0.0,
-        "Spin2Win  sweeps LP": 0.0,
-        "Royalzclub sweeps": 0.0,
-        "test offer": 0.0,
-        "Sweepzkings": 0.0,
-        "Testing offer": 0.0,
-        "Wannnasee USA LP": 0.0,
-        "Pirates LP": 0.46
+      "ops": {
+        "andrea": {
+          "signups": 10,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 2",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "Rolla",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
+        }
+      ],
+      "esp_ip_summary": {
+        "signups": 2,
+        "ftds": 0
       }
     },
     {
       "date": "2026-10-13",
-      "teams": {
-        "EMAIL": [
-          30.15,
-          13,
-          0,
-          182.28
-        ],
-        "MEDIA": [
-          99.85,
-          26,
-          3,
-          470.28
-        ],
-        "SOCIAL": [
-          18.46,
-          0,
-          0,
-          0.0
-        ]
-      },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 30.13,
+      "signups": 13,
+      "users": 0,
+      "revenue": 400.0,
+      "profit": 369.87,
       "advertisers": {
-        "ACEBET": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "AFF 66": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "ALL IN AFFILIATES": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BASHER AGENCY": [
-          2,
-          0,
-          47.69,
-          0.0
-        ],
-        "BETMGMPARTNERS": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "CHANCED": [
-          3,
-          1,
-          161.54,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "EPC": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "GAMETIME DIGITAL": [
-          53,
-          4,
-          494.62,
-          88.46
-        ],
-        "IMPACT": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "PURIFY": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SPLASH": [
-          2,
-          0,
-          23.08,
-          0.0
-        ]
+        "CHANCED": {
+          "signups": 4,
+          "users": 0,
+          "revenue": 250.0
+        },
+        "GAMETIME DIGITAL": {
+          "signups": 9,
+          "users": 0,
+          "revenue": 150.0
+        }
       },
       "brands": {
-        "Sixty6": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "SweepJungle": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino Sweepstakes Casino": [
-          2,
-          0,
-          36.96,
-          0.0
-        ],
-        "LavishLuck Sweepstakes Casino": [
-          1,
-          0,
-          10.77,
-          0.0
-        ],
-        "Chanced Punt": [
-          4,
-          1,
-          161.54,
-          0.0
-        ],
-        "Coins Royale sweeps": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsRoyale": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolling Riches": [
-          7,
-          1,
-          184.62,
-          46.15
-        ],
-        "The Boss": [
-          4,
-          0,
-          52.31,
-          0.0
-        ],
-        "LuckyBunny": [
-          3,
-          1,
-          64.62,
-          16.92
-        ],
-        "Baba": [
-          1,
-          0,
-          34.62,
-          0.0
-        ],
-        "CardCrush": [
-          5,
-          0,
-          33.8,
-          0.0
-        ],
-        "LavishLuck": [
-          5,
-          0,
-          27.69,
-          0.0
-        ],
-        "Jackpotgo": [
-          9,
-          0,
-          39.23,
-          16.92
-        ],
-        "Spinblitz SEO": [
-          2,
-          0,
-          15.38,
-          0.0
-        ],
-        "TitanTreasure": [
-          4,
-          0,
-          10.0,
-          0.0
-        ],
-        "Go Go Gold Win": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Crown Coins Email": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "CoinsBack": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "McLuck": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Rolla": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Pulsz SEO": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sweet Sweep": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LuckyZino": [
-          2,
-          0,
-          0.0,
-          8.46
-        ],
-        "splashcoins": [
-          2,
-          0,
-          23.08,
-          0.0
-        ],
-        "Acebet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casino Smartlink": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Betnjet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "7Bit Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "FS Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "QBet": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "LevelUP": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Smash Casino": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Casinio": [
-          3,
-          0,
-          10.76,
-          0.0
-        ],
-        "PolyCasino": [
-          1,
-          0,
-          10.0,
-          0.0
-        ],
-        "Slotornado": [
-          1,
-          0,
-          8.0,
-          2.15
-        ],
-        "BetMGM casino": [
-          0,
-          0,
-          27.69,
-          0.0
-        ],
-        "Coins Royale Las Vegas": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Hello Million": [
-          0,
-          1,
-          11.54,
-          0.0
-        ],
-        "CrashMania": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Richsweeps": [
-          1,
-          0,
-          0.0,
-          0.0
-        ],
-        "Borrowell": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Freecash": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "MOLOTOV": [
-          0,
-          0,
-          0.0,
-          0.0
-        ],
-        "Sesame Care": [
-          0,
-          0,
-          0.0,
-          0.0
-        ]
+        "Chanced Punt": {
+          "advertiser": "CHANCED",
+          "signups": 4,
+          "users": 0,
+          "revenue": 250.0
+        },
+        "LuckyBunny": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 120.0
+        },
+        "LuckyZino": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "CrashMania": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Baba": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LavishLuck": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Rolla": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Sweet Sweep": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        }
       },
-      "inhouse": {
-        "Bonusclubs": 0.0,
-        "Jackpotrabbit___c": 0.0,
-        "ImperialSweeps": 0.0,
-        "Re": 0.0,
-        "SuperSlotz sweeps": 0.0,
-        "Spin2Win  sweeps LP": 0.0,
-        "Royalzclub sweeps": 0.0,
-        "test offer": 0.0,
-        "Sweepzkings": 0.0,
-        "Testing offer": 0.0,
-        "Wannnasee USA LP": 0.0,
-        "Pirates LP": 0.46
+      "ops": {
+        "andrea": {
+          "signups": 11,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 2",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "The Boss",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
+        }
+      ],
+      "esp_ip_summary": {
+        "signups": 2,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-14",
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 0.0,
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": 0.0,
+      "advertisers": {},
+      "brands": {},
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [],
+      "esp_ip_summary": {
+        "signups": 0,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-15",
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 0.0,
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": 0.0,
+      "advertisers": {},
+      "brands": {},
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [],
+      "esp_ip_summary": {
+        "signups": 0,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-16",
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 0.0,
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": 0.0,
+      "advertisers": {},
+      "brands": {},
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [],
+      "esp_ip_summary": {
+        "signups": 0,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-17",
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 0.0,
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": 0.0,
+      "advertisers": {},
+      "brands": {},
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [],
+      "esp_ip_summary": {
+        "signups": 0,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-18",
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 0.0,
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": 0.0,
+      "advertisers": {},
+      "brands": {},
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [],
+      "esp_ip_summary": {
+        "signups": 0,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-19",
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 0.0,
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": 0.0,
+      "advertisers": {},
+      "brands": {},
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [],
+      "esp_ip_summary": {
+        "signups": 0,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-20",
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 0.0,
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": 0.0,
+      "advertisers": {},
+      "brands": {},
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [],
+      "esp_ip_summary": {
+        "signups": 0,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-21",
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 0.0,
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": 0.0,
+      "advertisers": {},
+      "brands": {},
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [],
+      "esp_ip_summary": {
+        "signups": 0,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-22",
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 0.0,
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": 0.0,
+      "advertisers": {},
+      "brands": {},
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [],
+      "esp_ip_summary": {
+        "signups": 0,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-23",
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 0.0,
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": 0.0,
+      "advertisers": {},
+      "brands": {},
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [],
+      "esp_ip_summary": {
+        "signups": 0,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-24",
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 0.0,
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": 0.0,
+      "advertisers": {},
+      "brands": {},
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [],
+      "esp_ip_summary": {
+        "signups": 0,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-25",
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 0.0,
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": 0.0,
+      "advertisers": {},
+      "brands": {},
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [],
+      "esp_ip_summary": {
+        "signups": 0,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-26",
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 0.0,
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": 0.0,
+      "advertisers": {},
+      "brands": {},
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [],
+      "esp_ip_summary": {
+        "signups": 0,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-27",
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 0.0,
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": 0.0,
+      "advertisers": {},
+      "brands": {},
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [],
+      "esp_ip_summary": {
+        "signups": 0,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-28",
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 0.0,
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": 0.0,
+      "advertisers": {},
+      "brands": {},
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [],
+      "esp_ip_summary": {
+        "signups": 0,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-29",
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 0.0,
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": 0.0,
+      "advertisers": {},
+      "brands": {},
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [],
+      "esp_ip_summary": {
+        "signups": 0,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-30",
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 0.0,
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": 0.0,
+      "advertisers": {},
+      "brands": {},
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [],
+      "esp_ip_summary": {
+        "signups": 0,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-31",
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 0.0,
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": 0.0,
+      "advertisers": {},
+      "brands": {},
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [],
+      "esp_ip_summary": {
+        "signups": 0,
+        "ftds": 0
       }
     }
   ]
