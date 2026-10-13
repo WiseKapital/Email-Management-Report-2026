@@ -18,18 +18,18 @@
     "unsub": 0,
     "budget": 391.69,
     "signups": 159,
-    "users": 12,
+    "users": 5,
     "revenue": 2370.0,
     "profit": 1978.31,
-    "s2p_ratio": "1:13"
+    "s2p_ratio": "1:32"
   },
   "advertisers_mtd": [
     {
       "advertiser": "CHANCED",
       "signups": 44,
-      "users": 7,
+      "users": 0,
       "revenue": 1050.0,
-      "s2p": "1:6"
+      "s2p": "0:44"
     },
     {
       "advertiser": "GameTime Digital",
@@ -100,9 +100,9 @@
       "brand": "Chanced Punt",
       "advertiser": "CHANCED",
       "signups": 44,
-      "users": 7,
+      "users": 0,
       "revenue": 1050.0,
-      "s2p": "1:6"
+      "s2p": "0:44"
     },
     {
       "brand": "LuckyBunny",
@@ -1571,13 +1571,13 @@
       "unsub": 0,
       "budget": 30.13,
       "signups": 12,
-      "users": 2,
+      "users": 0,
       "revenue": 350.0,
       "profit": 319.87,
       "advertisers": {
         "CHANCED": {
           "signups": 5,
-          "users": 2,
+          "users": 0,
           "revenue": 300.0
         },
         "BASHER AGENCY": {
@@ -1600,7 +1600,7 @@
         "Chanced Punt": {
           "advertiser": "CHANCED",
           "signups": 5,
-          "users": 2,
+          "users": 0,
           "revenue": 300.0
         },
         "LavishLuck Sweepstakes Casino": {
@@ -1631,7 +1631,7 @@
       "ops": {
         "andrea": {
           "signups": 7,
-          "users": 1
+          "users": 0
         },
         "jessie": {
           "signups": 0,
@@ -1668,13 +1668,13 @@
       "unsub": 0,
       "budget": 30.13,
       "signups": 12,
-      "users": 2,
+      "users": 0,
       "revenue": 400.0,
       "profit": 369.87,
       "advertisers": {
         "CHANCED": {
           "signups": 4,
-          "users": 2,
+          "users": 0,
           "revenue": 250.0
         },
         "SPLASH": {
@@ -1697,7 +1697,7 @@
         "Chanced Punt": {
           "advertiser": "CHANCED",
           "signups": 4,
-          "users": 2,
+          "users": 0,
           "revenue": 250.0
         },
         "splashcoins": {
@@ -1740,7 +1740,7 @@
       "ops": {
         "andrea": {
           "signups": 8,
-          "users": 1
+          "users": 0
         },
         "jessie": {
           "signups": 0,
@@ -1777,13 +1777,13 @@
       "unsub": 0,
       "budget": 30.13,
       "signups": 13,
-      "users": 2,
+      "users": 0,
       "revenue": 500.0,
       "profit": 469.87,
       "advertisers": {
         "CHANCED": {
           "signups": 4,
-          "users": 2,
+          "users": 0,
           "revenue": 250.0
         },
         "BASHER AGENCY": {
@@ -1801,7 +1801,7 @@
         "Chanced Punt": {
           "advertiser": "CHANCED",
           "signups": 4,
-          "users": 2,
+          "users": 0,
           "revenue": 250.0
         },
         "LavishLuck Sweepstakes Casino": {
@@ -1850,7 +1850,7 @@
       "ops": {
         "andrea": {
           "signups": 10,
-          "users": 1
+          "users": 0
         },
         "jessie": {
           "signups": 0,
@@ -1887,13 +1887,13 @@
       "unsub": 0,
       "budget": 30.13,
       "signups": 13,
-      "users": 1,
+      "users": 0,
       "revenue": 400.0,
       "profit": 369.87,
       "advertisers": {
         "CHANCED": {
           "signups": 4,
-          "users": 1,
+          "users": 0,
           "revenue": 250.0
         },
         "GAMETIME DIGITAL": {
@@ -1906,7 +1906,7 @@
         "Chanced Punt": {
           "advertiser": "CHANCED",
           "signups": 4,
-          "users": 1,
+          "users": 0,
           "revenue": 250.0
         },
         "LuckyBunny": {
