@@ -17,26 +17,19 @@
     "clicked": 0,
     "unsub": 0,
     "budget": 391.69,
-    "signups": 159,
-    "users": 5,
-    "revenue": 2370.0,
-    "profit": 1978.31,
-    "s2p_ratio": "1:32"
+    "signups": 123,
+    "users": 6,
+    "revenue": 1565.0,
+    "profit": 1173.31,
+    "s2p_ratio": "1:21"
   },
   "advertisers_mtd": [
     {
-      "advertiser": "CHANCED",
-      "signups": 44,
-      "users": 0,
-      "revenue": 1050.0,
-      "s2p": "0:44"
-    },
-    {
       "advertiser": "GameTime Digital",
-      "signups": 76,
-      "users": 3,
-      "revenue": 1020.0,
-      "s2p": "1:25"
+      "signups": 83,
+      "users": 4,
+      "revenue": 1265.0,
+      "s2p": "1:21"
     },
     {
       "advertiser": "Splash",
@@ -51,6 +44,13 @@
       "users": 0,
       "revenue": 0.0,
       "s2p": "0:8"
+    },
+    {
+      "advertiser": "CHANCED",
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:1"
     },
     {
       "advertiser": "CoinsRoyale",
@@ -97,19 +97,11 @@
   ],
   "brands_mtd": [
     {
-      "brand": "Chanced Punt",
-      "advertiser": "CHANCED",
-      "signups": 44,
-      "users": 0,
-      "revenue": 1050.0,
-      "s2p": "0:44"
-    },
-    {
       "brand": "LuckyBunny",
       "advertiser": "GAMETIME DIGITAL",
-      "signups": 11,
+      "signups": 13,
       "users": 2,
-      "revenue": 840.0,
+      "revenue": 960.0,
       "s2p": "1:6"
     },
     {
@@ -129,12 +121,28 @@
       "s2p": "1:12"
     },
     {
+      "brand": "CrashMania",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 5,
+      "users": 1,
+      "revenue": 125.0,
+      "s2p": "1:5"
+    },
+    {
       "brand": "CardCrush",
       "advertiser": "GAMETIME DIGITAL",
       "signups": 2,
       "users": 0,
       "revenue": 0.0,
       "s2p": "0:2"
+    },
+    {
+      "brand": "Chanced Punt",
+      "advertiser": "CHANCED",
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:1"
     },
     {
       "brand": "CoinsBack",
@@ -151,14 +159,6 @@
       "users": 0,
       "revenue": 0.0,
       "s2p": "0:1"
-    },
-    {
-      "brand": "CrashMania",
-      "advertiser": "GAMETIME DIGITAL",
-      "signups": 5,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:5"
     },
     {
       "brand": "Baba",
@@ -187,10 +187,10 @@
     {
       "brand": "LuckyZino",
       "advertiser": "GAMETIME DIGITAL",
-      "signups": 21,
+      "signups": 26,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:21"
+      "s2p": "0:26"
     },
     {
       "brand": "Rolla",
@@ -400,7 +400,7 @@
       "esp_ip": "MLJ (Mailjet) IP 2",
       "advertiser": "GAMETIME DIGITAL",
       "brand": "LuckyBunny",
-      "signups": 0,
+      "signups": 1,
       "ftds": 1
     },
     {
@@ -421,7 +421,7 @@
       "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 2",
       "advertiser": "",
       "brand": "",
-      "signups": 3,
+      "signups": 4,
       "ftds": 1,
       "is_total": true
     },
@@ -450,14 +450,14 @@
       "esp_ip": "MLJ (Mailjet) IP 3 / SH",
       "advertiser": "GAMETIME DIGITAL",
       "brand": "LuckyZino",
-      "signups": 3,
+      "signups": 6,
       "ftds": 0
     },
     {
       "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 3 / SH",
       "advertiser": "",
       "brand": "",
-      "signups": 7,
+      "signups": 10,
       "ftds": 0,
       "is_total": true
     },
@@ -472,7 +472,7 @@
       "esp_ip": "SEG (Sendgrid) IP 1",
       "advertiser": "GAMETIME DIGITAL",
       "brand": "LuckyZino",
-      "signups": 8,
+      "signups": 10,
       "ftds": 0
     },
     {
@@ -493,7 +493,7 @@
       "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 1",
       "advertiser": "",
       "brand": "",
-      "signups": 11,
+      "signups": 13,
       "ftds": 0,
       "is_total": true
     },
@@ -516,7 +516,7 @@
       "esp_ip": "OVERALL GRAND TOTAL",
       "advertiser": "",
       "brand": "",
-      "signups": 31,
+      "signups": 37,
       "ftds": 2,
       "is_total": true,
       "is_overall": true
@@ -578,7 +578,7 @@
         "esp_ip": "MLJ (Mailjet) IP 2",
         "advertiser": "GAMETIME DIGITAL",
         "brand": "LuckyBunny",
-        "signups": 0,
+        "signups": 1,
         "ftds": 1
       },
       {
@@ -599,7 +599,7 @@
         "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 2",
         "advertiser": "",
         "brand": "",
-        "signups": 3,
+        "signups": 4,
         "ftds": 1,
         "is_total": true
       },
@@ -628,14 +628,14 @@
         "esp_ip": "MLJ (Mailjet) IP 3 / SH",
         "advertiser": "GAMETIME DIGITAL",
         "brand": "LuckyZino",
-        "signups": 3,
+        "signups": 6,
         "ftds": 0
       },
       {
         "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 3 / SH",
         "advertiser": "",
         "brand": "",
-        "signups": 7,
+        "signups": 10,
         "ftds": 0,
         "is_total": true
       },
@@ -650,7 +650,7 @@
         "esp_ip": "SEG (Sendgrid) IP 1",
         "advertiser": "GAMETIME DIGITAL",
         "brand": "LuckyZino",
-        "signups": 8,
+        "signups": 10,
         "ftds": 0
       },
       {
@@ -671,7 +671,7 @@
         "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 1",
         "advertiser": "",
         "brand": "",
-        "signups": 11,
+        "signups": 13,
         "ftds": 0,
         "is_total": true
       },
@@ -694,21 +694,21 @@
         "esp_ip": "OVERALL GRAND TOTAL",
         "advertiser": "",
         "brand": "",
-        "signups": 31,
+        "signups": 37,
         "ftds": 2,
         "is_total": true,
         "is_overall": true
       }
     ],
     "overall": {
-      "signups": 31,
+      "signups": 37,
       "ftds": 2
     }
   },
   "team_ops_mtd": {
     "andrea": {
-      "signups": 80,
-      "users": 3
+      "signups": 87,
+      "users": 4
     },
     "jessie": {
       "signups": 0,
@@ -716,9 +716,9 @@
     },
     "signups_by_advertiser": {
       "GAMETIME DIGITAL": {
-        "andrea": 71,
+        "andrea": 78,
         "jessie": 0,
-        "total": 71
+        "total": 78
       },
       "BASHER AGENCY": {
         "andrea": 8,
@@ -768,9 +768,9 @@
     },
     "users_by_advertiser": {
       "GAMETIME DIGITAL": {
-        "andrea": 3,
+        "andrea": 4,
         "jessie": 0,
-        "total": 3
+        "total": 4
       },
       "BASHER AGENCY": {
         "andrea": 0,
@@ -986,7 +986,7 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 30.13,
-      "signups": 32,
+      "signups": 29,
       "users": 1,
       "revenue": 150.0,
       "profit": 119.87,
@@ -997,7 +997,7 @@
           "revenue": 150.0
         },
         "CHANCED": {
-          "signups": 4,
+          "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
@@ -1016,7 +1016,7 @@
         },
         "Chanced Punt": {
           "advertiser": "CHANCED",
-          "signups": 4,
+          "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
@@ -1029,7 +1029,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 23,
+          "signups": 20,
           "users": 0
         },
         "jessie": {
@@ -1073,16 +1073,11 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 30.13,
-      "signups": 32,
+      "signups": 9,
       "users": 0,
       "revenue": 0.0,
       "profit": -30.13,
       "advertisers": {
-        "CHANCED": {
-          "signups": 23,
-          "users": 0,
-          "revenue": 0.0
-        },
         "GAMETIME DIGITAL": {
           "signups": 9,
           "users": 0,
@@ -1090,12 +1085,6 @@
         }
       },
       "brands": {
-        "Chanced Punt": {
-          "advertiser": "CHANCED",
-          "signups": 23,
-          "users": 0,
-          "revenue": 0.0
-        },
         "LavishLuck": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 4,
@@ -1149,7 +1138,7 @@
         {
           "esp_ip": "SEG (Sendgrid) IP 1",
           "advertiser": "GAMETIME DIGITAL",
-          "brand": "Rolla",
+          "brand": "LuckyZino",
           "signups": 1,
           "ftds": 0
         }
@@ -1231,7 +1220,7 @@
         {
           "esp_ip": "SEG (Sendgrid) IP 1",
           "advertiser": "GAMETIME DIGITAL",
-          "brand": "Sweet Sweep",
+          "brand": "LuckyZino",
           "signups": 1,
           "ftds": 0
         }
@@ -1294,9 +1283,9 @@
           "ftds": 0
         },
         {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyZino",
           "signups": 1,
           "ftds": 0
         }
@@ -1374,10 +1363,17 @@
           "brand": "LuckyZino",
           "signups": 1,
           "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
         }
       ],
       "esp_ip_summary": {
-        "signups": 2,
+        "signups": 3,
         "ftds": 0
       }
     },
@@ -1462,15 +1458,22 @@
           "ftds": 0
         },
         {
+          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
           "esp_ip": "SEG (Sendgrid) IP 1",
           "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyBunny",
+          "brand": "LuckyZino",
           "signups": 1,
           "ftds": 0
         }
       ],
       "esp_ip_summary": {
-        "signups": 2,
+        "signups": 3,
         "ftds": 0
       }
     },
@@ -1550,15 +1553,22 @@
           "ftds": 0
         },
         {
-          "esp_ip": "SEG (Sendgrid) IP 1",
+          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
           "advertiser": "GAMETIME DIGITAL",
           "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "Rolla",
           "signups": 1,
           "ftds": 0
         }
       ],
       "esp_ip_summary": {
-        "signups": 2,
+        "signups": 3,
         "ftds": 0
       }
     },
@@ -1570,25 +1580,20 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 30.13,
-      "signups": 12,
+      "signups": 8,
       "users": 0,
-      "revenue": 350.0,
-      "profit": 319.87,
+      "revenue": 80.0,
+      "profit": 49.87,
       "advertisers": {
-        "CHANCED": {
-          "signups": 5,
-          "users": 0,
-          "revenue": 300.0
-        },
         "BASHER AGENCY": {
           "signups": 2,
           "users": 0,
           "revenue": 0.0
         },
         "GAMETIME DIGITAL": {
-          "signups": 4,
+          "signups": 5,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 80.0
         },
         "COINSROYALE": {
           "signups": 1,
@@ -1597,14 +1602,14 @@
         }
       },
       "brands": {
-        "Chanced Punt": {
-          "advertiser": "CHANCED",
-          "signups": 5,
-          "users": 0,
-          "revenue": 300.0
-        },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyBunny": {
+          "advertiser": "GAMETIME DIGITAL",
           "signups": 2,
           "users": 0,
           "revenue": 0.0
@@ -1612,12 +1617,6 @@
         "LuckyZino": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 3,
-          "users": 0,
-          "revenue": 0.0
-        },
-        "Rolla": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
@@ -1647,15 +1646,22 @@
           "ftds": 0
         },
         {
-          "esp_ip": "SEG (Sendgrid) IP 1",
+          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
           "advertiser": "GAMETIME DIGITAL",
           "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "Sweet Sweep",
           "signups": 1,
           "ftds": 0
         }
       ],
       "esp_ip_summary": {
-        "signups": 2,
+        "signups": 3,
         "ftds": 0
       }
     },
@@ -1667,45 +1673,23 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 30.13,
-      "signups": 12,
-      "users": 0,
-      "revenue": 400.0,
-      "profit": 369.87,
+      "signups": 10,
+      "users": 1,
+      "revenue": 275.0,
+      "profit": 244.87,
       "advertisers": {
-        "CHANCED": {
-          "signups": 4,
-          "users": 0,
-          "revenue": 250.0
-        },
-        "SPLASH": {
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
-        },
         "BASHER AGENCY": {
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
         "GAMETIME DIGITAL": {
-          "signups": 6,
-          "users": 0,
-          "revenue": 150.0
+          "signups": 9,
+          "users": 1,
+          "revenue": 275.0
         }
       },
       "brands": {
-        "Chanced Punt": {
-          "advertiser": "CHANCED",
-          "signups": 4,
-          "users": 0,
-          "revenue": 250.0
-        },
-        "splashcoins": {
-          "advertiser": "SPLASH",
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
-        },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
           "signups": 1,
@@ -1720,11 +1704,17 @@
         },
         "LuckyZino": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
+          "signups": 4,
           "users": 0,
           "revenue": 0.0
         },
         "CrashMania": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 1,
+          "revenue": 125.0
+        },
+        "Rolla": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
@@ -1740,7 +1730,7 @@
       "ops": {
         "andrea": {
           "signups": 8,
-          "users": 0
+          "users": 1
         },
         "jessie": {
           "signups": 0,
@@ -1752,19 +1742,26 @@
           "esp_ip": "MLJ (Mailjet) IP 2",
           "advertiser": "GAMETIME DIGITAL",
           "brand": "LuckyBunny",
-          "signups": 0,
+          "signups": 1,
           "ftds": 1
         },
         {
           "esp_ip": "SEG (Sendgrid) IP 1",
           "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyZino",
+          "brand": "LuckyBunny",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+          "advertiser": "BASHER AGENCY",
+          "brand": "LavishLuck Sweepstakes Casino",
           "signups": 1,
           "ftds": 0
         }
       ],
       "esp_ip_summary": {
-        "signups": 1,
+        "signups": 3,
         "ftds": 1
       }
     },
@@ -1776,34 +1773,23 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 30.13,
-      "signups": 13,
+      "signups": 11,
       "users": 0,
-      "revenue": 500.0,
-      "profit": 469.87,
+      "revenue": 310.0,
+      "profit": 279.87,
       "advertisers": {
-        "CHANCED": {
-          "signups": 4,
-          "users": 0,
-          "revenue": 250.0
-        },
         "BASHER AGENCY": {
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
         "GAMETIME DIGITAL": {
-          "signups": 8,
+          "signups": 10,
           "users": 0,
-          "revenue": 250.0
+          "revenue": 310.0
         }
       },
       "brands": {
-        "Chanced Punt": {
-          "advertiser": "CHANCED",
-          "signups": 4,
-          "users": 0,
-          "revenue": 250.0
-        },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
           "signups": 1,
@@ -1830,13 +1816,13 @@
         },
         "LuckyZino": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 3,
+          "signups": 4,
           "users": 0,
           "revenue": 0.0
         },
         "Rolla": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
+          "signups": 2,
           "users": 0,
           "revenue": 0.0
         },
@@ -1886,29 +1872,18 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 30.13,
-      "signups": 13,
+      "signups": 11,
       "users": 0,
-      "revenue": 400.0,
-      "profit": 369.87,
+      "revenue": 180.0,
+      "profit": 149.87,
       "advertisers": {
-        "CHANCED": {
-          "signups": 4,
-          "users": 0,
-          "revenue": 250.0
-        },
         "GAMETIME DIGITAL": {
-          "signups": 9,
+          "signups": 11,
           "users": 0,
-          "revenue": 150.0
+          "revenue": 180.0
         }
       },
       "brands": {
-        "Chanced Punt": {
-          "advertiser": "CHANCED",
-          "signups": 4,
-          "users": 0,
-          "revenue": 250.0
-        },
         "LuckyBunny": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
@@ -1917,7 +1892,7 @@
         },
         "LuckyZino": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
+          "signups": 4,
           "users": 0,
           "revenue": 0.0
         },
@@ -1941,11 +1916,17 @@
         },
         "Rolla": {
           "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
+          "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
         "Sweet Sweep": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "The Boss": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
