@@ -2,7 +2,7 @@
   "month": "October",
   "year": 2026,
   "total_days_in_month": 31,
-  "days_elapsed": 13,
+  "days_elapsed": 16,
   "kpis": {
     "budget": 934,
     "signups": 450,
@@ -11,25 +11,20 @@
     "profit": 3466
   },
   "summary_mtd": {
-    "delivered": 0,
-    "bounced": 0,
-    "opened": 0,
-    "clicked": 0,
-    "unsub": 0,
-    "budget": 391.69,
-    "signups": 130,
-    "users": 6,
-    "revenue": 1805.0,
-    "profit": 1413.31,
-    "s2p_ratio": "1:22"
+    "budget": 482.08,
+    "signups": 132,
+    "users": 7,
+    "revenue": 1925.0,
+    "profit": 1442.92,
+    "s2p_ratio": "1:19"
   },
   "advertisers_mtd": [
     {
       "advertiser": "GameTime Digital",
-      "signups": 86,
-      "users": 4,
-      "revenue": 1505.0,
-      "s2p": "1:22"
+      "signups": 87,
+      "users": 5,
+      "revenue": 1625.0,
+      "s2p": "1:17"
     },
     {
       "advertiser": "Splash",
@@ -40,10 +35,10 @@
     },
     {
       "advertiser": "Basher Agency",
-      "signups": 12,
+      "signups": 13,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:12"
+      "s2p": "0:13"
     },
     {
       "advertiser": "CHANCED",
@@ -58,41 +53,6 @@
       "users": 0,
       "revenue": 0.0,
       "s2p": "0:1"
-    },
-    {
-      "advertiser": "AFF 66",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "advertiser": "ALL IN AFFILIATES",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "advertiser": "EPC",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "advertiser": "Purify",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "advertiser": "Acebet",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
     }
   ],
   "brands_mtd": [
@@ -100,9 +60,9 @@
       "brand": "LuckyBunny",
       "advertiser": "GAMETIME DIGITAL",
       "signups": 14,
-      "users": 2,
-      "revenue": 1200.0,
-      "s2p": "1:7"
+      "users": 3,
+      "revenue": 1320.0,
+      "s2p": "1:5"
     },
     {
       "brand": "splashcoins",
@@ -135,6 +95,14 @@
       "users": 0,
       "revenue": 0.0,
       "s2p": "0:2"
+    },
+    {
+      "brand": "5Bet",
+      "advertiser": "BASHER AGENCY",
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:1"
     },
     {
       "brand": "Chanced Punt",
@@ -219,10 +187,10 @@
     {
       "brand": "Sweet Sweep",
       "advertiser": "GAMETIME DIGITAL",
-      "signups": 4,
+      "signups": 5,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:4"
+      "s2p": "0:5"
     },
     {
       "brand": "The Boss",
@@ -239,110 +207,6 @@
       "users": 0,
       "revenue": 0.0,
       "s2p": "0:1"
-    },
-    {
-      "brand": "Casinio",
-      "advertiser": "GAMETIME DIGITAL",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "brand": "Rolling Riches",
-      "advertiser": "GAMETIME DIGITAL",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "brand": "Acebet",
-      "advertiser": "ACEBET",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "brand": "Betnjet",
-      "advertiser": "ALL IN AFFILIATES",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "brand": "7Bit Casino",
-      "advertiser": "ALL IN AFFILIATES",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "brand": "Casino Smartlink",
-      "advertiser": "ALL IN AFFILIATES",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "brand": "FS Casino",
-      "advertiser": "ALL IN AFFILIATES",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "brand": "LevelUP",
-      "advertiser": "ALL IN AFFILIATES",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "brand": "QBet",
-      "advertiser": "ALL IN AFFILIATES",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "brand": "Sixty6",
-      "advertiser": "AFF 66",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "brand": "Slotornado",
-      "advertiser": "ALL IN AFFILIATES",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "brand": "Smash Casino",
-      "advertiser": "ALL IN AFFILIATES",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
-      "brand": "SweepJungle",
-      "advertiser": "AFF 66",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
     }
   ],
   "esp_mtd_totals": [
@@ -390,8 +254,6 @@
     },
     {
       "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 1",
-      "advertiser": "",
-      "brand": "",
       "signups": 13,
       "ftds": 1,
       "is_total": true
@@ -426,8 +288,6 @@
     },
     {
       "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 2",
-      "advertiser": "",
-      "brand": "",
       "signups": 5,
       "ftds": 1,
       "is_total": true
@@ -462,8 +322,6 @@
     },
     {
       "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 3 / SH",
-      "advertiser": "",
-      "brand": "",
       "signups": 11,
       "ftds": 0,
       "is_total": true
@@ -473,7 +331,7 @@
       "advertiser": "GAMETIME DIGITAL",
       "brand": "LuckyBunny",
       "signups": 1,
-      "ftds": 0
+      "ftds": 1
     },
     {
       "esp_ip": "SEG (Sendgrid) IP 1",
@@ -493,15 +351,13 @@
       "esp_ip": "SEG (Sendgrid) IP 1",
       "advertiser": "GAMETIME DIGITAL",
       "brand": "Sweet Sweep",
-      "signups": 1,
+      "signups": 2,
       "ftds": 0
     },
     {
       "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 1",
-      "advertiser": "",
-      "brand": "",
-      "signups": 13,
-      "ftds": 0,
+      "signups": 14,
+      "ftds": 1,
       "is_total": true
     },
     {
@@ -513,18 +369,14 @@
     },
     {
       "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 2 / SH",
-      "advertiser": "",
-      "brand": "",
       "signups": 1,
       "ftds": 0,
       "is_total": true
     },
     {
       "esp_ip": "OVERALL GRAND TOTAL",
-      "advertiser": "",
-      "brand": "",
-      "signups": 43,
-      "ftds": 2,
+      "signups": 44,
+      "ftds": 3,
       "is_total": true,
       "is_overall": true
     }
@@ -575,8 +427,6 @@
       },
       {
         "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 1",
-        "advertiser": "",
-        "brand": "",
         "signups": 13,
         "ftds": 1,
         "is_total": true
@@ -611,8 +461,6 @@
       },
       {
         "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 2",
-        "advertiser": "",
-        "brand": "",
         "signups": 5,
         "ftds": 1,
         "is_total": true
@@ -647,8 +495,6 @@
       },
       {
         "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 3 / SH",
-        "advertiser": "",
-        "brand": "",
         "signups": 11,
         "ftds": 0,
         "is_total": true
@@ -658,7 +504,7 @@
         "advertiser": "GAMETIME DIGITAL",
         "brand": "LuckyBunny",
         "signups": 1,
-        "ftds": 0
+        "ftds": 1
       },
       {
         "esp_ip": "SEG (Sendgrid) IP 1",
@@ -678,15 +524,13 @@
         "esp_ip": "SEG (Sendgrid) IP 1",
         "advertiser": "GAMETIME DIGITAL",
         "brand": "Sweet Sweep",
-        "signups": 1,
+        "signups": 2,
         "ftds": 0
       },
       {
         "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 1",
-        "advertiser": "",
-        "brand": "",
-        "signups": 13,
-        "ftds": 0,
+        "signups": 14,
+        "ftds": 1,
         "is_total": true
       },
       {
@@ -698,31 +542,27 @@
       },
       {
         "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 2 / SH",
-        "advertiser": "",
-        "brand": "",
         "signups": 1,
         "ftds": 0,
         "is_total": true
       },
       {
         "esp_ip": "OVERALL GRAND TOTAL",
-        "advertiser": "",
-        "brand": "",
-        "signups": 43,
-        "ftds": 2,
+        "signups": 44,
+        "ftds": 3,
         "is_total": true,
         "is_overall": true
       }
     ],
     "overall": {
-      "signups": 43,
-      "ftds": 2
+      "signups": 44,
+      "ftds": 3
     }
   },
   "team_ops_mtd": {
     "andrea": {
-      "signups": 94,
-      "users": 4
+      "signups": 95,
+      "users": 5
     },
     "jessie": {
       "signups": 0,
@@ -730,9 +570,9 @@
     },
     "signups_by_advertiser": {
       "GAMETIME DIGITAL": {
-        "andrea": 81,
+        "andrea": 82,
         "jessie": 0,
-        "total": 81
+        "total": 82
       },
       "BASHER AGENCY": {
         "andrea": 12,
@@ -743,104 +583,19 @@
         "andrea": 1,
         "jessie": 0,
         "total": 1
-      },
-      "ACEBET": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "AFF 66": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "ALL IN AFFILIATES": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "COINSROYALE": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "EPC": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "PURIFY": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "SPLASH": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
       }
     },
     "users_by_advertiser": {
       "GAMETIME DIGITAL": {
-        "andrea": 4,
+        "andrea": 5,
         "jessie": 0,
-        "total": 4
-      },
-      "BASHER AGENCY": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "CHANCED": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "SPLASH": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "ACEBET": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "AFF 66": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "ALL IN AFFILIATES": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "COINSROYALE": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "EPC": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
-      },
-      "PURIFY": {
-        "andrea": 0,
-        "jessie": 0,
-        "total": 0
+        "total": 5
       }
     }
   },
   "daily_records": [
     {
       "date": "2026-10-01",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 30.13,
       "signups": 6,
       "users": 1,
@@ -860,19 +615,16 @@
       },
       "brands": {
         "splashcoins": {
-          "advertiser": "SPLASH",
           "signups": 3,
           "users": 1,
           "revenue": 150.0
         },
         "CoinsBack": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 2,
           "users": 0,
           "revenue": 0.0
         },
         "McLuck": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
@@ -888,6 +640,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [
         {
           "esp_ip": "MLJ (Mailjet) IP 1",
@@ -898,15 +655,8 @@
         },
         {
           "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LuckyZino Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
           "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyZino",
+          "brand": "Rolla",
           "signups": 1,
           "ftds": 0
         },
@@ -919,17 +669,12 @@
         }
       ],
       "esp_ip_summary": {
-        "signups": 4,
+        "signups": 3,
         "ftds": 0
       }
     },
     {
       "date": "2026-10-02",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 30.13,
       "signups": 4,
       "users": 0,
@@ -949,13 +694,11 @@
       },
       "brands": {
         "splashcoins": {
-          "advertiser": "SPLASH",
           "signups": 2,
           "users": 0,
           "revenue": 0.0
         },
         "LuckyBunny": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 2,
           "users": 0,
           "revenue": 0.0
@@ -971,284 +714,16 @@
           "users": 0
         }
       },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyBunny",
-          "signups": 1,
-          "ftds": 1
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyZino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Rolla",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 4,
-        "ftds": 1
-      }
-    },
-    {
-      "date": "2026-10-03",
       "delivered": 0,
       "bounced": 0,
       "opened": 0,
       "clicked": 0,
       "unsub": 0,
-      "budget": 30.13,
-      "signups": 29,
-      "users": 1,
-      "revenue": 150.0,
-      "profit": 119.87,
-      "advertisers": {
-        "SPLASH": {
-          "signups": 23,
-          "users": 1,
-          "revenue": 150.0
-        },
-        "CHANCED": {
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
-        },
-        "GAMETIME DIGITAL": {
-          "signups": 5,
-          "users": 0,
-          "revenue": 0.0
-        }
-      },
-      "brands": {
-        "splashcoins": {
-          "advertiser": "SPLASH",
-          "signups": 23,
-          "users": 1,
-          "revenue": 150.0
-        },
-        "Chanced Punt": {
-          "advertiser": "CHANCED",
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
-        },
-        "LavishLuck": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 5,
-          "users": 0,
-          "revenue": 0.0
-        }
-      },
-      "ops": {
-        "andrea": {
-          "signups": 20,
-          "users": 0
-        },
-        "jessie": {
-          "signups": 0,
-          "users": 0
-        }
-      },
       "esp_ip_breakdown": [
         {
           "esp_ip": "MLJ (Mailjet) IP 1",
           "advertiser": "BASHER AGENCY",
           "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyBunny",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyZino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Sweet Sweep",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 4,
-        "ftds": 0
-      }
-    },
-    {
-      "date": "2026-10-04",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
-      "budget": 30.13,
-      "signups": 9,
-      "users": 0,
-      "revenue": 0.0,
-      "profit": -30.13,
-      "advertisers": {
-        "GAMETIME DIGITAL": {
-          "signups": 9,
-          "users": 0,
-          "revenue": 0.0
-        }
-      },
-      "brands": {
-        "LavishLuck": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 4,
-          "users": 0,
-          "revenue": 0.0
-        },
-        "Rolla": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
-          "users": 0,
-          "revenue": 0.0
-        },
-        "The Boss": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
-          "users": 0,
-          "revenue": 0.0
-        },
-        "Sweet Sweep": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
-        }
-      },
-      "ops": {
-        "andrea": {
-          "signups": 0,
-          "users": 0
-        },
-        "jessie": {
-          "signups": 0,
-          "users": 0
-        }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "MLJ (Mailjet) IP 2",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Rolla",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyBunny",
-          "signups": 1,
-          "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
-          "advertiser": "BASHER AGENCY",
-          "brand": "LavishLuck Sweepstakes Casino",
-          "signups": 1,
-          "ftds": 0
-        }
-      ],
-      "esp_ip_summary": {
-        "signups": 4,
-        "ftds": 0
-      }
-    },
-    {
-      "date": "2026-10-05",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
-      "budget": 30.13,
-      "signups": 12,
-      "users": 0,
-      "revenue": 0.0,
-      "profit": -30.13,
-      "advertisers": {
-        "GAMETIME DIGITAL": {
-          "signups": 10,
-          "users": 0,
-          "revenue": 0.0
-        },
-        "BASHER AGENCY": {
-          "signups": 2,
-          "users": 0,
-          "revenue": 0.0
-        }
-      },
-      "brands": {
-        "LuckyZino": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 10,
-          "users": 0,
-          "revenue": 0.0
-        },
-        "LavishLuck Sweepstakes Casino": {
-          "advertiser": "BASHER AGENCY",
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
-        },
-        "LuckyZino Sweepstakes Casino": {
-          "advertiser": "BASHER AGENCY",
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
-        }
-      },
-      "ops": {
-        "andrea": {
-          "signups": 2,
-          "users": 0
-        },
-        "jessie": {
-          "signups": 0,
-          "users": 0
-        }
-      },
-      "esp_ip_breakdown": [
-        {
-          "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "Baba",
           "signups": 1,
           "ftds": 0
         },
@@ -1273,35 +748,49 @@
       }
     },
     {
-      "date": "2026-10-06",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
+      "date": "2026-10-03",
       "budget": 30.13,
-      "signups": 2,
-      "users": 0,
-      "revenue": 0.0,
-      "profit": -30.13,
+      "signups": 29,
+      "users": 1,
+      "revenue": 150.0,
+      "profit": 119.87,
       "advertisers": {
+        "SPLASH": {
+          "signups": 23,
+          "users": 1,
+          "revenue": 150.0
+        },
+        "CHANCED": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
         "GAMETIME DIGITAL": {
-          "signups": 2,
+          "signups": 5,
           "users": 0,
           "revenue": 0.0
         }
       },
       "brands": {
-        "Baba": {
-          "advertiser": "GAMETIME DIGITAL",
-          "signups": 2,
+        "splashcoins": {
+          "signups": 23,
+          "users": 1,
+          "revenue": 150.0
+        },
+        "Chanced Punt": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LavishLuck": {
+          "signups": 5,
           "users": 0,
           "revenue": 0.0
         }
       },
       "ops": {
         "andrea": {
-          "signups": 2,
+          "signups": 20,
           "users": 0
         },
         "jessie": {
@@ -1309,13 +798,18 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [
         {
           "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LavishLuck",
+          "advertiser": "BASHER AGENCY",
+          "brand": "LavishLuck Sweepstakes Casino",
           "signups": 1,
-          "ftds": 1
+          "ftds": 0
         },
         {
           "esp_ip": "MLJ (Mailjet) IP 3 / SH",
@@ -1334,16 +828,233 @@
       ],
       "esp_ip_summary": {
         "signups": 3,
-        "ftds": 1
+        "ftds": 0
       }
     },
     {
-      "date": "2026-10-07",
+      "date": "2026-10-04",
+      "budget": 30.13,
+      "signups": 9,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": -30.13,
+      "advertisers": {
+        "GAMETIME DIGITAL": {
+          "signups": 9,
+          "users": 0,
+          "revenue": 0.0
+        }
+      },
+      "brands": {
+        "LavishLuck": {
+          "signups": 4,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Rolla": {
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "The Boss": {
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Sweet Sweep": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        }
+      },
+      "ops": {
+        "andrea": {
+          "signups": 0,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
       "delivered": 0,
       "bounced": 0,
       "opened": 0,
       "clicked": 0,
       "unsub": 0,
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 1",
+          "advertiser": "BASHER AGENCY",
+          "brand": "LavishLuck Sweepstakes Casino",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "CoinsBack",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
+        }
+      ],
+      "esp_ip_summary": {
+        "signups": 3,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-05",
+      "budget": 30.13,
+      "signups": 12,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": -30.13,
+      "advertisers": {
+        "GAMETIME DIGITAL": {
+          "signups": 10,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "BASHER AGENCY": {
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        }
+      },
+      "brands": {
+        "LuckyZino": {
+          "signups": 10,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LavishLuck Sweepstakes Casino": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyZino Sweepstakes Casino": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        }
+      },
+      "ops": {
+        "andrea": {
+          "signups": 2,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "Baba",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "CoinsBack",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
+        }
+      ],
+      "esp_ip_summary": {
+        "signups": 3,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-06",
+      "budget": 30.13,
+      "signups": 2,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": -30.13,
+      "advertisers": {
+        "GAMETIME DIGITAL": {
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        }
+      },
+      "brands": {
+        "Baba": {
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0
+        }
+      },
+      "ops": {
+        "andrea": {
+          "signups": 2,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LavishLuck",
+          "signups": 1,
+          "ftds": 1
+        },
+        {
+          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyBunny",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
+        }
+      ],
+      "esp_ip_summary": {
+        "signups": 3,
+        "ftds": 1
+      }
+    },
+    {
+      "date": "2026-10-07",
       "budget": 30.13,
       "signups": 4,
       "users": 1,
@@ -1363,19 +1074,16 @@
       },
       "brands": {
         "splashcoins": {
-          "advertiser": "SPLASH",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
         "LuckyBunny": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 2,
           "users": 1,
           "revenue": 120.0
         },
         "Spinblitz SEO": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
@@ -1391,6 +1099,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [
         {
           "esp_ip": "MLJ (Mailjet) IP 1",
@@ -1402,7 +1115,7 @@
         {
           "esp_ip": "MLJ (Mailjet) IP 3 / SH",
           "advertiser": "GAMETIME DIGITAL",
-          "brand": "CoinsBack",
+          "brand": "LuckyZino",
           "signups": 1,
           "ftds": 0
         },
@@ -1421,11 +1134,6 @@
     },
     {
       "date": "2026-10-08",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 30.13,
       "signups": 9,
       "users": 0,
@@ -1445,37 +1153,31 @@
       },
       "brands": {
         "LavishLuck Sweepstakes Casino": {
-          "advertiser": "BASHER AGENCY",
           "signups": 2,
           "users": 0,
           "revenue": 0.0
         },
         "CrashMania": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 2,
           "users": 0,
           "revenue": 0.0
         },
         "LuckyZino": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
         "LuckyBunny": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
         "Rolla": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 2,
           "users": 0,
           "revenue": 0.0
         },
         "TitanTreasure": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
@@ -1491,6 +1193,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [
         {
           "esp_ip": "MLJ (Mailjet) IP 1",
@@ -1502,7 +1209,7 @@
         {
           "esp_ip": "MLJ (Mailjet) IP 3 / SH",
           "advertiser": "GAMETIME DIGITAL",
-          "brand": "CoinsBack",
+          "brand": "LuckyZino",
           "signups": 1,
           "ftds": 0
         },
@@ -1521,11 +1228,6 @@
     },
     {
       "date": "2026-10-09",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 30.13,
       "signups": 8,
       "users": 2,
@@ -1540,37 +1242,31 @@
       },
       "brands": {
         "LuckyBunny": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 2,
           "users": 1,
           "revenue": 120.0
         },
         "LavishLuck": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 1,
           "revenue": 180.0
         },
         "Baba": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
         "CardCrush": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 2,
           "users": 0,
           "revenue": 0.0
         },
         "Sweet Sweep": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
         "The Boss": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
@@ -1586,6 +1282,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [
         {
           "esp_ip": "MLJ (Mailjet) IP 1",
@@ -1597,14 +1298,14 @@
         {
           "esp_ip": "MLJ (Mailjet) IP 3 / SH",
           "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyBunny",
+          "brand": "LuckyZino",
           "signups": 1,
           "ftds": 0
         },
         {
           "esp_ip": "SEG (Sendgrid) IP 1",
           "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyZino",
+          "brand": "Rolla",
           "signups": 1,
           "ftds": 0
         }
@@ -1616,11 +1317,6 @@
     },
     {
       "date": "2026-10-10",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 30.13,
       "signups": 9,
       "users": 0,
@@ -1645,25 +1341,21 @@
       },
       "brands": {
         "LavishLuck Sweepstakes Casino": {
-          "advertiser": "BASHER AGENCY",
           "signups": 3,
           "users": 0,
           "revenue": 0.0
         },
         "LuckyBunny": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 2,
           "users": 0,
           "revenue": 120.0
         },
         "LuckyZino": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 3,
           "users": 0,
           "revenue": 0.0
         },
         "Coins Royale sweeps": {
-          "advertiser": "COINSROYALE",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
@@ -1679,6 +1371,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [
         {
           "esp_ip": "MLJ (Mailjet) IP 1",
@@ -1697,7 +1394,7 @@
         {
           "esp_ip": "SEG (Sendgrid) IP 1",
           "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyZino",
+          "brand": "Sweet Sweep",
           "signups": 1,
           "ftds": 0
         }
@@ -1709,11 +1406,6 @@
     },
     {
       "date": "2026-10-11",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 30.13,
       "signups": 11,
       "users": 1,
@@ -1733,37 +1425,31 @@
       },
       "brands": {
         "LavishLuck Sweepstakes Casino": {
-          "advertiser": "BASHER AGENCY",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
         "LuckyBunny": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 3,
           "users": 0,
           "revenue": 240.0
         },
         "LuckyZino": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 4,
           "users": 0,
           "revenue": 0.0
         },
         "CrashMania": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 1,
           "revenue": 125.0
         },
         "Rolla": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
         "Sweet Sweep": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
@@ -1779,6 +1465,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [
         {
           "esp_ip": "MLJ (Mailjet) IP 1",
@@ -1797,7 +1488,7 @@
         {
           "esp_ip": "SEG (Sendgrid) IP 1",
           "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyZino",
+          "brand": "Sweet Sweep",
           "signups": 1,
           "ftds": 0
         }
@@ -1809,11 +1500,6 @@
     },
     {
       "date": "2026-10-12",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 30.13,
       "signups": 13,
       "users": 0,
@@ -1833,43 +1519,36 @@
       },
       "brands": {
         "LavishLuck Sweepstakes Casino": {
-          "advertiser": "BASHER AGENCY",
           "signups": 2,
           "users": 0,
           "revenue": 0.0
         },
         "LuckyBunny": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 2,
           "users": 0,
           "revenue": 180.0
         },
         "LavishLuck": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
         "CrashMania": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
         "LuckyZino": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 4,
           "users": 0,
           "revenue": 0.0
         },
         "Rolla": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 2,
           "users": 0,
           "revenue": 0.0
         },
         "The Boss": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
@@ -1885,6 +1564,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [
         {
           "esp_ip": "MLJ (Mailjet) IP 1",
@@ -1901,9 +1585,9 @@
           "ftds": 0
         },
         {
-          "esp_ip": "SEG (Sendgrid) IP 1",
-          "advertiser": "GAMETIME DIGITAL",
-          "brand": "LuckyZino",
+          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+          "advertiser": "BASHER AGENCY",
+          "brand": "LavishLuck Sweepstakes Casino",
           "signups": 1,
           "ftds": 0
         }
@@ -1915,11 +1599,6 @@
     },
     {
       "date": "2026-10-13",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 30.13,
       "signups": 14,
       "users": 0,
@@ -1939,49 +1618,41 @@
       },
       "brands": {
         "LavishLuck Sweepstakes Casino": {
-          "advertiser": "BASHER AGENCY",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
         "LuckyBunny": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 2,
           "users": 0,
           "revenue": 180.0
         },
         "LuckyZino": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 5,
           "users": 0,
           "revenue": 0.0
         },
         "CrashMania": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
         "Baba": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
         "LavishLuck": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 2,
           "users": 0,
           "revenue": 0.0
         },
         "Rolla": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
         "Sweet Sweep": {
-          "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
@@ -1997,6 +1668,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [
         {
           "esp_ip": "MLJ (Mailjet) IP 1",
@@ -2011,6 +1687,121 @@
           "brand": "LuckyZino",
           "signups": 1,
           "ftds": 0
+        }
+      ],
+      "esp_ip_summary": {
+        "signups": 2,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-10-14",
+      "budget": 30.13,
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "profit": -30.13,
+      "advertisers": {
+        "BASHER AGENCY": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        }
+      },
+      "brands": {
+        "5Bet": {
+          "advertiser": "BASHER AGENCY",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        }
+      },
+      "ops": {
+        "andrea": {
+          "signups": 1,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 2",
+          "advertiser": "BASHER AGENCY",
+          "brand": "LuckyZino Sweepstakes Casino",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyBunny",
+          "signups": 1,
+          "ftds": 1
+        }
+      ],
+      "esp_ip_summary": {
+        "signups": 2,
+        "ftds": 1
+      }
+    },
+    {
+      "date": "2026-10-15",
+      "budget": 30.13,
+      "signups": 1,
+      "users": 1,
+      "revenue": 120.0,
+      "profit": 89.87,
+      "advertisers": {
+        "GAMETIME DIGITAL": {
+          "signups": 1,
+          "users": 1,
+          "revenue": 120.0
+        }
+      },
+      "brands": {
+        "Sweet Sweep": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyBunny": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 0,
+          "users": 1,
+          "revenue": 120.0
+        }
+      },
+      "ops": {
+        "andrea": {
+          "signups": 1,
+          "users": 1
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 2",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyBunny",
+          "signups": 1,
+          "ftds": 1
         },
         {
           "esp_ip": "SEG (Sendgrid) IP 1",
@@ -2021,82 +1812,17 @@
         }
       ],
       "esp_ip_summary": {
-        "signups": 3,
-        "ftds": 0
-      }
-    },
-    {
-      "date": "2026-10-14",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
-      "budget": 0.0,
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "profit": 0.0,
-      "advertisers": {},
-      "brands": {},
-      "ops": {
-        "andrea": {
-          "signups": 0,
-          "users": 0
-        },
-        "jessie": {
-          "signups": 0,
-          "users": 0
-        }
-      },
-      "esp_ip_breakdown": [],
-      "esp_ip_summary": {
-        "signups": 0,
-        "ftds": 0
-      }
-    },
-    {
-      "date": "2026-10-15",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
-      "budget": 0.0,
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "profit": 0.0,
-      "advertisers": {},
-      "brands": {},
-      "ops": {
-        "andrea": {
-          "signups": 0,
-          "users": 0
-        },
-        "jessie": {
-          "signups": 0,
-          "users": 0
-        }
-      },
-      "esp_ip_breakdown": [],
-      "esp_ip_summary": {
-        "signups": 0,
-        "ftds": 0
+        "signups": 2,
+        "ftds": 1
       }
     },
     {
       "date": "2026-10-16",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
-      "budget": 0.0,
+      "budget": 30.13,
       "signups": 0,
       "users": 0,
       "revenue": 0.0,
-      "profit": 0.0,
+      "profit": -30.13,
       "advertisers": {},
       "brands": {},
       "ops": {
@@ -2109,19 +1835,34 @@
           "users": 0
         }
       },
-      "esp_ip_breakdown": [],
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 2",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyBunny",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
+        }
+      ],
       "esp_ip_summary": {
-        "signups": 0,
+        "signups": 2,
         "ftds": 0
       }
     },
     {
       "date": "2026-10-17",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 0.0,
       "signups": 0,
       "users": 0,
@@ -2139,6 +1880,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [],
       "esp_ip_summary": {
         "signups": 0,
@@ -2147,11 +1893,6 @@
     },
     {
       "date": "2026-10-18",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 0.0,
       "signups": 0,
       "users": 0,
@@ -2169,6 +1910,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [],
       "esp_ip_summary": {
         "signups": 0,
@@ -2177,11 +1923,6 @@
     },
     {
       "date": "2026-10-19",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 0.0,
       "signups": 0,
       "users": 0,
@@ -2199,6 +1940,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [],
       "esp_ip_summary": {
         "signups": 0,
@@ -2207,11 +1953,6 @@
     },
     {
       "date": "2026-10-20",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 0.0,
       "signups": 0,
       "users": 0,
@@ -2229,6 +1970,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [],
       "esp_ip_summary": {
         "signups": 0,
@@ -2237,11 +1983,6 @@
     },
     {
       "date": "2026-10-21",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 0.0,
       "signups": 0,
       "users": 0,
@@ -2259,6 +2000,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [],
       "esp_ip_summary": {
         "signups": 0,
@@ -2267,11 +2013,6 @@
     },
     {
       "date": "2026-10-22",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 0.0,
       "signups": 0,
       "users": 0,
@@ -2289,6 +2030,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [],
       "esp_ip_summary": {
         "signups": 0,
@@ -2297,11 +2043,6 @@
     },
     {
       "date": "2026-10-23",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 0.0,
       "signups": 0,
       "users": 0,
@@ -2319,6 +2060,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [],
       "esp_ip_summary": {
         "signups": 0,
@@ -2327,11 +2073,6 @@
     },
     {
       "date": "2026-10-24",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 0.0,
       "signups": 0,
       "users": 0,
@@ -2349,6 +2090,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [],
       "esp_ip_summary": {
         "signups": 0,
@@ -2357,11 +2103,6 @@
     },
     {
       "date": "2026-10-25",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 0.0,
       "signups": 0,
       "users": 0,
@@ -2379,6 +2120,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [],
       "esp_ip_summary": {
         "signups": 0,
@@ -2387,11 +2133,6 @@
     },
     {
       "date": "2026-10-26",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 0.0,
       "signups": 0,
       "users": 0,
@@ -2409,6 +2150,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [],
       "esp_ip_summary": {
         "signups": 0,
@@ -2417,11 +2163,6 @@
     },
     {
       "date": "2026-10-27",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 0.0,
       "signups": 0,
       "users": 0,
@@ -2439,6 +2180,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [],
       "esp_ip_summary": {
         "signups": 0,
@@ -2447,11 +2193,6 @@
     },
     {
       "date": "2026-10-28",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 0.0,
       "signups": 0,
       "users": 0,
@@ -2469,6 +2210,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [],
       "esp_ip_summary": {
         "signups": 0,
@@ -2477,11 +2223,6 @@
     },
     {
       "date": "2026-10-29",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 0.0,
       "signups": 0,
       "users": 0,
@@ -2499,6 +2240,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [],
       "esp_ip_summary": {
         "signups": 0,
@@ -2507,11 +2253,6 @@
     },
     {
       "date": "2026-10-30",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 0.0,
       "signups": 0,
       "users": 0,
@@ -2529,6 +2270,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [],
       "esp_ip_summary": {
         "signups": 0,
@@ -2537,11 +2283,6 @@
     },
     {
       "date": "2026-10-31",
-      "delivered": 0,
-      "bounced": 0,
-      "opened": 0,
-      "clicked": 0,
-      "unsub": 0,
       "budget": 0.0,
       "signups": 0,
       "users": 0,
@@ -2559,6 +2300,11 @@
           "users": 0
         }
       },
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
       "esp_ip_breakdown": [],
       "esp_ip_summary": {
         "signups": 0,
