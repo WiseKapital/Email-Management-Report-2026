@@ -690,17 +690,20 @@
         "splashcoins": {
           "signups": 3,
           "users": 1,
-          "revenue": 150.0
+          "revenue": 150.0,
+          "advertiser": "Splash"
         },
         "CoinsBack": {
           "signups": 2,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "McLuck": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         }
       },
       "ops": {
@@ -769,12 +772,14 @@
         "splashcoins": {
           "signups": 2,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "Splash"
         },
         "LuckyBunny": {
           "signups": 2,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         }
       },
       "ops": {
@@ -848,17 +853,20 @@
         "splashcoins": {
           "signups": 8,
           "users": 1,
-          "revenue": 150.0
+          "revenue": 150.0,
+          "advertiser": "Splash"
         },
         "Chanced Punt": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "CHANCED"
         },
         "LavishLuck": {
           "signups": 5,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         }
       },
       "ops": {
@@ -922,22 +930,26 @@
         "LavishLuck": {
           "signups": 4,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "Rolla": {
           "signups": 2,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "The Boss": {
           "signups": 2,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "Sweet Sweep": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         }
       },
       "ops": {
@@ -1006,17 +1018,20 @@
         "LuckyZino": {
           "signups": 10,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "LavishLuck Sweepstakes Casino": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "Basher Agency"
         },
         "LuckyZino Sweepstakes Casino": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "Basher Agency"
         }
       },
       "ops": {
@@ -1080,7 +1095,8 @@
         "Baba": {
           "signups": 2,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         }
       },
       "ops": {
@@ -1149,17 +1165,20 @@
         "splashcoins": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "Splash"
         },
         "LuckyBunny": {
           "signups": 2,
           "users": 1,
-          "revenue": 60.0
+          "revenue": 60.0,
+          "advertiser": "GameTime Digital"
         },
         "Spinblitz SEO": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         }
       },
       "ops": {
@@ -1228,32 +1247,38 @@
         "LavishLuck Sweepstakes Casino": {
           "signups": 2,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "Basher Agency"
         },
         "CrashMania": {
           "signups": 2,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "LuckyZino": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "LuckyBunny": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "Rolla": {
           "signups": 2,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "TitanTreasure": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         }
       },
       "ops": {
@@ -1317,32 +1342,38 @@
         "LuckyBunny": {
           "signups": 2,
           "users": 1,
-          "revenue": 60.0
+          "revenue": 60.0,
+          "advertiser": "GameTime Digital"
         },
         "LavishLuck": {
           "signups": 1,
           "users": 1,
-          "revenue": 180.0
+          "revenue": 180.0,
+          "advertiser": "GameTime Digital"
         },
         "Baba": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "CardCrush": {
           "signups": 2,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "Sweet Sweep": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "The Boss": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         }
       },
       "ops": {
@@ -1409,22 +1440,26 @@
         "LavishLuck Sweepstakes Casino": {
           "signups": 3,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "Basher Agency"
         },
         "LuckyBunny": {
           "signups": 2,
           "users": 0,
-          "revenue": 60.0
+          "revenue": 60.0,
+          "advertiser": "GameTime Digital"
         },
         "LuckyZino": {
           "signups": 3,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "Coins Royale sweeps": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "CoinsRoyale"
         }
       },
       "ops": {
@@ -1486,32 +1521,38 @@
         "LavishLuck Sweepstakes Casino": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "Basher Agency"
         },
         "LuckyBunny": {
           "signups": 3,
           "users": 0,
-          "revenue": 60.0
+          "revenue": 60.0,
+          "advertiser": "GameTime Digital"
         },
         "LuckyZino": {
           "signups": 4,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "CrashMania": {
           "signups": 1,
           "users": 1,
-          "revenue": 125.0
+          "revenue": 125.0,
+          "advertiser": "GameTime Digital"
         },
         "Rolla": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "Sweet Sweep": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         }
       },
       "ops": {
@@ -1573,37 +1614,44 @@
         "LavishLuck Sweepstakes Casino": {
           "signups": 2,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "Basher Agency"
         },
         "LuckyBunny": {
           "signups": 2,
           "users": 0,
-          "revenue": 60.0
+          "revenue": 60.0,
+          "advertiser": "GameTime Digital"
         },
         "LavishLuck": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "CrashMania": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "LuckyZino": {
           "signups": 4,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "Rolla": {
           "signups": 2,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "The Boss": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         }
       },
       "ops": {
@@ -1665,42 +1713,50 @@
         "LavishLuck Sweepstakes Casino": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "Basher Agency"
         },
         "LuckyBunny": {
           "signups": 2,
           "users": 0,
-          "revenue": 60.0
+          "revenue": 60.0,
+          "advertiser": "GameTime Digital"
         },
         "LuckyZino": {
           "signups": 5,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "CrashMania": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "Baba": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "LavishLuck": {
           "signups": 2,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "Rolla": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "Sweet Sweep": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         }
       },
       "ops": {
@@ -1757,12 +1813,14 @@
         "5Bet": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "Basher Agency"
         },
         "LavishLuck Sweepstakes Casino": {
           "signups": 1,
           "users": 1,
-          "revenue": 140.0
+          "revenue": 140.0,
+          "advertiser": "Basher Agency"
         }
       },
       "ops": {
@@ -1824,17 +1882,20 @@
         "Sweet Sweep": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "LuckyBunny": {
           "signups": 0,
           "users": 1,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "LavishLuck Sweepstakes Casino": {
           "signups": 1,
           "users": 1,
-          "revenue": 140.0
+          "revenue": 140.0,
+          "advertiser": "Basher Agency"
         }
       },
       "ops": {
@@ -1936,12 +1997,14 @@
         "Baba": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "Rolla": {
           "signups": 2,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         }
       },
       "ops": {
@@ -2003,17 +2066,20 @@
         "Rolla": {
           "signups": 2,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "LavishLuck": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "Sweet Sweeps": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "Basher Agency"
         }
       },
       "ops": {
@@ -2075,12 +2141,14 @@
         "Rolla": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "Sweet Sweeps": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "Basher Agency"
         }
       },
       "ops": {
@@ -2142,12 +2210,14 @@
         "Go Go Gold Win": {
           "signups": 1,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "Casino Smartlink": {
           "signups": 6,
           "users": 0,
-          "revenue": 0.0
+          "revenue": 0.0,
+          "advertiser": "ALL IN AFFILIATES"
         }
       },
       "ops": {
