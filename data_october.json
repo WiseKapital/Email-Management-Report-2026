@@ -13,11 +13,18 @@
   "summary_mtd": {
     "budget": 602.6,
     "signups": 141,
-    "users": 7,
-    "revenue": 965.0,
-    "profit": 362.4,
-    "s2p_ratio": "1:20",
-    "note": "Advertiser sum 140, reported total 141 appears off by 1; brand LavishLuck Sweeps 11/2/280 in table conflicts with total 7 users 965 revenue - keeping 0/0 to match summary"
+    "users": 9,
+    "revenue": 1245.0,
+    "profit": 642.4,
+    "s2p_ratio": "1:16",
+    "delivered": 232883,
+    "opened": 13504,
+    "clicked": 1424,
+    "bounced": 380,
+    "unsub": 24,
+    "open_rate": 5.8,
+    "click_rate": 0.61,
+    "bounce_rate": 0.16
   },
   "advertisers_mtd": [
     {
@@ -37,9 +44,9 @@
     {
       "advertiser": "Basher Agency",
       "signups": 15,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:15"
+      "users": 2,
+      "revenue": 280.0,
+      "s2p": "1:8"
     },
     {
       "advertiser": "CHANCED",
@@ -197,9 +204,9 @@
       "brand": "LavishLuck Sweepstakes Casino",
       "advertiser": "BASHER AGENCY",
       "signups": 11,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:11"
+      "users": 2,
+      "revenue": 280.0,
+      "s2p": "1:6"
     },
     {
       "brand": "LuckyZino Sweepstakes Casino",
@@ -232,6 +239,14 @@
       "users": 0,
       "revenue": 0.0,
       "s2p": "0:1"
+    },
+    {
+      "brand": "Casino Smartlink",
+      "advertiser": "ALL IN AFFILIATES",
+      "signups": 6,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:6"
     }
   ],
   "esp_mtd_totals": [
@@ -614,7 +629,7 @@
   },
   "team_ops_mtd": {
     "andrea": {
-      "signups": 103,
+      "signups": 102,
       "users": 5
     },
     "jessie": {
@@ -623,9 +638,9 @@
     },
     "signups_by_advertiser": {
       "GAMETIME DIGITAL": {
-        "andrea": 90,
+        "andrea": 89,
         "jessie": 0,
-        "total": 90
+        "total": 89
       },
       "BASHER AGENCY": {
         "andrea": 12,
@@ -643,6 +658,11 @@
         "andrea": 5,
         "jessie": 0,
         "total": 5
+      },
+      "BASHER AGENCY": {
+        "andrea": 2,
+        "jessie": 0,
+        "total": 2
       }
     }
   },
@@ -803,13 +823,13 @@
     {
       "date": "2026-10-03",
       "budget": 30.13,
-      "signups": 22,
+      "signups": 20,
       "users": 1,
       "revenue": 150.0,
       "profit": 119.87,
       "advertisers": {
         "SPLASH": {
-          "signups": 16,
+          "signups": 14,
           "users": 1,
           "revenue": 150.0
         },
@@ -826,7 +846,7 @@
       },
       "brands": {
         "splashcoins": {
-          "signups": 10,
+          "signups": 8,
           "users": 1,
           "revenue": 150.0
         },
@@ -843,7 +863,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 19,
+          "signups": 17,
           "users": 0
         },
         "jessie": {
@@ -1722,15 +1742,15 @@
     {
       "date": "2026-10-14",
       "budget": 30.13,
-      "signups": 1,
-      "users": 0,
-      "revenue": 0.0,
-      "profit": -30.13,
+      "signups": 2,
+      "users": 1,
+      "revenue": 140.0,
+      "profit": 109.87,
       "advertisers": {
         "BASHER AGENCY": {
-          "signups": 1,
-          "users": 0,
-          "revenue": 0.0
+          "signups": 2,
+          "users": 1,
+          "revenue": 140.0
         }
       },
       "brands": {
@@ -1738,12 +1758,17 @@
           "signups": 1,
           "users": 0,
           "revenue": 0.0
+        },
+        "LavishLuck Sweepstakes Casino": {
+          "signups": 1,
+          "users": 1,
+          "revenue": 140.0
         }
       },
       "ops": {
         "andrea": {
-          "signups": 1,
-          "users": 0
+          "signups": 2,
+          "users": 1
         },
         "jessie": {
           "signups": 0,
@@ -1779,15 +1804,20 @@
     {
       "date": "2026-10-15",
       "budget": 30.13,
-      "signups": 1,
-      "users": 1,
-      "revenue": 0.0,
-      "profit": -30.13,
+      "signups": 2,
+      "users": 2,
+      "revenue": 140.0,
+      "profit": 109.87,
       "advertisers": {
         "GAMETIME DIGITAL": {
           "signups": 1,
           "users": 1,
           "revenue": 0.0
+        },
+        "BASHER AGENCY": {
+          "signups": 1,
+          "users": 1,
+          "revenue": 140.0
         }
       },
       "brands": {
@@ -1800,12 +1830,17 @@
           "signups": 0,
           "users": 1,
           "revenue": 0.0
+        },
+        "LavishLuck Sweepstakes Casino": {
+          "signups": 1,
+          "users": 1,
+          "revenue": 140.0
         }
       },
       "ops": {
         "andrea": {
-          "signups": 1,
-          "users": 1
+          "signups": 2,
+          "users": 2
         },
         "jessie": {
           "signups": 0,
@@ -2093,17 +2128,26 @@
       "profit": -30.13,
       "advertisers": {
         "GAMETIME DIGITAL": {
-          "signups": 0,
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "ALL IN AFFILIATES": {
+          "signups": 6,
           "users": 0,
           "revenue": 0.0
         }
       },
       "brands": {
         "Go Go Gold Win": {
-          "signups": 1
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
         },
-        "casinio": {
-          "signups": 6
+        "Casino Smartlink": {
+          "signups": 6,
+          "users": 0,
+          "revenue": 0.0
         }
       },
       "ops": {
