@@ -587,7 +587,6 @@
         agg.totalMonthDays += (m.total_days_in_month || 30);
       });
 
-      // Estructura única para agrupar TODOS los meses e IPs sin duplicar bloques
       const espIpMap = {};
 
       function addBreakdownItem(espIpRaw, advRaw, brRaw, sig, ftd) {
@@ -612,7 +611,6 @@
         const dailyInRange = (m.daily_records || []).filter(r => r.date >= s && r.date <= e);
         const hasDailyBreakdown = dailyInRange.some(r => Array.isArray(r.esp_ip_breakdown) && r.esp_ip_breakdown.length > 0);
 
-        // Agregación diaria
         dailyInRange.forEach(r => {
           agg.daysElapsedInRange++; 
           agg.budget += r.budget || 0; 
@@ -650,7 +648,6 @@
           }
         });
 
-        // Si este mes no tenía desglose diario, usamos sus totales MTD sumándolos al mismo mapa
         if (!hasDailyBreakdown) {
           const mtdRows = m.esp_ip_breakdown?.by_row || m.esp_mtd_totals || [];
           mtdRows.forEach(item => {
@@ -660,7 +657,6 @@
         }
       });
 
-      // Construcción consolidada de filas con un solo Grand Total por IP y un solo Overall Total
       const rows = [];
       let grandSig = 0, grandFtd = 0;
 
@@ -724,7 +720,6 @@
       const agg = aggregateJsonData(currentStartDate, currentEndDate);
       const csvMap = await aggregateCsvForRange(currentStartDate, currentEndDate);
 
-      // Sincronización exacta multimes de Signups y FTDs
       const espTotalsFromBreakdown = {};
       let totalBreakdownSignups = 0;
       let totalBreakdownFtds = 0;
@@ -797,9 +792,20 @@
       setT('teamMtdUsers', agg.users.toLocaleString());
       setT('teamMtdRevenue', `$${Math.round(agg.revenue).toLocaleString()}`);
       setT('teamMtdProfit', `$${Math.round(agg.profit).toLocaleString()}`);
-      setT('teamRrBudget', `$${rrB.toLocaleString()}`); setT('teamRrSignups', rrS.toLocaleString());
-      setT('teamRrUsers', rrU.toLocaleString()); setT('teamRrRevenue', `$${rrR.toLocaleString()}`);
-      setT('teamRrProfit', `$${rrP.toLocaleString()}`);
+      
+      // Aplicación de color dinámico para RR: verde si es mayor o igual al KPI, rojo si es menor (incluyendo budget)
+      const setRrCell = (id, text, rrVal, kpiVal) => {
+        const el = $(id);
+        if (!el) return;
+        el.textContent = text;
+        el.className = `px-2.5 py-3 text-sm ${rrVal >= kpiVal ? 'text-emerald-600' : 'text-rose-600'}`;
+      };
+
+      setRrCell('teamRrBudget', `$${rrB.toLocaleString()}`, rrB, Math.round(agg.kpi.budget));
+      setRrCell('teamRrSignups', rrS.toLocaleString(), rrS, Math.round(agg.kpi.signups));
+      setRrCell('teamRrUsers', rrU.toLocaleString(), rrU, Math.round(agg.kpi.users));
+      setRrCell('teamRrRevenue', `$${rrR.toLocaleString()}`, rrR, Math.round(agg.kpi.revenue));
+      setRrCell('teamRrProfit', `$${rrP.toLocaleString()}`, rrP, Math.round(agg.kpi.profit));
       setT('teamRrRoi', `1:${rrB > 0 ? (rrR / rrB).toFixed(1) : '0.0'}`);
 
       // Cards
