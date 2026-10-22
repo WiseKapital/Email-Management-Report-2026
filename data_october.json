@@ -2,7 +2,7 @@
   "month": "October",
   "year": 2026,
   "total_days_in_month": 31,
-  "days_elapsed": 21,
+  "days_elapsed": 22,
   "kpis": {
     "budget": 934,
     "signups": 450,
@@ -11,12 +11,12 @@
     "profit": 3466
   },
   "summary_mtd": {
-    "budget": 632.73,
-    "signups": 142,
-    "users": 10,
-    "revenue": 1425.0,
-    "profit": 792.27,
-    "s2p_ratio": "1:14",
+    "budget": 662.86,
+    "signups": 200,
+    "users": 16,
+    "revenue": 2105.0,
+    "profit": 1442.14,
+    "s2p_ratio": "1:13",
     "delivered": 232883,
     "opened": 13504,
     "clicked": 1424,
@@ -28,10 +28,17 @@
   },
   "advertisers_mtd": [
     {
+      "advertiser": "LuckyBunny direct",
+      "signups": 42,
+      "users": 5,
+      "revenue": 600.0,
+      "s2p": "1:8"
+    },
+    {
       "advertiser": "GameTime Digital",
-      "signups": 99,
-      "users": 6,
-      "revenue": 845.0,
+      "signups": 114,
+      "users": 7,
+      "revenue": 925.0,
       "s2p": "1:16"
     },
     {
@@ -43,10 +50,10 @@
     },
     {
       "advertiser": "Basher Agency",
-      "signups": 17,
+      "signups": 18,
       "users": 2,
       "revenue": 280.0,
-      "s2p": "1:8"
+      "s2p": "1:9"
     },
     {
       "advertiser": "CHANCED",
@@ -72,12 +79,20 @@
   ],
   "brands_mtd": [
     {
+      "brand": "LuckyBunny direct",
+      "advertiser": "LuckyBunny direct",
+      "signups": 42,
+      "users": 5,
+      "revenue": 600.0,
+      "s2p": "1:8"
+    },
+    {
       "brand": "LavishLuck",
       "advertiser": "GameTime Digital",
-      "signups": 17,
+      "signups": 18,
       "users": 2,
       "revenue": 360.0,
-      "s2p": "1:8"
+      "s2p": "1:9"
     },
     {
       "brand": "LuckyBunny",
@@ -102,6 +117,14 @@
       "users": 1,
       "revenue": 125.0,
       "s2p": "1:5"
+    },
+    {
+      "brand": "Casinio",
+      "advertiser": "GameTime Digital",
+      "signups": 12,
+      "users": 1,
+      "revenue": 80.0,
+      "s2p": "1:12"
     },
     {
       "brand": "LavishLuck Sweepstakes Casino",
@@ -138,10 +161,10 @@
     {
       "brand": "CoinsBack",
       "advertiser": "GameTime Digital",
-      "signups": 2,
+      "signups": 3,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:2"
+      "s2p": "0:3"
     },
     {
       "brand": "LuckyZino",
@@ -170,10 +193,10 @@
     {
       "brand": "Sweet Sweep",
       "advertiser": "GameTime Digital",
-      "signups": 5,
+      "signups": 6,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:5"
+      "s2p": "0:6"
     },
     {
       "brand": "The Boss",
@@ -201,6 +224,14 @@
     },
     {
       "brand": "5Bet",
+      "advertiser": "Basher Agency",
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:1"
+    },
+    {
+      "brand": "LuckyZino Sweepstakes Casino",
       "advertiser": "Basher Agency",
       "signups": 1,
       "users": 0,
@@ -258,6 +289,13 @@
     },
     {
       "esp_ip": "MLJ (Mailjet) IP 1",
+      "advertiser": "Basher Agency",
+      "brand": "LuckyZino Sweepstakes Casino",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 1",
       "advertiser": "GameTime Digital",
       "brand": "Baba",
       "signups": 1,
@@ -293,7 +331,7 @@
     },
     {
       "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 1",
-      "signups": 13,
+      "signups": 14,
       "ftds": 1,
       "is_total": true
     },
@@ -408,7 +446,7 @@
     },
     {
       "esp_ip": "OVERALL GRAND TOTAL",
-      "signups": 46,
+      "signups": 47,
       "ftds": 3,
       "is_total": true,
       "is_overall": true
@@ -421,6 +459,13 @@
         "advertiser": "Basher Agency",
         "brand": "LavishLuck Sweepstakes Casino",
         "signups": 4,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 1",
+        "advertiser": "Basher Agency",
+        "brand": "LuckyZino Sweepstakes Casino",
+        "signups": 1,
         "ftds": 0
       },
       {
@@ -460,7 +505,7 @@
       },
       {
         "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 1",
-        "signups": 13,
+        "signups": 14,
         "ftds": 1,
         "is_total": true
       },
@@ -575,36 +620,36 @@
       },
       {
         "esp_ip": "OVERALL GRAND TOTAL",
-        "signups": 46,
+        "signups": 47,
         "ftds": 3,
         "is_total": true,
         "is_overall": true
       }
     ],
     "overall": {
-      "signups": 46,
+      "signups": 47,
       "ftds": 3
     }
   },
   "team_ops_mtd": {
     "andrea": {
-      "signups": 108,
+      "signups": 111,
       "users": 6
     },
     "jessie": {
-      "signups": 0,
+      "signups": 1,
       "users": 0
     },
     "signups_by_advertiser": {
       "GAMETIME DIGITAL": {
-        "andrea": 93,
-        "jessie": 0,
-        "total": 93
+        "andrea": 95,
+        "jessie": 1,
+        "total": 96
       },
       "BASHER AGENCY": {
-        "andrea": 14,
+        "andrea": 15,
         "jessie": 0,
-        "total": 14
+        "total": 15
       },
       "CHANCED": {
         "andrea": 1,
@@ -617,11 +662,6 @@
         "andrea": 6,
         "jessie": 0,
         "total": 6
-      },
-      "BASHER AGENCY": {
-        "andrea": 2,
-        "jessie": 0,
-        "total": 2
       }
     }
   },
@@ -700,7 +740,7 @@
         {
           "esp_ip": "SEG (Sendgrid) IP 1",
           "advertiser": "GameTime Digital",
-          "brand": "LuckyZino",
+          "brand": "Rolla",
           "signups": 1,
           "ftds": 0
         }
@@ -778,7 +818,7 @@
         {
           "esp_ip": "SEG (Sendgrid) IP 1",
           "advertiser": "GameTime Digital",
-          "brand": "Rolla",
+          "brand": "Sweet Sweep",
           "signups": 1,
           "ftds": 0
         }
@@ -948,17 +988,10 @@
           "brand": "LuckyZino",
           "signups": 1,
           "ftds": 0
-        },
-        {
-          "esp_ip": "SEG (Sendgrid) IP 1",
-          "advertiser": "GameTime Digital",
-          "brand": "Sweet Sweep",
-          "signups": 1,
-          "ftds": 0
         }
       ],
       "esp_ip_summary": {
-        "signups": 3,
+        "signups": 2,
         "ftds": 0
       }
     },
@@ -1021,8 +1054,8 @@
       "esp_ip_breakdown": [
         {
           "esp_ip": "MLJ (Mailjet) IP 1",
-          "advertiser": "GameTime Digital",
-          "brand": "Baba",
+          "advertiser": "Basher Agency",
+          "brand": "LuckyZino Sweepstakes Casino",
           "signups": 1,
           "ftds": 0
         },
@@ -1081,9 +1114,9 @@
         {
           "esp_ip": "MLJ (Mailjet) IP 1",
           "advertiser": "GameTime Digital",
-          "brand": "LavishLuck",
+          "brand": "Baba",
           "signups": 1,
-          "ftds": 1
+          "ftds": 0
         },
         {
           "esp_ip": "MLJ (Mailjet) IP 3 / SH",
@@ -1095,7 +1128,7 @@
       ],
       "esp_ip_summary": {
         "signups": 2,
-        "ftds": 1
+        "ftds": 0
       }
     },
     {
@@ -1160,7 +1193,7 @@
           "advertiser": "GameTime Digital",
           "brand": "LavishLuck",
           "signups": 1,
-          "ftds": 0
+          "ftds": 1
         },
         {
           "esp_ip": "MLJ (Mailjet) IP 3 / SH",
@@ -1172,7 +1205,7 @@
       ],
       "esp_ip_summary": {
         "signups": 2,
-        "ftds": 0
+        "ftds": 1
       }
     },
     {
@@ -1253,7 +1286,7 @@
         {
           "esp_ip": "MLJ (Mailjet) IP 1",
           "advertiser": "GameTime Digital",
-          "brand": "McLuck",
+          "brand": "LavishLuck",
           "signups": 1,
           "ftds": 0
         },
@@ -1342,7 +1375,7 @@
         {
           "esp_ip": "MLJ (Mailjet) IP 1",
           "advertiser": "GameTime Digital",
-          "brand": "Rolla",
+          "brand": "McLuck",
           "signups": 1,
           "ftds": 0
         },
@@ -1627,7 +1660,7 @@
         {
           "esp_ip": "MLJ (Mailjet) IP 1",
           "advertiser": "GameTime Digital",
-          "brand": "Sweet Sweep",
+          "brand": "Rolla",
           "signups": 1,
           "ftds": 0
         },
@@ -1797,9 +1830,9 @@
       "unsub": 0,
       "esp_ip_breakdown": [
         {
-          "esp_ip": "MLJ (Mailjet) IP 2",
+          "esp_ip": "MLJ (Mailjet) IP 1",
           "advertiser": "GameTime Digital",
-          "brand": "LavishLuck",
+          "brand": "Sweet Sweep",
           "signups": 1,
           "ftds": 0
         },
@@ -1876,9 +1909,9 @@
         {
           "esp_ip": "MLJ (Mailjet) IP 2",
           "advertiser": "GameTime Digital",
-          "brand": "LuckyBunny",
+          "brand": "LavishLuck",
           "signups": 1,
-          "ftds": 1
+          "ftds": 0
         },
         {
           "esp_ip": "SEG (Sendgrid) IP 1",
@@ -1890,7 +1923,7 @@
       ],
       "esp_ip_summary": {
         "signups": 2,
-        "ftds": 1
+        "ftds": 0
       }
     },
     {
@@ -1923,7 +1956,7 @@
           "advertiser": "GameTime Digital",
           "brand": "LuckyBunny",
           "signups": 1,
-          "ftds": 0
+          "ftds": 1
         },
         {
           "esp_ip": "SEG (Sendgrid) IP 1",
@@ -1935,7 +1968,7 @@
       ],
       "esp_ip_summary": {
         "signups": 2,
-        "ftds": 0
+        "ftds": 1
       }
     },
     {
@@ -1986,7 +2019,7 @@
         {
           "esp_ip": "MLJ (Mailjet) IP 2",
           "advertiser": "GameTime Digital",
-          "brand": "Rolla",
+          "brand": "LuckyBunny",
           "signups": 1,
           "ftds": 0
         },
@@ -2134,7 +2167,7 @@
         {
           "esp_ip": "MLJ (Mailjet) IP 2",
           "advertiser": "GameTime Digital",
-          "brand": "The Boss",
+          "brand": "Rolla",
           "signups": 1,
           "ftds": 0
         },
@@ -2203,9 +2236,9 @@
       "unsub": 0,
       "esp_ip_breakdown": [
         {
-          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
-          "advertiser": "Basher Agency",
-          "brand": "LavishLuck Sweepstakes Casino",
+          "esp_ip": "MLJ (Mailjet) IP 2",
+          "advertiser": "GameTime Digital",
+          "brand": "The Boss",
           "signups": 1,
           "ftds": 0
         },
@@ -2281,8 +2314,8 @@
       "esp_ip_breakdown": [
         {
           "esp_ip": "MLJ (Mailjet) IP 3 / SH",
-          "advertiser": "GameTime Digital",
-          "brand": "CoinsBack",
+          "advertiser": "Basher Agency",
+          "brand": "LavishLuck Sweepstakes Casino",
           "signups": 1,
           "ftds": 0
         },
@@ -2301,17 +2334,73 @@
     },
     {
       "date": "2026-10-22",
-      "budget": 0.0,
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "profit": 0.0,
-      "advertisers": {},
-      "brands": {},
+      "budget": 30.13,
+      "signups": 58,
+      "users": 6,
+      "revenue": 680.0,
+      "profit": 649.87,
+      "advertisers": {
+        "LuckyBunny direct": {
+          "signups": 42,
+          "users": 5,
+          "revenue": 600.0,
+          "advertiser": "LuckyBunny direct"
+        },
+        "GameTime Digital": {
+          "signups": 15,
+          "users": 1,
+          "revenue": 80.0,
+          "advertiser": "GameTime Digital"
+        },
+        "Basher Agency": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0,
+          "advertiser": "Basher Agency"
+        }
+      },
+      "brands": {
+        "LuckyBunny direct": {
+          "signups": 42,
+          "users": 5,
+          "revenue": 600.0,
+          "advertiser": "LuckyBunny direct"
+        },
+        "Casinio": {
+          "signups": 12,
+          "users": 1,
+          "revenue": 80.0,
+          "advertiser": "GameTime Digital"
+        },
+        "LavishLuck": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
+        },
+        "CoinsBack": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
+        },
+        "Sweet Sweep": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
+        },
+        "LavishLuck Sweepstakes Casino": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0,
+          "advertiser": "Basher Agency"
+        }
+      },
       "ops": {
         "andrea": {
-          "signups": 0,
-          "users": 0
+          "signups": 42,
+          "users": 5
         },
         "jessie": {
           "signups": 0,
@@ -2323,9 +2412,24 @@
       "opened": 0,
       "clicked": 0,
       "unsub": 0,
-      "esp_ip_breakdown": [],
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+          "advertiser": "GameTime Digital",
+          "brand": "CoinsBack",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GameTime Digital",
+          "brand": "LuckyZino",
+          "signups": 1,
+          "ftds": 0
+        }
+      ],
       "esp_ip_summary": {
-        "signups": 0,
+        "signups": 2,
         "ftds": 0
       }
     },
