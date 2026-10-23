@@ -2,7 +2,7 @@
   "month": "October",
   "year": 2026,
   "total_days_in_month": 31,
-  "days_elapsed": 22,
+  "days_elapsed": 23,
   "kpis": {
     "budget": 934,
     "signups": 450,
@@ -11,11 +11,11 @@
     "profit": 3466
   },
   "summary_mtd": {
-    "budget": 662.86,
-    "signups": 200,
-    "users": 16,
-    "revenue": 2105.0,
-    "profit": 1442.14,
+    "budget": 692.99,
+    "signups": 224,
+    "users": 17,
+    "revenue": 2263.0,
+    "profit": 1570.01,
     "s2p_ratio": "1:13",
     "delivered": 232883,
     "opened": 13504,
@@ -29,17 +29,17 @@
   "advertisers_mtd": [
     {
       "advertiser": "LuckyBunny direct",
-      "signups": 42,
-      "users": 5,
-      "revenue": 600.0,
-      "s2p": "1:8"
+      "signups": 54,
+      "users": 6,
+      "revenue": 750.0,
+      "s2p": "1:9"
     },
     {
       "advertiser": "GameTime Digital",
-      "signups": 114,
+      "signups": 125,
       "users": 7,
-      "revenue": 925.0,
-      "s2p": "1:16"
+      "revenue": 933.0,
+      "s2p": "1:18"
     },
     {
       "advertiser": "Splash",
@@ -75,16 +75,23 @@
       "users": 0,
       "revenue": 0.0,
       "s2p": "0:1"
+    },
+    {
+      "advertiser": "CardCrush",
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:1"
     }
   ],
   "brands_mtd": [
     {
       "brand": "LuckyBunny direct",
       "advertiser": "LuckyBunny direct",
-      "signups": 42,
-      "users": 5,
-      "revenue": 600.0,
-      "s2p": "1:8"
+      "signups": 54,
+      "users": 6,
+      "revenue": 750.0,
+      "s2p": "1:9"
     },
     {
       "brand": "LavishLuck",
@@ -113,18 +120,18 @@
     {
       "brand": "CrashMania",
       "advertiser": "GameTime Digital",
-      "signups": 5,
+      "signups": 8,
       "users": 1,
       "revenue": 125.0,
-      "s2p": "1:5"
+      "s2p": "1:8"
     },
     {
       "brand": "Casinio",
       "advertiser": "GameTime Digital",
-      "signups": 12,
+      "signups": 13,
       "users": 1,
-      "revenue": 80.0,
-      "s2p": "1:12"
+      "revenue": 88.0,
+      "s2p": "1:13"
     },
     {
       "brand": "LavishLuck Sweepstakes Casino",
@@ -145,10 +152,10 @@
     {
       "brand": "Rolla",
       "advertiser": "GameTime Digital",
-      "signups": 13,
+      "signups": 14,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:13"
+      "s2p": "0:14"
     },
     {
       "brand": "CardCrush",
@@ -169,10 +176,10 @@
     {
       "brand": "LuckyZino",
       "advertiser": "GameTime Digital",
-      "signups": 27,
+      "signups": 28,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:27"
+      "s2p": "0:28"
     },
     {
       "brand": "McLuck",
@@ -185,10 +192,10 @@
     {
       "brand": "Spinblitz SEO",
       "advertiser": "GameTime Digital",
-      "signups": 1,
+      "signups": 6,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:1"
+      "s2p": "0:6"
     },
     {
       "brand": "Sweet Sweep",
@@ -265,6 +272,14 @@
     {
       "brand": "LoneStar sweepstake casino",
       "advertiser": "Eskhol Real_LoneS",
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:1"
+    },
+    {
+      "brand": "cardcrush_direct",
+      "advertiser": "CardCrush",
       "signups": 1,
       "users": 0,
       "revenue": 0.0,
@@ -394,7 +409,7 @@
       "esp_ip": "MLJ (Mailjet) IP 3 / SH",
       "advertiser": "GameTime Digital",
       "brand": "LuckyZino",
-      "signups": 7,
+      "signups": 8,
       "ftds": 0
     },
     {
@@ -406,7 +421,7 @@
     },
     {
       "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 3 / SH",
-      "signups": 13,
+      "signups": 14,
       "ftds": 0,
       "is_total": true
     },
@@ -445,8 +460,21 @@
       "is_total": true
     },
     {
+      "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "GameTime Digital",
+      "brand": "CrashMania",
+      "signups": 2,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 2 / SH",
+      "signups": 2,
+      "ftds": 0,
+      "is_total": true
+    },
+    {
       "esp_ip": "OVERALL GRAND TOTAL",
-      "signups": 47,
+      "signups": 50,
       "ftds": 3,
       "is_total": true,
       "is_overall": true
@@ -568,7 +596,7 @@
         "esp_ip": "MLJ (Mailjet) IP 3 / SH",
         "advertiser": "GameTime Digital",
         "brand": "LuckyZino",
-        "signups": 7,
+        "signups": 8,
         "ftds": 0
       },
       {
@@ -580,7 +608,7 @@
       },
       {
         "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 3 / SH",
-        "signups": 13,
+        "signups": 14,
         "ftds": 0,
         "is_total": true
       },
@@ -619,32 +647,45 @@
         "is_total": true
       },
       {
+        "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "GameTime Digital",
+        "brand": "CrashMania",
+        "signups": 2,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 2 / SH",
+        "signups": 2,
+        "ftds": 0,
+        "is_total": true
+      },
+      {
         "esp_ip": "OVERALL GRAND TOTAL",
-        "signups": 47,
+        "signups": 50,
         "ftds": 3,
         "is_total": true,
         "is_overall": true
       }
     ],
     "overall": {
-      "signups": 47,
+      "signups": 50,
       "ftds": 3
     }
   },
   "team_ops_mtd": {
     "andrea": {
-      "signups": 111,
+      "signups": 116,
       "users": 6
     },
     "jessie": {
-      "signups": 1,
+      "signups": 2,
       "users": 0
     },
     "signups_by_advertiser": {
       "GAMETIME DIGITAL": {
-        "andrea": 95,
-        "jessie": 1,
-        "total": 96
+        "andrea": 99,
+        "jessie": 2,
+        "total": 101
       },
       "BASHER AGENCY": {
         "andrea": 15,
@@ -652,6 +693,11 @@
         "total": 15
       },
       "CHANCED": {
+        "andrea": 1,
+        "jessie": 0,
+        "total": 1
+      },
+      "CardCrush": {
         "andrea": 1,
         "jessie": 0,
         "total": 1
@@ -733,14 +779,14 @@
         {
           "esp_ip": "MLJ (Mailjet) IP 3 / SH",
           "advertiser": "GameTime Digital",
-          "brand": "CoinsBack",
+          "brand": "LuckyBunny",
           "signups": 1,
           "ftds": 0
         },
         {
           "esp_ip": "SEG (Sendgrid) IP 1",
           "advertiser": "GameTime Digital",
-          "brand": "Rolla",
+          "brand": "Sweet Sweep",
           "signups": 1,
           "ftds": 0
         }
@@ -811,7 +857,7 @@
         {
           "esp_ip": "MLJ (Mailjet) IP 3 / SH",
           "advertiser": "GameTime Digital",
-          "brand": "LuckyBunny",
+          "brand": "LuckyZino",
           "signups": 1,
           "ftds": 0
         },
@@ -906,9 +952,9 @@
           "ftds": 0
         },
         {
-          "esp_ip": "SEG (Sendgrid) IP 1",
+          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
           "advertiser": "GameTime Digital",
-          "brand": "Sweet Sweep",
+          "brand": "CrashMania",
           "signups": 1,
           "ftds": 0
         }
@@ -988,10 +1034,17 @@
           "brand": "LuckyZino",
           "signups": 1,
           "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+          "advertiser": "GameTime Digital",
+          "brand": "CrashMania",
+          "signups": 1,
+          "ftds": 0
         }
       ],
       "esp_ip_summary": {
-        "signups": 2,
+        "signups": 3,
         "ftds": 0
       }
     },
@@ -2435,17 +2488,79 @@
     },
     {
       "date": "2026-10-23",
-      "budget": 0.0,
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "profit": 0.0,
-      "advertisers": {},
-      "brands": {},
+      "budget": 30.13,
+      "signups": 24,
+      "users": 1,
+      "revenue": 158.0,
+      "profit": 127.87,
+      "advertisers": {
+        "LuckyBunny direct": {
+          "signups": 12,
+          "users": 1,
+          "revenue": 150.0,
+          "advertiser": "LuckyBunny direct"
+        },
+        "GameTime Digital": {
+          "signups": 11,
+          "users": 0,
+          "revenue": 8.0,
+          "advertiser": "GameTime Digital"
+        },
+        "CardCrush": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0,
+          "advertiser": "CardCrush"
+        }
+      },
+      "brands": {
+        "LuckyBunny direct": {
+          "signups": 12,
+          "users": 1,
+          "revenue": 150.0,
+          "advertiser": "LuckyBunny direct"
+        },
+        "CrashMania": {
+          "signups": 3,
+          "users": 0,
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
+        },
+        "Casinio": {
+          "signups": 1,
+          "users": 1,
+          "revenue": 8.0,
+          "advertiser": "GameTime Digital"
+        },
+        "LuckyZino": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
+        },
+        "Rolla": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
+        },
+        "Spinblitz SEO": {
+          "signups": 5,
+          "users": 0,
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
+        },
+        "cardcrush_direct": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0,
+          "advertiser": "CardCrush"
+        }
+      },
       "ops": {
         "andrea": {
-          "signups": 0,
-          "users": 0
+          "signups": 12,
+          "users": 1
         },
         "jessie": {
           "signups": 0,
@@ -2457,9 +2572,24 @@
       "opened": 0,
       "clicked": 0,
       "unsub": 0,
-      "esp_ip_breakdown": [],
+      "esp_ip_breakdown": [
+        {
+          "esp_ip": "MLJ (Mailjet) IP 3 / SH",
+          "advertiser": "GameTime Digital",
+          "brand": "CoinsBack",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 1",
+          "advertiser": "GameTime Digital",
+          "brand": "Rolla",
+          "signups": 1,
+          "ftds": 0
+        }
+      ],
       "esp_ip_summary": {
-        "signups": 0,
+        "signups": 2,
         "ftds": 0
       }
     },
