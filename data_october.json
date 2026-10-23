@@ -12,11 +12,11 @@
   },
   "summary_mtd": {
     "budget": 692.99,
-    "signups": 224,
+    "signups": 235,
     "users": 17,
     "revenue": 2263.0,
     "profit": 1570.01,
-    "s2p_ratio": "1:13",
+    "s2p_ratio": "1:14",
     "delivered": 232883,
     "opened": 13504,
     "clicked": 1424,
@@ -36,10 +36,10 @@
     },
     {
       "advertiser": "GameTime Digital",
-      "signups": 125,
+      "signups": 134,
       "users": 7,
       "revenue": 933.0,
-      "s2p": "1:18"
+      "s2p": "1:19"
     },
     {
       "advertiser": "Splash",
@@ -50,10 +50,10 @@
     },
     {
       "advertiser": "Basher Agency",
-      "signups": 18,
+      "signups": 20,
       "users": 2,
       "revenue": 280.0,
-      "s2p": "1:9"
+      "s2p": "1:10"
     },
     {
       "advertiser": "CHANCED",
@@ -104,10 +104,10 @@
     {
       "brand": "LuckyBunny",
       "advertiser": "GameTime Digital",
-      "signups": 15,
+      "signups": 19,
       "users": 3,
       "revenue": 360.0,
-      "s2p": "1:5"
+      "s2p": "1:6"
     },
     {
       "brand": "splashcoins",
@@ -136,10 +136,10 @@
     {
       "brand": "LavishLuck Sweepstakes Casino",
       "advertiser": "Basher Agency",
-      "signups": 14,
+      "signups": 16,
       "users": 2,
       "revenue": 280.0,
-      "s2p": "1:7"
+      "s2p": "1:8"
     },
     {
       "brand": "Baba",
@@ -208,10 +208,10 @@
     {
       "brand": "The Boss",
       "advertiser": "GameTime Digital",
-      "signups": 4,
+      "signups": 7,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:4"
+      "s2p": "0:7"
     },
     {
       "brand": "TitanTreasure",
@@ -223,6 +223,22 @@
     },
     {
       "brand": "Go Go Gold Win",
+      "advertiser": "GameTime Digital",
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:1"
+    },
+    {
+      "brand": "Hello Million",
+      "advertiser": "GameTime Digital",
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:1"
+    },
+    {
+      "brand": "Rolling Riches",
       "advertiser": "GameTime Digital",
       "signups": 1,
       "users": 0,
@@ -2489,7 +2505,7 @@
     {
       "date": "2026-10-23",
       "budget": 30.13,
-      "signups": 24,
+      "signups": 35,
       "users": 1,
       "revenue": 158.0,
       "profit": 127.87,
@@ -2501,10 +2517,16 @@
           "advertiser": "LuckyBunny direct"
         },
         "GameTime Digital": {
-          "signups": 11,
+          "signups": 20,
           "users": 0,
           "revenue": 8.0,
           "advertiser": "GameTime Digital"
+        },
+        "Basher Agency": {
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0,
+          "advertiser": "Basher Agency"
         },
         "CardCrush": {
           "signups": 1,
@@ -2519,6 +2541,12 @@
           "users": 1,
           "revenue": 150.0,
           "advertiser": "LuckyBunny direct"
+        },
+        "LuckyBunny": {
+          "signups": 4,
+          "users": 0,
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
         },
         "CrashMania": {
           "signups": 3,
@@ -2549,6 +2577,30 @@
           "users": 0,
           "revenue": 0.0,
           "advertiser": "GameTime Digital"
+        },
+        "The Boss": {
+          "signups": 3,
+          "users": 0,
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
+        },
+        "Hello Million": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
+        },
+        "Rolling Riches": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0,
+          "advertiser": "GameTime Digital"
+        },
+        "LavishLuck Sweepstakes Casino": {
+          "signups": 2,
+          "users": 0,
+          "revenue": 0.0,
+          "advertiser": "Basher Agency"
         },
         "cardcrush_direct": {
           "signups": 1,
