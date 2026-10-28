@@ -350,9 +350,23 @@
     {
       "esp_ip": "MLJ (Mailjet) IP 1",
       "advertiser": "GameTime Digital",
+      "brand": "Casinio",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 1",
+      "advertiser": "GameTime Digital",
       "brand": "LavishLuck",
       "signups": 2,
       "ftds": 1
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 1",
+      "advertiser": "GameTime Digital",
+      "brand": "LuckyBunny",
+      "signups": 1,
+      "ftds": 0
     },
     {
       "esp_ip": "MLJ (Mailjet) IP 1",
@@ -377,9 +391,23 @@
     },
     {
       "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 1",
-      "signups": 14,
+      "signups": 16,
       "ftds": 1,
       "is_total": true
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 2",
+      "advertiser": "GameTime Digital",
+      "brand": "Casinio",
+      "signups": 2,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "MLJ (Mailjet) IP 2",
+      "advertiser": "GameTime Digital",
+      "brand": "Hello Million",
+      "signups": 1,
+      "ftds": 0
     },
     {
       "esp_ip": "MLJ (Mailjet) IP 2",
@@ -411,7 +439,7 @@
     },
     {
       "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 2",
-      "signups": 6,
+      "signups": 9,
       "ftds": 1,
       "is_total": true
     },
@@ -459,8 +487,15 @@
     {
       "esp_ip": "SEG (Sendgrid) IP 1",
       "advertiser": "GameTime Digital",
+      "brand": "Casinio",
+      "signups": 3,
+      "ftds": 1
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 1",
+      "advertiser": "GameTime Digital",
       "brand": "LuckyBunny",
-      "signups": 1,
+      "signups": 4,
       "ftds": 1
     },
     {
@@ -486,9 +521,16 @@
     },
     {
       "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 1",
-      "signups": 14,
-      "ftds": 1,
+      "signups": 20,
+      "ftds": 2,
       "is_total": true
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "GameTime Digital",
+      "brand": "Casinio",
+      "signups": 10,
+      "ftds": 2
     },
     {
       "esp_ip": "SEG (Sendgrid) IP 2 / SH",
@@ -498,15 +540,22 @@
       "ftds": 0
     },
     {
+      "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "GameTime Digital",
+      "brand": "LuckyBunny",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
       "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 2 / SH",
-      "signups": 4,
-      "ftds": 0,
+      "signups": 15,
+      "ftds": 2,
       "is_total": true
     },
     {
       "esp_ip": "OVERALL GRAND TOTAL",
-      "signups": 53,
-      "ftds": 3,
+      "signups": 75,
+      "ftds": 6,
       "is_total": true,
       "is_overall": true
     }
@@ -537,9 +586,23 @@
       {
         "esp_ip": "MLJ (Mailjet) IP 1",
         "advertiser": "GameTime Digital",
+        "brand": "Casinio",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 1",
+        "advertiser": "GameTime Digital",
         "brand": "LavishLuck",
         "signups": 2,
         "ftds": 1
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 1",
+        "advertiser": "GameTime Digital",
+        "brand": "LuckyBunny",
+        "signups": 1,
+        "ftds": 0
       },
       {
         "esp_ip": "MLJ (Mailjet) IP 1",
@@ -564,9 +627,23 @@
       },
       {
         "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 1",
-        "signups": 14,
+        "signups": 16,
         "ftds": 1,
         "is_total": true
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 2",
+        "advertiser": "GameTime Digital",
+        "brand": "Casinio",
+        "signups": 2,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "MLJ (Mailjet) IP 2",
+        "advertiser": "GameTime Digital",
+        "brand": "Hello Million",
+        "signups": 1,
+        "ftds": 0
       },
       {
         "esp_ip": "MLJ (Mailjet) IP 2",
@@ -598,7 +675,7 @@
       },
       {
         "esp_ip": "GRAND TOTAL MLJ (Mailjet) IP 2",
-        "signups": 6,
+        "signups": 9,
         "ftds": 1,
         "is_total": true
       },
@@ -646,8 +723,15 @@
       {
         "esp_ip": "SEG (Sendgrid) IP 1",
         "advertiser": "GameTime Digital",
+        "brand": "Casinio",
+        "signups": 3,
+        "ftds": 1
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 1",
+        "advertiser": "GameTime Digital",
         "brand": "LuckyBunny",
-        "signups": 1,
+        "signups": 4,
         "ftds": 1
       },
       {
@@ -673,9 +757,16 @@
       },
       {
         "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 1",
-        "signups": 14,
-        "ftds": 1,
+        "signups": 20,
+        "ftds": 2,
         "is_total": true
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "GameTime Digital",
+        "brand": "Casinio",
+        "signups": 10,
+        "ftds": 2
       },
       {
         "esp_ip": "SEG (Sendgrid) IP 2 / SH",
@@ -685,22 +776,29 @@
         "ftds": 0
       },
       {
+        "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "GameTime Digital",
+        "brand": "LuckyBunny",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
         "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 2 / SH",
-        "signups": 4,
-        "ftds": 0,
+        "signups": 15,
+        "ftds": 2,
         "is_total": true
       },
       {
         "esp_ip": "OVERALL GRAND TOTAL",
-        "signups": 53,
-        "ftds": 3,
+        "signups": 75,
+        "ftds": 6,
         "is_total": true,
         "is_overall": true
       }
     ],
     "overall": {
-      "signups": 53,
-      "ftds": 3
+      "signups": 75,
+      "ftds": 6
     }
   },
   "team_ops_mtd": {
