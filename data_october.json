@@ -12,7 +12,7 @@
   },
   "summary_mtd": {
     "budget": 813.51,
-    "signups": 297,
+    "signups": 301,
     "users": 20,
     "revenue": 2589.0,
     "profit": 1775.49,
@@ -29,17 +29,17 @@
   "advertisers_mtd": [
     {
       "advertiser": "LuckyBunny direct",
-      "signups": 72,
+      "signups": 73,
       "users": 6,
       "revenue": 750.0,
       "s2p": "1:12"
     },
     {
       "advertiser": "GameTime Digital",
-      "signups": 139,
+      "signups": 144,
       "users": 9,
       "revenue": 1109.0,
-      "s2p": "1:15"
+      "s2p": "1:16"
     },
     {
       "advertiser": "Splash",
@@ -50,10 +50,10 @@
     },
     {
       "advertiser": "Basher Agency",
-      "signups": 18,
+      "signups": 16,
       "users": 2,
       "revenue": 280.0,
-      "s2p": "1:9"
+      "s2p": "1:8"
     },
     {
       "advertiser": "CHANCED",
@@ -95,7 +95,7 @@
     {
       "brand": "LuckyBunny direct",
       "advertiser": "LuckyBunny direct",
-      "signups": 72,
+      "signups": 73,
       "users": 6,
       "revenue": 750.0,
       "s2p": "1:12"
@@ -111,18 +111,18 @@
     {
       "brand": "LavishLuck",
       "advertiser": "GameTime Digital",
-      "signups": 19,
+      "signups": 28,
       "users": 2,
       "revenue": 360.0,
-      "s2p": "1:10"
+      "s2p": "1:14"
     },
     {
       "brand": "LuckyBunny",
       "advertiser": "GameTime Digital",
-      "signups": 21,
+      "signups": 16,
       "users": 3,
       "revenue": 360.0,
-      "s2p": "1:7"
+      "s2p": "1:5"
     },
     {
       "brand": "CrashMania",
@@ -135,7 +135,7 @@
     {
       "brand": "Casinio",
       "advertiser": "GameTime Digital",
-      "signups": 17,
+      "signups": 18,
       "users": 3,
       "revenue": 264.0,
       "s2p": "1:6"
@@ -143,10 +143,10 @@
     {
       "brand": "LavishLuck Sweepstakes Casino",
       "advertiser": "Basher Agency",
-      "signups": 14,
+      "signups": 12,
       "users": 2,
       "revenue": 280.0,
-      "s2p": "1:7"
+      "s2p": "1:6"
     },
     {
       "brand": "Baba",
@@ -705,7 +705,7 @@
   },
   "team_ops_mtd": {
     "andrea": {
-      "signups": 118,
+      "signups": 117,
       "users": 6
     },
     "jessie": {
@@ -714,14 +714,14 @@
     },
     "signups_by_advertiser": {
       "GAMETIME DIGITAL": {
-        "andrea": 102,
+        "andrea": 103,
         "jessie": 2,
-        "total": 104
+        "total": 105
       },
       "BASHER AGENCY": {
-        "andrea": 15,
+        "andrea": 13,
         "jessie": 0,
-        "total": 15
+        "total": 13
       },
       "CHANCED": {
         "andrea": 1,
@@ -803,17 +803,11 @@
     {
       "date": "2026-10-02",
       "budget": 30.13,
-      "signups": 4,
+      "signups": 2,
       "users": 0,
       "revenue": 0.0,
       "profit": -30.13,
       "advertisers": {
-        "GameTime Digital": {
-          "signups": 2,
-          "users": 0,
-          "revenue": 0,
-          "advertiser": "GameTime Digital"
-        },
         "Splash": {
           "signups": 2,
           "users": 0,
@@ -822,12 +816,6 @@
         }
       },
       "brands": {
-        "LuckyBunny": {
-          "signups": 2,
-          "users": 0,
-          "revenue": 0,
-          "advertiser": "GameTime Digital"
-        },
         "splashcoins": {
           "signups": 2,
           "users": 0,
@@ -977,7 +965,7 @@
     {
       "date": "2026-10-05",
       "budget": 30.13,
-      "signups": 12,
+      "signups": 11,
       "users": 0,
       "revenue": 0.0,
       "profit": -30.13,
@@ -989,7 +977,7 @@
           "advertiser": "GameTime Digital"
         },
         "Basher Agency": {
-          "signups": 2,
+          "signups": 1,
           "users": 0,
           "revenue": 0,
           "advertiser": "Basher Agency"
@@ -1001,12 +989,6 @@
           "users": 0,
           "revenue": 0,
           "advertiser": "GameTime Digital"
-        },
-        "LavishLuck Sweepstakes Casino": {
-          "signups": 1,
-          "users": 0,
-          "revenue": 0,
-          "advertiser": "Basher Agency"
         },
         "LuckyZino Sweepstakes Casino": {
           "signups": 1,
@@ -1083,31 +1065,25 @@
     {
       "date": "2026-10-07",
       "budget": 30.13,
-      "signups": 4,
+      "signups": 2,
       "users": 1,
       "revenue": 60.0,
       "profit": 29.87,
       "advertisers": {
-        "GameTime Digital": {
-          "signups": 3,
-          "users": 1,
-          "revenue": 60,
-          "advertiser": "GameTime Digital"
-        },
         "Splash": {
           "signups": 1,
           "users": 0,
           "revenue": 0,
           "advertiser": "Splash"
+        },
+        "GameTime Digital": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0,
+          "advertiser": "GameTime Digital"
         }
       },
       "brands": {
-        "LuckyBunny": {
-          "signups": 2,
-          "users": 1,
-          "revenue": 60,
-          "advertiser": "GameTime Digital"
-        },
         "splashcoins": {
           "signups": 1,
           "users": 0,
@@ -1145,27 +1121,27 @@
     {
       "date": "2026-10-08",
       "budget": 30.13,
-      "signups": 9,
-      "users": 0,
-      "revenue": 0.0,
-      "profit": -30.13,
+      "signups": 8,
+      "users": 1,
+      "revenue": 60.0,
+      "profit": 29.87,
       "advertisers": {
         "Basher Agency": {
-          "signups": 2,
+          "signups": 1,
           "users": 0,
           "revenue": 0,
           "advertiser": "Basher Agency"
         },
         "GameTime Digital": {
           "signups": 7,
-          "users": 0,
-          "revenue": 0,
+          "users": 1,
+          "revenue": 60,
           "advertiser": "GameTime Digital"
         }
       },
       "brands": {
         "LavishLuck Sweepstakes Casino": {
-          "signups": 2,
+          "signups": 1,
           "users": 0,
           "revenue": 0,
           "advertiser": "Basher Agency"
@@ -1184,8 +1160,8 @@
         },
         "LuckyBunny": {
           "signups": 1,
-          "users": 0,
-          "revenue": 0,
+          "users": 1,
+          "revenue": 60,
           "advertiser": "GameTime Digital"
         },
         "Rolla": {
@@ -2573,19 +2549,19 @@
     {
       "date": "2026-10-27",
       "budget": 30.13,
-      "signups": 5,
+      "signups": 15,
       "users": 0,
       "revenue": 0.0,
       "profit": -30.13,
       "advertisers": {
         "LuckyBunny direct": {
-          "signups": 1,
+          "signups": 2,
           "users": 0,
           "revenue": 0.0,
           "advertiser": "LuckyBunny direct"
         },
         "GameTime Digital": {
-          "signups": 2,
+          "signups": 11,
           "users": 0,
           "revenue": 0.0,
           "advertiser": "GameTime Digital"
@@ -2599,18 +2575,18 @@
       },
       "brands": {
         "LuckyBunny direct": {
-          "signups": 1,
+          "signups": 2,
           "users": 0,
           "revenue": 0.0,
           "advertiser": "LuckyBunny direct"
         },
         "LavishLuck": {
-          "signups": 1,
+          "signups": 10,
           "users": 0,
           "revenue": 0.0,
           "advertiser": "GameTime Digital"
         },
-        "LuckyBunny": {
+        "Casinio": {
           "signups": 1,
           "users": 0,
           "revenue": 0.0,
