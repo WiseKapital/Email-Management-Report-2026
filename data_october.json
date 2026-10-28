@@ -527,35 +527,98 @@
     },
     {
       "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "Basher Agency",
+      "brand": "LavishLuck Sweepstakes Casino",
+      "signups": 1,
+      "ftds": 1
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "CHANCED",
+      "brand": "Chanced",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "GameTime Digital",
+      "brand": "Baba",
+      "signups": 3,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 2 / SH",
       "advertiser": "GameTime Digital",
       "brand": "Casinio",
-      "signups": 10,
+      "signups": 13,
       "ftds": 2
     },
     {
       "esp_ip": "SEG (Sendgrid) IP 2 / SH",
       "advertiser": "GameTime Digital",
       "brand": "CrashMania",
-      "signups": 4,
+      "signups": 10,
+      "ftds": 1
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "GameTime Digital",
+      "brand": "Hello Million",
+      "signups": 1,
       "ftds": 0
     },
     {
       "esp_ip": "SEG (Sendgrid) IP 2 / SH",
       "advertiser": "GameTime Digital",
+      "brand": "LavishLuck",
+      "signups": 13,
+      "ftds": 1
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "GameTime Digital",
       "brand": "LuckyBunny",
+      "signups": 8,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "GameTime Digital",
+      "brand": "LuckyZino",
+      "signups": 10,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "GameTime Digital",
+      "brand": "Sweet Sweep",
+      "signups": 2,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "GameTime Digital",
+      "brand": "The Boss",
+      "signups": 5,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "GameTime Digital",
+      "brand": "TitanTreasure",
       "signups": 1,
       "ftds": 0
     },
     {
       "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 2 / SH",
-      "signups": 15,
-      "ftds": 2,
+      "signups": 68,
+      "ftds": 5,
       "is_total": true
     },
     {
       "esp_ip": "OVERALL GRAND TOTAL",
-      "signups": 75,
-      "ftds": 6,
+      "signups": 128,
+      "ftds": 9,
       "is_total": true,
       "is_overall": true
     }
@@ -763,42 +826,105 @@
       },
       {
         "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "Basher Agency",
+        "brand": "LavishLuck Sweepstakes Casino",
+        "signups": 1,
+        "ftds": 1
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "CHANCED",
+        "brand": "Chanced",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "GameTime Digital",
+        "brand": "Baba",
+        "signups": 3,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 2 / SH",
         "advertiser": "GameTime Digital",
         "brand": "Casinio",
-        "signups": 10,
+        "signups": 13,
         "ftds": 2
       },
       {
         "esp_ip": "SEG (Sendgrid) IP 2 / SH",
         "advertiser": "GameTime Digital",
         "brand": "CrashMania",
-        "signups": 4,
+        "signups": 10,
+        "ftds": 1
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "GameTime Digital",
+        "brand": "Hello Million",
+        "signups": 1,
         "ftds": 0
       },
       {
         "esp_ip": "SEG (Sendgrid) IP 2 / SH",
         "advertiser": "GameTime Digital",
+        "brand": "LavishLuck",
+        "signups": 13,
+        "ftds": 1
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "GameTime Digital",
         "brand": "LuckyBunny",
+        "signups": 8,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "GameTime Digital",
+        "brand": "LuckyZino",
+        "signups": 10,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "GameTime Digital",
+        "brand": "Sweet Sweep",
+        "signups": 2,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "GameTime Digital",
+        "brand": "The Boss",
+        "signups": 5,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "GameTime Digital",
+        "brand": "TitanTreasure",
         "signups": 1,
         "ftds": 0
       },
       {
         "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 2 / SH",
-        "signups": 15,
-        "ftds": 2,
+        "signups": 68,
+        "ftds": 5,
         "is_total": true
       },
       {
         "esp_ip": "OVERALL GRAND TOTAL",
-        "signups": 75,
-        "ftds": 6,
+        "signups": 128,
+        "ftds": 9,
         "is_total": true,
         "is_overall": true
       }
     ],
     "overall": {
-      "signups": 75,
-      "ftds": 6
+      "signups": 128,
+      "ftds": 9
     }
   },
   "team_ops_mtd": {
