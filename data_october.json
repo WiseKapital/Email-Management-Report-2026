@@ -1048,9 +1048,9 @@
       "date": "2026-10-07",
       "budget": 30.13,
       "signups": 2,
-      "users": 1,
-      "revenue": 60.0,
-      "profit": 29.87,
+      "users": 0,
+      "revenue": 0,
+      "profit": -30.13,
       "advertisers": {
         "Splash": {
           "signups": 1,
