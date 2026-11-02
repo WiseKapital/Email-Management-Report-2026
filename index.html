@@ -332,11 +332,20 @@
 
     function initDateControls() {
       const todayIso = getTodayIso();
+      let maxDataDate = '0000-01-01';
+      
+      globalLoadedMonths.forEach(m => (m.daily_records || []).forEach(r => {
+        if (r.date > maxDataDate) maxDataDate = r.date;
+      }));
 
-      // Año y mes actual por defecto (desde el primer día del mes hasta hoy)
-      currentStartDate = todayIso.substring(0, 8) + '01';
-      if (currentStartDate < MIN_ALLOWED_DATE) currentStartDate = MIN_ALLOWED_DATE;
-      currentEndDate = todayIso;
+      if (maxDataDate >= MIN_ALLOWED_DATE && maxDataDate <= todayIso) {
+        currentStartDate = maxDataDate.substring(0, 8) + '01';
+        currentEndDate = maxDataDate;
+      } else {
+        currentStartDate = todayIso.substring(0, 8) + '01';
+        if (currentStartDate < MIN_ALLOWED_DATE) currentStartDate = MIN_ALLOWED_DATE;
+        currentEndDate = todayIso;
+      }
 
       calViewYear = parseInt(currentStartDate.substring(0, 4), 10);
       calViewMonth = parseInt(currentStartDate.substring(5, 7), 10) - 1;
@@ -591,7 +600,7 @@
           espIpMap[espIp] = { items: {}, order: [] };
         }
         if (!espIpMap[espIp].items[key]) {
-          espIpMap[espIp] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
+          espIpMap[espIp].items[key] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
           espIpMap[espIp].order.push(key);
         }
         espIpMap[espIp].items[key].signups += (sig || 0);
