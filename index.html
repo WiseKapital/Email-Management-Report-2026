@@ -323,13 +323,7 @@
       for (const p of c) {
         try {
           const r = await fetch(p, { cache: 'no-store' });
-          if (r.ok) { 
-            const d = await r.json(); 
-            if (d && (d.daily_records || d.summary_mtd || d.esp_ip_breakdown)) {
-              if (!d.month) d.month = mKey;
-              return d; 
-            }
-          }
+          if (r.ok) { const d = await r.json(); if (d && (d.daily_records || d.summary_mtd)) return d; }
         } catch(e) {}
       }
       return null;
@@ -338,29 +332,11 @@
 
     function initDateControls() {
       const todayIso = getTodayIso();
-      let maxDataDate = '0000-01-01';
-      
-      globalLoadedMonths.forEach(m => (m.daily_records || []).forEach(r => {
-        if (r.date > maxDataDate) maxDataDate = r.date;
-      }));
 
-      // Si el mes actual de hoy tiene registros en los datos, abre hoy.
-      // Si no tiene registros cargados, abre en el último mes que sí tiene datos (ej. octubre) para que NUNCA aparezca vacío.
-      const currentMonthPrefix = todayIso.substring(0, 7);
-      const hasCurrentMonthData = globalLoadedMonths.some(m => 
-        (m.daily_records || []).some(r => r.date && r.date.startsWith(currentMonthPrefix))
-      );
-
-      if (hasCurrentMonthData) {
-        currentStartDate = currentMonthPrefix + '-01';
-        currentEndDate = todayIso;
-      } else if (maxDataDate >= MIN_ALLOWED_DATE) {
-        currentStartDate = maxDataDate.substring(0, 8) + '01';
-        currentEndDate = maxDataDate;
-      } else {
-        currentStartDate = todayIso.substring(0, 8) + '01';
-        currentEndDate = todayIso;
-      }
+      // Año y mes actual por defecto (desde el primer día del mes hasta hoy)
+      currentStartDate = todayIso.substring(0, 8) + '01';
+      if (currentStartDate < MIN_ALLOWED_DATE) currentStartDate = MIN_ALLOWED_DATE;
+      currentEndDate = todayIso;
 
       calViewYear = parseInt(currentStartDate.substring(0, 4), 10);
       calViewMonth = parseInt(currentStartDate.substring(5, 7), 10) - 1;
@@ -494,7 +470,7 @@
           const sb = parseNum(c[3]);
           const hb = parseNum(c[4]);
           const o = parseNum(c[5]);
-          const cl = parseNum(c[7]);
+          const cl = parseNum(c[7]); // Exactly column 7: 'Click'
           const un = parseNum(c[11]);
 
           const item = map[full];
@@ -587,43 +563,7 @@
       return merged;
     }
 
-    // DISTRIBUCIÓN PROPORCIONAL EXACTA CON TOPE INVIOLABLE
-    function distributeProportionally(items, getWeight, targetTotal) {
-      if (!items || !items.length || targetTotal <= 0) {
-        return (items || []).map(() => 0);
-      }
-      const weights = items.map(it => Math.max(0, getWeight(it) || 0));
-      const totalWeight = weights.reduce((a, b) => a + b, 0);
-
-      if (totalWeight <= 0) {
-        const res = items.map(() => 0);
-        for (let i = 0; i < targetTotal && i < res.length; i++) res[i] = 1;
-        return res;
-      }
-
-      const raw = items.map((it, idx) => {
-        const exact = (weights[idx] / totalWeight) * targetTotal;
-        const whole = Math.floor(exact);
-        const remainder = exact - whole;
-        return { idx, whole, remainder };
-      });
-
-      let allocated = raw.reduce((acc, cur) => acc + cur.whole, 0);
-      let diff = targetTotal - allocated;
-
-      const sortedByRem = [...raw].sort((a, b) => b.remainder - a.remainder);
-      for (let i = 0; i < diff && i < sortedByRem.length; i++) {
-        sortedByRem[i].whole += 1;
-      }
-
-      const result = new Array(items.length);
-      raw.forEach(r => {
-        result[r.idx] = r.whole;
-      });
-      return result;
-    }
-
-    // JSON AGGREGATOR (ESTRICTAMENTE NO SUMA MÁS DE LO LEÍDO EN LOS DATOS)
+    // JSON AGGREGATOR MULTI-MES INTEGRADO
     function aggregateJsonData(s, e) {
       const agg = {
         budget: 0, signups: 0, users: 0, revenue: 0, daysElapsedInRange: 0, totalMonthDays: 0,
@@ -658,29 +598,10 @@
         espIpMap[espIp].items[key].ftds += (ftd || 0);
       }
 
-      function findBrandMetric(rowBrand, rowAdv) {
-        if (!rowBrand) return null;
-        if (agg.brands[rowBrand]) return agg.brands[rowBrand];
-        const rBr = rowBrand.toLowerCase().trim();
-        const rAdv = (rowAdv || '').toLowerCase().trim();
-        for (const [k, v] of Object.entries(agg.brands)) {
-          if (k.toLowerCase().trim() === rBr) return v;
-        }
-        for (const [k, v] of Object.entries(agg.brands)) {
-          const kBr = k.toLowerCase().trim();
-          const vAdv = (v.advertiser || '').toLowerCase().trim();
-          const advMatch = !rAdv || !vAdv || vAdv.includes(rAdv) || rAdv.includes(vAdv);
-          if (advMatch && (kBr.includes(rBr) || rBr.includes(kBr))) {
-            return v;
-          }
-        }
-        return null;
-      }
-
       months.forEach(m => {
         const dailyInRange = (m.daily_records || []).filter(r => r.date >= s && r.date <= e);
+        const hasDailyBreakdown = dailyInRange.some(r => Array.isArray(r.esp_ip_breakdown) && r.esp_ip_breakdown.length > 0);
 
-        // 1. Acumulación real de los datos leídos del JSON
         dailyInRange.forEach(r => {
           agg.daysElapsedInRange++; 
           agg.budget += r.budget || 0; 
@@ -710,50 +631,19 @@
               } 
             });
           }
+
+          if (hasDailyBreakdown && Array.isArray(r.esp_ip_breakdown)) {
+            r.esp_ip_breakdown.forEach(item => {
+              addBreakdownItem(item.esp_ip, item.advertiser, item.brand, item.signups, item.ftds);
+            });
+          }
         });
 
-        // 2. Desglose ESP / IP para este mes
-        const mtdRows = m.esp_ip_breakdown?.by_row || m.esp_mtd_totals || [];
-        const dataRows = mtdRows.filter(r => r && !r.is_total && !r.is_overall && !(r.esp_ip || '').toUpperCase().includes('TOTAL'));
-
-        if (!dataRows.length) return;
-
-        // Total de Signups y Users exactamente leídos en los datos para el período
-        const periodSignups = dailyInRange.reduce((acc, r) => acc + (r.signups || 0), 0);
-        const periodUsers = dailyInRange.reduce((acc, r) => acc + (r.users || 0), 0);
-
-        // Total de la tabla mensual original
-        const monthBreakdownSig = dataRows.reduce((acc, r) => acc + parseNum(r.signups || 0), 0);
-        const monthBreakdownFtd = dataRows.reduce((acc, r) => acc + parseNum(r.ftds || r.users || 0), 0);
-
-        const isFullMonth = dailyInRange.length >= (m.total_days_in_month || 30) || (monthBreakdownSig > 0 && periodSignups === monthBreakdownSig);
-
-        if (isFullMonth) {
-          // Mes completo: carga las cifras originales completas (ej. 134 y 9)
-          dataRows.forEach(row => {
-            addBreakdownItem(row.esp_ip, row.advertiser, row.brand, parseNum(row.signups || 0), parseNum(row.ftds || row.users || 0));
-          });
-        } else if (periodSignups === 0 && periodUsers === 0) {
-          // Si en los datos leídos del rango hay 0, pone 0 (NUNCA SUMA DE MÁS)
-          dataRows.forEach(row => {
-            addBreakdownItem(row.esp_ip, row.advertiser, row.brand, 0, 0);
-          });
-        } else {
-          // Sub-período: distribuye EXACTAMENTE la cantidad de registros leídos en los datos (NO MÁS)
-          const distSig = distributeProportionally(dataRows, row => {
-            const b = findBrandMetric(row.brand, row.advertiser);
-            if (b && b.signups > 0) return b.signups;
-            return parseNum(row.signups || 0);
-          }, periodSignups);
-
-          const distFtd = distributeProportionally(dataRows, row => {
-            const b = findBrandMetric(row.brand, row.advertiser);
-            if (b && b.users > 0) return b.users;
-            return parseNum(row.ftds || row.users || 0);
-          }, periodUsers);
-
-          dataRows.forEach((row, i) => {
-            addBreakdownItem(row.esp_ip, row.advertiser, row.brand, distSig[i], distFtd[i]);
+        if (!hasDailyBreakdown) {
+          const mtdRows = m.esp_ip_breakdown?.by_row || m.esp_mtd_totals || [];
+          mtdRows.forEach(item => {
+            if (item.is_total || item.is_overall) return;
+            addBreakdownItem(item.esp_ip, item.advertiser, item.brand, item.signups, item.ftds);
           });
         }
       });
@@ -765,21 +655,25 @@
         let subSig = 0, subFtd = 0;
         group.order.forEach(k => {
           const row = group.items[k];
-          rows.push(row);
-          subSig += row.signups;
-          subFtd += row.ftds;
+          if (row.signups > 0 || row.ftds > 0) {
+            rows.push(row);
+            subSig += row.signups;
+            subFtd += row.ftds;
+          }
         });
 
-        rows.push({
-          esp_ip: `GRAND TOTAL ${espIp}`,
-          advertiser: '',
-          brand: '',
-          signups: subSig,
-          ftds: subFtd,
-          is_total: true
-        });
-        grandSig += subSig;
-        grandFtd += subFtd;
+        if (subSig > 0 || subFtd > 0) {
+          rows.push({
+            esp_ip: `GRAND TOTAL ${espIp}`,
+            advertiser: '',
+            brand: '',
+            signups: subSig,
+            ftds: subFtd,
+            is_total: true
+          });
+          grandSig += subSig;
+          grandFtd += subFtd;
+        }
       });
 
       if (rows.length > 0) {
@@ -890,6 +784,7 @@
       setT('teamMtdRevenue', `$${Math.round(agg.revenue).toLocaleString()}`);
       setT('teamMtdProfit', `$${Math.round(agg.profit).toLocaleString()}`);
       
+      // Aplicación de color dinámico para RR: verde si es mayor o igual al KPI, rojo si es menor (incluyendo budget)
       const setRrCell = (id, text, rrVal, kpiVal) => {
         const el = $(id);
         if (!el) return;
