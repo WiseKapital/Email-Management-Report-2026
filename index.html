@@ -314,11 +314,6 @@
     const formatS2P = (s, u) => u > 0 ? (s === 0 ? '0:1' : `1:${Math.round(s/u)}`) : (s > 0 ? `0:${s}` : '0:0');
     const isoToDisplay = s => s ? `${s.split('-')[1]}/${s.split('-')[2]}/${s.split('-')[0]}` : '';
 
-    const parseIsoDate = s => {
-      const [y, m, d] = s.split('-').map(Number);
-      return new Date(y, m - 1, d, 12, 0, 0);
-    };
-
     async function fetchMonthFile(mKey) {
       const capKey = mKey.charAt(0).toUpperCase() + mKey.slice(1);
       const ts = Date.now(), c = [
@@ -328,13 +323,7 @@
       for (const p of c) {
         try {
           const r = await fetch(p, { cache: 'no-store' });
-          if (r.ok) { 
-            const d = await r.json(); 
-            if (d && (d.daily_records || d.summary_mtd)) {
-              d._monthKey = mKey;
-              return d; 
-            }
-          }
+          if (r.ok) { const d = await r.json(); if (d && (d.daily_records || d.summary_mtd)) return d; }
         } catch(e) {}
       }
       return null;
@@ -490,7 +479,7 @@
           const sb = parseNum(c[3]);
           const hb = parseNum(c[4]);
           const o = parseNum(c[5]);
-          const cl = parseNum(c[7]);
+          const cl = parseNum(c[7]); // Exactly column 7: 'Click'
           const un = parseNum(c[11]);
 
           const item = map[full];
@@ -583,7 +572,7 @@
       return merged;
     }
 
-    // JSON AGGREGATOR MULTI-MES INTEGRADO (ESTIMACIÓN LINEAL BASADA EN CALENDARIO COMPLETO)
+    // JSON AGGREGATOR MULTI-MES INTEGRADO
     function aggregateJsonData(s, e) {
       const agg = {
         budget: 0, signups: 0, users: 0, revenue: 0, daysElapsedInRange: 0, totalMonthDays: 0,
@@ -600,7 +589,7 @@
 
       const espIpMap = {};
 
-      function addBreakdownItem(espIpRaw, advRaw, brRaw, sig, ftd, hasBase = false) {
+      function addBreakdownItem(espIpRaw, advRaw, brRaw, sig, ftd) {
         const espIp = (espIpRaw || 'Other').trim();
         const adv = (advRaw || '-').trim();
         const br = (brRaw || '-').trim();
@@ -611,20 +600,15 @@
           espIpMap[espIp] = { items: {}, order: [] };
         }
         if (!espIpMap[espIp].items[key]) {
-          espIpMap[espIp].items[key] = { 
-            esp_ip: espIp, advertiser: adv, brand: br, 
-            signups: 0, ftds: 0, hasBase: hasBase 
-          };
+          espIpMap[espIp].items[key] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
           espIpMap[espIp].order.push(key);
         }
         espIpMap[espIp].items[key].signups += (sig || 0);
         espIpMap[espIp].items[key].ftds += (ftd || 0);
-        if (hasBase) espIpMap[espIp].items[key].hasBase = true;
       }
 
       months.forEach(m => {
-        const allRecords = m.daily_records || [];
-        const dailyInRange = allRecords.filter(r => r.date >= s && r.date <= e);
+        const dailyInRange = (m.daily_records || []).filter(r => r.date >= s && r.date <= e);
         const hasDailyBreakdown = dailyInRange.some(r => Array.isArray(r.esp_ip_breakdown) && r.esp_ip_breakdown.length > 0);
 
         dailyInRange.forEach(r => {
@@ -659,54 +643,16 @@
 
           if (hasDailyBreakdown && Array.isArray(r.esp_ip_breakdown)) {
             r.esp_ip_breakdown.forEach(item => {
-              addBreakdownItem(item.esp_ip, item.advertiser, item.brand, item.signups, item.ftds, true);
+              addBreakdownItem(item.esp_ip, item.advertiser, item.brand, item.signups, item.ftds);
             });
           }
         });
 
-        // ESTIMACIÓN PROPORCIONAL EXACTA CUANDO NO HAY DESGLOSE DIARIO
         if (!hasDailyBreakdown) {
-          let mYear = 2026, mMonth = 8;
-          if (allRecords.length > 0 && allRecords[0].date) {
-            const p = allRecords[0].date.split('-');
-            mYear = parseInt(p[0], 10);
-            mMonth = parseInt(p[1], 10) - 1;
-          } else if (m._monthKey) {
-            mMonth = MONTH_KEYS.indexOf(m._monthKey);
-          }
-
-          // Días totales que tiene este mes según calendario
-          const totalDays = m.total_days_in_month || new Date(mYear, mMonth + 1, 0).getDate();
-
-          // Días del filtro que caen exactamente dentro de este mes
-          const mStart = new Date(mYear, mMonth, 1, 12, 0, 0);
-          const mEnd = new Date(mYear, mMonth, totalDays, 12, 0, 0);
-          const fStart = parseIsoDate(s);
-          const fEnd = parseIsoDate(e);
-
-          const oStart = Math.max(mStart.getTime(), fStart.getTime());
-          const oEnd = Math.min(mEnd.getTime(), fEnd.getTime());
-
-          let daysSelected = 0;
-          if (oStart <= oEnd) {
-            daysSelected = Math.round((oEnd - oStart) / (1000 * 60 * 60 * 24)) + 1;
-          }
-
-          // Ratio progresivo: exactamente la proporción de días transcurridos
-          let ratio = Math.min(1, Math.max(0, daysSelected / totalDays));
-
           const mtdRows = m.esp_ip_breakdown?.by_row || m.esp_mtd_totals || [];
           mtdRows.forEach(item => {
             if (item.is_total || item.is_overall) return;
-
-            const baseSig = item.signups || 0;
-            const baseFtd = item.ftds || 0;
-
-            // Al 100% (fin de mes), entrega exactamente el valor base sin redondeos
-            const estSig = ratio >= 1 ? baseSig : Math.min(baseSig, Math.round(baseSig * ratio));
-            const estFtd = ratio >= 1 ? baseFtd : Math.min(baseFtd, Math.round(baseFtd * ratio));
-
-            addBreakdownItem(item.esp_ip, item.advertiser, item.brand, estSig, estFtd, (baseSig > 0 || baseFtd > 0));
+            addBreakdownItem(item.esp_ip, item.advertiser, item.brand, item.signups, item.ftds);
           });
         }
       });
@@ -718,14 +664,14 @@
         let subSig = 0, subFtd = 0;
         group.order.forEach(k => {
           const row = group.items[k];
-          if (row.signups > 0 || row.ftds > 0 || row.hasBase) {
+          if (row.signups > 0 || row.ftds > 0) {
             rows.push(row);
             subSig += row.signups;
             subFtd += row.ftds;
           }
         });
 
-        if (subSig > 0 || subFtd > 0 || group.order.length > 0) {
+        if (subSig > 0 || subFtd > 0) {
           rows.push({
             esp_ip: `GRAND TOTAL ${espIp}`,
             advertiser: '',
@@ -847,6 +793,7 @@
       setT('teamMtdRevenue', `$${Math.round(agg.revenue).toLocaleString()}`);
       setT('teamMtdProfit', `$${Math.round(agg.profit).toLocaleString()}`);
       
+      // Aplicación de color dinámico para RR: verde si es mayor o igual al KPI, rojo si es menor (incluyendo budget)
       const setRrCell = (id, text, rrVal, kpiVal) => {
         const el = $(id);
         if (!el) return;
@@ -993,16 +940,7 @@
       btn.querySelector('.sort-icon').textContent = dir === 'desc' ? '▼' : '▲';
       rows.sort((a, b) => {
         const vA = a.children[col].innerText.trim(), vB = b.children[col].innerText.trim();
-        let numA = 0, numB = 0;
-        if (type === 'ratio') {
-          const pA = vA.split(':').map(n => parseFloat(n) || 0);
-          const pB = vB.split(':').map(n => parseFloat(n) || 0);
-          numA = pA[1] > 0 ? (pA[0] / pA[1]) : (pA[0] || 0);
-          numB = pB[1] > 0 ? (pB[0] / pB[1]) : (pB[0] || 0);
-        } else {
-          numA = parseFloat(vA.replace(/[^0-9.-]/g, '')) || 0;
-          numB = parseFloat(vB.replace(/[^0-9.-]/g, '')) || 0;
-        }
+        const numA = parseFloat(vA.replace(/[^0-9.-]/g, '')) || 0, numB = parseFloat(vB.replace(/[^0-9.-]/g, '')) || 0;
         return dir === 'desc' ? (numB - numA) : (numA - numB);
       });
       tbody.innerHTML = ''; rows.forEach(r => tbody.appendChild(r));
