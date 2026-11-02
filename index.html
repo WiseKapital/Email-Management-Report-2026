@@ -479,7 +479,7 @@
           const sb = parseNum(c[3]);
           const hb = parseNum(c[4]);
           const o = parseNum(c[5]);
-          const cl = parseNum(c[7]); // Exactly column 7: 'Click'
+          const cl = parseNum(c[7]);
           const un = parseNum(c[11]);
 
           const item = map[full];
@@ -572,7 +572,7 @@
       return merged;
     }
 
-    // JSON AGGREGATOR MULTI-MES INTEGRADO
+    // JSON AGGREGATOR MULTI-MES INTEGRADO (CON ESTIMACIÓN PROPORCIONAL CORREGIDA)
     function aggregateJsonData(s, e) {
       const agg = {
         budget: 0, signups: 0, users: 0, revenue: 0, daysElapsedInRange: 0, totalMonthDays: 0,
@@ -608,7 +608,8 @@
       }
 
       months.forEach(m => {
-        const dailyInRange = (m.daily_records || []).filter(r => r.date >= s && r.date <= e);
+        const allRecords = m.daily_records || [];
+        const dailyInRange = allRecords.filter(r => r.date >= s && r.date <= e);
         const hasDailyBreakdown = dailyInRange.some(r => Array.isArray(r.esp_ip_breakdown) && r.esp_ip_breakdown.length > 0);
 
         dailyInRange.forEach(r => {
@@ -648,11 +649,45 @@
           }
         });
 
+        // ESTIMACIÓN DINÁMICA SI NO EXISTE DESGLOSE DÍA A DÍA
         if (!hasDailyBreakdown) {
+          // 1. Totales de mes completo en registros diarios
+          const totalMonthSignups = allRecords.reduce((sum, r) => sum + (r.signups || 0), 0);
+          const totalMonthUsers = allRecords.reduce((sum, r) => sum + (r.users || 0), 0);
+
+          // 2. Totales sumados en el rango filtrado
+          const rangeSignups = dailyInRange.reduce((sum, r) => sum + (r.signups || 0), 0);
+          const rangeUsers = dailyInRange.reduce((sum, r) => sum + (r.users || 0), 0);
+
+          // 3. Fallback de ratio por días
+          const totalDays = m.total_days_in_month || (allRecords.length > 0 ? allRecords.length : 30);
+          let daysSelected = dailyInRange.length;
+          if (daysSelected === 0) {
+            const dStart = new Date(s), dEnd = new Date(e);
+            daysSelected = Math.max(1, Math.round((dEnd - dStart) / (1000 * 60 * 60 * 24)) + 1);
+          }
+          const ratioDays = Math.min(1, Math.max(0, daysSelected / Math.max(1, totalDays)));
+
+          // 4. Factor de escala: utiliza actividad de registros/usuarios si está disponible, o ratio de días
+          let ratioSig = totalMonthSignups > 0 ? (rangeSignups / totalMonthSignups) : ratioDays;
+          let ratioFtd = totalMonthUsers > 0 ? (rangeUsers / totalMonthUsers) : ratioDays;
+
+          // Regla de seguridad: nunca mayor a 1.0 (100%) ni menor a 0
+          ratioSig = Math.min(1, Math.max(0, ratioSig));
+          ratioFtd = Math.min(1, Math.max(0, ratioFtd));
+
           const mtdRows = m.esp_ip_breakdown?.by_row || m.esp_mtd_totals || [];
           mtdRows.forEach(item => {
             if (item.is_total || item.is_overall) return;
-            addBreakdownItem(item.esp_ip, item.advertiser, item.brand, item.signups, item.ftds);
+
+            const baseSig = item.signups || 0;
+            const baseFtd = item.ftds || 0;
+
+            // Estimación proporcional asegurando que jamás supere el valor base
+            const estSig = Math.min(baseSig, Math.round(baseSig * ratioSig));
+            const estFtd = Math.min(baseFtd, Math.round(baseFtd * ratioFtd));
+
+            addBreakdownItem(item.esp_ip, item.advertiser, item.brand, estSig, estFtd);
           });
         }
       });
@@ -793,7 +828,6 @@
       setT('teamMtdRevenue', `$${Math.round(agg.revenue).toLocaleString()}`);
       setT('teamMtdProfit', `$${Math.round(agg.profit).toLocaleString()}`);
       
-      // Aplicación de color dinámico para RR: verde si es mayor o igual al KPI, rojo si es menor (incluyendo budget)
       const setRrCell = (id, text, rrVal, kpiVal) => {
         const el = $(id);
         if (!el) return;
@@ -932,6 +966,7 @@
       chartRefs.domClicks.data.datasets[0].data = ['Gmail','Other','Yahoo','iCloud','Outlook','Aol','Hotmail'].map(d => dCl[d]); chartRefs.domClicks.update();
     }
 
+    // ORDENAMIENTO COMPATIBLE CON FORMATOS NUM, CURRENCY Y RATIO (1:X)
     function sortTable(tableId, col, btn, type) {
       const tbody = $(tableId).querySelector('tbody'); if (!tbody) return;
       const rows = Array.from(tbody.querySelectorAll('tr')), dir = (tableSortDirections[tableId]?.[col] === 'desc') ? 'asc' : 'desc';
@@ -940,7 +975,16 @@
       btn.querySelector('.sort-icon').textContent = dir === 'desc' ? '▼' : '▲';
       rows.sort((a, b) => {
         const vA = a.children[col].innerText.trim(), vB = b.children[col].innerText.trim();
-        const numA = parseFloat(vA.replace(/[^0-9.-]/g, '')) || 0, numB = parseFloat(vB.replace(/[^0-9.-]/g, '')) || 0;
+        let numA = 0, numB = 0;
+        if (type === 'ratio') {
+          const pA = vA.split(':').map(n => parseFloat(n) || 0);
+          const pB = vB.split(':').map(n => parseFloat(n) || 0);
+          numA = pA[1] > 0 ? (pA[0] / pA[1]) : (pA[0] || 0);
+          numB = pB[1] > 0 ? (pB[0] / pB[1]) : (pB[0] || 0);
+        } else {
+          numA = parseFloat(vA.replace(/[^0-9.-]/g, '')) || 0;
+          numB = parseFloat(vB.replace(/[^0-9.-]/g, '')) || 0;
+        }
         return dir === 'desc' ? (numB - numA) : (numA - numB);
       });
       tbody.innerHTML = ''; rows.forEach(r => tbody.appendChild(r));
