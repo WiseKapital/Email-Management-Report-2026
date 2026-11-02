@@ -305,6 +305,10 @@
     const initialTableState = {}, tableSortDirections = {}, csvCache = {};
 
     const MIN_ALLOWED_DATE = '2026-07-01';
+    const START_YEAR = 2026;
+
+    // Detectar el año actual en tiempo real
+    const getCurrentYear = () => new Date().getFullYear();
 
     const getTodayIso = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; };
     
@@ -314,21 +318,71 @@
     const formatS2P = (s, u) => u > 0 ? (s === 0 ? '0:1' : `1:${Math.round(s/u)}`) : (s > 0 ? `0:${s}` : '0:0');
     const isoToDisplay = s => s ? `${s.split('-')[1]}/${s.split('-')[2]}/${s.split('-')[0]}` : '';
 
-    async function fetchMonthFile(mKey) {
+    // Cargar JSON por mes y año dinámico
+    async function fetchMonthFile(mKey, year = getCurrentYear()) {
       const capKey = mKey.charAt(0).toUpperCase() + mKey.slice(1);
-      const ts = Date.now(), c = [
-        `data_${mKey}.json?t=${ts}`, `./data_${mKey}.json?t=${ts}`, `data/data_${mKey}.json?t=${ts}`,
-        `data_${capKey}.json?t=${ts}`, `./data_${capKey}.json?t=${ts}`, `data/data_${capKey}.json?t=${ts}`
+      const ts = Date.now();
+      
+      const candidatePaths = [
+        // 1. Prioridad: carpeta del año detectado (ej: 2026/data_november.json)
+        `${year}/data_${mKey}.json?t=${ts}`,
+        `./${year}/data_${mKey}.json?t=${ts}`,
+        `${year}/data_${capKey}.json?t=${ts}`,
+        `./${year}/data_${capKey}.json?t=${ts}`,
+        `${year}/data/data_${mKey}.json?t=${ts}`,
+        `./${year}/data/data_${mKey}.json?t=${ts}`,
+        
+        // 2. Fallbacks de compatibilidad en la raíz
+        `data_${mKey}.json?t=${ts}`,
+        `./data_${mKey}.json?t=${ts}`,
+        `data/data_${mKey}.json?t=${ts}`,
+        `data_${capKey}.json?t=${ts}`,
+        `./data_${capKey}.json?t=${ts}`
       ];
-      for (const p of c) {
+
+      for (const p of candidatePaths) {
         try {
           const r = await fetch(p, { cache: 'no-store' });
-          if (r.ok) { const d = await r.json(); if (d && (d.daily_records || d.summary_mtd)) return d; }
+          if (r.ok) {
+            const d = await r.json();
+            if (d && (d.daily_records || d.summary_mtd)) return d;
+          }
         } catch(e) {}
       }
       return null;
     }
-    const loadAllMonths = async () => (await Promise.all(MONTH_KEYS.map(fetchMonthFile))).filter(Boolean);
+
+    // Escanear todos los meses desde 2026 hasta el año detectado actual
+    async function loadAllMonths() {
+      const currentYear = getCurrentYear();
+      const years = [];
+      for (let y = START_YEAR; y <= Math.max(START_YEAR, currentYear); y++) {
+        years.push(y);
+      }
+
+      const promises = [];
+      for (const y of years) {
+        for (const mKey of MONTH_KEYS) {
+          promises.push(fetchMonthFile(mKey, y));
+        }
+      }
+
+      const results = await Promise.all(promises);
+      const valid = results.filter(Boolean);
+
+      // Deduplicar meses en caso de responder por fallback de raíz
+      const seenKeys = new Set();
+      const uniqueMonths = [];
+      valid.forEach(m => {
+        const key = (m.daily_records || []).map(r => r.date).join('|') || m.month || JSON.stringify(m.kpis || {});
+        if (!seenKeys.has(key)) {
+          seenKeys.add(key);
+          uniqueMonths.push(m);
+        }
+      });
+
+      return uniqueMonths;
+    }
 
     function initDateControls() {
       const todayIso = getTodayIso();
@@ -479,7 +533,7 @@
           const sb = parseNum(c[3]);
           const hb = parseNum(c[4]);
           const o = parseNum(c[5]);
-          const cl = parseNum(c[7]); // Exactly column 7: 'Click'
+          const cl = parseNum(c[7]);
           const un = parseNum(c[11]);
 
           const item = map[full];
@@ -493,8 +547,9 @@
       return Object.keys(map).length > 0 ? map : null;
     }
 
-    async function fetchCsvDay(m, d) {
-      const k = `${m}/${d}`;
+    // LECTURA DINÁMICA DE CSVS: {AÑO}/maildata/maildata_{mes}/{dia}.csv
+    async function fetchCsvDay(m, d, y = getCurrentYear()) {
+      const k = `${y}/${m}/${d}`;
       if (csvCache[k]) return csvCache[k];
       
       const capM = m.charAt(0).toUpperCase() + m.slice(1);
@@ -502,6 +557,37 @@
       const ts = Date.now();
       
       const candidatePaths = [
+        // 1. Prioridad exacta solicitada: {AÑO}/maildata/maildata_{mes}/{dia}.csv (ej: 2026/maildata/maildata_october/01.csv)
+        `${y}/maildata/maildata_${m}/${d}.csv`,
+        `./${y}/maildata/maildata_${m}/${d}.csv`,
+        `${y}/maildata/maildata_${m}/${dNum}.csv`,
+        `./${y}/maildata/maildata_${m}/${dNum}.csv`,
+        `${y}/maildata/maildata_${capM}/${d}.csv`,
+        `./${y}/maildata/maildata_${capM}/${d}.csv`,
+        `${y}/maildata/maildata_${capM}/${dNum}.csv`,
+        `./${y}/maildata/maildata_${capM}/${dNum}.csv`,
+
+        // 2. Variante directa: {AÑO}/maildata/{mes}/{dia}.csv (si la subcarpeta es solo el nombre del mes)
+        `${y}/maildata/${m}/${d}.csv`,
+        `./${y}/maildata/${m}/${d}.csv`,
+        `${y}/maildata/${m}/${dNum}.csv`,
+        `./${y}/maildata/${m}/${dNum}.csv`,
+        `${y}/maildata/${capM}/${d}.csv`,
+        `./${y}/maildata/${capM}/${d}.csv`,
+        `${y}/maildata/${capM}/${dNum}.csv`,
+        `./${y}/maildata/${capM}/${dNum}.csv`,
+
+        // 3. Fallbacks: {AÑO}/maildata_{mes}/ (sin subcarpeta maildata)
+        `${y}/maildata_${m}/${d}.csv`,
+        `./${y}/maildata_${m}/${d}.csv`,
+        `${y}/maildata_${m}/${dNum}.csv`,
+        `./${y}/maildata_${m}/${dNum}.csv`,
+        `${y}/maildata_${capM}/${d}.csv`,
+        `./${y}/maildata_${capM}/${d}.csv`,
+
+        // 4. Fallbacks en raíz por compatibilidad
+        `maildata/maildata_${m}/${d}.csv`,
+        `./maildata/maildata_${m}/${d}.csv`,
         `maildata_${m}/${d}.csv`,
         `./maildata_${m}/${d}.csv`,
         `maildata_${m}/${dNum}.csv`,
@@ -542,13 +628,14 @@
       
       while (cur <= end) {
         dates.push({ 
+          y: cur.getFullYear(), // Extrae el año exacto de cada día consultado
           m: MONTH_KEYS[cur.getMonth()], 
           d: String(cur.getDate()).padStart(2, '0') 
         });
         cur.setDate(cur.getDate() + 1);
       }
       
-      const days = await Promise.all(dates.map(x => fetchCsvDay(x.m, x.d)));
+      const days = await Promise.all(dates.map(x => fetchCsvDay(x.m, x.d, x.y)));
       const validDays = days.filter(Boolean);
       const loadedCount = validDays.length;
       const expectedCount = dates.length;
@@ -793,7 +880,6 @@
       setT('teamMtdRevenue', `$${Math.round(agg.revenue).toLocaleString()}`);
       setT('teamMtdProfit', `$${Math.round(agg.profit).toLocaleString()}`);
       
-      // Aplicación de color dinámico para RR: verde si es mayor o igual al KPI, rojo si es menor (incluyendo budget)
       const setRrCell = (id, text, rrVal, kpiVal) => {
         const el = $(id);
         if (!el) return;
