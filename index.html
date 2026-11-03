@@ -56,7 +56,7 @@
           <div id="customCalendarPopup" class="hidden absolute top-12 left-0 z-50 w-72 bg-white rounded-[22px] p-5 shadow-2xl border border-slate-100 transition-all select-none">
             <div class="flex items-center justify-between mb-4">
               <button type="button" onclick="navigateMonth(-1)" class="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg></button>
-              <span id="calHeaderTitle" class="text-xs font-extrabold text-[#0f172a] uppercase tracking-wider">SEPTEMBER 2026</span>
+              <span id="calHeaderTitle" class="text-xs font-extrabold text-[#0f172a] uppercase tracking-wider">-- ----</span>
               <button type="button" id="calNextBtn" onclick="navigateMonth(1)" class="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg></button>
             </div>
             <div class="grid grid-cols-7 gap-1 text-center mb-2 text-[11px] font-extrabold text-slate-800"><span>MO</span><span>TU</span><span>WE</span><span>TH</span><span>FR</span><span>SA</span><span>SU</span></div>
@@ -310,10 +310,18 @@
     // Detectar el año actual en tiempo real
     const getCurrentYear = () => new Date().getFullYear();
 
-    const getTodayIso = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; };
+    const getTodayIso = () => { 
+      const d = new Date(); 
+      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; 
+    };
     
-    let currentStartDate = '2026-09-01', currentEndDate = '2026-09-30';
-    let activeCalTarget = 'from', calViewYear = 2026, calViewMonth = 8;
+    // Inicialización dinámica: siempre inicia en el mes y día actual
+    const _initToday = getTodayIso();
+    let currentStartDate = _initToday.substring(0, 8) + '01';
+    let currentEndDate = _initToday;
+    let activeCalTarget = 'from';
+    let calViewYear = new Date().getFullYear();
+    let calViewMonth = new Date().getMonth();
 
     const formatS2P = (s, u) => u > 0 ? (s === 0 ? '0:1' : `1:${Math.round(s/u)}`) : (s > 0 ? `0:${s}` : '0:0');
     const isoToDisplay = s => s ? `${s.split('-')[1]}/${s.split('-')[2]}/${s.split('-')[0]}` : '';
@@ -324,15 +332,12 @@
       const ts = Date.now();
       
       const candidatePaths = [
-        // 1. Prioridad: carpeta del año detectado (ej: 2026/data_november.json)
         `${year}/data_${mKey}.json?t=${ts}`,
         `./${year}/data_${mKey}.json?t=${ts}`,
         `${year}/data_${capKey}.json?t=${ts}`,
         `./${year}/data_${capKey}.json?t=${ts}`,
         `${year}/data/data_${mKey}.json?t=${ts}`,
         `./${year}/data/data_${mKey}.json?t=${ts}`,
-        
-        // 2. Fallbacks de compatibilidad en la raíz
         `data_${mKey}.json?t=${ts}`,
         `./data_${mKey}.json?t=${ts}`,
         `data/data_${mKey}.json?t=${ts}`,
@@ -370,7 +375,6 @@
       const results = await Promise.all(promises);
       const valid = results.filter(Boolean);
 
-      // Deduplicar meses en caso de responder por fallback de raíz
       const seenKeys = new Set();
       const uniqueMonths = [];
       valid.forEach(m => {
@@ -384,28 +388,19 @@
       return uniqueMonths;
     }
 
+    // Por defecto siempre establece el mes y día actual
     function initDateControls() {
       const todayIso = getTodayIso();
-      let maxDataDate = '0000-01-01';
-      
-      globalLoadedMonths.forEach(m => (m.daily_records || []).forEach(r => {
-        if (r.date > maxDataDate) maxDataDate = r.date;
-      }));
+      currentStartDate = todayIso.substring(0, 8) + '01';
+      if (currentStartDate < MIN_ALLOWED_DATE) currentStartDate = MIN_ALLOWED_DATE;
+      currentEndDate = todayIso;
 
-      if (maxDataDate >= MIN_ALLOWED_DATE && maxDataDate <= todayIso) {
-        currentStartDate = maxDataDate.substring(0, 8) + '01';
-        currentEndDate = maxDataDate;
-      } else {
-        currentStartDate = todayIso.substring(0, 8) + '01';
-        if (currentStartDate < MIN_ALLOWED_DATE) currentStartDate = MIN_ALLOWED_DATE;
-        currentEndDate = todayIso;
-      }
-
-      calViewYear = parseInt(currentStartDate.substring(0, 4), 10);
-      calViewMonth = parseInt(currentStartDate.substring(5, 7), 10) - 1;
+      calViewYear = parseInt(currentEndDate.substring(0, 4), 10);
+      calViewMonth = parseInt(currentEndDate.substring(5, 7), 10) - 1;
 
       setT('fromDisplay', isoToDisplay(currentStartDate));
       setT('toDisplay', isoToDisplay(currentEndDate));
+      setT('calHeaderTitle', `${MONTH_NAMES[calViewMonth]} ${calViewYear}`);
     }
 
     function toggleCustomCalendar(target) {
@@ -557,7 +552,6 @@
       const ts = Date.now();
       
       const candidatePaths = [
-        // 1. Prioridad exacta solicitada: {AÑO}/maildata/maildata_{mes}/{dia}.csv (ej: 2026/maildata/maildata_october/01.csv)
         `${y}/maildata/maildata_${m}/${d}.csv`,
         `./${y}/maildata/maildata_${m}/${d}.csv`,
         `${y}/maildata/maildata_${m}/${dNum}.csv`,
@@ -566,8 +560,6 @@
         `./${y}/maildata/maildata_${capM}/${d}.csv`,
         `${y}/maildata/maildata_${capM}/${dNum}.csv`,
         `./${y}/maildata/maildata_${capM}/${dNum}.csv`,
-
-        // 2. Variante directa: {AÑO}/maildata/{mes}/{dia}.csv (si la subcarpeta es solo el nombre del mes)
         `${y}/maildata/${m}/${d}.csv`,
         `./${y}/maildata/${m}/${d}.csv`,
         `${y}/maildata/${m}/${dNum}.csv`,
@@ -576,16 +568,12 @@
         `./${y}/maildata/${capM}/${d}.csv`,
         `${y}/maildata/${capM}/${dNum}.csv`,
         `./${y}/maildata/${capM}/${dNum}.csv`,
-
-        // 3. Fallbacks: {AÑO}/maildata_{mes}/ (sin subcarpeta maildata)
         `${y}/maildata_${m}/${d}.csv`,
         `./${y}/maildata_${m}/${d}.csv`,
         `${y}/maildata_${m}/${dNum}.csv`,
         `./${y}/maildata_${m}/${dNum}.csv`,
         `${y}/maildata_${capM}/${d}.csv`,
         `./${y}/maildata_${capM}/${d}.csv`,
-
-        // 4. Fallbacks en raíz por compatibilidad
         `maildata/maildata_${m}/${d}.csv`,
         `./maildata/maildata_${m}/${d}.csv`,
         `maildata_${m}/${d}.csv`,
@@ -628,7 +616,7 @@
       
       while (cur <= end) {
         dates.push({ 
-          y: cur.getFullYear(), // Extrae el año exacto de cada día consultado
+          y: cur.getFullYear(),
           m: MONTH_KEYS[cur.getMonth()], 
           d: String(cur.getDate()).padStart(2, '0') 
         });
@@ -671,7 +659,7 @@
       const months = globalLoadedMonths.filter(m => (m.daily_records || []).some(r => r.date >= s && r.date <= e));
       months.forEach(m => {
         if (m.kpis) { ['budget','signups','users','revenue','profit'].forEach(k => agg.kpi[k] += (m.kpis[k] || 0)); }
-        agg.totalMonthDays += (m.total_days_in_month || 30);
+        agg.totalMonthDays += (m.total_days_in_month || 0);
       });
 
       const espIpMap = {};
@@ -865,7 +853,20 @@
     }
 
     function renderDashboard(agg, s, e) {
-      const rrF = agg.totalMonthDays > 0 ? (agg.totalMonthDays / Math.max(1, agg.daysElapsedInRange)) : 1;
+      // CÁLCULO PRECISO DEL RUN-RATE SEGÚN EL DÍA DEL MES / RANGO SELECCIONADO
+      const [sy, sm, sd] = s.split('-').map(Number);
+      const [ey, em, ed] = e.split('-').map(Number);
+      
+      // Días totales del mes correspondiente a la fecha final (ej: Noviembre = 30)
+      const daysInEndMonth = new Date(ey, em, 0).getDate();
+      const totalMonthDays = agg.totalMonthDays > 0 ? agg.totalMonthDays : daysInEndMonth;
+
+      // Si el rango es desde el día 1 en el mismo mes, los días transcurridos son exactamente 'ed' (el día actual)
+      let elapsedDays = (sy === ey && sm === em && sd === 1)
+        ? ed
+        : Math.max(1, Math.round((new Date(ey, em - 1, ed) - new Date(sy, sm - 1, sd)) / (1000 * 60 * 60 * 24)) + 1);
+
+      const rrF = elapsedDays > 0 ? (totalMonthDays / elapsedDays) : 1;
       const [rrB, rrS, rrU, rrR, rrP] = [agg.budget, agg.signups, agg.users, agg.revenue, agg.profit].map(v => Math.round(v * rrF));
 
       // Team Table
@@ -957,7 +958,8 @@
     }
 
     function renderOpsTeam(ops, rrF, kpi) {
-      const regKpi = Math.round(kpi.signups/2), userKpi = Math.round(kpi.users/2);
+      const regKpi = Math.round(kpi.signups/2) || 250;
+      const userKpi = Math.round(kpi.users/2) || 20;
       ['jessie','andrea'].forEach(p => {
         setT(`${p}KpiReg`, regKpi); setT(`${p}KpiUsers`, userKpi);
         setT(`${p}RegMtd`, ops[p].signups); setT(`${p}UsersMtd`, ops[p].users);
@@ -983,7 +985,7 @@
         aTb.innerHTML += `<tr class="hover:bg-slate-50 bg-white"><td class="py-2.5 px-4 text-left font-medium">${name}</td><td class="py-2.5 px-4 font-mono font-bold text-amber-600">${d.signups}</td><td class="py-2.5 px-4 font-mono font-bold text-indigo-600">${d.users}</td><td class="py-2.5 px-4 font-mono font-bold text-emerald-600">$${Math.round(d.revenue).toLocaleString()}</td><td class="py-2.5 px-4 font-mono">${formatS2P(d.signups, d.users)}</td></tr>`;
       });
       Object.entries(agg.brands).sort((a,b) => b[1].revenue - a[1].revenue).forEach(([bName, d]) => {
-        bTb.innerHTML += `<tr class="hover:bg-slate-50 bg-white"><td class="py-2 px-4 text-left">${bName}</td><td class="py-2 px-4 text-left font-medium">${d.advertiser}</td><td class="py-2 px-4 font-mono font-bold text-amber-600">${d.signups}</td><td class="py-2 px-4 font-mono font-bold text-indigo-600">${d.users}</td><td class="py-2 px-4 font-mono font-bold text-emerald-600">$${Math.round(d.revenue).toLocaleString()}</td><td class="py-2 px-4 font-mono">${formatS2P(d.signups, d.users)}</td></tr>`;
+        bTb.innerHTML += `<tr class="hover:bg-slate-50 bg-white"><td class="py-2 px-4 text-left">${bName}</td><td class="py-2 px-4 text-left font-medium">${d.advertiser}</td><td class="py-2 px-4 font-mono font-bold text-amber-600">${d.signups}</td><td class="py-2 px-4 font-mono font-bold text-indigo-600">${d.users}</td><td class="py-2.5 px-4 font-mono font-bold text-emerald-600">$${Math.round(d.revenue).toLocaleString()}</td><td class="py-2.5 px-4 font-mono">${formatS2P(d.signups, d.users)}</td></tr>`;
       });
       ['adv','brand'].forEach(p => {
         setT(`${p}GrandSignups`, agg.signups); setT(`${p}GrandUsers`, agg.users);
