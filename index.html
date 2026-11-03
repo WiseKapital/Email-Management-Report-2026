@@ -110,7 +110,18 @@
       <section class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 xl:grid-cols-10 gap-3 text-xs">
         <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Delivered</p><p id="kpiDelivered" class="text-xl font-bold text-slate-900 mt-1">0</p><span class="text-[10px] text-slate-400 mt-1">Filtered sent</span></div>
         <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Open</p><p id="kpiOpened" class="text-xl font-bold text-emerald-700 mt-1">0</p><span id="kpiOpenRate" class="text-[10px] font-semibold text-emerald-600 mt-1">0.00% Open Rate</span></div>
-        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Click</p><p id="kpiClicked" class="text-xl font-bold text-sky-700 mt-1">0</p><span id="kpiClickRate" class="text-[10px] font-semibold text-sky-600 mt-1">0.00% Click Rate</span></div>
+        
+        <!-- TARJETA CLICK ACTUALIZADA CON RUN-RATE -->
+        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <p class="text-[11px] font-semibold text-slate-500 uppercase">Click</p>
+          <p id="kpiClicked" class="text-xl font-bold text-sky-700 mt-1">0</p>
+          <div class="flex items-center gap-1 mt-1 text-[10px]">
+            <span id="kpiClickRate" class="font-semibold text-sky-600">0.00% Click Rate</span>
+            <span class="text-slate-300">•</span>
+            <span id="cardRrClicksSub" class="font-bold text-slate-900">RR: 0</span>
+          </div>
+        </div>
+
         <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Bounced</p><p id="kpiBounced" class="text-xl font-bold text-rose-600 mt-1">0</p><span id="kpiBounceRate" class="text-[10px] text-slate-400 mt-1">0.00% bounce</span></div>
         <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Unsub / Block</p><p id="kpiUnsub" class="text-xl font-bold text-purple-700 mt-1">0</p><span class="text-[10px] text-slate-400 mt-1">Total opt-outs</span></div>
         <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Registration</p><p id="kpiSignups" class="text-xl font-bold text-amber-600 mt-1">0</p><div class="flex items-center gap-1 mt-1 text-[10px]"><span id="cardKpiSignupsSub" class="font-bold text-slate-900">KPI: 0</span><span class="text-slate-300">•</span><span id="cardRrSignupsSub" class="font-bold">RR: 0</span></div></div>
@@ -868,6 +879,7 @@
 
       const rrF = elapsedDays > 0 ? (totalMonthDays / elapsedDays) : 1;
       const [rrB, rrS, rrU, rrR, rrP] = [agg.budget, agg.signups, agg.users, agg.revenue, agg.profit].map(v => Math.round(v * rrF));
+      const rrClicks = Math.round((agg.clicked || 0) * rrF);
 
       // Team Table
       setT('teamKpiBudget', `$${Math.round(agg.kpi.budget).toLocaleString()}`);
@@ -896,16 +908,24 @@
       setT('teamRrRoi', `1:${rrB > 0 ? (rrR / rrB).toFixed(1) : '0.0'}`);
 
       // Cards
-      setT('kpiDelivered', (agg.delivered||0).toLocaleString()); setT('kpiOpened', (agg.opened||0).toLocaleString());
-      setT('kpiClicked', (agg.clicked||0).toLocaleString()); setT('kpiBounced', (agg.bounced||0).toLocaleString());
-      setT('kpiUnsub', (agg.unsub||0).toLocaleString()); setT('kpiSignups', agg.signups.toLocaleString());
-      setT('kpiUsers', agg.users.toLocaleString()); setT('kpiRevenue', `$${Math.round(agg.revenue).toLocaleString()}`);
-      setT('kpiBudget', `$${Math.round(agg.budget).toLocaleString()}`); setT('kpiProfit', `$${Math.round(agg.profit).toLocaleString()}`);
+      setT('kpiDelivered', (agg.delivered||0).toLocaleString()); 
+      setT('kpiOpened', (agg.opened||0).toLocaleString());
+      setT('kpiClicked', (agg.clicked||0).toLocaleString()); 
+      setT('kpiBounced', (agg.bounced||0).toLocaleString());
+      setT('kpiUnsub', (agg.unsub||0).toLocaleString()); 
+      setT('kpiSignups', agg.signups.toLocaleString());
+      setT('kpiUsers', agg.users.toLocaleString()); 
+      setT('kpiRevenue', `$${Math.round(agg.revenue).toLocaleString()}`);
+      setT('kpiBudget', `$${Math.round(agg.budget).toLocaleString()}`); 
+      setT('kpiProfit', `$${Math.round(agg.profit).toLocaleString()}`);
       
       setT('kpiOpenRate', `${agg.delivered > 0 ? ((agg.opened/agg.delivered)*100).toFixed(2) : '0.00'}% Open Rate`);
       setT('kpiClickRate', `${agg.delivered > 0 ? ((agg.clicked/agg.delivered)*100).toFixed(2) : '0.00'}% Click Rate`);
       setT('kpiBounceRate', `${agg.delivered > 0 ? ((agg.bounced/agg.delivered)*100).toFixed(2) : '0.00'}% bounce`);
       
+      // Run-Rate para Clicks (Fijo en color negro)
+      setT('cardRrClicksSub', `RR: ${rrClicks.toLocaleString()}`);
+
       // Asignación con colores dinámicos en las tarjetas KPI: Verde si RR >= KPI, Rojo si no
       const setCardRr = (id, text, rrVal, kpiVal) => {
         const el = $(id);
