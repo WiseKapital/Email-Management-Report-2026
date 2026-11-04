@@ -775,112 +775,7 @@
       const agg = aggregateJsonData(currentStartDate, currentEndDate);
       const csvMap = await aggregateCsvForRange(currentStartDate, currentEndDate);
 
-      const espTotalsFromBreakdown = {};
-      let totalBreakdownSignups = 0;
-      let totalBreakdownFtds = 0;
-
-      (agg.esp_ip_breakdown || []).forEach(r => {
-        if (r.is_total || r.is_overall) return;
-        const key = (r.esp_ip || '').trim();
-        if (!key) return;
-        if (!espTotalsFromBreakdown[key]) {
-          espTotalsFromBreakdown[key] = { signups: 0, ftds: 0 };
-        }
-        espTotalsFromBreakdown[key].signups += (r.signups || 0);
-        espTotalsFromBreakdown[key].ftds += (r.ftds || 0);
-        totalBreakdownSignups += (r.signups || 0);
-        totalBreakdownFtds += (r.ftds || 0);
-      });
-
-      const norm = s => (s || '').toLowerCase().replace(/\s+/g, ' ').trim();
-      function getBreakdownForEsp(espName) {
-        const target = norm(espName);
-        for (const [k, v] of Object.entries(espTotalsFromBreakdown)) {
-          if (norm(k) === target) return v;
-        }
-        for (const [k, v] of Object.entries(espTotalsFromBreakdown)) {
-          if (norm(k).includes(target) || target.includes(norm(k))) return v;
-        }
-        return { signups: 0, ftds: 0 };
-      }
-
-      Object.keys(espTotalsFromBreakdown).forEach(espName => {
-        if (!csvMap[espName]) {
-          csvMap[espName] = {
-            esp: espName, delivered: 0, softBounce: 0, hardBounce: 0,
-            bounced: 0, opened: 0, clicked: 0, unsub: 0, signups: 0, players: 0, domains: {}
-          };
-        }
-      });
-
-      Object.values(csvMap).forEach(item => {
-        const bd = getBreakdownForEsp(item.esp);
-        item.signups = bd.signups;
-        item.players = bd.ftds;
-      });
-
-      const list = Object.values(csvMap);
-      
-      // Mantener orden natural de las IPs
-      const sortOrder = ['MLJ (Mailjet) IP 1', 'MLJ (Mailjet) IP 2', 'MLJ (Mailjet) IP 3 / SH', 'SEG (Sendgrid) IP 1', 'SEG (Sendgrid) IP 2 / SH'];
-      list.sort((a, b) => {
-        const idxA = sortOrder.indexOf(a.esp);
-        const idxB = sortOrder.indexOf(b.esp);
-        return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
-      });
-
-      agg.esp = list.filter(e => e.delivered > 0 || e.signups > 0 || e.opened > 0 || e.players > 0);
-
-      // --- 1. DISTRIBUCIÓN PORCENTUAL PREDICTIVA EN TABLA DE ESP ---
-      const distributeRemaining = (items, targetTotal, getCurrentVal, getWeight, setVal) => {
-        const currentTotal = items.reduce((sum, item) => sum + getCurrentVal(item), 0);
-        const remaining = targetTotal - currentTotal;
-        if (remaining <= 0 || items.length === 0) return;
-
-        let totalWeight = items.reduce((sum, item) => sum + getWeight(item), 0);
-        const weights = items.map(item => totalWeight > 0 ? getWeight(item) / totalWeight : 0);
-
-        const quotas = weights.map(w => remaining * w);
-        const additions = quotas.map(q => Math.floor(q));
-        let leftover = remaining - additions.reduce((a, b) => a + b, 0);
-
-        const remainders = quotas.map((q, idx) => ({ idx, rem: q - Math.floor(q) }));
-        remainders.sort((a, b) => b.rem - a.rem);
-
-        for (let i = 0; i < leftover; i++) {
-          additions[remainders[i].idx]++;
-        }
-
-        items.forEach((item, idx) => {
-          setVal(item, getCurrentVal(item) + additions[idx]);
-        });
-      };
-
-      // A) Distribuir Signups en tabla superior
-      const curEspSignups = agg.esp.reduce((sum, e) => sum + (e.signups || 0), 0);
-      if (agg.signups > curEspSignups) {
-        distributeRemaining(
-          agg.esp,
-          agg.signups,
-          e => e.signups || 0,
-          e => e.signups > 0 ? e.signups : 0,
-          (e, val) => { e.signups = val; }
-        );
-      }
-
-      // B) Distribuir Players en tabla superior (SOLO en IPs con Signups > 0)
-      const curEspPlayers = agg.esp.reduce((sum, e) => sum + (e.players || 0), 0);
-      if (agg.users > curEspPlayers) {
-        distributeRemaining(
-          agg.esp,
-          agg.users,
-          e => e.players || 0,
-          e => e.signups > 0 ? e.signups : 0, // Nunca a IPs con 0 signups
-          (e, val) => { e.players = val; }
-        );
-      }
-
-      // --- 2. RECONCILIACIÓN Y DISTRIBUCIÓN DE MARCAS EN ESP / IP BREAKDOWN ---
+      // 1. Mapear las filas existentes de esp_ip_breakdown
       const breakdownByEsp = {};
       (agg.esp_ip_breakdown || []).forEach(r => {
         if (r.is_total || r.is_overall) return;
@@ -897,126 +792,59 @@
         breakdownByEsp[esp][key].ftds += (r.ftds || 0);
       });
 
-      agg.esp.forEach(e => {
-        if (!breakdownByEsp[e.esp]) breakdownByEsp[e.esp] = {};
-      });
-
-      // Cuota necesaria por cada ESP según la tabla superior
-      const espNeeded = {};
-      agg.esp.forEach(e => {
-        let curSig = 0, curFtd = 0;
-        Object.values(breakdownByEsp[e.esp] || {}).forEach(item => {
-          curSig += item.signups || 0;
-          curFtd += item.ftds || 0;
-        });
-        espNeeded[e.esp] = {
-          signups: Math.max(0, (e.signups || 0) - curSig),
-          ftds: Math.max(0, (e.players || 0) - curFtd)
-        };
-      });
-
-      // Marcas reales de Brand Breakdown que faltan ubicar
-      const brandMissing = {};
+      // 2. Reconciliar con las marcas reales de Brand Breakdown (SIN FRACCIONAR MARCAS)
+      // Actualizar marcas que ya estaban en una IP con su número real exacto (ej. LavishLuck 6 -> 7)
       Object.entries(agg.brands).forEach(([bName, bData]) => {
-        let attrSig = 0, attrFtd = 0;
-        Object.values(breakdownByEsp).forEach(espGroup => {
-          Object.values(espGroup).forEach(item => {
+        let foundInAnyEsp = false;
+        Object.entries(breakdownByEsp).forEach(([esp, group]) => {
+          Object.entries(group).forEach(([k, item]) => {
             if (item.brand.toLowerCase() === bName.toLowerCase()) {
-              attrSig += item.signups || 0;
-              attrFtd += item.ftds || 0;
+              foundInAnyEsp = true;
+              // Si la marca solo estaba en una IP, se le asigna su total real exacto
+              const occurrences = Object.values(breakdownByEsp).filter(g => Object.values(g).some(it => it.brand.toLowerCase() === bName.toLowerCase())).length;
+              if (occurrences === 1) {
+                item.signups = bData.signups || 0;
+                item.ftds = bData.users || 0;
+              }
             }
           });
         });
-        const missSig = Math.max(0, (bData.signups || 0) - attrSig);
-        const missFtd = Math.max(0, (bData.users || 0) - attrFtd);
-        if (missSig > 0 || missFtd > 0) {
-          brandMissing[bName] = {
+
+        // Si la marca no tenía IP asignada en el tracking crudo:
+        if (!foundInAnyEsp) {
+          const adv = bData.advertiser || '-';
+          const sig = bData.signups || 0;
+          const ftd = bData.users || 0;
+
+          // Asignar la marca COMPLETA e INTACTA a la IP correspondiente según su naturaleza y volumen:
+          let targetEsp = 'SEG (Sendgrid) IP 2 / SH'; // IP principal receptora
+          
+          if (bName.toLowerCase().includes('luckybunny direct')) {
+            targetEsp = 'SEG (Sendgrid) IP 1'; // LuckyBunny direct completa va a Sendgrid 1
+          } else if (bName.toLowerCase().includes('rolla')) {
+            targetEsp = 'MLJ (Mailjet) IP 3 / SH';
+          } else if (bName.toLowerCase().includes('spinblitz') && !bName.toLowerCase().includes('seo')) {
+            targetEsp = 'SEG (Sendgrid) IP 1';
+          }
+
+          if (!breakdownByEsp[targetEsp]) breakdownByEsp[targetEsp] = {};
+          const key = `${adv}___${bName}`;
+          breakdownByEsp[targetEsp][key] = {
+            esp_ip: targetEsp,
+            advertiser: adv,
             brand: bName,
-            advertiser: bData.advertiser || '-',
-            signups: missSig,
-            ftds: missFtd
+            signups: sig,
+            ftds: ftd
           };
         }
       });
 
-      const missingBrandList = Object.values(brandMissing).sort((a, b) => (b.signups + b.ftds * 10) - (a.signups + a.ftds * 10));
-
-      // Asignar Signups faltantes a las IPs que los necesitan
-      missingBrandList.forEach(bm => {
-        let toDistribute = bm.signups;
-        while (toDistribute > 0) {
-          const candidateEsps = agg.esp.filter(e => (espNeeded[e.esp]?.signups || 0) > 0);
-          if (candidateEsps.length === 0) break;
-
-          const totalNeeded = candidateEsps.reduce((s, e) => s + espNeeded[e.esp].signups, 0);
-          const amountForStep = Math.min(toDistribute, totalNeeded);
-
-          const quotas = candidateEsps.map(e => (amountForStep * espNeeded[e.esp].signups) / totalNeeded);
-          const intAdds = quotas.map(q => Math.floor(q));
-          let rem = amountForStep - intAdds.reduce((a, b) => a + b, 0);
-
-          const remainders = quotas.map((q, idx) => ({ idx, r: q - Math.floor(q) }));
-          remainders.sort((a, b) => b.r - a.r);
-          for (let i = 0; i < rem; i++) intAdds[remainders[i].idx]++;
-
-          candidateEsps.forEach((e, idx) => {
-            const add = intAdds[idx];
-            if (add > 0) {
-              const key = `${bm.advertiser}___${bm.brand}`;
-              if (!breakdownByEsp[e.esp][key]) {
-                breakdownByEsp[e.esp][key] = { esp_ip: e.esp, advertiser: bm.advertiser, brand: bm.brand, signups: 0, ftds: 0 };
-              }
-              breakdownByEsp[e.esp][key].signups += add;
-              espNeeded[e.esp].signups -= add;
-              toDistribute -= add;
-            }
-          });
-        }
-      });
-
-      // Asignar FTDs faltantes (SOLO a IPs que tienen Signups > 0 de esa marca o en esa IP)
-      missingBrandList.forEach(bm => {
-        let toDistribute = bm.ftds;
-        while (toDistribute > 0) {
-          // Candidatas: IPs que necesitan FTDs Y que tengan signups > 0
-          let candidateEsps = agg.esp.filter(e => (espNeeded[e.esp]?.ftds || 0) > 0 && (e.signups || 0) > 0);
-          if (candidateEsps.length === 0) {
-            candidateEsps = agg.esp.filter(e => (espNeeded[e.esp]?.ftds || 0) > 0);
-          }
-          if (candidateEsps.length === 0) break;
-
-          const totalNeeded = candidateEsps.reduce((s, e) => s + espNeeded[e.esp].ftds, 0);
-          const amountForStep = Math.min(toDistribute, totalNeeded);
-
-          const quotas = candidateEsps.map(e => (amountForStep * espNeeded[e.esp].ftds) / totalNeeded);
-          const intAdds = quotas.map(q => Math.floor(q));
-          let rem = amountForStep - intAdds.reduce((a, b) => a + b, 0);
-
-          const remainders = quotas.map((q, idx) => ({ idx, r: q - Math.floor(q) }));
-          remainders.sort((a, b) => b.r - a.r);
-          for (let i = 0; i < rem; i++) intAdds[remainders[i].idx]++;
-
-          candidateEsps.forEach((e, idx) => {
-            const add = intAdds[idx];
-            if (add > 0) {
-              const key = `${bm.advertiser}___${bm.brand}`;
-              if (!breakdownByEsp[e.esp][key]) {
-                breakdownByEsp[e.esp][key] = { esp_ip: e.esp, advertiser: bm.advertiser, brand: bm.brand, signups: 0, ftds: 0 };
-              }
-              breakdownByEsp[e.esp][key].ftds += add;
-              espNeeded[e.esp].ftds -= add;
-              toDistribute -= add;
-            }
-          });
-        }
-      });
-
-      // Reconstruir filas respetando el orden natural de las IPs
+      // 3. Reconstruir filas de la tabla ESP / IP Breakdown en orden limpio
+      const sortOrder = ['MLJ (Mailjet) IP 1', 'MLJ (Mailjet) IP 2', 'MLJ (Mailjet) IP 3 / SH', 'SEG (Sendgrid) IP 1', 'SEG (Sendgrid) IP 2 / SH'];
       const newBreakdownRows = [];
       let grandSig = 0, grandFtd = 0;
 
-      agg.esp.forEach(e => {
-        const espName = e.esp;
+      sortOrder.forEach(espName => {
         const group = breakdownByEsp[espName] || {};
         const items = Object.values(group).filter(it => it.signups > 0 || it.ftds > 0);
         if (items.length === 0) return;
@@ -1056,13 +884,46 @@
       }
 
       agg.esp_ip_breakdown = newBreakdownRows;
-      
+
+      // 4. Asegurar que la tabla superior de ESP reciba los subtotales exactos de cada IP
+      const espTotalsFromBreakdown = {};
+      newBreakdownRows.forEach(r => {
+        if (r.is_total && !r.is_overall) {
+          const espName = r.esp_ip.replace(/^GRAND TOTAL\s+/i, '').trim();
+          espTotalsFromBreakdown[espName] = { signups: r.signups || 0, ftds: r.ftds || 0 };
+        }
+      });
+
+      Object.keys(espTotalsFromBreakdown).forEach(espName => {
+        if (!csvMap[espName]) {
+          csvMap[espName] = {
+            esp: espName, delivered: 0, softBounce: 0, hardBounce: 0,
+            bounced: 0, opened: 0, clicked: 0, unsub: 0, signups: 0, players: 0, domains: {}
+          };
+        }
+      });
+
+      Object.values(csvMap).forEach(item => {
+        const bd = espTotalsFromBreakdown[item.esp] || { signups: 0, ftds: 0 };
+        item.signups = bd.signups;
+        item.players = bd.ftds;
+      });
+
+      const list = Object.values(csvMap);
+      list.sort((a, b) => {
+        const idxA = sortOrder.indexOf(a.esp);
+        const idxB = sortOrder.indexOf(b.esp);
+        return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
+      });
+
+      agg.esp = list.filter(e => e.delivered > 0 || e.signups > 0 || e.opened > 0 || e.players > 0);
+
       ['delivered','softBounce','hardBounce','bounced','opened','clicked','unsub'].forEach(k => {
         agg[k] = agg.esp.reduce((acc, cur) => acc + (cur[k] || 0), 0);
       });
 
-      agg.espSignups = agg.esp.reduce((acc, cur) => acc + (cur.signups || 0), 0);
-      agg.espPlayers = agg.esp.reduce((acc, cur) => acc + (cur.players || 0), 0);
+      agg.espSignups = grandSig;
+      agg.espPlayers = grandFtd;
 
       renderDashboard(agg, currentStartDate, currentEndDate);
     }
