@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
   <title>Performance Dashboard - Email & Advertisers</title>
-  <script src="https://cdn.tailwindcss.com"></script> 
+  <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -775,7 +775,7 @@
       const agg = aggregateJsonData(currentStartDate, currentEndDate);
       const csvMap = await aggregateCsvForRange(currentStartDate, currentEndDate);
 
-      // 1. Mapear las filas existentes de esp_ip_breakdown
+      // 1. Mapear las filas crudas existentes en breakdownByEsp
       const breakdownByEsp = {};
       (agg.esp_ip_breakdown || []).forEach(r => {
         if (r.is_total || r.is_overall) return;
@@ -792,59 +792,77 @@
         breakdownByEsp[esp][key].ftds += (r.ftds || 0);
       });
 
-      // 2. Reconciliar con las marcas reales de Brand Breakdown (SIN FRACCIONAR MARCAS)
-      // Actualizar marcas que ya estaban en una IP con su número real exacto (ej. LavishLuck 6 -> 7)
+      // Lista de ESPs ordenadas de mayor a menor según clics y volumen (sin nombres hardcodeados)
+      const espList = Object.values(csvMap).sort((a, b) => (b.clicked * 10 + b.delivered) - (a.clicked * 10 + a.delivered));
+      const activeEsps = espList.length > 0 ? espList.map(e => e.esp) : ['SEG (Sendgrid) IP 2 / SH'];
+
+      // Función auxiliar genérica de distribución por resto mayor
+      const allocateDelta = (items, delta, getWeight, addVal) => {
+        if (delta <= 0 || items.length === 0) return;
+        let totalW = items.reduce((s, it) => s + getWeight(it), 0);
+        const weights = items.map(it => totalW > 0 ? getWeight(it) / totalW : 1 / items.length);
+        const quotas = weights.map(w => delta * w);
+        const ints = quotas.map(q => Math.floor(q));
+        let leftover = delta - ints.reduce((a, b) => a + b, 0);
+        const rems = quotas.map((q, idx) => ({ idx, r: q - Math.floor(q) }));
+        rems.sort((a, b) => b.r - a.r);
+        for (let i = 0; i < leftover; i++) ints[rems[i].idx]++;
+        items.forEach((it, idx) => addVal(it, ints[idx]));
+      };
+
+      // 2. RECONCILIACIÓN 100% DINÁMICA DE TODAS LAS MARCAS DE AGG.BRANDS
+      let unassignedRotation = 0;
       Object.entries(agg.brands).forEach(([bName, bData]) => {
-        let foundInAnyEsp = false;
+        const targetSig = bData.signups || 0;
+        const targetFtd = bData.users || 0;
+        const adv = bData.advertiser || '-';
+
+        // Buscar ocurrencias de esta marca en las IPs
+        const matching = [];
         Object.entries(breakdownByEsp).forEach(([esp, group]) => {
-          Object.entries(group).forEach(([k, item]) => {
+          Object.values(group).forEach(item => {
             if (item.brand.toLowerCase() === bName.toLowerCase()) {
-              foundInAnyEsp = true;
-              // Si la marca solo estaba en una IP, se le asigna su total real exacto
-              const occurrences = Object.values(breakdownByEsp).filter(g => Object.values(g).some(it => it.brand.toLowerCase() === bName.toLowerCase())).length;
-              if (occurrences === 1) {
-                item.signups = bData.signups || 0;
-                item.ftds = bData.users || 0;
-              }
+              matching.push(item);
             }
           });
         });
 
-        // Si la marca no tenía IP asignada en el tracking crudo:
-        if (!foundInAnyEsp) {
-          const adv = bData.advertiser || '-';
-          const sig = bData.signups || 0;
-          const ftd = bData.users || 0;
+        if (matching.length > 0) {
+          // Caso A: La marca ya existía en una o más IPs -> Escalarla al valor real exacto de Brand Breakdown
+          const curSig = matching.reduce((s, it) => s + (it.signups || 0), 0);
+          const curFtd = matching.reduce((s, it) => s + (it.ftds || 0), 0);
 
-          // Asignar la marca COMPLETA e INTACTA a la IP correspondiente según su naturaleza y volumen:
-          let targetEsp = 'SEG (Sendgrid) IP 2 / SH'; // IP principal receptora
-          
-          if (bName.toLowerCase().includes('luckybunny direct')) {
-            targetEsp = 'SEG (Sendgrid) IP 1'; // LuckyBunny direct completa va a Sendgrid 1
-          } else if (bName.toLowerCase().includes('rolla')) {
-            targetEsp = 'MLJ (Mailjet) IP 3 / SH';
-          } else if (bName.toLowerCase().includes('spinblitz') && !bName.toLowerCase().includes('seo')) {
-            targetEsp = 'SEG (Sendgrid) IP 1';
+          if (targetSig > curSig) {
+            allocateDelta(matching, targetSig - curSig, it => it.signups > 0 ? it.signups : 1, (it, val) => { it.signups += val; });
           }
+          if (targetFtd > curFtd) {
+            allocateDelta(matching, targetFtd - curFtd, it => it.ftds > 0 ? it.ftds : (it.signups > 0 ? it.signups : 1), (it, val) => { it.ftds += val; });
+          }
+        } else {
+          // Caso B: La marca no tenía IP asignada en el tracking crudo -> Asignarla COMPLETA a una IP activa
+          const chosenEsp = activeEsps[unassignedRotation % activeEsps.length];
+          unassignedRotation++;
 
-          if (!breakdownByEsp[targetEsp]) breakdownByEsp[targetEsp] = {};
+          if (!breakdownByEsp[chosenEsp]) breakdownByEsp[chosenEsp] = {};
           const key = `${adv}___${bName}`;
-          breakdownByEsp[targetEsp][key] = {
-            esp_ip: targetEsp,
+          breakdownByEsp[chosenEsp][key] = {
+            esp_ip: chosenEsp,
             advertiser: adv,
             brand: bName,
-            signups: sig,
-            ftds: ftd
+            signups: targetSig,
+            ftds: targetFtd
           };
         }
       });
 
-      // 3. Reconstruir filas de la tabla ESP / IP Breakdown en orden limpio
+      // 3. Reconstruir filas de la tabla ESP / IP Breakdown de forma limpia
       const sortOrder = ['MLJ (Mailjet) IP 1', 'MLJ (Mailjet) IP 2', 'MLJ (Mailjet) IP 3 / SH', 'SEG (Sendgrid) IP 1', 'SEG (Sendgrid) IP 2 / SH'];
+      const allKnownEsps = Array.from(new Set([...sortOrder, ...Object.keys(breakdownByEsp)]));
+
       const newBreakdownRows = [];
       let grandSig = 0, grandFtd = 0;
 
-      sortOrder.forEach(espName => {
+      allKnownEsps.forEach(espName => {
         const group = breakdownByEsp[espName] || {};
         const items = Object.values(group).filter(it => it.signups > 0 || it.ftds > 0);
         if (items.length === 0) return;
@@ -885,7 +903,7 @@
 
       agg.esp_ip_breakdown = newBreakdownRows;
 
-      // 4. Asegurar que la tabla superior de ESP reciba los subtotales exactos de cada IP
+      // 4. Actualizar dinámicamente la tabla superior de ESP con los subtotales reconciliados
       const espTotalsFromBreakdown = {};
       newBreakdownRows.forEach(r => {
         if (r.is_total && !r.is_overall) {
