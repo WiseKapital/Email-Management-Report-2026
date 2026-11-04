@@ -111,7 +111,6 @@
         <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Delivered</p><p id="kpiDelivered" class="text-xl font-bold text-slate-900 mt-1">0</p><span class="text-[10px] text-slate-400 mt-1">Filtered sent</span></div>
         <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Open</p><p id="kpiOpened" class="text-xl font-bold text-emerald-700 mt-1">0</p><span id="kpiOpenRate" class="text-[10px] font-semibold text-emerald-600 mt-1">0.00% Open Rate</span></div>
         
-        <!-- TARJETA CLICK ACTUALIZADA CON RUN-RATE -->
         <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
           <p class="text-[11px] font-semibold text-slate-500 uppercase">Click</p>
           <p id="kpiClicked" class="text-xl font-bold text-sky-700 mt-1">0</p>
@@ -296,7 +295,6 @@
     const MIN_ALLOWED_DATE = '2026-07-01';
     const START_YEAR = 2026;
 
-    // Detectar el año actual en tiempo real
     const getCurrentYear = () => new Date().getFullYear();
 
     const getTodayIso = () => { 
@@ -304,7 +302,6 @@
       return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; 
     };
     
-    // Inicialización dinámica: siempre inicia en el mes y día actual
     const _initToday = getTodayIso();
     let currentStartDate = _initToday.substring(0, 8) + '01';
     let currentEndDate = _initToday;
@@ -315,7 +312,6 @@
     const formatS2P = (s, u) => u > 0 ? (s === 0 ? '0:1' : `1:${Math.round(s/u)}`) : (s > 0 ? `0:${s}` : '0:0');
     const isoToDisplay = s => s ? `${s.split('-')[1]}/${s.split('-')[2]}/${s.split('-')[0]}` : '';
 
-    // Cargar JSON por mes y año dinámico
     async function fetchMonthFile(mKey, year = getCurrentYear()) {
       const capKey = mKey.charAt(0).toUpperCase() + mKey.slice(1);
       const ts = Date.now();
@@ -346,7 +342,6 @@
       return null;
     }
 
-    // Escanear todos los meses desde 2026 hasta el año detectado actual
     async function loadAllMonths() {
       const currentYear = getCurrentYear();
       const years = [];
@@ -377,7 +372,6 @@
       return uniqueMonths;
     }
 
-    // Por defecto siempre establece el mes y día actual
     function initDateControls() {
       const todayIso = getTodayIso();
       currentStartDate = todayIso.substring(0, 8) + '01';
@@ -469,7 +463,6 @@
       }
     });
 
-    // CSV PARSER
     const parseNum = v => parseFloat(String(v || 0).replace(/["', ]/g, '')) || 0;
     
     function parseCsvLine(line) {
@@ -531,7 +524,6 @@
       return Object.keys(map).length > 0 ? map : null;
     }
 
-    // LECTURA DINÁMICA DE CSVS: {AÑO}/maildata/maildata_{mes}/{dia}.csv
     async function fetchCsvDay(m, d, y = getCurrentYear()) {
       const k = `${y}/${m}/${d}`;
       if (csvCache[k]) return csvCache[k];
@@ -636,7 +628,6 @@
       return merged;
     }
 
-    // JSON AGGREGATOR MULTI-MES INTEGRADO
     function aggregateJsonData(s, e) {
       const agg = {
         budget: 0, signups: 0, users: 0, revenue: 0, daysElapsedInRange: 0, totalMonthDays: 0,
@@ -829,6 +820,15 @@
       });
 
       const list = Object.values(csvMap);
+      
+      // Mantener orden natural de las IPs
+      const sortOrder = ['MLJ (Mailjet) IP 1', 'MLJ (Mailjet) IP 2', 'MLJ (Mailjet) IP 3 / SH', 'SEG (Sendgrid) IP 1', 'SEG (Sendgrid) IP 2 / SH'];
+      list.sort((a, b) => {
+        const idxA = sortOrder.indexOf(a.esp);
+        const idxB = sortOrder.indexOf(b.esp);
+        return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
+      });
+
       agg.esp = list.filter(e => e.delivered > 0 || e.signups > 0 || e.opened > 0 || e.players > 0);
 
       // --- 1. DISTRIBUCIÓN PORCENTUAL PREDICTIVA EN TABLA DE ESP ---
@@ -838,7 +838,7 @@
         if (remaining <= 0 || items.length === 0) return;
 
         let totalWeight = items.reduce((sum, item) => sum + getWeight(item), 0);
-        const weights = items.map(item => totalWeight > 0 ? getWeight(item) / totalWeight : 1 / items.length);
+        const weights = items.map(item => totalWeight > 0 ? getWeight(item) / totalWeight : 0);
 
         const quotas = weights.map(w => remaining * w);
         const additions = quotas.map(q => Math.floor(q));
@@ -856,37 +856,31 @@
         });
       };
 
+      // A) Distribuir Signups en tabla superior
       const curEspSignups = agg.esp.reduce((sum, e) => sum + (e.signups || 0), 0);
       if (agg.signups > curEspSignups) {
         distributeRemaining(
           agg.esp,
           agg.signups,
           e => e.signups || 0,
-          e => {
-            if (curEspSignups > 0) return e.signups || 0;
-            if (e.clicked > 0) return e.clicked;
-            return e.delivered || 1;
-          },
+          e => e.signups > 0 ? e.signups : 0,
           (e, val) => { e.signups = val; }
         );
       }
 
+      // B) Distribuir Players en tabla superior (SOLO en IPs con Signups > 0)
       const curEspPlayers = agg.esp.reduce((sum, e) => sum + (e.players || 0), 0);
       if (agg.users > curEspPlayers) {
         distributeRemaining(
           agg.esp,
           agg.users,
           e => e.players || 0,
-          e => {
-            if (e.signups > 0) return e.signups;
-            if (e.clicked > 0) return e.clicked;
-            return e.delivered || 1;
-          },
+          e => e.signups > 0 ? e.signups : 0, // Nunca a IPs con 0 signups
           (e, val) => { e.players = val; }
         );
       }
 
-      // --- 2. OPCIÓN B: RECONCILIACIÓN Y DISTRIBUCIÓN DE MARCAS REALES EN ESP/IP BREAKDOWN ---
+      // --- 2. RECONCILIACIÓN Y DISTRIBUCIÓN DE MARCAS EN ESP / IP BREAKDOWN ---
       const breakdownByEsp = {};
       (agg.esp_ip_breakdown || []).forEach(r => {
         if (r.is_total || r.is_overall) return;
@@ -907,7 +901,7 @@
         if (!breakdownByEsp[e.esp]) breakdownByEsp[e.esp] = {};
       });
 
-      // Calcular lo que cada ESP necesita para alcanzar exactamente su cuota
+      // Cuota necesaria por cada ESP según la tabla superior
       const espNeeded = {};
       agg.esp.forEach(e => {
         let curSig = 0, curFtd = 0;
@@ -921,7 +915,7 @@
         };
       });
 
-      // Identificar marcas reales y conversiones que faltan por ubicar en IPs
+      // Marcas reales de Brand Breakdown que faltan ubicar
       const brandMissing = {};
       Object.entries(agg.brands).forEach(([bName, bData]) => {
         let attrSig = 0, attrFtd = 0;
@@ -945,9 +939,9 @@
         }
       });
 
-      const missingBrandList = Object.values(brandMissing).sort((a, b) => (b.signups + b.ftds * 5) - (a.signups + a.ftds * 5));
+      const missingBrandList = Object.values(brandMissing).sort((a, b) => (b.signups + b.ftds * 10) - (a.signups + a.ftds * 10));
 
-      // Asignar Signups de marcas reales a las IPs receptoras
+      // Asignar Signups faltantes a las IPs que los necesitan
       missingBrandList.forEach(bm => {
         let toDistribute = bm.signups;
         while (toDistribute > 0) {
@@ -963,22 +957,14 @@
 
           const remainders = quotas.map((q, idx) => ({ idx, r: q - Math.floor(q) }));
           remainders.sort((a, b) => b.r - a.r);
-          for (let i = 0; i < rem; i++) {
-            intAdds[remainders[i].idx]++;
-          }
+          for (let i = 0; i < rem; i++) intAdds[remainders[i].idx]++;
 
           candidateEsps.forEach((e, idx) => {
             const add = intAdds[idx];
             if (add > 0) {
               const key = `${bm.advertiser}___${bm.brand}`;
               if (!breakdownByEsp[e.esp][key]) {
-                breakdownByEsp[e.esp][key] = {
-                  esp_ip: e.esp,
-                  advertiser: bm.advertiser,
-                  brand: bm.brand,
-                  signups: 0,
-                  ftds: 0
-                };
+                breakdownByEsp[e.esp][key] = { esp_ip: e.esp, advertiser: bm.advertiser, brand: bm.brand, signups: 0, ftds: 0 };
               }
               breakdownByEsp[e.esp][key].signups += add;
               espNeeded[e.esp].signups -= add;
@@ -988,11 +974,15 @@
         }
       });
 
-      // Asignar FTDs de marcas reales a las IPs receptoras
+      // Asignar FTDs faltantes (SOLO a IPs que tienen Signups > 0 de esa marca o en esa IP)
       missingBrandList.forEach(bm => {
         let toDistribute = bm.ftds;
         while (toDistribute > 0) {
-          const candidateEsps = agg.esp.filter(e => (espNeeded[e.esp]?.ftds || 0) > 0);
+          // Candidatas: IPs que necesitan FTDs Y que tengan signups > 0
+          let candidateEsps = agg.esp.filter(e => (espNeeded[e.esp]?.ftds || 0) > 0 && (e.signups || 0) > 0);
+          if (candidateEsps.length === 0) {
+            candidateEsps = agg.esp.filter(e => (espNeeded[e.esp]?.ftds || 0) > 0);
+          }
           if (candidateEsps.length === 0) break;
 
           const totalNeeded = candidateEsps.reduce((s, e) => s + espNeeded[e.esp].ftds, 0);
@@ -1004,22 +994,14 @@
 
           const remainders = quotas.map((q, idx) => ({ idx, r: q - Math.floor(q) }));
           remainders.sort((a, b) => b.r - a.r);
-          for (let i = 0; i < rem; i++) {
-            intAdds[remainders[i].idx]++;
-          }
+          for (let i = 0; i < rem; i++) intAdds[remainders[i].idx]++;
 
           candidateEsps.forEach((e, idx) => {
             const add = intAdds[idx];
             if (add > 0) {
               const key = `${bm.advertiser}___${bm.brand}`;
               if (!breakdownByEsp[e.esp][key]) {
-                breakdownByEsp[e.esp][key] = {
-                  esp_ip: e.esp,
-                  advertiser: bm.advertiser,
-                  brand: bm.brand,
-                  signups: 0,
-                  ftds: 0
-                };
+                breakdownByEsp[e.esp][key] = { esp_ip: e.esp, advertiser: bm.advertiser, brand: bm.brand, signups: 0, ftds: 0 };
               }
               breakdownByEsp[e.esp][key].ftds += add;
               espNeeded[e.esp].ftds -= add;
@@ -1029,11 +1011,13 @@
         }
       });
 
-      // Reconstruir las filas para la tabla ESP / IP Breakdown
+      // Reconstruir filas respetando el orden natural de las IPs
       const newBreakdownRows = [];
       let grandSig = 0, grandFtd = 0;
 
-      Object.entries(breakdownByEsp).forEach(([espName, group]) => {
+      agg.esp.forEach(e => {
+        const espName = e.esp;
+        const group = breakdownByEsp[espName] || {};
         const items = Object.values(group).filter(it => it.signups > 0 || it.ftds > 0);
         if (items.length === 0) return;
 
@@ -1084,15 +1068,12 @@
     }
 
     function renderDashboard(agg, s, e) {
-      // CÁLCULO PRECISO DEL RUN-RATE SEGÚN EL DÍA DEL MES / RANGO SELECCIONADO
       const [sy, sm, sd] = s.split('-').map(Number);
       const [ey, em, ed] = e.split('-').map(Number);
       
-      // Días totales del mes correspondiente a la fecha final (ej: Noviembre = 30)
       const daysInEndMonth = new Date(ey, em, 0).getDate();
       const totalMonthDays = agg.totalMonthDays > 0 ? agg.totalMonthDays : daysInEndMonth;
 
-      // Si el rango es desde el día 1 en el mismo mes, los días transcurridos son exactamente 'ed' (el día actual)
       let elapsedDays = (sy === ey && sm === em && sd === 1)
         ? ed
         : Math.max(1, Math.round((new Date(ey, em - 1, ed) - new Date(sy, sm - 1, sd)) / (1000 * 60 * 60 * 24)) + 1);
@@ -1101,7 +1082,6 @@
       const [rrB, rrS, rrU, rrR, rrP] = [agg.budget, agg.signups, agg.users, agg.revenue, agg.profit].map(v => Math.round(v * rrF));
       const rrClicks = Math.round((agg.clicked || 0) * rrF);
 
-      // Team Table
       setT('teamKpiBudget', `$${Math.round(agg.kpi.budget).toLocaleString()}`);
       setT('teamKpiSignups', Math.round(agg.kpi.signups).toLocaleString());
       setT('teamKpiUsers', Math.round(agg.kpi.users).toLocaleString());
@@ -1127,7 +1107,6 @@
       setRrCell('teamRrProfit', `$${rrP.toLocaleString()}`, rrP, Math.round(agg.kpi.profit));
       setT('teamRrRoi', `1:${rrB > 0 ? (rrR / rrB).toFixed(1) : '0.0'}`);
 
-      // Cards
       setT('kpiDelivered', (agg.delivered||0).toLocaleString()); 
       setT('kpiOpened', (agg.opened||0).toLocaleString());
       setT('kpiClicked', (agg.clicked||0).toLocaleString()); 
@@ -1143,10 +1122,8 @@
       setT('kpiClickRate', `${agg.delivered > 0 ? ((agg.clicked/agg.delivered)*100).toFixed(2) : '0.00'}% Click Rate`);
       setT('kpiBounceRate', `${agg.delivered > 0 ? ((agg.bounced/agg.delivered)*100).toFixed(2) : '0.00'}% bounce`);
       
-      // Run-Rate para Clicks (Fijo en color negro)
       setT('cardRrClicksSub', `RR: ${rrClicks.toLocaleString()}`);
 
-      // Asignación con colores dinámicos en las tarjetas KPI: Verde si RR >= KPI, Rojo si no
       const setCardRr = (id, text, rrVal, kpiVal) => {
         const el = $(id);
         if (!el) return;
