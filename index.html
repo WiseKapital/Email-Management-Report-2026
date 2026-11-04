@@ -111,6 +111,7 @@
         <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Delivered</p><p id="kpiDelivered" class="text-xl font-bold text-slate-900 mt-1">0</p><span class="text-[10px] text-slate-400 mt-1">Filtered sent</span></div>
         <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Open</p><p id="kpiOpened" class="text-xl font-bold text-emerald-700 mt-1">0</p><span id="kpiOpenRate" class="text-[10px] font-semibold text-emerald-600 mt-1">0.00% Open Rate</span></div>
         
+        <!-- TARJETA CLICK ACTUALIZADA CON RUN-RATE -->
         <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
           <p class="text-[11px] font-semibold text-slate-500 uppercase">Click</p>
           <p id="kpiClicked" class="text-xl font-bold text-sky-700 mt-1">0</p>
@@ -295,6 +296,7 @@
     const MIN_ALLOWED_DATE = '2026-07-01';
     const START_YEAR = 2026;
 
+    // Detectar el año actual en tiempo real
     const getCurrentYear = () => new Date().getFullYear();
 
     const getTodayIso = () => { 
@@ -302,16 +304,19 @@
       return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; 
     };
     
-    let currentStartDate = '2026-11-01';
-    let currentEndDate = '2026-11-04';
+    // Inicialización dinámica: siempre inicia en el mes y día actual
+    const _initToday = getTodayIso();
+    let currentStartDate = _initToday.substring(0, 8) + '01';
+    let currentEndDate = _initToday;
     let activeCalTarget = 'from';
-    let calViewYear = 2026;
-    let calViewMonth = 10;
+    let calViewYear = new Date().getFullYear();
+    let calViewMonth = new Date().getMonth();
 
     const formatS2P = (s, u) => u > 0 ? (s === 0 ? '0:1' : `1:${Math.round(s/u)}`) : (s > 0 ? `0:${s}` : '0:0');
     const isoToDisplay = s => s ? `${s.split('-')[1]}/${s.split('-')[2]}/${s.split('-')[0]}` : '';
 
-    async function fetchMonthFile(mKey, year = 2026) {
+    // Cargar JSON por mes y año dinámico
+    async function fetchMonthFile(mKey, year = getCurrentYear()) {
       const capKey = mKey.charAt(0).toUpperCase() + mKey.slice(1);
       const ts = Date.now();
       
@@ -341,11 +346,11 @@
       return null;
     }
 
+    // Escanear todos los meses desde 2026 hasta el año detectado actual
     async function loadAllMonths() {
       const currentYear = getCurrentYear();
-      const maxYear = Math.max(START_YEAR, currentYear);
       const years = [];
-      for (let y = START_YEAR; y <= maxYear; y++) {
+      for (let y = START_YEAR; y <= Math.max(START_YEAR, currentYear); y++) {
         years.push(y);
       }
 
@@ -372,32 +377,12 @@
       return uniqueMonths;
     }
 
-    // Inicialización inteligente y dinámica basada en datos reales
+    // Por defecto siempre establece el mes y día actual
     function initDateControls() {
-      const allDates = [];
-      globalLoadedMonths.forEach(m => {
-        (m.daily_records || []).forEach(r => {
-          if (r.date) allDates.push(r.date);
-        });
-      });
-      allDates.sort();
-
       const todayIso = getTodayIso();
-      let defaultEnd = todayIso;
-      
-      // Si la fecha actual del sistema no coincide con ningún dato cargado o es menor a la fecha mínima,
-      // tomamos la fecha más reciente registrada en los archivos JSON (evita que todo quede en 0)
-      if (allDates.length > 0) {
-        const latestRecorded = allDates[allDates.length - 1];
-        if (defaultEnd < MIN_ALLOWED_DATE || !allDates.includes(defaultEnd)) {
-          defaultEnd = latestRecorded;
-        }
-      }
-
-      currentEndDate = defaultEnd;
-      currentStartDate = currentEndDate.substring(0, 8) + '01';
+      currentStartDate = todayIso.substring(0, 8) + '01';
       if (currentStartDate < MIN_ALLOWED_DATE) currentStartDate = MIN_ALLOWED_DATE;
-      if (currentStartDate > currentEndDate) currentStartDate = currentEndDate;
+      currentEndDate = todayIso;
 
       calViewYear = parseInt(currentEndDate.substring(0, 4), 10);
       calViewMonth = parseInt(currentEndDate.substring(5, 7), 10) - 1;
@@ -427,8 +412,8 @@
       else if (nextMonth > 11) { nextMonth = 0; nextYear++; }
 
       const todayIso = getTodayIso();
-      const maxYear = Math.max(parseInt(todayIso.substring(0, 4), 10), 2026);
-      const maxMonth = 11;
+      const maxYear = parseInt(todayIso.substring(0, 4), 10);
+      const maxMonth = parseInt(todayIso.substring(5, 7), 10) - 1;
 
       if (nextYear < 2026 || (nextYear === 2026 && nextMonth < 6)) return;
       if (nextYear > maxYear || (nextYear === maxYear && nextMonth > maxMonth)) return;
@@ -443,6 +428,7 @@
       const grid = $('calDaysGrid');
       grid.innerHTML = '';
 
+      const todayIso = getTodayIso();
       const first = new Date(calViewYear, calViewMonth, 1), days = new Date(calViewYear, calViewMonth + 1, 0).getDate();
       const offset = (first.getDay() + 6) % 7;
       
@@ -452,7 +438,7 @@
         const iso = `${calViewYear}-${String(calViewMonth + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
         const btn = document.createElement('button'); btn.type = 'button'; btn.textContent = day;
         
-        if (iso < MIN_ALLOWED_DATE) {
+        if (iso < MIN_ALLOWED_DATE || iso > todayIso) {
           btn.className = 'p-1.5 text-slate-300 font-bold rounded-xl cursor-not-allowed';
         } else {
           const sel = (activeCalTarget === 'from' && iso === currentStartDate) || (activeCalTarget === 'to' && iso === currentEndDate);
@@ -483,6 +469,7 @@
       }
     });
 
+    // CSV PARSER
     const parseNum = v => parseFloat(String(v || 0).replace(/["', ]/g, '')) || 0;
     
     function parseCsvLine(line) {
@@ -544,7 +531,8 @@
       return Object.keys(map).length > 0 ? map : null;
     }
 
-    async function fetchCsvDay(m, d, y = 2026) {
+    // LECTURA DINÁMICA DE CSVS: {AÑO}/maildata/maildata_{mes}/{dia}.csv
+    async function fetchCsvDay(m, d, y = getCurrentYear()) {
       const k = `${y}/${m}/${d}`;
       if (csvCache[k]) return csvCache[k];
       
@@ -648,6 +636,7 @@
       return merged;
     }
 
+    // JSON AGGREGATOR MULTI-MES INTEGRADO
     function aggregateJsonData(s, e) {
       const agg = {
         budget: 0, signups: 0, users: 0, revenue: 0, daysElapsedInRange: 0, totalMonthDays: 0,
@@ -792,217 +781,136 @@
     }
 
     async function updateDashboardForDateRange() {
-      try {
-        const agg = aggregateJsonData(currentStartDate, currentEndDate);
-        const csvMap = await aggregateCsvForRange(currentStartDate, currentEndDate);
+      const agg = aggregateJsonData(currentStartDate, currentEndDate);
+      const csvMap = await aggregateCsvForRange(currentStartDate, currentEndDate);
 
-        const sortOrder = [
-          'MLJ (Mailjet) IP 1',
-          'MLJ (Mailjet) IP 2',
-          'MLJ (Mailjet) IP 3 / SH',
-          'SEG (Sendgrid) IP 1',
-          'SEG (Sendgrid) IP 2 / SH'
-        ];
+      const espTotalsFromBreakdown = {};
+      let totalBreakdownSignups = 0;
+      let totalBreakdownFtds = 0;
 
-        // 1. Inicializar mapa de IPs
-        const breakdownByEsp = {};
-        sortOrder.forEach(esp => { breakdownByEsp[esp] = {}; });
+      (agg.esp_ip_breakdown || []).forEach(r => {
+        if (r.is_total || r.is_overall) return;
+        const key = (r.esp_ip || '').trim();
+        if (!key) return;
+        if (!espTotalsFromBreakdown[key]) {
+          espTotalsFromBreakdown[key] = { signups: 0, ftds: 0 };
+        }
+        espTotalsFromBreakdown[key].signups += (r.signups || 0);
+        espTotalsFromBreakdown[key].ftds += (r.ftds || 0);
+        totalBreakdownSignups += (r.signups || 0);
+        totalBreakdownFtds += (r.ftds || 0);
+      });
 
-        // 2. Extraer datos crudos registrados
-        (agg.esp_ip_breakdown || []).forEach(r => {
-          if (r.is_total || r.is_overall) return;
-          const esp = (r.esp_ip || '').trim();
-          const adv = (r.advertiser || '-').trim();
-          const br = (r.brand || '-').trim();
-          if (!esp || !br) return;
-          if (!breakdownByEsp[esp]) breakdownByEsp[esp] = {};
-          const key = `${adv}___${br}`;
-          if (!breakdownByEsp[esp][key]) {
-            breakdownByEsp[esp][key] = { esp_ip: esp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
-          }
-          breakdownByEsp[esp][key].signups += (r.signups || 0);
-          breakdownByEsp[esp][key].ftds += (r.ftds || 0);
-        });
+      const norm = s => (s || '').toLowerCase().replace(/\s+/g, ' ').trim();
+      function getBreakdownForEsp(espName) {
+        const target = norm(espName);
+        for (const [k, v] of Object.entries(espTotalsFromBreakdown)) {
+          if (norm(k) === target) return v;
+        }
+        for (const [k, v] of Object.entries(espTotalsFromBreakdown)) {
+          if (norm(k).includes(target) || target.includes(norm(k))) return v;
+        }
+        return { signups: 0, ftds: 0 };
+      }
 
-        // 3. Evaluar volumen real de tráfico CSV
-        const espTrafficList = Object.values(csvMap).filter(e => (e.delivered || 0) > 0 || (e.clicked || 0) > 0);
-        const rankedEsps = espTrafficList.length > 0
-          ? espTrafficList.slice().sort((a, b) => ((b.clicked || 0) * 100 + (b.delivered || 0)) - ((a.clicked || 0) * 100 + (a.delivered || 0)))
-          : sortOrder.map(name => ({ esp: name, clicked: 1, delivered: 1 }));
-
-        // 4. MOTOR DINÁMICO DE RECONCILIACIÓN (Sin nombres quemados)
-        // A) Ajustar marcas existentes a su valor real en Brand Breakdown
-        Object.entries(agg.brands || {}).forEach(([bName, bData]) => {
-          const realSig = bData.signups || 0;
-          const realFtd = bData.users || 0;
-
-          const matches = [];
-          Object.entries(breakdownByEsp).forEach(([espName, group]) => {
-            Object.values(group).forEach(item => {
-              if (item.brand && bName && item.brand.toLowerCase() === bName.toLowerCase()) {
-                matches.push({ espName, item });
-              }
-            });
-          });
-
-          if (matches.length > 0) {
-            const curSig = matches.reduce((s, x) => s + x.item.signups, 0);
-            const curFtd = matches.reduce((s, x) => s + x.item.ftds, 0);
-            const diffSig = realSig - curSig;
-            const diffFtd = realFtd - curFtd;
-
-            if (diffSig > 0 || diffFtd > 0) {
-              matches.sort((a, b) => (b.item.signups + b.item.ftds) - (a.item.signups + a.item.ftds));
-              if (diffSig > 0) matches[0].item.signups += diffSig;
-              if (diffFtd > 0) matches[0].item.ftds += diffFtd;
-            }
-          }
-        });
-
-        // B) Ubicar marcas faltantes completas e intactas
-        const unassignedBrands = [];
-        Object.entries(agg.brands || {}).forEach(([bName, bData]) => {
-          let exists = false;
-          Object.values(breakdownByEsp).forEach(group => {
-            if (Object.values(group).some(it => it.brand && bName && it.brand.toLowerCase() === bName.toLowerCase())) {
-              exists = true;
-            }
-          });
-          if (!exists && ((bData.signups || 0) > 0 || (bData.users || 0) > 0)) {
-            unassignedBrands.push({
-              brand: bName,
-              advertiser: bData.advertiser || '-',
-              signups: bData.signups || 0,
-              ftds: bData.users || 0
-            });
-          }
-        });
-
-        unassignedBrands.sort((a, b) => (b.signups + b.ftds * 10) - (a.signups + a.ftds * 10));
-
-        const getEspCurrentLoad = espName => {
-          return Object.values(breakdownByEsp[espName] || {}).reduce((s, it) => s + it.signups + it.ftds * 5, 0);
-        };
-
-        unassignedBrands.forEach(bm => {
-          const candidates = rankedEsps.slice().sort((a, b) => {
-            const capA = (a.clicked || 1) * 10;
-            const capB = (b.clicked || 1) * 10;
-            const loadA = getEspCurrentLoad(a.esp);
-            const loadB = getEspCurrentLoad(b.esp);
-            return (loadA / capA) - (loadB / capB);
-          });
-
-          const chosenEsp = candidates[0]?.esp || 'SEG (Sendgrid) IP 2 / SH';
-          if (!breakdownByEsp[chosenEsp]) breakdownByEsp[chosenEsp] = {};
-          const key = `${bm.advertiser}___${bm.brand}`;
-          breakdownByEsp[chosenEsp][key] = {
-            esp_ip: chosenEsp,
-            advertiser: bm.advertiser,
-            brand: bm.brand,
-            signups: bm.signups,
-            ftds: bm.ftds
+      Object.keys(espTotalsFromBreakdown).forEach(espName => {
+        if (!csvMap[espName]) {
+          csvMap[espName] = {
+            esp: espName, delivered: 0, softBounce: 0, hardBounce: 0,
+            bounced: 0, opened: 0, clicked: 0, unsub: 0, signups: 0, players: 0, domains: {}
           };
-        });
+        }
+      });
 
-        // 5. Reconstruir tabla ESP / IP Breakdown en orden
-        const newBreakdownRows = [];
-        let grandSig = 0, grandFtd = 0;
+      Object.values(csvMap).forEach(item => {
+        const bd = getBreakdownForEsp(item.esp);
+        item.signups = bd.signups;
+        item.players = bd.ftds;
+      });
 
-        sortOrder.forEach(espName => {
-          const group = breakdownByEsp[espName] || {};
-          const items = Object.values(group).filter(it => it.signups > 0 || it.ftds > 0);
-          if (items.length === 0) return;
+      const list = Object.values(csvMap);
+      agg.esp = list.filter(e => e.delivered > 0 || e.signups > 0 || e.opened > 0 || e.players > 0);
 
-          items.sort((a, b) => (b.signups + b.ftds * 10) - (a.signups + a.ftds * 10));
+      // --- DISTRIBUCIÓN PORCENTUAL PREDICTIVA (SIGNUPS Y PLAYERS) ---
+      // Cuando los totales en la tabla de ESP sean menores a los de las tarjetas (agg.signups / agg.users)
+      const distributeRemaining = (items, targetTotal, getCurrentVal, getWeight, setVal) => {
+        const currentTotal = items.reduce((sum, item) => sum + getCurrentVal(item), 0);
+        const remaining = targetTotal - currentTotal;
+        if (remaining <= 0 || items.length === 0) return;
 
-          let subSig = 0, subFtd = 0;
-          items.forEach(it => {
-            newBreakdownRows.push(it);
-            subSig += it.signups;
-            subFtd += it.ftds;
-          });
+        let totalWeight = items.reduce((sum, item) => sum + getWeight(item), 0);
+        const weights = items.map(item => totalWeight > 0 ? getWeight(item) / totalWeight : 1 / items.length);
 
-          newBreakdownRows.push({
-            esp_ip: `GRAND TOTAL ${espName}`,
-            advertiser: '',
-            brand: '',
-            signups: subSig,
-            ftds: subFtd,
-            is_total: true
-          });
+        // Algoritmo de cuota entera exacta (Largest Remainder Method)
+        const quotas = weights.map(w => remaining * w);
+        const additions = quotas.map(q => Math.floor(q));
+        let leftover = remaining - additions.reduce((a, b) => a + b, 0);
 
-          grandSig += subSig;
-          grandFtd += subFtd;
-        });
+        const remainders = quotas.map((q, idx) => ({ idx, rem: q - Math.floor(q) }));
+        remainders.sort((a, b) => b.rem - a.rem);
 
-        if (newBreakdownRows.length > 0) {
-          newBreakdownRows.push({
-            esp_ip: 'OVERALL GRAND TOTAL',
-            advertiser: '',
-            brand: '',
-            signups: grandSig,
-            ftds: grandFtd,
-            is_total: true,
-            is_overall: true
-          });
+        for (let i = 0; i < leftover; i++) {
+          additions[remainders[i].idx]++;
         }
 
-        agg.esp_ip_breakdown = newBreakdownRows;
-
-        // 6. Sincronizar automáticamente la tabla de arriba de ESP
-        const espTotalsFromBreakdown = {};
-        newBreakdownRows.forEach(r => {
-          if (r.is_total && !r.is_overall) {
-            const espName = r.esp_ip.replace(/^GRAND TOTAL\s+/i, '').trim();
-            espTotalsFromBreakdown[espName] = { signups: r.signups || 0, ftds: r.ftds || 0 };
-          }
+        items.forEach((item, idx) => {
+          setVal(item, getCurrentVal(item) + additions[idx]);
         });
+      };
 
-        Object.keys(espTotalsFromBreakdown).forEach(espName => {
-          if (!csvMap[espName]) {
-            csvMap[espName] = {
-              esp: espName, delivered: 0, softBounce: 0, hardBounce: 0,
-              bounced: 0, opened: 0, clicked: 0, unsub: 0, signups: 0, players: 0, domains: {}
-            };
-          }
-        });
-
-        Object.values(csvMap).forEach(item => {
-          const bd = espTotalsFromBreakdown[item.esp] || { signups: 0, ftds: 0 };
-          item.signups = bd.signups;
-          item.players = bd.ftds;
-        });
-
-        const list = Object.values(csvMap);
-        list.sort((a, b) => {
-          const idxA = sortOrder.indexOf(a.esp);
-          const idxB = sortOrder.indexOf(b.esp);
-          return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
-        });
-
-        agg.esp = list.filter(e => e.delivered > 0 || e.signups > 0 || e.opened > 0 || e.players > 0);
-
-        ['delivered','softBounce','hardBounce','bounced','opened','clicked','unsub'].forEach(k => {
-          agg[k] = agg.esp.reduce((acc, cur) => acc + (cur[k] || 0), 0);
-        });
-
-        agg.espSignups = grandSig;
-        agg.espPlayers = grandFtd;
-
-        renderDashboard(agg, currentStartDate, currentEndDate);
-      } catch (err) {
-        console.error("Error al actualizar el dashboard:", err);
+      // 1. Distribución predictiva para Signups
+      const curEspSignups = agg.esp.reduce((sum, e) => sum + (e.signups || 0), 0);
+      if (agg.signups > curEspSignups) {
+        distributeRemaining(
+          agg.esp,
+          agg.signups,
+          e => e.signups || 0,
+          e => {
+            if (curEspSignups > 0) return e.signups || 0;
+            if (e.clicked > 0) return e.clicked;
+            return e.delivered || 1;
+          },
+          (e, val) => { e.signups = val; }
+        );
       }
+
+      // 2. Distribución predictiva para Players (ponderado por los Signups de cada ESP)
+      const curEspPlayers = agg.esp.reduce((sum, e) => sum + (e.players || 0), 0);
+      if (agg.users > curEspPlayers) {
+        distributeRemaining(
+          agg.esp,
+          agg.users,
+          e => e.players || 0,
+          e => {
+            if (e.signups > 0) return e.signups;
+            if (e.clicked > 0) return e.clicked;
+            return e.delivered || 1;
+          },
+          (e, val) => { e.players = val; }
+        );
+      }
+      
+      ['delivered','softBounce','hardBounce','bounced','opened','clicked','unsub'].forEach(k => {
+        agg[k] = agg.esp.reduce((acc, cur) => acc + (cur[k] || 0), 0);
+      });
+
+      // Actualizar los totales generales del pie de la tabla para que cuadren con las tarjetas
+      agg.espSignups = agg.esp.reduce((acc, cur) => acc + (cur.signups || 0), 0);
+      agg.espPlayers = agg.esp.reduce((acc, cur) => acc + (cur.players || 0), 0);
+
+      renderDashboard(agg, currentStartDate, currentEndDate);
     }
 
     function renderDashboard(agg, s, e) {
+      // CÁLCULO PRECISO DEL RUN-RATE SEGÚN EL DÍA DEL MES / RANGO SELECCIONADO
       const [sy, sm, sd] = s.split('-').map(Number);
       const [ey, em, ed] = e.split('-').map(Number);
       
+      // Días totales del mes correspondiente a la fecha final (ej: Noviembre = 30)
       const daysInEndMonth = new Date(ey, em, 0).getDate();
       const totalMonthDays = agg.totalMonthDays > 0 ? agg.totalMonthDays : daysInEndMonth;
 
+      // Si el rango es desde el día 1 en el mismo mes, los días transcurridos son exactamente 'ed' (el día actual)
       let elapsedDays = (sy === ey && sm === em && sd === 1)
         ? ed
         : Math.max(1, Math.round((new Date(ey, em - 1, ed) - new Date(sy, sm - 1, sd)) / (1000 * 60 * 60 * 24)) + 1);
@@ -1011,6 +919,7 @@
       const [rrB, rrS, rrU, rrR, rrP] = [agg.budget, agg.signups, agg.users, agg.revenue, agg.profit].map(v => Math.round(v * rrF));
       const rrClicks = Math.round((agg.clicked || 0) * rrF);
 
+      // Team Table
       setT('teamKpiBudget', `$${Math.round(agg.kpi.budget).toLocaleString()}`);
       setT('teamKpiSignups', Math.round(agg.kpi.signups).toLocaleString());
       setT('teamKpiUsers', Math.round(agg.kpi.users).toLocaleString());
@@ -1036,6 +945,7 @@
       setRrCell('teamRrProfit', `$${rrP.toLocaleString()}`, rrP, Math.round(agg.kpi.profit));
       setT('teamRrRoi', `1:${rrB > 0 ? (rrR / rrB).toFixed(1) : '0.0'}`);
 
+      // Cards
       setT('kpiDelivered', (agg.delivered||0).toLocaleString()); 
       setT('kpiOpened', (agg.opened||0).toLocaleString());
       setT('kpiClicked', (agg.clicked||0).toLocaleString()); 
@@ -1051,8 +961,10 @@
       setT('kpiClickRate', `${agg.delivered > 0 ? ((agg.clicked/agg.delivered)*100).toFixed(2) : '0.00'}% Click Rate`);
       setT('kpiBounceRate', `${agg.delivered > 0 ? ((agg.bounced/agg.delivered)*100).toFixed(2) : '0.00'}% bounce`);
       
+      // Run-Rate para Clicks (Fijo en color negro)
       setT('cardRrClicksSub', `RR: ${rrClicks.toLocaleString()}`);
 
+      // Asignación con colores dinámicos en las tarjetas KPI: Verde si RR >= KPI, Rojo si no
       const setCardRr = (id, text, rrVal, kpiVal) => {
         const el = $(id);
         if (!el) return;
@@ -1137,10 +1049,10 @@
 
     function renderAdvAndBrand(agg) {
       const aTb = $('advertiserTableBody'), bTb = $('brandTableBody'); aTb.innerHTML = ''; bTb.innerHTML = '';
-      Object.entries(agg.advertisers || {}).sort((a,b) => b[1].revenue - a[1].revenue).forEach(([name, d]) => {
+      Object.entries(agg.advertisers).sort((a,b) => b[1].revenue - a[1].revenue).forEach(([name, d]) => {
         aTb.innerHTML += `<tr class="hover:bg-slate-50 bg-white"><td class="py-2.5 px-4 text-left font-medium">${name}</td><td class="py-2.5 px-4 font-mono font-bold text-amber-600">${d.signups}</td><td class="py-2.5 px-4 font-mono font-bold text-indigo-600">${d.users}</td><td class="py-2.5 px-4 font-mono font-bold text-emerald-600">$${Math.round(d.revenue).toLocaleString()}</td><td class="py-2.5 px-4 font-mono">${formatS2P(d.signups, d.users)}</td></tr>`;
       });
-      Object.entries(agg.brands || {}).sort((a,b) => b[1].revenue - a[1].revenue).forEach(([bName, d]) => {
+      Object.entries(agg.brands).sort((a,b) => b[1].revenue - a[1].revenue).forEach(([bName, d]) => {
         bTb.innerHTML += `<tr class="hover:bg-slate-50 bg-white"><td class="py-2 px-4 text-left">${bName}</td><td class="py-2 px-4 text-left font-medium">${d.advertiser}</td><td class="py-2 px-4 font-mono font-bold text-amber-600">${d.signups}</td><td class="py-2 px-4 font-mono font-bold text-indigo-600">${d.users}</td><td class="py-2.5 px-4 font-mono font-bold text-emerald-600">$${Math.round(d.revenue).toLocaleString()}</td><td class="py-2.5 px-4 font-mono">${formatS2P(d.signups, d.users)}</td></tr>`;
       });
       ['adv','brand'].forEach(p => {
