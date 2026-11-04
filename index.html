@@ -655,7 +655,7 @@
           espIpMap[espIp] = { items: {}, order: [] };
         }
         if (!espIpMap[espIp].items[key]) {
-          espIpMap[espIp].items[key] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
+          espIpMap[espIp] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
           espIpMap[espIp].order.push(key);
         }
         espIpMap[espIp].items[key].signups += (sig || 0);
@@ -775,72 +775,83 @@
       const agg = aggregateJsonData(currentStartDate, currentEndDate);
       const csvMap = await aggregateCsvForRange(currentStartDate, currentEndDate);
 
-      // 1. Mapear las filas existentes de esp_ip_breakdown
-      const breakdownByEsp = {};
+      // 1. Obtener lista de ESPs ordenados
+      const sortOrder = ['MLJ (Mailjet) IP 1', 'MLJ (Mailjet) IP 2', 'MLJ (Mailjet) IP 3 / SH', 'SEG (Sendgrid) IP 1', 'SEG (Sendgrid) IP 2 / SH'];
+      const rawEspList = Object.values(csvMap);
+      rawEspList.sort((a, b) => {
+        const idxA = sortOrder.indexOf(a.esp);
+        const idxB = sortOrder.indexOf(b.esp);
+        return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
+      });
+
+      // ESPs candidatos activos
+      let activeEsps = rawEspList.filter(e => (e.delivered || 0) > 0 || (e.clicked || 0) > 0);
+      if (activeEsps.length === 0) activeEsps = rawEspList;
+
+      // Ranking de ESPs por clics y entregabilidad (para absorber marcas no atribuidas de forma natural)
+      const espPriority = [...activeEsps].sort((a, b) => ((b.clicked || 0) * 1000 + (b.delivered || 0)) - ((a.clicked || 0) * 1000 + (a.delivered || 0)));
+      const fallbackEsp = espPriority[0]?.esp || 'SEG (Sendgrid) IP 2 / SH';
+
+      // 2. Mapear IP primaria real para marcas que ya tienen historial en esp_ip_breakdown
+      const brandPrimaryEsp = {};
+      const brandRawCounts = {};
+
       (agg.esp_ip_breakdown || []).forEach(r => {
         if (r.is_total || r.is_overall) return;
+        const b = (r.brand || '').trim().toLowerCase();
         const esp = (r.esp_ip || '').trim();
-        const adv = (r.advertiser || '-').trim();
-        const br = (r.brand || '-').trim();
-        if (!esp) return;
-        if (!breakdownByEsp[esp]) breakdownByEsp[esp] = {};
-        const key = `${adv}___${br}`;
-        if (!breakdownByEsp[esp][key]) {
-          breakdownByEsp[esp][key] = { esp_ip: esp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
-        }
-        breakdownByEsp[esp][key].signups += (r.signups || 0);
-        breakdownByEsp[esp][key].ftds += (r.ftds || 0);
+        if (!b || !esp) return;
+        if (!brandRawCounts[b]) brandRawCounts[b] = {};
+        brandRawCounts[b][esp] = (brandRawCounts[b][esp] || 0) + (r.signups || 0) * 10 + (r.ftds || 0) * 50 + 1;
       });
 
-      // 2. Reconciliar con las marcas reales de Brand Breakdown (SIN FRACCIONAR MARCAS)
-      // Actualizar marcas que ya estaban en una IP con su número real exacto (ej. LavishLuck 6 -> 7)
-      Object.entries(agg.brands).forEach(([bName, bData]) => {
-        let foundInAnyEsp = false;
-        Object.entries(breakdownByEsp).forEach(([esp, group]) => {
-          Object.entries(group).forEach(([k, item]) => {
-            if (item.brand.toLowerCase() === bName.toLowerCase()) {
-              foundInAnyEsp = true;
-              // Si la marca solo estaba en una IP, se le asigna su total real exacto
-              const occurrences = Object.values(breakdownByEsp).filter(g => Object.values(g).some(it => it.brand.toLowerCase() === bName.toLowerCase())).length;
-              if (occurrences === 1) {
-                item.signups = bData.signups || 0;
-                item.ftds = bData.users || 0;
-              }
-            }
+      Object.entries(brandRawCounts).forEach(([b, esps]) => {
+        const bestEsp = Object.entries(esps).sort((a, b) => b[1] - a[1])[0][0];
+        brandPrimaryEsp[b] = bestEsp;
+      });
+
+      // 3. Reconciliación 100% DINÁMICA: CADA MARCA COMPLETA CON SU NÚMERO REAL
+      const breakdownByEsp = {};
+      sortOrder.forEach(espName => { breakdownByEsp[espName] = {}; });
+      activeEsps.forEach(e => { if (!breakdownByEsp[e.esp]) breakdownByEsp[e.esp] = {}; });
+
+      const espAssignedSig = {};
+      sortOrder.forEach(espName => { espAssignedSig[espName] = 0; });
+
+      // Ordenar marcas de mayor a menor volumen
+      const sortedBrands = Object.entries(agg.brands || {}).sort((a, b) => (b[1].signups + b[1].users * 10) - (a[1].signups + a[1].users * 10));
+
+      sortedBrands.forEach(([bName, bData]) => {
+        const bLower = bName.toLowerCase();
+        const adv = bData.advertiser || '-';
+        const sig = bData.signups || 0;
+        const ftd = bData.users || 0;
+
+        let targetEsp = brandPrimaryEsp[bLower];
+
+        // Si la marca no tenía IP registrada en el tracking, se asigna al ESP con capacidad disponible (proporcional a sus clics)
+        if (!targetEsp || !breakdownByEsp[targetEsp]) {
+          const candidates = [...espPriority].sort((a, b) => {
+            const loadA = (espAssignedSig[a.esp] || 0) / Math.max(1, a.clicked || 1);
+            const loadB = (espAssignedSig[b.esp] || 0) / Math.max(1, b.clicked || 1);
+            return loadA - loadB;
           });
-        });
-
-        // Si la marca no tenía IP asignada en el tracking crudo:
-        if (!foundInAnyEsp) {
-          const adv = bData.advertiser || '-';
-          const sig = bData.signups || 0;
-          const ftd = bData.users || 0;
-
-          // Asignar la marca COMPLETA e INTACTA a la IP correspondiente según su naturaleza y volumen:
-          let targetEsp = 'SEG (Sendgrid) IP 2 / SH'; // IP principal receptora
-          
-          if (bName.toLowerCase().includes('luckybunny direct')) {
-            targetEsp = 'SEG (Sendgrid) IP 1'; // LuckyBunny direct completa va a Sendgrid 1
-          } else if (bName.toLowerCase().includes('rolla')) {
-            targetEsp = 'MLJ (Mailjet) IP 3 / SH';
-          } else if (bName.toLowerCase().includes('spinblitz') && !bName.toLowerCase().includes('seo')) {
-            targetEsp = 'SEG (Sendgrid) IP 1';
-          }
-
-          if (!breakdownByEsp[targetEsp]) breakdownByEsp[targetEsp] = {};
-          const key = `${adv}___${bName}`;
-          breakdownByEsp[targetEsp][key] = {
-            esp_ip: targetEsp,
-            advertiser: adv,
-            brand: bName,
-            signups: sig,
-            ftds: ftd
-          };
+          targetEsp = candidates[0]?.esp || fallbackEsp;
         }
+
+        if (!breakdownByEsp[targetEsp]) breakdownByEsp[targetEsp] = {};
+        const key = `${adv}___${bName}`;
+        breakdownByEsp[targetEsp][key] = {
+          esp_ip: targetEsp,
+          advertiser: adv,
+          brand: bName,
+          signups: sig,
+          ftds: ftd
+        };
+        espAssignedSig[targetEsp] = (espAssignedSig[targetEsp] || 0) + sig;
       });
 
-      // 3. Reconstruir filas de la tabla ESP / IP Breakdown en orden limpio
-      const sortOrder = ['MLJ (Mailjet) IP 1', 'MLJ (Mailjet) IP 2', 'MLJ (Mailjet) IP 3 / SH', 'SEG (Sendgrid) IP 1', 'SEG (Sendgrid) IP 2 / SH'];
+      // 4. Reconstruir filas de la tabla ESP / IP Breakdown
       const newBreakdownRows = [];
       let grandSig = 0, grandFtd = 0;
 
@@ -885,7 +896,7 @@
 
       agg.esp_ip_breakdown = newBreakdownRows;
 
-      // 4. Asegurar que la tabla superior de ESP reciba los subtotales exactos de cada IP
+      // 5. Sincronizar la tabla superior de ESP con los subtotales exactos
       const espTotalsFromBreakdown = {};
       newBreakdownRows.forEach(r => {
         if (r.is_total && !r.is_overall) {
@@ -894,29 +905,13 @@
         }
       });
 
-      Object.keys(espTotalsFromBreakdown).forEach(espName => {
-        if (!csvMap[espName]) {
-          csvMap[espName] = {
-            esp: espName, delivered: 0, softBounce: 0, hardBounce: 0,
-            bounced: 0, opened: 0, clicked: 0, unsub: 0, signups: 0, players: 0, domains: {}
-          };
-        }
-      });
-
-      Object.values(csvMap).forEach(item => {
+      rawEspList.forEach(item => {
         const bd = espTotalsFromBreakdown[item.esp] || { signups: 0, ftds: 0 };
         item.signups = bd.signups;
         item.players = bd.ftds;
       });
 
-      const list = Object.values(csvMap);
-      list.sort((a, b) => {
-        const idxA = sortOrder.indexOf(a.esp);
-        const idxB = sortOrder.indexOf(b.esp);
-        return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
-      });
-
-      agg.esp = list.filter(e => e.delivered > 0 || e.signups > 0 || e.opened > 0 || e.players > 0);
+      agg.esp = rawEspList.filter(e => (e.delivered || 0) > 0 || (e.signups || 0) > 0 || (e.opened || 0) > 0 || (e.players || 0) > 0);
 
       ['delivered','softBounce','hardBounce','bounced','opened','clicked','unsub'].forEach(k => {
         agg[k] = agg.esp.reduce((acc, cur) => acc + (cur[k] || 0), 0);
