@@ -135,7 +135,7 @@
         <div class="px-6 py-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
           <div class="flex items-center gap-3">
             <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Email Performance by ESP</h3>
-            <button id="toggleTableBtn" onclick="toggleTableDetails()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold bg-[#485c44] hover:bg-[#3b4c37] text-white shadow-sm">
+            <button id="toggleTableBtn" onclick="toggleTableDetails()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold bg-[#485c44] hover:bg-[#3b4c37] text-white shadow-sm cursor-pointer">
               <svg id="btnIcon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
               <span id="btnText">Show All</span>
             </button>
@@ -153,11 +153,19 @@
         </div>
       </section>
 
-      <!-- TABLA: ESP / IP BREAKDOWN -->
+      <!-- TABLA: ESP / IP BREAKDOWN CON BOTÓN SHOW ALL / COLLAPSE ALL -->
       <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="px-6 py-4 border-b border-slate-100 bg-slate-50/50">
-          <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">ESP / IP Breakdown</h3>
-          <p class="text-xs text-slate-500 mt-0.5">Sign Ups & FTDs distribution by ESP / IP, Advertisers and Brands</p>
+        <div class="px-6 py-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+          <div>
+            <div class="flex items-center gap-3">
+              <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">ESP / IP Breakdown</h3>
+              <button id="toggleEspIpBtn" onclick="toggleEspIpBreakdownDetails()" type="button" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold bg-[#1e293b] hover:bg-slate-700 text-white shadow-sm cursor-pointer transition-colors">
+                <svg id="espIpBtnIcon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                <span id="espIpBtnText">Show All</span>
+              </button>
+            </div>
+            <p class="text-xs text-slate-500 mt-0.5">Sign Ups & FTDs distribution by ESP / IP, Advertisers and Brands</p>
+          </div>
         </div>
         <div class="overflow-x-auto">
           <table id="espIpBreakdownTable" class="w-full text-sm excel-table">
@@ -229,7 +237,7 @@
       <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
           <div><h3 class="text-sm font-bold text-slate-800 uppercase">Advertiser Breakdown Table</h3><p class="text-xs text-slate-500">Metrics: Conversion S2P Ratio (1:X) & Revenue</p></div>
-          <button onclick="resetTable('advertiserTable')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 bg-white hover:bg-slate-50">Clear / Reset Table</button>
+          <button onclick="resetTable('advertiserTable')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 bg-white hover:bg-slate-50 cursor-pointer">Clear / Reset Table</button>
         </div>
         <div class="overflow-x-auto">
           <table id="advertiserTable" class="w-full text-sm text-right excel-table">
@@ -257,7 +265,7 @@
       <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
           <div><h3 class="text-sm font-bold text-slate-800 uppercase">Brand Breakdown Table</h3><p class="text-xs text-slate-500">Performance by Brand & Conversion S2P Ratio</p></div>
-          <button onclick="resetTable('brandTable')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 bg-white hover:bg-slate-50">Clear / Reset Table</button>
+          <button onclick="resetTable('brandTable')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 bg-white hover:bg-slate-50 cursor-pointer">Clear / Reset Table</button>
         </div>
         <div class="overflow-x-auto">
           <table id="brandTable" class="w-full text-sm text-right excel-table">
@@ -291,6 +299,10 @@
 
     let globalLoadedMonths = [], areDetailsExpanded = false, chartRefs = {};
     const initialTableState = {}, tableSortDirections = {}, csvCache = {};
+
+    // Estado del botón Show All / Collapse All para la tabla ESP/IP Breakdown
+    let isEspIpExpanded = false;
+    let cachedDetailedBreakdownRows = [];
 
     const MIN_ALLOWED_DATE = '2026-07-01';
     const START_YEAR = 2026;
@@ -771,6 +783,92 @@
       return agg;
     }
 
+    // Funciones para colapsar/expandir la tabla ESP / IP Breakdown
+    function getAdvertiserRollupRows(detailedRows) {
+      const advMap = {};
+      const order = [];
+
+      detailedRows.forEach(r => {
+        if (r.is_total || r.is_overall) return;
+        const esp = r.esp_ip;
+        const adv = r.advertiser;
+        const key = `${esp}___${adv}`;
+        if (!advMap[key]) {
+          advMap[key] = {
+            esp_ip: esp,
+            advertiser: adv,
+            brand: 'All Brands',
+            signups: 0,
+            ftds: 0,
+            brandCount: 0
+          };
+          order.push(key);
+        }
+        advMap[key].signups += (r.signups || 0);
+        advMap[key].ftds += (r.ftds || 0);
+        advMap[key].brandCount++;
+      });
+
+      const collapsedRows = [];
+      const espGroups = {};
+      order.forEach(k => {
+        const item = advMap[k];
+        if (!espGroups[item.esp_ip]) espGroups[item.esp_ip] = [];
+        espGroups[item.esp_ip].push(item);
+      });
+
+      let grandSig = 0, grandFtd = 0;
+      Object.entries(espGroups).forEach(([espName, items]) => {
+        items.sort((a, b) => (b.signups + b.ftds * 10) - (a.signups + a.ftds * 10));
+
+        let subSig = 0, subFtd = 0;
+        items.forEach(it => {
+          collapsedRows.push(it);
+          subSig += it.signups;
+          subFtd += it.ftds;
+        });
+
+        collapsedRows.push({
+          esp_ip: `GRAND TOTAL ${espName}`,
+          advertiser: '',
+          brand: '',
+          signups: subSig,
+          ftds: subFtd,
+          is_total: true
+        });
+
+        grandSig += subSig;
+        grandFtd += subFtd;
+      });
+
+      if (collapsedRows.length > 0) {
+        collapsedRows.push({
+          esp_ip: 'OVERALL GRAND TOTAL',
+          advertiser: '',
+          brand: '',
+          signups: grandSig,
+          ftds: grandFtd,
+          is_total: true,
+          is_overall: true
+        });
+      }
+
+      return collapsedRows;
+    }
+
+    function toggleEspIpBreakdownDetails() {
+      isEspIpExpanded = !isEspIpExpanded;
+      const btnText = $('espIpBtnText');
+      const btnIcon = $('espIpBtnIcon');
+      if (btnText) btnText.textContent = isEspIpExpanded ? 'Collapse All' : 'Show All';
+      if (btnIcon) {
+        btnIcon.innerHTML = isEspIpExpanded
+          ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>'
+          : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>';
+      }
+      renderEspIpBreakdown(cachedDetailedBreakdownRows);
+    }
+
     async function updateDashboardForDateRange() {
       const agg = aggregateJsonData(currentStartDate, currentEndDate);
       const csvMap = await aggregateCsvForRange(currentStartDate, currentEndDate);
@@ -792,11 +890,11 @@
         breakdownByEsp[esp][key].ftds += (r.ftds || 0);
       });
 
-      // Lista de ESPs ordenadas de mayor a menor según clics y volumen (sin nombres hardcodeados)
+      // Lista de ESPs ordenadas dinámicamente según clics y volumen (sin hardcoding)
       const espList = Object.values(csvMap).sort((a, b) => (b.clicked * 10 + b.delivered) - (a.clicked * 10 + a.delivered));
       const activeEsps = espList.length > 0 ? espList.map(e => e.esp) : ['SEG (Sendgrid) IP 2 / SH'];
 
-      // Función auxiliar genérica de distribución por resto mayor
+      // Función auxiliar genérica de distribución por cuota de resto mayor
       const allocateDelta = (items, delta, getWeight, addVal) => {
         if (delta <= 0 || items.length === 0) return;
         let totalW = items.reduce((s, it) => s + getWeight(it), 0);
@@ -817,7 +915,6 @@
         const targetFtd = bData.users || 0;
         const adv = bData.advertiser || '-';
 
-        // Buscar ocurrencias de esta marca en las IPs
         const matching = [];
         Object.entries(breakdownByEsp).forEach(([esp, group]) => {
           Object.values(group).forEach(item => {
@@ -855,7 +952,7 @@
         }
       });
 
-      // 3. Reconstruir filas de la tabla ESP / IP Breakdown de forma limpia
+      // 3. Reconstruir filas detalladas de la tabla ESP / IP Breakdown
       const sortOrder = ['MLJ (Mailjet) IP 1', 'MLJ (Mailjet) IP 2', 'MLJ (Mailjet) IP 3 / SH', 'SEG (Sendgrid) IP 1', 'SEG (Sendgrid) IP 2 / SH'];
       const allKnownEsps = Array.from(new Set([...sortOrder, ...Object.keys(breakdownByEsp)]));
 
@@ -1035,24 +1132,61 @@
       updateCharts(agg);
     }
 
-    function renderEspIpBreakdown(rows) {
-      const tbody = $('espIpBreakdownTableBody'); tbody.innerHTML = '';
+    function renderEspIpBreakdown(detailedRows) {
+      cachedDetailedBreakdownRows = detailedRows || [];
+      const tbody = $('espIpBreakdownTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      if (!detailedRows || !detailedRows.length) {
+        tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-400 italic">No breakdown data available for this range.</td></tr>`;
+        setT('espIpGrandSignups', '0');
+        setT('espIpGrandFtds', '0');
+        return;
+      }
+
+      // Si no está expandido, obtenemos el resumen consolidado por Anunciante
+      const rowsToRender = isEspIpExpanded ? detailedRows : getAdvertiserRollupRows(detailedRows);
+
       let gSig = 0, gFtd = 0, hasOverall = false;
-      if (!rows || !rows.length) { tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-400 italic">No breakdown data available for this range.</td></tr>`; return; }
-      
-      rows.forEach(r => {
-        if (r.is_overall || r.esp_ip?.toUpperCase().includes('OVERALL GRAND TOTAL')) { gSig = r.signups||0; gFtd = r.ftds||0; hasOverall = true; return; }
+
+      rowsToRender.forEach(r => {
+        if (r.is_overall || r.esp_ip?.toUpperCase().includes('OVERALL GRAND TOTAL')) {
+          gSig = r.signups || 0;
+          gFtd = r.ftds || 0;
+          hasOverall = true;
+          return;
+        }
+
         const tr = document.createElement('tr');
         if (r.is_total || r.esp_ip?.toUpperCase().startsWith('GRAND TOTAL')) {
           tr.className = 'bg-slate-100 font-bold text-slate-900';
-          tr.innerHTML = `<td colspan="3" class="py-2 px-4 text-left uppercase">${r.esp_ip}</td><td class="py-2 px-4 text-right font-mono text-amber-600">${(r.signups||0).toLocaleString()}</td><td class="py-2 px-4 text-right font-mono text-indigo-600">${(r.ftds||0).toLocaleString()}</td>`;
+          tr.innerHTML = `
+            <td colspan="3" class="py-2 px-4 text-left uppercase">${r.esp_ip}</td>
+            <td class="py-2 px-4 text-right font-mono text-amber-600">${(r.signups || 0).toLocaleString()}</td>
+            <td class="py-2 px-4 text-right font-mono text-indigo-600">${(r.ftds || 0).toLocaleString()}</td>
+          `;
         } else {
           tr.className = 'hover:bg-slate-50 bg-white';
-          tr.innerHTML = `<td class="py-2 px-4 text-left font-medium">${r.esp_ip||'-'}</td><td class="py-2 px-4 text-left">${r.advertiser||'-'}</td><td class="py-2 px-4 text-left">${r.brand||'-'}</td><td class="py-2 px-4 text-right font-mono font-bold text-amber-600">${(r.signups||0).toLocaleString()}</td><td class="py-2 px-4 text-right font-mono font-bold text-indigo-600">${(r.ftds||0).toLocaleString()}</td>`;
-          if (!hasOverall) { gSig += r.signups||0; gFtd += r.ftds||0; }
+          const brandDisplay = isEspIpExpanded 
+            ? (r.brand || '-') 
+            : `<span class="text-slate-400 italic text-xs font-normal">All Brands (${r.brandCount || 1})</span>`;
+          
+          tr.innerHTML = `
+            <td class="py-2 px-4 text-left font-medium text-slate-800">${r.esp_ip || '-'}</td>
+            <td class="py-2 px-4 text-left font-semibold text-slate-700">${r.advertiser || '-'}</td>
+            <td class="py-2 px-4 text-left">${brandDisplay}</td>
+            <td class="py-2 px-4 text-right font-mono font-bold text-amber-600">${(r.signups || 0).toLocaleString()}</td>
+            <td class="py-2 px-4 text-right font-mono font-bold text-indigo-600">${(r.ftds || 0).toLocaleString()}</td>
+          `;
+          if (!hasOverall) {
+            gSig += r.signups || 0;
+            gFtd += r.ftds || 0;
+          }
         }
         tbody.appendChild(tr);
       });
+
       setT('espIpGrandSignups', gSig.toLocaleString());
       setT('espIpGrandFtds', gFtd.toLocaleString());
     }
