@@ -306,12 +306,6 @@
     const MIN_ALLOWED_DATE = '2026-07-01';
     const START_YEAR = 2026;
 
-    // Bloqueo estricto de ESPs no operativos / residuales
-    const isExcludedEsp = name => {
-      const u = (name || '').toUpperCase();
-      return u.includes('CAM') || u.includes('CAMPAIGNER') || u.includes('SMPT') || u.includes('SMTP');
-    };
-
     const getCurrentYear = () => new Date().getFullYear();
 
     const getTodayIso = () => { 
@@ -519,7 +513,7 @@
         const domName = c[1];
         if (!c[0] && domName && domName.toUpperCase() !== 'DOMAIN' && domName.toUpperCase() !== 'TOTAL') {
           const full = curIp ? `${curEsp} ${curIp}`.trim() : curEsp.trim();
-          if (!full || isExcludedEsp(full)) continue;
+          if (!full) continue;
 
           if (!map[full]) map[full] = { esp: full, delivered: 0, softBounce: 0, hardBounce: 0, bounced: 0, opened: 0, clicked: 0, unsub: 0, signups: 0, players: 0, domains: {} };
           
@@ -665,7 +659,7 @@
         const espIp = (espIpRaw || 'Other').trim();
         const adv = (advRaw || '-').trim();
         const br = (brRaw || '-').trim();
-        if (!espIp || espIp.toUpperCase().includes('TOTAL') || isExcludedEsp(espIp)) return;
+        if (!espIp || espIp.toUpperCase().includes('TOTAL')) return;
 
         const key = `${adv}___${br}`;
         if (!espIpMap[espIp]) {
@@ -788,6 +782,7 @@
       return agg;
     }
 
+    // Funciones para colapsar/expandir la tabla ESP / IP Breakdown
     function getAdvertiserRollupRows(detailedRows) {
       const advMap = {};
       const order = [];
@@ -877,50 +872,70 @@
       const agg = aggregateJsonData(currentStartDate, currentEndDate);
       const csvMap = await aggregateCsvForRange(currentStartDate, currentEndDate);
 
-      // 1. Mapear las filas crudas existentes y guardar totales originales por IP
-      const breakdownByEsp = {};
-      const rawEspTotals = {};
+      const espTotalsFromBreakdown = {};
+      let totalBreakdownSignups = 0;
+      let totalBreakdownFtds = 0;
 
       (agg.esp_ip_breakdown || []).forEach(r => {
         if (r.is_total || r.is_overall) return;
-        const esp = (r.esp_ip || '').trim();
-        const adv = (r.advertiser || '-').trim();
-        const br = (r.brand || '-').trim();
-        if (!esp || isExcludedEsp(esp)) return;
-
-        if (!rawEspTotals[esp]) rawEspTotals[esp] = { signups: 0, ftds: 0 };
-        rawEspTotals[esp].signups += (r.signups || 0);
-        rawEspTotals[esp].ftds += (r.ftds || 0);
-
-        if (!breakdownByEsp[esp]) breakdownByEsp[esp] = {};
-        const key = `${adv}___${br}`;
-        if (!breakdownByEsp[esp][key]) {
-          breakdownByEsp[esp][key] = { esp_ip: esp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
+        const key = (r.esp_ip || '').trim();
+        if (!key) return;
+        if (!espTotalsFromBreakdown[key]) {
+          espTotalsFromBreakdown[key] = { signups: 0, ftds: 0 };
         }
-        breakdownByEsp[esp][key].signups += (r.signups || 0);
-        breakdownByEsp[esp][key].ftds += (r.ftds || 0);
+        espTotalsFromBreakdown[key].signups += (r.signups || 0);
+        espTotalsFromBreakdown[key].ftds += (r.ftds || 0);
+        totalBreakdownSignups += (r.signups || 0);
+        totalBreakdownFtds += (r.ftds || 0);
       });
 
-      // REGLA: Si originalmente venía con 0, no se le asigna nada. Solo si traía > 0:
-      const eligibleForSignups = espName => (rawEspTotals[espName]?.signups || 0) > 0;
-
-      // Lista de IPs activas válidas que originalmente ya tenían signups > 0
-      const sortOrder = ['MLJ (Mailjet) IP 1', 'MLJ (Mailjet) IP 2', 'MLJ (Mailjet) IP 3 / SH', 'SEG (Sendgrid) IP 1', 'SEG (Sendgrid) IP 2 / SH'];
-      let activeSendingEsps = Object.values(csvMap)
-        .filter(e => !isExcludedEsp(e.esp) && (e.delivered > 0 || e.clicked > 0))
-        .map(e => e.esp);
-
-      // Filtrar candidatas para recibir marcas faltantes: SOLO aquellas con signups originales > 0
-      let eligibleEsps = activeSendingEsps.filter(espName => eligibleForSignups(espName));
-      if (eligibleEsps.length === 0) {
-        eligibleEsps = activeSendingEsps; // Fallback seguro
+      const norm = s => (s || '').toLowerCase().replace(/\s+/g, ' ').trim();
+      function getBreakdownForEsp(espName) {
+        const target = norm(espName);
+        for (const [k, v] of Object.entries(espTotalsFromBreakdown)) {
+          if (norm(k) === target) return v;
+        }
+        for (const [k, v] of Object.entries(espTotalsFromBreakdown)) {
+          if (norm(k).includes(target) || target.includes(norm(k))) return v;
+        }
+        return { signups: 0, ftds: 0 };
       }
 
-      // Función de ajuste proporcional exacto
-      const allocateDelta = (items, delta, getWeight, addVal) => {
+      Object.keys(espTotalsFromBreakdown).forEach(espName => {
+        if (!csvMap[espName]) {
+          csvMap[espName] = {
+            esp: espName, delivered: 0, softBounce: 0, hardBounce: 0,
+            bounced: 0, opened: 0, clicked: 0, unsub: 0, signups: 0, players: 0, domains: {}
+          };
+        }
+      });
+
+      // Guardar los valores ORIGINALES antes de aplicar números:
+      Object.values(csvMap).forEach(item => {
+        const bd = getBreakdownForEsp(item.esp);
+        item.origSignups = bd.signups || 0;
+        item.origPlayers = bd.ftds || 0;
+        item.signups = bd.signups || 0;
+        item.players = bd.ftds || 0;
+      });
+
+      const list = Object.values(csvMap);
+      const sortOrder = ['MLJ (Mailjet) IP 1', 'MLJ (Mailjet) IP 2', 'MLJ (Mailjet) IP 3 / SH', 'SEG (Sendgrid) IP 1', 'SEG (Sendgrid) IP 2 / SH'];
+      list.sort((a, b) => {
+        const idxA = sortOrder.indexOf(a.esp);
+        const idxB = sortOrder.indexOf(b.esp);
+        return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
+      });
+
+      // Solo ESPs que tengan volumen o actividad
+      agg.esp = list.filter(e => e.delivered > 0 || e.signups > 0 || e.opened > 0 || e.players > 0);
+
+      // Función auxiliar genérica de distribución por resto mayor
+      const allocateIntDelta = (items, delta, getWeight, addVal) => {
         if (delta <= 0 || items.length === 0) return;
         let totalW = items.reduce((s, it) => s + getWeight(it), 0);
-        const weights = items.map(it => totalW > 0 ? getWeight(it) / totalW : 1 / items.length);
+        if (totalW <= 0) return;
+        const weights = items.map(it => getWeight(it) / totalW);
         const quotas = weights.map(w => delta * w);
         const ints = quotas.map(q => Math.floor(q));
         let leftover = delta - ints.reduce((a, b) => a + b, 0);
@@ -930,8 +945,52 @@
         items.forEach((it, idx) => addVal(it, ints[idx]));
       };
 
-      // 2. RECONCILIAR MARCAS DE AGG.BRANDS
-      let unassignedRotation = 0;
+      // --- REGLA SOLICITADA POR EL USUARIO ---
+      // "Si originalmente antes de aplicarle numeros, viene alguna con 0, no le asignas nada. Si ya viene con mayor a 0, ahi si":
+      const curEspSignups = agg.esp.reduce((s, e) => s + (e.signups || 0), 0);
+      if (agg.signups > curEspSignups) {
+        const remainingSignups = agg.signups - curEspSignups;
+        allocateIntDelta(
+          agg.esp,
+          remainingSignups,
+          e => (e.origSignups > 0 ? e.origSignups : 0), // Si vino con 0, peso 0 (no se le asigna nada)
+          (e, val) => { e.signups += val; }
+        );
+      }
+
+      const curEspPlayers = agg.esp.reduce((s, e) => s + (e.players || 0), 0);
+      if (agg.users > curEspPlayers) {
+        const remainingPlayers = agg.users - curEspPlayers;
+        allocateIntDelta(
+          agg.esp,
+          remainingPlayers,
+          e => (e.origSignups > 0 && e.signups > 0 ? e.signups : 0), // Si vino con 0, peso 0
+          (e, val) => { e.players += val; }
+        );
+      }
+
+      // --- RECONCILIACIÓN EN TABLA ESP / IP BREAKDOWN ---
+      const breakdownByEsp = {};
+      (agg.esp_ip_breakdown || []).forEach(r => {
+        if (r.is_total || r.is_overall) return;
+        const esp = (r.esp_ip || '').trim();
+        const adv = (r.advertiser || '-').trim();
+        const br = (r.brand || '-').trim();
+        if (!esp) return;
+        if (!breakdownByEsp[esp]) breakdownByEsp[esp] = {};
+        const key = `${adv}___${br}`;
+        if (!breakdownByEsp[esp][key]) {
+          breakdownByEsp[esp][key] = { esp_ip: esp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
+        }
+        breakdownByEsp[esp][key].signups += (r.signups || 0);
+        breakdownByEsp[esp][key].ftds += (r.ftds || 0);
+      });
+
+      // Solo las IPs que originalmente vinieron con > 0 son elegibles para recibir marcas
+      const eligibleEsps = agg.esp.filter(e => e.origSignups > 0 && e.signups > 0);
+      eligibleEsps.sort((a, b) => (b.signups + b.players * 10) - (a.signups + a.players * 10));
+
+      let unassignedRot = 0;
       Object.entries(agg.brands).forEach(([bName, bData]) => {
         const targetSig = bData.signups || 0;
         const targetFtd = bData.users || 0;
@@ -947,36 +1006,36 @@
         });
 
         if (matching.length > 0) {
-          // La marca ya existía: escalar proporcionalmente
           const curSig = matching.reduce((s, it) => s + (it.signups || 0), 0);
           const curFtd = matching.reduce((s, it) => s + (it.ftds || 0), 0);
 
           if (targetSig > curSig) {
-            allocateDelta(matching, targetSig - curSig, it => it.signups > 0 ? it.signups : 1, (it, val) => { it.signups += val; });
+            allocateIntDelta(matching, targetSig - curSig, it => it.signups > 0 ? it.signups : 1, (it, v) => { it.signups += v; });
           }
           if (targetFtd > curFtd) {
-            allocateDelta(matching, targetFtd - curFtd, it => it.ftds > 0 ? it.ftds : (it.signups > 0 ? it.signups : 1), (it, val) => { it.ftds += val; });
+            allocateIntDelta(matching, targetFtd - curFtd, it => it.ftds > 0 ? it.ftds : (it.signups > 0 ? it.signups : 1), (it, v) => { it.ftds += v; });
           }
         } else {
-          // Marca no atribuida: asignar completa a una IP que originalmente traía > 0
-          const chosenEsp = eligibleEsps[unassignedRotation % eligibleEsps.length];
-          unassignedRotation++;
+          // Marca no atribuida en tracking: se asigna COMPLETA a una IP que vino con > 0
+          if (eligibleEsps.length > 0) {
+            const chosenEsp = eligibleEsps[unassignedRot % eligibleEsps.length].esp;
+            unassignedRot++;
 
-          if (!breakdownByEsp[chosenEsp]) breakdownByEsp[chosenEsp] = {};
-          const key = `${adv}___${bName}`;
-          breakdownByEsp[chosenEsp][key] = {
-            esp_ip: chosenEsp,
-            advertiser: adv,
-            brand: bName,
-            signups: targetSig,
-            ftds: targetFtd
-          };
+            if (!breakdownByEsp[chosenEsp]) breakdownByEsp[chosenEsp] = {};
+            const key = `${adv}___${bName}`;
+            breakdownByEsp[chosenEsp][key] = {
+              esp_ip: chosenEsp,
+              advertiser: adv,
+              brand: bName,
+              signups: targetSig,
+              ftds: targetFtd
+            };
+          }
         }
       });
 
-      // 3. Reconstruir filas detalladas de ESP / IP Breakdown en orden limpio
-      const allKnownEsps = Array.from(new Set([...sortOrder, ...Object.keys(breakdownByEsp)])).filter(e => !isExcludedEsp(e));
-
+      // Reconstruir filas de ESP/IP Breakdown
+      const allKnownEsps = Array.from(new Set([...sortOrder, ...Object.keys(breakdownByEsp)]));
       const newBreakdownRows = [];
       let grandSig = 0, grandFtd = 0;
 
@@ -1021,49 +1080,12 @@
 
       agg.esp_ip_breakdown = newBreakdownRows;
 
-      // 4. Actualizar tabla superior de ESP
-      const espTotalsFromBreakdown = {};
-      newBreakdownRows.forEach(r => {
-        if (r.is_total && !r.is_overall) {
-          const espName = r.esp_ip.replace(/^GRAND TOTAL\s+/i, '').trim();
-          if (!isExcludedEsp(espName)) {
-            espTotalsFromBreakdown[espName] = { signups: r.signups || 0, ftds: r.ftds || 0 };
-          }
-        }
-      });
-
-      Object.keys(espTotalsFromBreakdown).forEach(espName => {
-        if (!csvMap[espName]) {
-          csvMap[espName] = {
-            esp: espName, delivered: 0, softBounce: 0, hardBounce: 0,
-            bounced: 0, opened: 0, clicked: 0, unsub: 0, signups: 0, players: 0, domains: {}
-          };
-        }
-      });
-
-      Object.values(csvMap).forEach(item => {
-        if (!isExcludedEsp(item.esp)) {
-          const bd = espTotalsFromBreakdown[item.esp] || { signups: 0, ftds: 0 };
-          item.signups = bd.signups;
-          item.players = bd.ftds;
-        }
-      });
-
-      const list = Object.values(csvMap).filter(e => !isExcludedEsp(e.esp));
-      list.sort((a, b) => {
-        const idxA = sortOrder.indexOf(a.esp);
-        const idxB = sortOrder.indexOf(b.esp);
-        return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
-      });
-
-      agg.esp = list.filter(e => e.delivered > 0 || e.signups > 0 || e.opened > 0 || e.players > 0);
-
       ['delivered','softBounce','hardBounce','bounced','opened','clicked','unsub'].forEach(k => {
         agg[k] = agg.esp.reduce((acc, cur) => acc + (cur[k] || 0), 0);
       });
 
-      agg.espSignups = grandSig;
-      agg.espPlayers = grandFtd;
+      agg.espSignups = agg.esp.reduce((acc, cur) => acc + (cur.signups || 0), 0);
+      agg.espPlayers = agg.esp.reduce((acc, cur) => acc + (cur.players || 0), 0);
 
       renderDashboard(agg, currentStartDate, currentEndDate);
     }
