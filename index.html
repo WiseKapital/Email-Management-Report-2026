@@ -831,8 +831,7 @@
       const list = Object.values(csvMap);
       agg.esp = list.filter(e => e.delivered > 0 || e.signups > 0 || e.opened > 0 || e.players > 0);
 
-      // --- DISTRIBUCIÓN PORCENTUAL PREDICTIVA (SIGNUPS Y PLAYERS) ---
-      // Cuando los totales en la tabla de ESP sean menores a los de las tarjetas (agg.signups / agg.users)
+      // --- 1. DISTRIBUCIÓN PORCENTUAL PREDICTIVA EN TABLA DE ESP ---
       const distributeRemaining = (items, targetTotal, getCurrentVal, getWeight, setVal) => {
         const currentTotal = items.reduce((sum, item) => sum + getCurrentVal(item), 0);
         const remaining = targetTotal - currentTotal;
@@ -841,7 +840,6 @@
         let totalWeight = items.reduce((sum, item) => sum + getWeight(item), 0);
         const weights = items.map(item => totalWeight > 0 ? getWeight(item) / totalWeight : 1 / items.length);
 
-        // Algoritmo de cuota entera exacta (Largest Remainder Method)
         const quotas = weights.map(w => remaining * w);
         const additions = quotas.map(q => Math.floor(q));
         let leftover = remaining - additions.reduce((a, b) => a + b, 0);
@@ -858,7 +856,6 @@
         });
       };
 
-      // 1. Distribución predictiva para Signups
       const curEspSignups = agg.esp.reduce((sum, e) => sum + (e.signups || 0), 0);
       if (agg.signups > curEspSignups) {
         distributeRemaining(
@@ -874,7 +871,6 @@
         );
       }
 
-      // 2. Distribución predictiva para Players (ponderado por los Signups de cada ESP)
       const curEspPlayers = agg.esp.reduce((sum, e) => sum + (e.players || 0), 0);
       if (agg.users > curEspPlayers) {
         distributeRemaining(
@@ -889,12 +885,198 @@
           (e, val) => { e.players = val; }
         );
       }
+
+      // --- 2. OPCIÓN B: RECONCILIACIÓN Y DISTRIBUCIÓN DE MARCAS REALES EN ESP/IP BREAKDOWN ---
+      const breakdownByEsp = {};
+      (agg.esp_ip_breakdown || []).forEach(r => {
+        if (r.is_total || r.is_overall) return;
+        const esp = (r.esp_ip || '').trim();
+        const adv = (r.advertiser || '-').trim();
+        const br = (r.brand || '-').trim();
+        if (!esp) return;
+        if (!breakdownByEsp[esp]) breakdownByEsp[esp] = {};
+        const key = `${adv}___${br}`;
+        if (!breakdownByEsp[esp][key]) {
+          breakdownByEsp[esp][key] = { esp_ip: esp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
+        }
+        breakdownByEsp[esp][key].signups += (r.signups || 0);
+        breakdownByEsp[esp][key].ftds += (r.ftds || 0);
+      });
+
+      agg.esp.forEach(e => {
+        if (!breakdownByEsp[e.esp]) breakdownByEsp[e.esp] = {};
+      });
+
+      // Calcular lo que cada ESP necesita para alcanzar exactamente su cuota
+      const espNeeded = {};
+      agg.esp.forEach(e => {
+        let curSig = 0, curFtd = 0;
+        Object.values(breakdownByEsp[e.esp] || {}).forEach(item => {
+          curSig += item.signups || 0;
+          curFtd += item.ftds || 0;
+        });
+        espNeeded[e.esp] = {
+          signups: Math.max(0, (e.signups || 0) - curSig),
+          ftds: Math.max(0, (e.players || 0) - curFtd)
+        };
+      });
+
+      // Identificar marcas reales y conversiones que faltan por ubicar en IPs
+      const brandMissing = {};
+      Object.entries(agg.brands).forEach(([bName, bData]) => {
+        let attrSig = 0, attrFtd = 0;
+        Object.values(breakdownByEsp).forEach(espGroup => {
+          Object.values(espGroup).forEach(item => {
+            if (item.brand.toLowerCase() === bName.toLowerCase()) {
+              attrSig += item.signups || 0;
+              attrFtd += item.ftds || 0;
+            }
+          });
+        });
+        const missSig = Math.max(0, (bData.signups || 0) - attrSig);
+        const missFtd = Math.max(0, (bData.users || 0) - attrFtd);
+        if (missSig > 0 || missFtd > 0) {
+          brandMissing[bName] = {
+            brand: bName,
+            advertiser: bData.advertiser || '-',
+            signups: missSig,
+            ftds: missFtd
+          };
+        }
+      });
+
+      const missingBrandList = Object.values(brandMissing).sort((a, b) => (b.signups + b.ftds * 5) - (a.signups + a.ftds * 5));
+
+      // Asignar Signups de marcas reales a las IPs receptoras
+      missingBrandList.forEach(bm => {
+        let toDistribute = bm.signups;
+        while (toDistribute > 0) {
+          const candidateEsps = agg.esp.filter(e => (espNeeded[e.esp]?.signups || 0) > 0);
+          if (candidateEsps.length === 0) break;
+
+          const totalNeeded = candidateEsps.reduce((s, e) => s + espNeeded[e.esp].signups, 0);
+          const amountForStep = Math.min(toDistribute, totalNeeded);
+
+          const quotas = candidateEsps.map(e => (amountForStep * espNeeded[e.esp].signups) / totalNeeded);
+          const intAdds = quotas.map(q => Math.floor(q));
+          let rem = amountForStep - intAdds.reduce((a, b) => a + b, 0);
+
+          const remainders = quotas.map((q, idx) => ({ idx, r: q - Math.floor(q) }));
+          remainders.sort((a, b) => b.r - a.r);
+          for (let i = 0; i < rem; i++) {
+            intAdds[remainders[i].idx]++;
+          }
+
+          candidateEsps.forEach((e, idx) => {
+            const add = intAdds[idx];
+            if (add > 0) {
+              const key = `${bm.advertiser}___${bm.brand}`;
+              if (!breakdownByEsp[e.esp][key]) {
+                breakdownByEsp[e.esp][key] = {
+                  esp_ip: e.esp,
+                  advertiser: bm.advertiser,
+                  brand: bm.brand,
+                  signups: 0,
+                  ftds: 0
+                };
+              }
+              breakdownByEsp[e.esp][key].signups += add;
+              espNeeded[e.esp].signups -= add;
+              toDistribute -= add;
+            }
+          });
+        }
+      });
+
+      // Asignar FTDs de marcas reales a las IPs receptoras
+      missingBrandList.forEach(bm => {
+        let toDistribute = bm.ftds;
+        while (toDistribute > 0) {
+          const candidateEsps = agg.esp.filter(e => (espNeeded[e.esp]?.ftds || 0) > 0);
+          if (candidateEsps.length === 0) break;
+
+          const totalNeeded = candidateEsps.reduce((s, e) => s + espNeeded[e.esp].ftds, 0);
+          const amountForStep = Math.min(toDistribute, totalNeeded);
+
+          const quotas = candidateEsps.map(e => (amountForStep * espNeeded[e.esp].ftds) / totalNeeded);
+          const intAdds = quotas.map(q => Math.floor(q));
+          let rem = amountForStep - intAdds.reduce((a, b) => a + b, 0);
+
+          const remainders = quotas.map((q, idx) => ({ idx, r: q - Math.floor(q) }));
+          remainders.sort((a, b) => b.r - a.r);
+          for (let i = 0; i < rem; i++) {
+            intAdds[remainders[i].idx]++;
+          }
+
+          candidateEsps.forEach((e, idx) => {
+            const add = intAdds[idx];
+            if (add > 0) {
+              const key = `${bm.advertiser}___${bm.brand}`;
+              if (!breakdownByEsp[e.esp][key]) {
+                breakdownByEsp[e.esp][key] = {
+                  esp_ip: e.esp,
+                  advertiser: bm.advertiser,
+                  brand: bm.brand,
+                  signups: 0,
+                  ftds: 0
+                };
+              }
+              breakdownByEsp[e.esp][key].ftds += add;
+              espNeeded[e.esp].ftds -= add;
+              toDistribute -= add;
+            }
+          });
+        }
+      });
+
+      // Reconstruir las filas para la tabla ESP / IP Breakdown
+      const newBreakdownRows = [];
+      let grandSig = 0, grandFtd = 0;
+
+      Object.entries(breakdownByEsp).forEach(([espName, group]) => {
+        const items = Object.values(group).filter(it => it.signups > 0 || it.ftds > 0);
+        if (items.length === 0) return;
+
+        items.sort((a, b) => (b.signups + b.ftds * 10) - (a.signups + a.ftds * 10));
+
+        let subSig = 0, subFtd = 0;
+        items.forEach(it => {
+          newBreakdownRows.push(it);
+          subSig += it.signups;
+          subFtd += it.ftds;
+        });
+
+        newBreakdownRows.push({
+          esp_ip: `GRAND TOTAL ${espName}`,
+          advertiser: '',
+          brand: '',
+          signups: subSig,
+          ftds: subFtd,
+          is_total: true
+        });
+
+        grandSig += subSig;
+        grandFtd += subFtd;
+      });
+
+      if (newBreakdownRows.length > 0) {
+        newBreakdownRows.push({
+          esp_ip: 'OVERALL GRAND TOTAL',
+          advertiser: '',
+          brand: '',
+          signups: grandSig,
+          ftds: grandFtd,
+          is_total: true,
+          is_overall: true
+        });
+      }
+
+      agg.esp_ip_breakdown = newBreakdownRows;
       
       ['delivered','softBounce','hardBounce','bounced','opened','clicked','unsub'].forEach(k => {
         agg[k] = agg.esp.reduce((acc, cur) => acc + (cur[k] || 0), 0);
       });
 
-      // Actualizar los totales generales del pie de la tabla para que cuadren con las tarjetas
       agg.espSignups = agg.esp.reduce((acc, cur) => acc + (cur.signups || 0), 0);
       agg.espPlayers = agg.esp.reduce((acc, cur) => acc + (cur.players || 0), 0);
 
