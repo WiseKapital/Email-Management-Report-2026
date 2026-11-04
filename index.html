@@ -302,17 +302,16 @@
       return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; 
     };
     
-    const _initToday = getTodayIso();
-    let currentStartDate = _initToday.substring(0, 8) + '01';
-    let currentEndDate = _initToday;
+    let currentStartDate = '2026-11-01';
+    let currentEndDate = '2026-11-04';
     let activeCalTarget = 'from';
-    let calViewYear = new Date().getFullYear();
-    let calViewMonth = new Date().getMonth();
+    let calViewYear = 2026;
+    let calViewMonth = 10;
 
     const formatS2P = (s, u) => u > 0 ? (s === 0 ? '0:1' : `1:${Math.round(s/u)}`) : (s > 0 ? `0:${s}` : '0:0');
     const isoToDisplay = s => s ? `${s.split('-')[1]}/${s.split('-')[2]}/${s.split('-')[0]}` : '';
 
-    async function fetchMonthFile(mKey, year = getCurrentYear()) {
+    async function fetchMonthFile(mKey, year = 2026) {
       const capKey = mKey.charAt(0).toUpperCase() + mKey.slice(1);
       const ts = Date.now();
       
@@ -344,8 +343,9 @@
 
     async function loadAllMonths() {
       const currentYear = getCurrentYear();
+      const maxYear = Math.max(START_YEAR, currentYear);
       const years = [];
-      for (let y = START_YEAR; y <= Math.max(START_YEAR, currentYear); y++) {
+      for (let y = START_YEAR; y <= maxYear; y++) {
         years.push(y);
       }
 
@@ -372,11 +372,32 @@
       return uniqueMonths;
     }
 
+    // Inicialización inteligente y dinámica basada en datos reales
     function initDateControls() {
+      const allDates = [];
+      globalLoadedMonths.forEach(m => {
+        (m.daily_records || []).forEach(r => {
+          if (r.date) allDates.push(r.date);
+        });
+      });
+      allDates.sort();
+
       const todayIso = getTodayIso();
-      currentStartDate = todayIso.substring(0, 8) + '01';
+      let defaultEnd = todayIso;
+      
+      // Si la fecha actual del sistema no coincide con ningún dato cargado o es menor a la fecha mínima,
+      // tomamos la fecha más reciente registrada en los archivos JSON (evita que todo quede en 0)
+      if (allDates.length > 0) {
+        const latestRecorded = allDates[allDates.length - 1];
+        if (defaultEnd < MIN_ALLOWED_DATE || !allDates.includes(defaultEnd)) {
+          defaultEnd = latestRecorded;
+        }
+      }
+
+      currentEndDate = defaultEnd;
+      currentStartDate = currentEndDate.substring(0, 8) + '01';
       if (currentStartDate < MIN_ALLOWED_DATE) currentStartDate = MIN_ALLOWED_DATE;
-      currentEndDate = todayIso;
+      if (currentStartDate > currentEndDate) currentStartDate = currentEndDate;
 
       calViewYear = parseInt(currentEndDate.substring(0, 4), 10);
       calViewMonth = parseInt(currentEndDate.substring(5, 7), 10) - 1;
@@ -406,8 +427,8 @@
       else if (nextMonth > 11) { nextMonth = 0; nextYear++; }
 
       const todayIso = getTodayIso();
-      const maxYear = parseInt(todayIso.substring(0, 4), 10);
-      const maxMonth = parseInt(todayIso.substring(5, 7), 10) - 1;
+      const maxYear = Math.max(parseInt(todayIso.substring(0, 4), 10), 2026);
+      const maxMonth = 11;
 
       if (nextYear < 2026 || (nextYear === 2026 && nextMonth < 6)) return;
       if (nextYear > maxYear || (nextYear === maxYear && nextMonth > maxMonth)) return;
@@ -422,7 +443,6 @@
       const grid = $('calDaysGrid');
       grid.innerHTML = '';
 
-      const todayIso = getTodayIso();
       const first = new Date(calViewYear, calViewMonth, 1), days = new Date(calViewYear, calViewMonth + 1, 0).getDate();
       const offset = (first.getDay() + 6) % 7;
       
@@ -432,7 +452,7 @@
         const iso = `${calViewYear}-${String(calViewMonth + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
         const btn = document.createElement('button'); btn.type = 'button'; btn.textContent = day;
         
-        if (iso < MIN_ALLOWED_DATE || iso > todayIso) {
+        if (iso < MIN_ALLOWED_DATE) {
           btn.className = 'p-1.5 text-slate-300 font-bold rounded-xl cursor-not-allowed';
         } else {
           const sel = (activeCalTarget === 'from' && iso === currentStartDate) || (activeCalTarget === 'to' && iso === currentEndDate);
@@ -524,7 +544,7 @@
       return Object.keys(map).length > 0 ? map : null;
     }
 
-    async function fetchCsvDay(m, d, y = getCurrentYear()) {
+    async function fetchCsvDay(m, d, y = 2026) {
       const k = `${y}/${m}/${d}`;
       if (csvCache[k]) return csvCache[k];
       
@@ -655,7 +675,7 @@
           espIpMap[espIp] = { items: {}, order: [] };
         }
         if (!espIpMap[espIp].items[key]) {
-          espIpMap[espIp] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
+          espIpMap[espIp].items[key] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
           espIpMap[espIp].order.push(key);
         }
         espIpMap[espIp].items[key].signups += (sig || 0);
@@ -772,207 +792,208 @@
     }
 
     async function updateDashboardForDateRange() {
-      const agg = aggregateJsonData(currentStartDate, currentEndDate);
-      const csvMap = await aggregateCsvForRange(currentStartDate, currentEndDate);
+      try {
+        const agg = aggregateJsonData(currentStartDate, currentEndDate);
+        const csvMap = await aggregateCsvForRange(currentStartDate, currentEndDate);
 
-      const sortOrder = [
-        'MLJ (Mailjet) IP 1',
-        'MLJ (Mailjet) IP 2',
-        'MLJ (Mailjet) IP 3 / SH',
-        'SEG (Sendgrid) IP 1',
-        'SEG (Sendgrid) IP 2 / SH'
-      ];
+        const sortOrder = [
+          'MLJ (Mailjet) IP 1',
+          'MLJ (Mailjet) IP 2',
+          'MLJ (Mailjet) IP 3 / SH',
+          'SEG (Sendgrid) IP 1',
+          'SEG (Sendgrid) IP 2 / SH'
+        ];
 
-      // 1. Inicializar mapa de IPs
-      const breakdownByEsp = {};
-      sortOrder.forEach(esp => { breakdownByEsp[esp] = {}; });
+        // 1. Inicializar mapa de IPs
+        const breakdownByEsp = {};
+        sortOrder.forEach(esp => { breakdownByEsp[esp] = {}; });
 
-      // 2. Extraer los datos crudos ya registrados en el JSON
-      (agg.esp_ip_breakdown || []).forEach(r => {
-        if (r.is_total || r.is_overall) return;
-        const esp = (r.esp_ip || '').trim();
-        const adv = (r.advertiser || '-').trim();
-        const br = (r.brand || '-').trim();
-        if (!esp || !br) return;
-        if (!breakdownByEsp[esp]) breakdownByEsp[esp] = {};
-        const key = `${adv}___${br}`;
-        if (!breakdownByEsp[esp][key]) {
-          breakdownByEsp[esp][key] = { esp_ip: esp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
-        }
-        breakdownByEsp[esp][key].signups += (r.signups || 0);
-        breakdownByEsp[esp][key].ftds += (r.ftds || 0);
-      });
+        // 2. Extraer datos crudos registrados
+        (agg.esp_ip_breakdown || []).forEach(r => {
+          if (r.is_total || r.is_overall) return;
+          const esp = (r.esp_ip || '').trim();
+          const adv = (r.advertiser || '-').trim();
+          const br = (r.brand || '-').trim();
+          if (!esp || !br) return;
+          if (!breakdownByEsp[esp]) breakdownByEsp[esp] = {};
+          const key = `${adv}___${br}`;
+          if (!breakdownByEsp[esp][key]) {
+            breakdownByEsp[esp][key] = { esp_ip: esp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
+          }
+          breakdownByEsp[esp][key].signups += (r.signups || 0);
+          breakdownByEsp[esp][key].ftds += (r.ftds || 0);
+        });
 
-      // 3. Determinar el ranking de capacidad de las IPs activas según clics y volumen CSV
-      const espTrafficList = Object.values(csvMap).filter(e => (e.delivered || 0) > 0 || (e.clicked || 0) > 0);
-      const rankedEsps = espTrafficList.length > 0
-        ? espTrafficList.slice().sort((a, b) => ((b.clicked || 0) * 100 + (b.delivered || 0)) - ((a.clicked || 0) * 100 + (a.delivered || 0)))
-        : sortOrder.map(name => ({ esp: name, clicked: 1, delivered: 1 }));
+        // 3. Evaluar volumen real de tráfico CSV
+        const espTrafficList = Object.values(csvMap).filter(e => (e.delivered || 0) > 0 || (e.clicked || 0) > 0);
+        const rankedEsps = espTrafficList.length > 0
+          ? espTrafficList.slice().sort((a, b) => ((b.clicked || 0) * 100 + (b.delivered || 0)) - ((a.clicked || 0) * 100 + (a.delivered || 0)))
+          : sortOrder.map(name => ({ esp: name, clicked: 1, delivered: 1 }));
 
-      // 4. MOTOR DE RECONCILIACIÓN 100% DINÁMICO (SIN NOMBRES QUEMADOS)
-      // A) Sincronizar marcas existentes que ya están en el breakdown con su valor real exacto de Brand Breakdown
-      Object.entries(agg.brands).forEach(([bName, bData]) => {
-        const realSig = bData.signups || 0;
-        const realFtd = bData.users || 0;
+        // 4. MOTOR DINÁMICO DE RECONCILIACIÓN (Sin nombres quemados)
+        // A) Ajustar marcas existentes a su valor real en Brand Breakdown
+        Object.entries(agg.brands || {}).forEach(([bName, bData]) => {
+          const realSig = bData.signups || 0;
+          const realFtd = bData.users || 0;
 
-        const matches = [];
-        Object.entries(breakdownByEsp).forEach(([espName, group]) => {
-          Object.values(group).forEach(item => {
-            if (item.brand.toLowerCase() === bName.toLowerCase()) {
-              matches.push({ espName, item });
+          const matches = [];
+          Object.entries(breakdownByEsp).forEach(([espName, group]) => {
+            Object.values(group).forEach(item => {
+              if (item.brand && bName && item.brand.toLowerCase() === bName.toLowerCase()) {
+                matches.push({ espName, item });
+              }
+            });
+          });
+
+          if (matches.length > 0) {
+            const curSig = matches.reduce((s, x) => s + x.item.signups, 0);
+            const curFtd = matches.reduce((s, x) => s + x.item.ftds, 0);
+            const diffSig = realSig - curSig;
+            const diffFtd = realFtd - curFtd;
+
+            if (diffSig > 0 || diffFtd > 0) {
+              matches.sort((a, b) => (b.item.signups + b.item.ftds) - (a.item.signups + a.item.ftds));
+              if (diffSig > 0) matches[0].item.signups += diffSig;
+              if (diffFtd > 0) matches[0].item.ftds += diffFtd;
+            }
+          }
+        });
+
+        // B) Ubicar marcas faltantes completas e intactas
+        const unassignedBrands = [];
+        Object.entries(agg.brands || {}).forEach(([bName, bData]) => {
+          let exists = false;
+          Object.values(breakdownByEsp).forEach(group => {
+            if (Object.values(group).some(it => it.brand && bName && it.brand.toLowerCase() === bName.toLowerCase())) {
+              exists = true;
             }
           });
-        });
-
-        if (matches.length > 0) {
-          const curSig = matches.reduce((s, x) => s + x.item.signups, 0);
-          const curFtd = matches.reduce((s, x) => s + x.item.ftds, 0);
-          const diffSig = realSig - curSig;
-          const diffFtd = realFtd - curFtd;
-
-          // Si falta volumen para alcanzar el total de la marca, se le asigna a la IP de mayor actividad donde ya está
-          if (diffSig > 0 || diffFtd > 0) {
-            matches.sort((a, b) => (b.item.signups + b.item.ftds) - (a.item.signups + a.item.ftds));
-            if (diffSig > 0) matches[0].item.signups += diffSig;
-            if (diffFtd > 0) matches[0].item.ftds += diffFtd;
-          }
-        }
-      });
-
-      // B) Identificar marcas que NO estaban en el breakdown y asignarlas COMPLETAS a las IPs con mayor capacidad
-      const unassignedBrands = [];
-      Object.entries(agg.brands).forEach(([bName, bData]) => {
-        let exists = false;
-        Object.values(breakdownByEsp).forEach(group => {
-          if (Object.values(group).some(it => it.brand.toLowerCase() === bName.toLowerCase())) {
-            exists = true;
+          if (!exists && ((bData.signups || 0) > 0 || (bData.users || 0) > 0)) {
+            unassignedBrands.push({
+              brand: bName,
+              advertiser: bData.advertiser || '-',
+              signups: bData.signups || 0,
+              ftds: bData.users || 0
+            });
           }
         });
-        if (!exists && ((bData.signups || 0) > 0 || (bData.users || 0) > 0)) {
-          unassignedBrands.push({
-            brand: bName,
-            advertiser: bData.advertiser || '-',
-            signups: bData.signups || 0,
-            ftds: bData.users || 0
+
+        unassignedBrands.sort((a, b) => (b.signups + b.ftds * 10) - (a.signups + a.ftds * 10));
+
+        const getEspCurrentLoad = espName => {
+          return Object.values(breakdownByEsp[espName] || {}).reduce((s, it) => s + it.signups + it.ftds * 5, 0);
+        };
+
+        unassignedBrands.forEach(bm => {
+          const candidates = rankedEsps.slice().sort((a, b) => {
+            const capA = (a.clicked || 1) * 10;
+            const capB = (b.clicked || 1) * 10;
+            const loadA = getEspCurrentLoad(a.esp);
+            const loadB = getEspCurrentLoad(b.esp);
+            return (loadA / capA) - (loadB / capB);
+          });
+
+          const chosenEsp = candidates[0]?.esp || 'SEG (Sendgrid) IP 2 / SH';
+          if (!breakdownByEsp[chosenEsp]) breakdownByEsp[chosenEsp] = {};
+          const key = `${bm.advertiser}___${bm.brand}`;
+          breakdownByEsp[chosenEsp][key] = {
+            esp_ip: chosenEsp,
+            advertiser: bm.advertiser,
+            brand: bm.brand,
+            signups: bm.signups,
+            ftds: bm.ftds
+          };
+        });
+
+        // 5. Reconstruir tabla ESP / IP Breakdown en orden
+        const newBreakdownRows = [];
+        let grandSig = 0, grandFtd = 0;
+
+        sortOrder.forEach(espName => {
+          const group = breakdownByEsp[espName] || {};
+          const items = Object.values(group).filter(it => it.signups > 0 || it.ftds > 0);
+          if (items.length === 0) return;
+
+          items.sort((a, b) => (b.signups + b.ftds * 10) - (a.signups + a.ftds * 10));
+
+          let subSig = 0, subFtd = 0;
+          items.forEach(it => {
+            newBreakdownRows.push(it);
+            subSig += it.signups;
+            subFtd += it.ftds;
+          });
+
+          newBreakdownRows.push({
+            esp_ip: `GRAND TOTAL ${espName}`,
+            advertiser: '',
+            brand: '',
+            signups: subSig,
+            ftds: subFtd,
+            is_total: true
+          });
+
+          grandSig += subSig;
+          grandFtd += subFtd;
+        });
+
+        if (newBreakdownRows.length > 0) {
+          newBreakdownRows.push({
+            esp_ip: 'OVERALL GRAND TOTAL',
+            advertiser: '',
+            brand: '',
+            signups: grandSig,
+            ftds: grandFtd,
+            is_total: true,
+            is_overall: true
           });
         }
-      });
 
-      // Ordenar marcas no asignadas por tamaño para equilibrar las IPs
-      unassignedBrands.sort((a, b) => (b.signups + b.ftds * 10) - (a.signups + a.ftds * 10));
+        agg.esp_ip_breakdown = newBreakdownRows;
 
-      const getEspCurrentLoad = espName => {
-        return Object.values(breakdownByEsp[espName] || {}).reduce((s, it) => s + it.signups + it.ftds * 5, 0);
-      };
-
-      unassignedBrands.forEach(bm => {
-        // Asignar dinámicamente a la IP activa con mayor capacidad disponible proporcionalmente
-        const candidates = rankedEsps.slice().sort((a, b) => {
-          const capA = (a.clicked || 1) * 10;
-          const capB = (b.clicked || 1) * 10;
-          const loadA = getEspCurrentLoad(a.esp);
-          const loadB = getEspCurrentLoad(b.esp);
-          return (loadA / capA) - (loadB / capB);
+        // 6. Sincronizar automáticamente la tabla de arriba de ESP
+        const espTotalsFromBreakdown = {};
+        newBreakdownRows.forEach(r => {
+          if (r.is_total && !r.is_overall) {
+            const espName = r.esp_ip.replace(/^GRAND TOTAL\s+/i, '').trim();
+            espTotalsFromBreakdown[espName] = { signups: r.signups || 0, ftds: r.ftds || 0 };
+          }
         });
 
-        const chosenEsp = candidates[0]?.esp || 'SEG (Sendgrid) IP 2 / SH';
-        if (!breakdownByEsp[chosenEsp]) breakdownByEsp[chosenEsp] = {};
-        const key = `${bm.advertiser}___${bm.brand}`;
-        breakdownByEsp[chosenEsp][key] = {
-          esp_ip: chosenEsp,
-          advertiser: bm.advertiser,
-          brand: bm.brand,
-          signups: bm.signups,
-          ftds: bm.ftds
-        };
-      });
-
-      // 5. Reconstruir filas de la tabla ESP / IP Breakdown en orden limpio
-      const newBreakdownRows = [];
-      let grandSig = 0, grandFtd = 0;
-
-      sortOrder.forEach(espName => {
-        const group = breakdownByEsp[espName] || {};
-        const items = Object.values(group).filter(it => it.signups > 0 || it.ftds > 0);
-        if (items.length === 0) return;
-
-        items.sort((a, b) => (b.signups + b.ftds * 10) - (a.signups + a.ftds * 10));
-
-        let subSig = 0, subFtd = 0;
-        items.forEach(it => {
-          newBreakdownRows.push(it);
-          subSig += it.signups;
-          subFtd += it.ftds;
+        Object.keys(espTotalsFromBreakdown).forEach(espName => {
+          if (!csvMap[espName]) {
+            csvMap[espName] = {
+              esp: espName, delivered: 0, softBounce: 0, hardBounce: 0,
+              bounced: 0, opened: 0, clicked: 0, unsub: 0, signups: 0, players: 0, domains: {}
+            };
+          }
         });
 
-        newBreakdownRows.push({
-          esp_ip: `GRAND TOTAL ${espName}`,
-          advertiser: '',
-          brand: '',
-          signups: subSig,
-          ftds: subFtd,
-          is_total: true
+        Object.values(csvMap).forEach(item => {
+          const bd = espTotalsFromBreakdown[item.esp] || { signups: 0, ftds: 0 };
+          item.signups = bd.signups;
+          item.players = bd.ftds;
         });
 
-        grandSig += subSig;
-        grandFtd += subFtd;
-      });
-
-      if (newBreakdownRows.length > 0) {
-        newBreakdownRows.push({
-          esp_ip: 'OVERALL GRAND TOTAL',
-          advertiser: '',
-          brand: '',
-          signups: grandSig,
-          ftds: grandFtd,
-          is_total: true,
-          is_overall: true
+        const list = Object.values(csvMap);
+        list.sort((a, b) => {
+          const idxA = sortOrder.indexOf(a.esp);
+          const idxB = sortOrder.indexOf(b.esp);
+          return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
         });
+
+        agg.esp = list.filter(e => e.delivered > 0 || e.signups > 0 || e.opened > 0 || e.players > 0);
+
+        ['delivered','softBounce','hardBounce','bounced','opened','clicked','unsub'].forEach(k => {
+          agg[k] = agg.esp.reduce((acc, cur) => acc + (cur[k] || 0), 0);
+        });
+
+        agg.espSignups = grandSig;
+        agg.espPlayers = grandFtd;
+
+        renderDashboard(agg, currentStartDate, currentEndDate);
+      } catch (err) {
+        console.error("Error al actualizar el dashboard:", err);
       }
-
-      agg.esp_ip_breakdown = newBreakdownRows;
-
-      // 6. Sincronización automática de la tabla superior de ESP con los subtotales exactos
-      const espTotalsFromBreakdown = {};
-      newBreakdownRows.forEach(r => {
-        if (r.is_total && !r.is_overall) {
-          const espName = r.esp_ip.replace(/^GRAND TOTAL\s+/i, '').trim();
-          espTotalsFromBreakdown[espName] = { signups: r.signups || 0, ftds: r.ftds || 0 };
-        }
-      });
-
-      Object.keys(espTotalsFromBreakdown).forEach(espName => {
-        if (!csvMap[espName]) {
-          csvMap[espName] = {
-            esp: espName, delivered: 0, softBounce: 0, hardBounce: 0,
-            bounced: 0, opened: 0, clicked: 0, unsub: 0, signups: 0, players: 0, domains: {}
-          };
-        }
-      });
-
-      Object.values(csvMap).forEach(item => {
-        const bd = espTotalsFromBreakdown[item.esp] || { signups: 0, ftds: 0 };
-        item.signups = bd.signups;
-        item.players = bd.ftds;
-      });
-
-      const list = Object.values(csvMap);
-      list.sort((a, b) => {
-        const idxA = sortOrder.indexOf(a.esp);
-        const idxB = sortOrder.indexOf(b.esp);
-        return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
-      });
-
-      agg.esp = list.filter(e => e.delivered > 0 || e.signups > 0 || e.opened > 0 || e.players > 0);
-
-      ['delivered','softBounce','hardBounce','bounced','opened','clicked','unsub'].forEach(k => {
-        agg[k] = agg.esp.reduce((acc, cur) => acc + (cur[k] || 0), 0);
-      });
-
-      agg.espSignups = grandSig;
-      agg.espPlayers = grandFtd;
-
-      renderDashboard(agg, currentStartDate, currentEndDate);
     }
 
     function renderDashboard(agg, s, e) {
@@ -1116,10 +1137,10 @@
 
     function renderAdvAndBrand(agg) {
       const aTb = $('advertiserTableBody'), bTb = $('brandTableBody'); aTb.innerHTML = ''; bTb.innerHTML = '';
-      Object.entries(agg.advertisers).sort((a,b) => b[1].revenue - a[1].revenue).forEach(([name, d]) => {
+      Object.entries(agg.advertisers || {}).sort((a,b) => b[1].revenue - a[1].revenue).forEach(([name, d]) => {
         aTb.innerHTML += `<tr class="hover:bg-slate-50 bg-white"><td class="py-2.5 px-4 text-left font-medium">${name}</td><td class="py-2.5 px-4 font-mono font-bold text-amber-600">${d.signups}</td><td class="py-2.5 px-4 font-mono font-bold text-indigo-600">${d.users}</td><td class="py-2.5 px-4 font-mono font-bold text-emerald-600">$${Math.round(d.revenue).toLocaleString()}</td><td class="py-2.5 px-4 font-mono">${formatS2P(d.signups, d.users)}</td></tr>`;
       });
-      Object.entries(agg.brands).sort((a,b) => b[1].revenue - a[1].revenue).forEach(([bName, d]) => {
+      Object.entries(agg.brands || {}).sort((a,b) => b[1].revenue - a[1].revenue).forEach(([bName, d]) => {
         bTb.innerHTML += `<tr class="hover:bg-slate-50 bg-white"><td class="py-2 px-4 text-left">${bName}</td><td class="py-2 px-4 text-left font-medium">${d.advertiser}</td><td class="py-2 px-4 font-mono font-bold text-amber-600">${d.signups}</td><td class="py-2 px-4 font-mono font-bold text-indigo-600">${d.users}</td><td class="py-2.5 px-4 font-mono font-bold text-emerald-600">$${Math.round(d.revenue).toLocaleString()}</td><td class="py-2.5 px-4 font-mono">${formatS2P(d.signups, d.users)}</td></tr>`;
       });
       ['adv','brand'].forEach(p => {
