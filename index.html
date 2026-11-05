@@ -111,7 +111,6 @@
         <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Delivered</p><p id="kpiDelivered" class="text-xl font-bold text-slate-900 mt-1">0</p><span class="text-[10px] text-slate-400 mt-1">Filtered sent</span></div>
         <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Open</p><p id="kpiOpened" class="text-xl font-bold text-emerald-700 mt-1">0</p><span id="kpiOpenRate" class="text-[10px] font-semibold text-emerald-600 mt-1">0.00% Open Rate</span></div>
         
-        <!-- TARJETA CLICK ACTUALIZADA CON RUN-RATE -->
         <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
           <p class="text-[11px] font-semibold text-slate-500 uppercase">Click</p>
           <p id="kpiClicked" class="text-xl font-bold text-sky-700 mt-1">0</p>
@@ -136,7 +135,7 @@
         <div class="px-6 py-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
           <div class="flex items-center gap-3">
             <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Email Performance by ESP</h3>
-            <button id="toggleTableBtn" onclick="toggleTableDetails()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold bg-[#485c44] hover:bg-[#3b4c37] text-white shadow-sm">
+            <button id="toggleTableBtn" onclick="toggleTableDetails()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold bg-[#485c44] hover:bg-[#3b4c37] text-white shadow-sm cursor-pointer">
               <svg id="btnIcon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
               <span id="btnText">Show All</span>
             </button>
@@ -154,11 +153,19 @@
         </div>
       </section>
 
-      <!-- TABLA: ESP / IP BREAKDOWN -->
+      <!-- TABLA: ESP / IP BREAKDOWN CON BOTÓN SHOW ALL / COLLAPSE ALL -->
       <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="px-6 py-4 border-b border-slate-100 bg-slate-50/50">
-          <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">ESP / IP Breakdown</h3>
-          <p class="text-xs text-slate-500 mt-0.5">Sign Ups & FTDs distribution by ESP / IP, Advertisers and Brands</p>
+        <div class="px-6 py-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+          <div>
+            <div class="flex items-center gap-3">
+              <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">ESP / IP Breakdown</h3>
+              <button id="toggleEspIpBtn" onclick="toggleEspIpBreakdownDetails()" type="button" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold bg-[#1e293b] hover:bg-slate-700 text-white shadow-sm cursor-pointer transition-colors">
+                <svg id="espIpBtnIcon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                <span id="espIpBtnText">Show All</span>
+              </button>
+            </div>
+            <p class="text-xs text-slate-500 mt-0.5">Sign Ups & FTDs distribution by ESP / IP, Advertisers and Brands</p>
+          </div>
         </div>
         <div class="overflow-x-auto">
           <table id="espIpBreakdownTable" class="w-full text-sm excel-table">
@@ -230,7 +237,7 @@
       <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
           <div><h3 class="text-sm font-bold text-slate-800 uppercase">Advertiser Breakdown Table</h3><p class="text-xs text-slate-500">Metrics: Conversion S2P Ratio (1:X) & Revenue</p></div>
-          <button onclick="resetTable('advertiserTable')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 bg-white hover:bg-slate-50">Clear / Reset Table</button>
+          <button onclick="resetTable('advertiserTable')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 bg-white hover:bg-slate-50 cursor-pointer">Clear / Reset Table</button>
         </div>
         <div class="overflow-x-auto">
           <table id="advertiserTable" class="w-full text-sm text-right excel-table">
@@ -258,7 +265,7 @@
       <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
           <div><h3 class="text-sm font-bold text-slate-800 uppercase">Brand Breakdown Table</h3><p class="text-xs text-slate-500">Performance by Brand & Conversion S2P Ratio</p></div>
-          <button onclick="resetTable('brandTable')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 bg-white hover:bg-slate-50">Clear / Reset Table</button>
+          <button onclick="resetTable('brandTable')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 bg-white hover:bg-slate-50 cursor-pointer">Clear / Reset Table</button>
         </div>
         <div class="overflow-x-auto">
           <table id="brandTable" class="w-full text-sm text-right excel-table">
@@ -293,10 +300,12 @@
     let globalLoadedMonths = [], areDetailsExpanded = false, chartRefs = {};
     const initialTableState = {}, tableSortDirections = {}, csvCache = {};
 
+    let isEspIpExpanded = false;
+    let cachedDetailedBreakdownRows = [];
+
     const MIN_ALLOWED_DATE = '2026-07-01';
     const START_YEAR = 2026;
 
-    // Detectar el año actual en tiempo real
     const getCurrentYear = () => new Date().getFullYear();
 
     const getTodayIso = () => { 
@@ -304,7 +313,6 @@
       return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; 
     };
     
-    // Inicialización dinámica: siempre inicia en el mes y día actual
     const _initToday = getTodayIso();
     let currentStartDate = _initToday.substring(0, 8) + '01';
     let currentEndDate = _initToday;
@@ -315,7 +323,6 @@
     const formatS2P = (s, u) => u > 0 ? (s === 0 ? '0:1' : `1:${Math.round(s/u)}`) : (s > 0 ? `0:${s}` : '0:0');
     const isoToDisplay = s => s ? `${s.split('-')[1]}/${s.split('-')[2]}/${s.split('-')[0]}` : '';
 
-    // Cargar JSON por mes y año dinámico
     async function fetchMonthFile(mKey, year = getCurrentYear()) {
       const capKey = mKey.charAt(0).toUpperCase() + mKey.slice(1);
       const ts = Date.now();
@@ -346,7 +353,6 @@
       return null;
     }
 
-    // Escanear todos los meses desde 2026 hasta el año detectado actual
     async function loadAllMonths() {
       const currentYear = getCurrentYear();
       const years = [];
@@ -377,7 +383,6 @@
       return uniqueMonths;
     }
 
-    // Por defecto siempre establece el mes y día actual
     function initDateControls() {
       const todayIso = getTodayIso();
       currentStartDate = todayIso.substring(0, 8) + '01';
@@ -469,7 +474,6 @@
       }
     });
 
-    // CSV PARSER
     const parseNum = v => parseFloat(String(v || 0).replace(/["', ]/g, '')) || 0;
     
     function parseCsvLine(line) {
@@ -531,7 +535,6 @@
       return Object.keys(map).length > 0 ? map : null;
     }
 
-    // LECTURA DINÁMICA DE CSVS: {AÑO}/maildata/maildata_{mes}/{dia}.csv
     async function fetchCsvDay(m, d, y = getCurrentYear()) {
       const k = `${y}/${m}/${d}`;
       if (csvCache[k]) return csvCache[k];
@@ -636,7 +639,6 @@
       return merged;
     }
 
-    // JSON AGGREGATOR MULTI-MES INTEGRADO
     function aggregateJsonData(s, e) {
       const agg = {
         budget: 0, signups: 0, users: 0, revenue: 0, daysElapsedInRange: 0, totalMonthDays: 0,
@@ -664,7 +666,7 @@
           espIpMap[espIp] = { items: {}, order: [] };
         }
         if (!espIpMap[espIp].items[key]) {
-          espIpMap[espIp].items[key] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
+          espIpMap[espIp] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
           espIpMap[espIp].order.push(key);
         }
         espIpMap[espIp].items[key].signups += (sig || 0);
@@ -780,38 +782,207 @@
       return agg;
     }
 
+    // Funciones para colapsar/expandir la tabla ESP / IP Breakdown
+    function getAdvertiserRollupRows(detailedRows) {
+      const advMap = {};
+      const order = [];
+
+      detailedRows.forEach(r => {
+        if (r.is_total || r.is_overall) return;
+        const esp = r.esp_ip;
+        const adv = r.advertiser;
+        const key = `${esp}___${adv}`;
+        if (!advMap[key]) {
+          advMap[key] = {
+            esp_ip: esp,
+            advertiser: adv,
+            brand: 'All Brands',
+            signups: 0,
+            ftds: 0,
+            brandCount: 0
+          };
+          order.push(key);
+        }
+        advMap[key].signups += (r.signups || 0);
+        advMap[key].ftds += (r.ftds || 0);
+        advMap[key].brandCount++;
+      });
+
+      const collapsedRows = [];
+      const espGroups = {};
+      order.forEach(k => {
+        const item = advMap[k];
+        if (!espGroups[item.esp_ip]) espGroups[item.esp_ip] = [];
+        espGroups[item.esp_ip].push(item);
+      });
+
+      let grandSig = 0, grandFtd = 0;
+      Object.entries(espGroups).forEach(([espName, items]) => {
+        items.sort((a, b) => (b.signups + b.ftds * 10) - (a.signups + a.ftds * 10));
+
+        let subSig = 0, subFtd = 0;
+        items.forEach(it => {
+          collapsedRows.push(it);
+          subSig += it.signups;
+          subFtd += it.ftds;
+        });
+
+        collapsedRows.push({
+          esp_ip: `GRAND TOTAL ${espName}`,
+          advertiser: '',
+          brand: '',
+          signups: subSig,
+          ftds: subFtd,
+          is_total: true
+        });
+
+        grandSig += subSig;
+        grandFtd += subFtd;
+      });
+
+      if (collapsedRows.length > 0) {
+        collapsedRows.push({
+          esp_ip: 'OVERALL GRAND TOTAL',
+          advertiser: '',
+          brand: '',
+          signups: grandSig,
+          ftds: grandFtd,
+          is_total: true,
+          is_overall: true
+        });
+      }
+
+      return collapsedRows;
+    }
+
+    function toggleEspIpBreakdownDetails() {
+      isEspIpExpanded = !isEspIpExpanded;
+      const btnText = $('espIpBtnText');
+      const btnIcon = $('espIpBtnIcon');
+      if (btnText) btnText.textContent = isEspIpExpanded ? 'Collapse All' : 'Show All';
+      if (btnIcon) {
+        btnIcon.innerHTML = isEspIpExpanded
+          ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>'
+          : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>';
+      }
+      renderEspIpBreakdown(cachedDetailedBreakdownRows);
+    }
+
+    // Algoritmo que cumple la regla: "si originalmente viene con 0 no le asignas nada, si viene con > 0 ahí sí"
+    function scaleMetricProportionally(items, getVal, setVal, targetTotal) {
+      const currentTotal = items.reduce((sum, item) => sum + getVal(item), 0);
+      const remaining = targetTotal - currentTotal;
+      if (remaining <= 0) return;
+
+      // REGLA: Exclusivamente los que ya vienen originalmente con mayor a 0 (> 0)
+      const eligible = items.filter(item => getVal(item) > 0);
+      if (eligible.length === 0) return;
+
+      const eligibleTotal = eligible.reduce((sum, item) => sum + getVal(item), 0);
+      const quotas = eligible.map(item => (remaining * getVal(item)) / eligibleTotal);
+      const additions = quotas.map(q => Math.floor(q));
+      let leftover = remaining - additions.reduce((a, b) => a + b, 0);
+
+      const remainders = quotas.map((q, idx) => ({ idx, rem: q - Math.floor(q) }));
+      remainders.sort((a, b) => b.rem - a.rem);
+
+      for (let i = 0; i < leftover; i++) {
+        additions[remainders[i].idx]++;
+      }
+
+      eligible.forEach((item, idx) => {
+        setVal(item, getVal(item) + additions[idx]);
+      });
+    }
+
     async function updateDashboardForDateRange() {
       const agg = aggregateJsonData(currentStartDate, currentEndDate);
       const csvMap = await aggregateCsvForRange(currentStartDate, currentEndDate);
 
-      const espTotalsFromBreakdown = {};
-      let totalBreakdownSignups = 0;
-      let totalBreakdownFtds = 0;
+      // 1. Obtener las filas reales de esp_ip_breakdown
+      const rawBreakdownRows = (agg.esp_ip_breakdown || []).filter(r => !r.is_total && !r.is_overall);
 
-      (agg.esp_ip_breakdown || []).forEach(r => {
-        if (r.is_total || r.is_overall) return;
-        const key = (r.esp_ip || '').trim();
-        if (!key) return;
-        if (!espTotalsFromBreakdown[key]) {
-          espTotalsFromBreakdown[key] = { signups: 0, ftds: 0 };
-        }
-        espTotalsFromBreakdown[key].signups += (r.signups || 0);
-        espTotalsFromBreakdown[key].ftds += (r.ftds || 0);
-        totalBreakdownSignups += (r.signups || 0);
-        totalBreakdownFtds += (r.ftds || 0);
+      // 2. Aplicar escala predictiva respetando la regla:
+      // Si originalmente viene con 0 se queda en 0. Si viene con > 0, se le escala proporcionalmente.
+      if (agg.signups > 0) {
+        scaleMetricProportionally(
+          rawBreakdownRows,
+          r => r.signups || 0,
+          (r, val) => { r.signups = val; },
+          agg.signups
+        );
+      }
+
+      if (agg.users > 0) {
+        scaleMetricProportionally(
+          rawBreakdownRows,
+          r => r.ftds || 0,
+          (r, val) => { r.ftds = val; },
+          agg.users
+        );
+      }
+
+      // 3. Reconstruir filas de breakdown con subtotales por IP y total general
+      const reconstructedRows = [];
+      const espGroups = {};
+      rawBreakdownRows.forEach(r => {
+        const esp = (r.esp_ip || '').trim();
+        if (!espGroups[esp]) espGroups[esp] = [];
+        espGroups[esp].push(r);
       });
 
-      const norm = s => (s || '').toLowerCase().replace(/\s+/g, ' ').trim();
-      function getBreakdownForEsp(espName) {
-        const target = norm(espName);
-        for (const [k, v] of Object.entries(espTotalsFromBreakdown)) {
-          if (norm(k) === target) return v;
-        }
-        for (const [k, v] of Object.entries(espTotalsFromBreakdown)) {
-          if (norm(k).includes(target) || target.includes(norm(k))) return v;
-        }
-        return { signups: 0, ftds: 0 };
+      let grandSig = 0, grandFtd = 0;
+      const sortOrder = ['MLJ (Mailjet) IP 1', 'MLJ (Mailjet) IP 2', 'MLJ (Mailjet) IP 3 / SH', 'SEG (Sendgrid) IP 1', 'SEG (Sendgrid) IP 2 / SH'];
+      const allKnownEsps = Array.from(new Set([...sortOrder, ...Object.keys(espGroups)]));
+
+      allKnownEsps.forEach(espName => {
+        const items = espGroups[espName] || [];
+        if (items.length === 0) return;
+
+        items.sort((a, b) => (b.signups + b.ftds * 10) - (a.signups + a.ftds * 10));
+
+        let subSig = 0, subFtd = 0;
+        items.forEach(it => {
+          reconstructedRows.push(it);
+          subSig += (it.signups || 0);
+          subFtd += (it.ftds || 0);
+        });
+
+        reconstructedRows.push({
+          esp_ip: `GRAND TOTAL ${espName}`,
+          advertiser: '',
+          brand: '',
+          signups: subSig,
+          ftds: subFtd,
+          is_total: true
+        });
+
+        grandSig += subSig;
+        grandFtd += subFtd;
+      });
+
+      if (reconstructedRows.length > 0) {
+        reconstructedRows.push({
+          esp_ip: 'OVERALL GRAND TOTAL',
+          advertiser: '',
+          brand: '',
+          signups: grandSig,
+          ftds: grandFtd,
+          is_total: true,
+          is_overall: true
+        });
       }
+
+      agg.esp_ip_breakdown = reconstructedRows;
+
+      // 4. Mapear totales de cada ESP para la tabla superior
+      const espTotalsFromBreakdown = {};
+      reconstructedRows.forEach(r => {
+        if (r.is_total && !r.is_overall) {
+          const espName = r.esp_ip.replace(/^GRAND TOTAL\s+/i, '').trim();
+          espTotalsFromBreakdown[espName] = { signups: r.signups || 0, ftds: r.ftds || 0 };
+        }
+      });
 
       Object.keys(espTotalsFromBreakdown).forEach(espName => {
         if (!csvMap[espName]) {
@@ -823,34 +994,38 @@
       });
 
       Object.values(csvMap).forEach(item => {
-        const bd = getBreakdownForEsp(item.esp);
+        const bd = espTotalsFromBreakdown[item.esp] || { signups: 0, ftds: 0 };
         item.signups = bd.signups;
         item.players = bd.ftds;
       });
 
+      // 5. Filtrar las ESPs: aquellas que venían originalmente con 0 entregas y 0 signups quedan excluidas
       const list = Object.values(csvMap);
+      list.sort((a, b) => {
+        const idxA = sortOrder.indexOf(a.esp);
+        const idxB = sortOrder.indexOf(b.esp);
+        return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
+      });
+
       agg.esp = list.filter(e => e.delivered > 0 || e.signups > 0 || e.opened > 0 || e.players > 0);
-      
+
       ['delivered','softBounce','hardBounce','bounced','opened','clicked','unsub'].forEach(k => {
         agg[k] = agg.esp.reduce((acc, cur) => acc + (cur[k] || 0), 0);
       });
 
-      agg.espSignups = totalBreakdownSignups;
-      agg.espPlayers = totalBreakdownFtds;
+      agg.espSignups = grandSig > 0 ? grandSig : (agg.signups || 0);
+      agg.espPlayers = grandFtd > 0 ? grandFtd : (agg.users || 0);
 
       renderDashboard(agg, currentStartDate, currentEndDate);
     }
 
     function renderDashboard(agg, s, e) {
-      // CÁLCULO PRECISO DEL RUN-RATE SEGÚN EL DÍA DEL MES / RANGO SELECCIONADO
       const [sy, sm, sd] = s.split('-').map(Number);
       const [ey, em, ed] = e.split('-').map(Number);
       
-      // Días totales del mes correspondiente a la fecha final (ej: Noviembre = 30)
       const daysInEndMonth = new Date(ey, em, 0).getDate();
       const totalMonthDays = agg.totalMonthDays > 0 ? agg.totalMonthDays : daysInEndMonth;
 
-      // Si el rango es desde el día 1 en el mismo mes, los días transcurridos son exactamente 'ed' (el día actual)
       let elapsedDays = (sy === ey && sm === em && sd === 1)
         ? ed
         : Math.max(1, Math.round((new Date(ey, em - 1, ed) - new Date(sy, sm - 1, sd)) / (1000 * 60 * 60 * 24)) + 1);
@@ -859,7 +1034,6 @@
       const [rrB, rrS, rrU, rrR, rrP] = [agg.budget, agg.signups, agg.users, agg.revenue, agg.profit].map(v => Math.round(v * rrF));
       const rrClicks = Math.round((agg.clicked || 0) * rrF);
 
-      // Team Table
       setT('teamKpiBudget', `$${Math.round(agg.kpi.budget).toLocaleString()}`);
       setT('teamKpiSignups', Math.round(agg.kpi.signups).toLocaleString());
       setT('teamKpiUsers', Math.round(agg.kpi.users).toLocaleString());
@@ -885,7 +1059,6 @@
       setRrCell('teamRrProfit', `$${rrP.toLocaleString()}`, rrP, Math.round(agg.kpi.profit));
       setT('teamRrRoi', `1:${rrB > 0 ? (rrR / rrB).toFixed(1) : '0.0'}`);
 
-      // Cards
       setT('kpiDelivered', (agg.delivered||0).toLocaleString()); 
       setT('kpiOpened', (agg.opened||0).toLocaleString());
       setT('kpiClicked', (agg.clicked||0).toLocaleString()); 
@@ -901,10 +1074,8 @@
       setT('kpiClickRate', `${agg.delivered > 0 ? ((agg.clicked/agg.delivered)*100).toFixed(2) : '0.00'}% Click Rate`);
       setT('kpiBounceRate', `${agg.delivered > 0 ? ((agg.bounced/agg.delivered)*100).toFixed(2) : '0.00'}% bounce`);
       
-      // Run-Rate para Clicks (Fijo en color negro)
       setT('cardRrClicksSub', `RR: ${rrClicks.toLocaleString()}`);
 
-      // Asignación con colores dinámicos en las tarjetas KPI: Verde si RR >= KPI, Rojo si no
       const setCardRr = (id, text, rrVal, kpiVal) => {
         const el = $(id);
         if (!el) return;
@@ -937,24 +1108,61 @@
       updateCharts(agg);
     }
 
-    function renderEspIpBreakdown(rows) {
-      const tbody = $('espIpBreakdownTableBody'); tbody.innerHTML = '';
+    function renderEspIpBreakdown(detailedRows) {
+      cachedDetailedBreakdownRows = detailedRows || [];
+      const tbody = $('espIpBreakdownTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      if (!detailedRows || !detailedRows.length) {
+        tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-400 italic">No breakdown data available for this range.</td></tr>`;
+        setT('espIpGrandSignups', '0');
+        setT('espIpGrandFtds', '0');
+        return;
+      }
+
+      // Si no está expandido, se muestra el resumen por Anunciante (default)
+      const rowsToRender = isEspIpExpanded ? detailedRows : getAdvertiserRollupRows(detailedRows);
+
       let gSig = 0, gFtd = 0, hasOverall = false;
-      if (!rows || !rows.length) { tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-400 italic">No breakdown data available for this range.</td></tr>`; return; }
-      
-      rows.forEach(r => {
-        if (r.is_overall || r.esp_ip?.toUpperCase().includes('OVERALL GRAND TOTAL')) { gSig = r.signups||0; gFtd = r.ftds||0; hasOverall = true; return; }
+
+      rowsToRender.forEach(r => {
+        if (r.is_overall || r.esp_ip?.toUpperCase().includes('OVERALL GRAND TOTAL')) {
+          gSig = r.signups || 0;
+          gFtd = r.ftds || 0;
+          hasOverall = true;
+          return;
+        }
+
         const tr = document.createElement('tr');
         if (r.is_total || r.esp_ip?.toUpperCase().startsWith('GRAND TOTAL')) {
           tr.className = 'bg-slate-100 font-bold text-slate-900';
-          tr.innerHTML = `<td colspan="3" class="py-2 px-4 text-left uppercase">${r.esp_ip}</td><td class="py-2 px-4 text-right font-mono text-amber-600">${(r.signups||0).toLocaleString()}</td><td class="py-2 px-4 text-right font-mono text-indigo-600">${(r.ftds||0).toLocaleString()}</td>`;
+          tr.innerHTML = `
+            <td colspan="3" class="py-2 px-4 text-left uppercase">${r.esp_ip}</td>
+            <td class="py-2 px-4 text-right font-mono text-amber-600">${(r.signups || 0).toLocaleString()}</td>
+            <td class="py-2 px-4 text-right font-mono text-indigo-600">${(r.ftds || 0).toLocaleString()}</td>
+          `;
         } else {
           tr.className = 'hover:bg-slate-50 bg-white';
-          tr.innerHTML = `<td class="py-2 px-4 text-left font-medium">${r.esp_ip||'-'}</td><td class="py-2 px-4 text-left">${r.advertiser||'-'}</td><td class="py-2 px-4 text-left">${r.brand||'-'}</td><td class="py-2 px-4 text-right font-mono font-bold text-amber-600">${(r.signups||0).toLocaleString()}</td><td class="py-2 px-4 text-right font-mono font-bold text-indigo-600">${(r.ftds||0).toLocaleString()}</td>`;
-          if (!hasOverall) { gSig += r.signups||0; gFtd += r.ftds||0; }
+          const brandDisplay = isEspIpExpanded 
+            ? (r.brand || '-') 
+            : `<span class="text-slate-400 italic text-xs font-normal">All Brands (${r.brandCount || 1})</span>`;
+          
+          tr.innerHTML = `
+            <td class="py-2 px-4 text-left font-medium text-slate-800">${r.esp_ip || '-'}</td>
+            <td class="py-2 px-4 text-left font-semibold text-slate-700">${r.advertiser || '-'}</td>
+            <td class="py-2 px-4 text-left">${brandDisplay}</td>
+            <td class="py-2 px-4 text-right font-mono font-bold text-amber-600">${(r.signups || 0).toLocaleString()}</td>
+            <td class="py-2 px-4 text-right font-mono font-bold text-indigo-600">${(r.ftds || 0).toLocaleString()}</td>
+          `;
+          if (!hasOverall) {
+            gSig += r.signups || 0;
+            gFtd += r.ftds || 0;
+          }
         }
         tbody.appendChild(tr);
       });
+
       setT('espIpGrandSignups', gSig.toLocaleString());
       setT('espIpGrandFtds', gFtd.toLocaleString());
     }
@@ -973,25 +1181,6 @@
     }
 
     function renderOpsTeam(ops, rrF, kpi) {
-      const regKpi = Math.round(kpi.signups/2) || 250;
-      const userKpi = Math.round(kpi.users/2) || 20;
-      ['jessie','andrea'].forEach(p => {
-        const regRr = Math.round(ops[p].signups * rrF);
-        const usersRr = Math.round(ops[p].users * rrF);
-        setT(`${p}KpiReg`, regKpi); setT(`${p}KpiUsers`, userKpi);
-        setT(`${p}RegMtd`, ops[p].signups); setT(`${p}UsersMtd`, ops[p].users);
-        
-        const rEl = $(`${p}RegRr`);
-        if (rEl) {
-          rEl.textContent = regRr;
-          rEl.className = `font-bold ${regRr >= regKpi ? 'text-emerald-600' : 'text-rose-600'}`;
-        }
-        const uEl = $(`${p}UsersRr`);
-        if (uEl) {
-          uEl.textContent = usersRr;
-          uEl.className = `font-bold ${usersRr >= userKpi ? 'text-emerald-600' : 'text-rose-600'}`;
-        }
-      });
       ['signups','users'].forEach(kind => {
         const tb = $(`ops${kind==='signups'?'Signups':'Users'}TableBody`), master = ops[`${kind}_by_advertiser`];
         tb.innerHTML = '';
