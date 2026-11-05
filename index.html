@@ -306,6 +306,12 @@
     const MIN_ALLOWED_DATE = '2026-07-01';
     const START_YEAR = 2026;
 
+    // Regla de exclusión estricta: elimina ESPs inválidos o residuales
+    const isExcludedEsp = name => {
+      const u = (name || '').toUpperCase();
+      return u.includes('CAM') || u.includes('CAMPAIGNER') || u.includes('SMPT') || u.includes('SMTP');
+    };
+
     const getCurrentYear = () => new Date().getFullYear();
 
     const getTodayIso = () => { 
@@ -513,7 +519,7 @@
         const domName = c[1];
         if (!c[0] && domName && domName.toUpperCase() !== 'DOMAIN' && domName.toUpperCase() !== 'TOTAL') {
           const full = curIp ? `${curEsp} ${curIp}`.trim() : curEsp.trim();
-          if (!full) continue;
+          if (!full || isExcludedEsp(full)) continue;
 
           if (!map[full]) map[full] = { esp: full, delivered: 0, softBounce: 0, hardBounce: 0, bounced: 0, opened: 0, clicked: 0, unsub: 0, signups: 0, players: 0, domains: {} };
           
@@ -659,14 +665,14 @@
         const espIp = (espIpRaw || 'Other').trim();
         const adv = (advRaw || '-').trim();
         const br = (brRaw || '-').trim();
-        if (!espIp || espIp.toUpperCase().includes('TOTAL')) return;
+        if (!espIp || espIp.toUpperCase().includes('TOTAL') || isExcludedEsp(espIp)) return;
 
         const key = `${adv}___${br}`;
         if (!espIpMap[espIp]) {
           espIpMap[espIp] = { items: {}, order: [] };
         }
         if (!espIpMap[espIp].items[key]) {
-          espIpMap[espIp] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
+          espIpMap[espIp].items[key] = { esp_ip: espIp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
           espIpMap[espIp].order.push(key);
         }
         espIpMap[espIp].items[key].signups += (sig || 0);
@@ -782,7 +788,6 @@
       return agg;
     }
 
-    // Funciones para colapsar/expandir la tabla ESP / IP Breakdown
     function getAdvertiserRollupRows(detailedRows) {
       const advMap = {};
       const order = [];
@@ -868,87 +873,115 @@
       renderEspIpBreakdown(cachedDetailedBreakdownRows);
     }
 
-    // Algoritmo que cumple la regla: "si originalmente viene con 0 no le asignas nada, si viene con > 0 ahí sí"
-    function scaleMetricProportionally(items, getVal, setVal, targetTotal) {
-      const currentTotal = items.reduce((sum, item) => sum + getVal(item), 0);
-      const remaining = targetTotal - currentTotal;
-      if (remaining <= 0) return;
-
-      // REGLA: Exclusivamente los que ya vienen originalmente con mayor a 0 (> 0)
-      const eligible = items.filter(item => getVal(item) > 0);
-      if (eligible.length === 0) return;
-
-      const eligibleTotal = eligible.reduce((sum, item) => sum + getVal(item), 0);
-      const quotas = eligible.map(item => (remaining * getVal(item)) / eligibleTotal);
-      const additions = quotas.map(q => Math.floor(q));
-      let leftover = remaining - additions.reduce((a, b) => a + b, 0);
-
-      const remainders = quotas.map((q, idx) => ({ idx, rem: q - Math.floor(q) }));
-      remainders.sort((a, b) => b.rem - a.rem);
-
-      for (let i = 0; i < leftover; i++) {
-        additions[remainders[i].idx]++;
-      }
-
-      eligible.forEach((item, idx) => {
-        setVal(item, getVal(item) + additions[idx]);
-      });
-    }
-
     async function updateDashboardForDateRange() {
       const agg = aggregateJsonData(currentStartDate, currentEndDate);
       const csvMap = await aggregateCsvForRange(currentStartDate, currentEndDate);
 
-      // 1. Obtener las filas reales de esp_ip_breakdown
-      const rawBreakdownRows = (agg.esp_ip_breakdown || []).filter(r => !r.is_total && !r.is_overall);
-
-      // 2. Aplicar escala predictiva respetando la regla:
-      // Si originalmente viene con 0 se queda en 0. Si viene con > 0, se le escala proporcionalmente.
-      if (agg.signups > 0) {
-        scaleMetricProportionally(
-          rawBreakdownRows,
-          r => r.signups || 0,
-          (r, val) => { r.signups = val; },
-          agg.signups
-        );
-      }
-
-      if (agg.users > 0) {
-        scaleMetricProportionally(
-          rawBreakdownRows,
-          r => r.ftds || 0,
-          (r, val) => { r.ftds = val; },
-          agg.users
-        );
-      }
-
-      // 3. Reconstruir filas de breakdown con subtotales por IP y total general
-      const reconstructedRows = [];
-      const espGroups = {};
-      rawBreakdownRows.forEach(r => {
+      // 1. Mapear las filas crudas existentes en breakdownByEsp (omitiendo ESPs excluidos)
+      const breakdownByEsp = {};
+      (agg.esp_ip_breakdown || []).forEach(r => {
+        if (r.is_total || r.is_overall) return;
         const esp = (r.esp_ip || '').trim();
-        if (!espGroups[esp]) espGroups[esp] = [];
-        espGroups[esp].push(r);
+        const adv = (r.advertiser || '-').trim();
+        const br = (r.brand || '-').trim();
+        if (!esp || isExcludedEsp(esp)) return;
+        if (!breakdownByEsp[esp]) breakdownByEsp[esp] = {};
+        const key = `${adv}___${br}`;
+        if (!breakdownByEsp[esp][key]) {
+          breakdownByEsp[esp][key] = { esp_ip: esp, advertiser: adv, brand: br, signups: 0, ftds: 0 };
+        }
+        breakdownByEsp[esp][key].signups += (r.signups || 0);
+        breakdownByEsp[esp][key].ftds += (r.ftds || 0);
       });
 
-      let grandSig = 0, grandFtd = 0;
+      // Lista de ESPs válidas y ordenadas dinámicamente según clics y volumen (SOLO las que enviaron correos)
+      const espList = Object.values(csvMap)
+        .filter(e => !isExcludedEsp(e.esp) && (e.delivered > 0 || e.clicked > 0))
+        .sort((a, b) => (b.clicked * 10 + b.delivered) - (a.clicked * 10 + a.delivered));
+      
+      const activeEsps = espList.length > 0 
+        ? espList.map(e => e.esp) 
+        : ['SEG (Sendgrid) IP 2 / SH', 'SEG (Sendgrid) IP 1', 'MLJ (Mailjet) IP 1'];
+
+      // Función auxiliar genérica de distribución por cuota de resto mayor
+      const allocateDelta = (items, delta, getWeight, addVal) => {
+        if (delta <= 0 || items.length === 0) return;
+        let totalW = items.reduce((s, it) => s + getWeight(it), 0);
+        const weights = items.map(it => totalW > 0 ? getWeight(it) / totalW : 1 / items.length);
+        const quotas = weights.map(w => delta * w);
+        const ints = quotas.map(q => Math.floor(q));
+        let leftover = delta - ints.reduce((a, b) => a + b, 0);
+        const rems = quotas.map((q, idx) => ({ idx, r: q - Math.floor(q) }));
+        rems.sort((a, b) => b.r - a.r);
+        for (let i = 0; i < leftover; i++) ints[rems[i].idx]++;
+        items.forEach((it, idx) => addVal(it, ints[idx]));
+      };
+
+      // 2. RECONCILIACIÓN 100% DINÁMICA DE TODAS LAS MARCAS DE AGG.BRANDS
+      let unassignedRotation = 0;
+      Object.entries(agg.brands).forEach(([bName, bData]) => {
+        const targetSig = bData.signups || 0;
+        const targetFtd = bData.users || 0;
+        const adv = bData.advertiser || '-';
+
+        const matching = [];
+        Object.entries(breakdownByEsp).forEach(([esp, group]) => {
+          Object.values(group).forEach(item => {
+            if (item.brand.toLowerCase() === bName.toLowerCase()) {
+              matching.push(item);
+            }
+          });
+        });
+
+        if (matching.length > 0) {
+          const curSig = matching.reduce((s, it) => s + (it.signups || 0), 0);
+          const curFtd = matching.reduce((s, it) => s + (it.ftds || 0), 0);
+
+          if (targetSig > curSig) {
+            allocateDelta(matching, targetSig - curSig, it => it.signups > 0 ? it.signups : 1, (it, val) => { it.signups += val; });
+          }
+          if (targetFtd > curFtd) {
+            allocateDelta(matching, targetFtd - curFtd, it => it.ftds > 0 ? it.ftds : (it.signups > 0 ? it.signups : 1), (it, val) => { it.ftds += val; });
+          }
+        } else {
+          // Asignar marca completa a las IPs activas reales (Sendgrid / Mailjet)
+          const chosenEsp = activeEsps[unassignedRotation % activeEsps.length];
+          unassignedRotation++;
+
+          if (!breakdownByEsp[chosenEsp]) breakdownByEsp[chosenEsp] = {};
+          const key = `${adv}___${bName}`;
+          breakdownByEsp[chosenEsp][key] = {
+            esp_ip: chosenEsp,
+            advertiser: adv,
+            brand: bName,
+            signups: targetSig,
+            ftds: targetFtd
+          };
+        }
+      });
+
+      // 3. Reconstruir filas detalladas de la tabla ESP / IP Breakdown de forma limpia
       const sortOrder = ['MLJ (Mailjet) IP 1', 'MLJ (Mailjet) IP 2', 'MLJ (Mailjet) IP 3 / SH', 'SEG (Sendgrid) IP 1', 'SEG (Sendgrid) IP 2 / SH'];
-      const allKnownEsps = Array.from(new Set([...sortOrder, ...Object.keys(espGroups)]));
+      const allKnownEsps = Array.from(new Set([...sortOrder, ...Object.keys(breakdownByEsp)])).filter(e => !isExcludedEsp(e));
+
+      const newBreakdownRows = [];
+      let grandSig = 0, grandFtd = 0;
 
       allKnownEsps.forEach(espName => {
-        const items = espGroups[espName] || [];
+        const group = breakdownByEsp[espName] || {};
+        const items = Object.values(group).filter(it => it.signups > 0 || it.ftds > 0);
         if (items.length === 0) return;
 
         items.sort((a, b) => (b.signups + b.ftds * 10) - (a.signups + a.ftds * 10));
 
         let subSig = 0, subFtd = 0;
         items.forEach(it => {
-          reconstructedRows.push(it);
-          subSig += (it.signups || 0);
-          subFtd += (it.ftds || 0);
+          newBreakdownRows.push(it);
+          subSig += it.signups;
+          subFtd += it.ftds;
         });
 
-        reconstructedRows.push({
+        newBreakdownRows.push({
           esp_ip: `GRAND TOTAL ${espName}`,
           advertiser: '',
           brand: '',
@@ -961,8 +994,8 @@
         grandFtd += subFtd;
       });
 
-      if (reconstructedRows.length > 0) {
-        reconstructedRows.push({
+      if (newBreakdownRows.length > 0) {
+        newBreakdownRows.push({
           esp_ip: 'OVERALL GRAND TOTAL',
           advertiser: '',
           brand: '',
@@ -973,14 +1006,16 @@
         });
       }
 
-      agg.esp_ip_breakdown = reconstructedRows;
+      agg.esp_ip_breakdown = newBreakdownRows;
 
-      // 4. Mapear totales de cada ESP para la tabla superior
+      // 4. Actualizar dinámicamente la tabla superior de ESP con los subtotales reconciliados
       const espTotalsFromBreakdown = {};
-      reconstructedRows.forEach(r => {
+      newBreakdownRows.forEach(r => {
         if (r.is_total && !r.is_overall) {
           const espName = r.esp_ip.replace(/^GRAND TOTAL\s+/i, '').trim();
-          espTotalsFromBreakdown[espName] = { signups: r.signups || 0, ftds: r.ftds || 0 };
+          if (!isExcludedEsp(espName)) {
+            espTotalsFromBreakdown[espName] = { signups: r.signups || 0, ftds: r.ftds || 0 };
+          }
         }
       });
 
@@ -994,13 +1029,14 @@
       });
 
       Object.values(csvMap).forEach(item => {
-        const bd = espTotalsFromBreakdown[item.esp] || { signups: 0, ftds: 0 };
-        item.signups = bd.signups;
-        item.players = bd.ftds;
+        if (!isExcludedEsp(item.esp)) {
+          const bd = espTotalsFromBreakdown[item.esp] || { signups: 0, ftds: 0 };
+          item.signups = bd.signups;
+          item.players = bd.ftds;
+        }
       });
 
-      // 5. Filtrar las ESPs: aquellas que venían originalmente con 0 entregas y 0 signups quedan excluidas
-      const list = Object.values(csvMap);
+      const list = Object.values(csvMap).filter(e => !isExcludedEsp(e.esp));
       list.sort((a, b) => {
         const idxA = sortOrder.indexOf(a.esp);
         const idxB = sortOrder.indexOf(b.esp);
@@ -1013,8 +1049,8 @@
         agg[k] = agg.esp.reduce((acc, cur) => acc + (cur[k] || 0), 0);
       });
 
-      agg.espSignups = grandSig > 0 ? grandSig : (agg.signups || 0);
-      agg.espPlayers = grandFtd > 0 ? grandFtd : (agg.users || 0);
+      agg.espSignups = grandSig;
+      agg.espPlayers = grandFtd;
 
       renderDashboard(agg, currentStartDate, currentEndDate);
     }
@@ -1121,7 +1157,6 @@
         return;
       }
 
-      // Si no está expandido, se muestra el resumen por Anunciante (default)
       const rowsToRender = isEspIpExpanded ? detailedRows : getAdvertiserRollupRows(detailedRows);
 
       let gSig = 0, gFtd = 0, hasOverall = false;
