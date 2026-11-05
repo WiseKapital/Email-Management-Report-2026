@@ -903,18 +903,24 @@
         ? espList.map(e => e.esp) 
         : ['SEG (Sendgrid) IP 2 / SH', 'SEG (Sendgrid) IP 1', 'MLJ (Mailjet) IP 1'];
 
-      // Función auxiliar genérica de distribución por cuota de resto mayor
+      // Función auxiliar genérica de distribución por cuota de resto mayor (REGLA ESTRICTA: SOLO > 0)
       const allocateDelta = (items, delta, getWeight, addVal) => {
         if (delta <= 0 || items.length === 0) return;
-        let totalW = items.reduce((s, it) => s + getWeight(it), 0);
-        const weights = items.map(it => totalW > 0 ? getWeight(it) / totalW : 1 / items.length);
+        // Solo elementos con peso estrictamente mayor a 0 (> 0)
+        const eligible = items.filter(it => getWeight(it) > 0);
+        if (eligible.length === 0) return;
+
+        let totalW = eligible.reduce((s, it) => s + getWeight(it), 0);
+        if (totalW <= 0) return;
+
+        const weights = eligible.map(it => getWeight(it) / totalW);
         const quotas = weights.map(w => delta * w);
         const ints = quotas.map(q => Math.floor(q));
         let leftover = delta - ints.reduce((a, b) => a + b, 0);
         const rems = quotas.map((q, idx) => ({ idx, r: q - Math.floor(q) }));
         rems.sort((a, b) => b.r - a.r);
         for (let i = 0; i < leftover; i++) ints[rems[i].idx]++;
-        items.forEach((it, idx) => addVal(it, ints[idx]));
+        eligible.forEach((it, idx) => addVal(it, ints[idx]));
       };
 
       // 2. RECONCILIACIÓN 100% DINÁMICA DE TODAS LAS MARCAS DE AGG.BRANDS
@@ -937,11 +943,47 @@
           const curSig = matching.reduce((s, it) => s + (it.signups || 0), 0);
           const curFtd = matching.reduce((s, it) => s + (it.ftds || 0), 0);
 
+          // REGLA PARA SIGNUPS: Solo asignar si el valor original es > 0
           if (targetSig > curSig) {
-            allocateDelta(matching, targetSig - curSig, it => it.signups > 0 ? it.signups : 1, (it, val) => { it.signups += val; });
+            const deltaSig = targetSig - curSig;
+            const sigEligible = matching.filter(it => (it.signups || 0) > 0);
+            if (sigEligible.length > 0) {
+              allocateDelta(sigEligible, deltaSig, it => it.signups, (it, val) => { it.signups += val; });
+            } else if (activeEsps.length > 0) {
+              // Si todos venían en 0, no asignarle a los que tienen 0: se asigna a una IP activa real
+              const chosenEsp = activeEsps[unassignedRotation % activeEsps.length];
+              unassignedRotation++;
+              if (!breakdownByEsp[chosenEsp]) breakdownByEsp[chosenEsp] = {};
+              const key = `${adv}___${bName}`;
+              if (!breakdownByEsp[chosenEsp][key]) {
+                breakdownByEsp[chosenEsp][key] = { esp_ip: chosenEsp, advertiser: adv, brand: bName, signups: 0, ftds: 0 };
+              }
+              breakdownByEsp[chosenEsp][key].signups += deltaSig;
+            }
           }
+
+          // REGLA PARA FTDS / PLAYERS: Solo asignar si el valor original es > 0
           if (targetFtd > curFtd) {
-            allocateDelta(matching, targetFtd - curFtd, it => it.ftds > 0 ? it.ftds : (it.signups > 0 ? it.signups : 1), (it, val) => { it.ftds += val; });
+            const deltaFtd = targetFtd - curFtd;
+            const ftdEligible = matching.filter(it => (it.ftds || 0) > 0);
+            if (ftdEligible.length > 0) {
+              allocateDelta(ftdEligible, deltaFtd, it => it.ftds, (it, val) => { it.ftds += val; });
+            } else {
+              // Si nadie tenía FTDs > 0, solo permitir en filas que tengan signups > 0 en IPs activas
+              const fallbackEligible = matching.filter(it => (it.signups || 0) > 0 && activeEsps.includes(it.esp_ip));
+              if (fallbackEligible.length > 0) {
+                allocateDelta(fallbackEligible, deltaFtd, it => it.signups, (it, val) => { it.ftds += val; });
+              } else if (activeEsps.length > 0) {
+                const chosenEsp = activeEsps[unassignedRotation % activeEsps.length];
+                unassignedRotation++;
+                if (!breakdownByEsp[chosenEsp]) breakdownByEsp[chosenEsp] = {};
+                const key = `${adv}___${bName}`;
+                if (!breakdownByEsp[chosenEsp][key]) {
+                  breakdownByEsp[chosenEsp][key] = { esp_ip: chosenEsp, advertiser: adv, brand: bName, signups: 0, ftds: 0 };
+                }
+                breakdownByEsp[chosenEsp][key].ftds += deltaFtd;
+              }
+            }
           }
         } else {
           // Asignar marca completa a las IPs activas reales (Sendgrid / Mailjet)
