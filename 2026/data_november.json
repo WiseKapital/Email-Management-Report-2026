@@ -2,7 +2,7 @@
   "month": "November",
   "year": 2026,
   "total_days_in_month": 30,
-  "days_elapsed": 9,
+  "days_elapsed": 10,
   "kpis": {
     "budget": 934,
     "signups": 450,
@@ -16,41 +16,41 @@
     "opened": 0,
     "clicked": 0,
     "unsub": 0,
-    "budget": 280.2,
-    "signups": 94,
+    "budget": 311.33,
+    "signups": 103,
     "users": 5,
     "revenue": 538.01,
-    "profit": 257.81,
-    "s2p_ratio": "1:18"
+    "profit": 226.68,
+    "s2p_ratio": "1:20"
   },
   "advertisers_mtd": [
     {
       "advertiser": "GameTime Digital",
-      "signups": 31,
+      "signups": 33,
       "users": 2,
       "revenue": 88.01,
-      "s2p": "1:15"
+      "s2p": "1:16"
     },
     {
       "advertiser": "LuckyBunny direct",
-      "signups": 17,
+      "signups": 20,
       "users": 3,
       "revenue": 450.0,
-      "s2p": "1:5"
+      "s2p": "1:6"
     },
     {
       "advertiser": "CardCrush",
-      "signups": 30,
+      "signups": 32,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:30"
+      "s2p": "0:32"
     },
     {
       "advertiser": "Basher Agency",
-      "signups": 10,
+      "signups": 12,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:10"
+      "s2p": "0:12"
     },
     {
       "advertiser": "B2S",
@@ -134,10 +134,10 @@
     {
       "brand": "LuckyBunny direct",
       "advertiser": "LuckyBunny direct",
-      "signups": 17,
+      "signups": 20,
       "users": 3,
       "revenue": 450.0,
-      "s2p": "1:5"
+      "s2p": "1:6"
     },
     {
       "brand": "Casinio",
@@ -164,12 +164,12 @@
       "s2p": "0:0"
     },
     {
-      "brand": "cardcrush_direct",
-      "advertiser": "CardCrush",
-      "signups": 30,
+      "brand": "Baba",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 1,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:30"
+      "s2p": "0:1"
     },
     {
       "brand": "Casino Smartlink",
@@ -180,12 +180,20 @@
       "s2p": "0:0"
     },
     {
-      "brand": "Baba",
-      "advertiser": "GAMETIME DIGITAL",
-      "signups": 1,
+      "brand": "Chanced",
+      "advertiser": "CHANCED",
+      "signups": 0,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:1"
+      "s2p": "0:0"
+    },
+    {
+      "brand": "Coins Royale sweeps",
+      "advertiser": "COINSROYALE",
+      "signups": 0,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:0"
     },
     {
       "brand": "Acebet",
@@ -212,14 +220,6 @@
       "s2p": "0:2"
     },
     {
-      "brand": "Ice Casino",
-      "advertiser": "ALL IN AFFILIATES",
-      "signups": 0,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:0"
-    },
-    {
       "brand": "LavishLuck",
       "advertiser": "GAMETIME DIGITAL",
       "signups": 8,
@@ -228,12 +228,20 @@
       "s2p": "0:8"
     },
     {
-      "brand": "LavishLuck Sweepstakes Casino",
-      "advertiser": "BASHER AGENCY",
-      "signups": 9,
+      "brand": "Ice Casino",
+      "advertiser": "ALL IN AFFILIATES",
+      "signups": 0,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:9"
+      "s2p": "0:0"
+    },
+    {
+      "brand": "LavishLuck Sweepstakes Casino",
+      "advertiser": "BASHER AGENCY",
+      "signups": 10,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:10"
     },
     {
       "brand": "LoneStar sweepstake casino",
@@ -244,20 +252,20 @@
       "s2p": "0:0"
     },
     {
-      "brand": "Chanced",
-      "advertiser": "CHANCED",
-      "signups": 0,
+      "brand": "Lucky.Me",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 8,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:0"
+      "s2p": "0:8"
     },
     {
-      "brand": "Coins Royale sweeps",
-      "advertiser": "COINSROYALE",
-      "signups": 0,
+      "brand": "cardcrush_direct",
+      "advertiser": "CardCrush",
+      "signups": 32,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:0"
+      "s2p": "0:32"
     },
     {
       "brand": "LuckyBunny",
@@ -266,14 +274,6 @@
       "users": 0,
       "revenue": 0.0,
       "s2p": "0:5"
-    },
-    {
-      "brand": "Lucky.Me",
-      "advertiser": "GAMETIME DIGITAL",
-      "signups": 7,
-      "users": 0,
-      "revenue": 0.0,
-      "s2p": "0:7"
     },
     {
       "brand": "LuckyZino",
@@ -317,6 +317,14 @@
     },
     {
       "brand": "Rolla",
+      "advertiser": "GAMETIME DIGITAL",
+      "signups": 1,
+      "users": 0,
+      "revenue": 0.0,
+      "s2p": "0:1"
+    },
+    {
+      "brand": "Rolling Riches",
       "advertiser": "GAMETIME DIGITAL",
       "signups": 1,
       "users": 0,
@@ -382,10 +390,10 @@
     {
       "brand": "Sweet Sweeps",
       "advertiser": "BASHER AGENCY",
-      "signups": 1,
+      "signups": 2,
       "users": 0,
       "revenue": 0.0,
-      "s2p": "0:1"
+      "s2p": "0:2"
     }
   ],
   "esp_mtd_totals": [
@@ -463,7 +471,7 @@
       "esp_ip": "SEG (Sendgrid) IP 2 / SH",
       "advertiser": "GAMETIME DIGITAL",
       "brand": "Lucky.Me",
-      "signups": 2,
+      "signups": 3,
       "ftds": 0
     },
     {
@@ -477,6 +485,13 @@
       "esp_ip": "SEG (Sendgrid) IP 2 / SH",
       "advertiser": "GAMETIME DIGITAL",
       "brand": "LuckyZino",
+      "signups": 1,
+      "ftds": 0
+    },
+    {
+      "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+      "advertiser": "GAMETIME DIGITAL",
+      "brand": "Rolling Riches",
       "signups": 1,
       "ftds": 0
     },
@@ -523,7 +538,7 @@
       "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 2 / SH",
       "advertiser": "",
       "brand": "",
-      "signups": 15,
+      "signups": 17,
       "ftds": 1,
       "is_total": true
     },
@@ -531,7 +546,7 @@
       "esp_ip": "OVERALL GRAND TOTAL",
       "advertiser": "",
       "brand": "",
-      "signups": 35,
+      "signups": 37,
       "ftds": 1,
       "is_total": true,
       "is_overall": true
@@ -613,7 +628,7 @@
         "esp_ip": "SEG (Sendgrid) IP 2 / SH",
         "advertiser": "GAMETIME DIGITAL",
         "brand": "Lucky.Me",
-        "signups": 2,
+        "signups": 3,
         "ftds": 0
       },
       {
@@ -627,6 +642,13 @@
         "esp_ip": "SEG (Sendgrid) IP 2 / SH",
         "advertiser": "GAMETIME DIGITAL",
         "brand": "LuckyZino",
+        "signups": 1,
+        "ftds": 0
+      },
+      {
+        "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "Rolling Riches",
         "signups": 1,
         "ftds": 0
       },
@@ -673,7 +695,7 @@
         "esp_ip": "GRAND TOTAL SEG (Sendgrid) IP 2 / SH",
         "advertiser": "",
         "brand": "",
-        "signups": 15,
+        "signups": 17,
         "ftds": 1,
         "is_total": true
       },
@@ -681,20 +703,20 @@
         "esp_ip": "OVERALL GRAND TOTAL",
         "advertiser": "",
         "brand": "",
-        "signups": 35,
+        "signups": 37,
         "ftds": 1,
         "is_total": true,
         "is_overall": true
       }
     ],
     "overall": {
-      "signups": 35,
+      "signups": 37,
       "ftds": 1
     }
   },
   "team_ops_mtd": {
     "andrea": {
-      "signups": 37,
+      "signups": 40,
       "users": 1
     },
     "jessie": {
@@ -723,9 +745,9 @@
         "total": 0
       },
       "BASHER AGENCY": {
-        "andrea": 9,
+        "andrea": 10,
         "jessie": 0,
-        "total": 9
+        "total": 10
       },
       "CHANCED": {
         "andrea": 0,
@@ -753,9 +775,9 @@
         "total": 0
       },
       "GAMETIME DIGITAL": {
-        "andrea": 28,
+        "andrea": 30,
         "jessie": 0,
-        "total": 28
+        "total": 30
       },
       "LuckyBunny direct": {
         "andrea": 0,
@@ -857,18 +879,18 @@
       "budget": 31.13,
       "signups": 11,
       "users": 1,
-      "revenue": 59.78,
-      "profit": 28.65,
+      "revenue": 53.81,
+      "profit": 22.68,
       "advertisers": {
         "GameTime Digital": {
           "signups": 4,
           "users": 1,
-          "revenue": 9.78
+          "revenue": 8.81
         },
         "LuckyBunny direct": {
           "signups": 2,
           "users": 1,
-          "revenue": 50.0
+          "revenue": 45.0
         },
         "CardCrush": {
           "signups": 4,
@@ -896,25 +918,19 @@
           "advertiser": "LuckyBunny direct",
           "signups": 2,
           "users": 1,
-          "revenue": 50.0
+          "revenue": 45.0
         },
         "Casinio": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 1,
-          "revenue": 9.78
+          "revenue": 8.8
         },
         "Mega Spinz": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 0,
           "users": 1,
           "revenue": 0.01
-        },
-        "cardcrush_direct": {
-          "advertiser": "CardCrush",
-          "signups": 4,
-          "users": 0,
-          "revenue": 0.0
         },
         "Baba": {
           "advertiser": "GAMETIME DIGITAL",
@@ -946,13 +962,19 @@
           "users": 0,
           "revenue": 0.0
         },
-        "LuckyBunny": {
+        "Lucky.Me": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
-        "Lucky.Me": {
+        "cardcrush_direct": {
+          "advertiser": "CardCrush",
+          "signups": 4,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyBunny": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
@@ -977,6 +999,12 @@
           "revenue": 0.0
         },
         "Rolla": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Rolling Riches": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
@@ -1009,7 +1037,7 @@
       },
       "ops": {
         "andrea": {
-          "signups": 5,
+          "signups": 4,
           "users": 1
         },
         "jessie": {
@@ -1112,6 +1140,13 @@
         {
           "esp_ip": "SEG (Sendgrid) IP 2 / SH",
           "advertiser": "GAMETIME DIGITAL",
+          "brand": "Rolling Riches",
+          "signups": 1,
+          "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+          "advertiser": "GAMETIME DIGITAL",
           "brand": "RoxyMoxy",
           "signups": 1,
           "ftds": 0
@@ -1132,18 +1167,18 @@
       "budget": 31.13,
       "signups": 11,
       "users": 1,
-      "revenue": 59.78,
-      "profit": 28.65,
+      "revenue": 53.8,
+      "profit": 22.67,
       "advertisers": {
         "GameTime Digital": {
           "signups": 4,
           "users": 1,
-          "revenue": 9.78
+          "revenue": 8.8
         },
         "LuckyBunny direct": {
           "signups": 2,
           "users": 1,
-          "revenue": 50.0
+          "revenue": 45.0
         },
         "CardCrush": {
           "signups": 4,
@@ -1151,7 +1186,7 @@
           "revenue": 0.0
         },
         "Basher Agency": {
-          "signups": 1,
+          "signups": 2,
           "users": 0,
           "revenue": 0.0
         },
@@ -1166,19 +1201,13 @@
           "advertiser": "LuckyBunny direct",
           "signups": 2,
           "users": 1,
-          "revenue": 50.0
+          "revenue": 45.0
         },
         "Casinio": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
-          "revenue": 9.78
-        },
-        "cardcrush_direct": {
-          "advertiser": "CardCrush",
-          "signups": 4,
-          "users": 0,
-          "revenue": 0.0
+          "revenue": 8.8
         },
         "CrashMania": {
           "advertiser": "GAMETIME DIGITAL",
@@ -1204,13 +1233,19 @@
           "users": 0,
           "revenue": 0.0
         },
-        "LuckyBunny": {
+        "Lucky.Me": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
-        "Lucky.Me": {
+        "cardcrush_direct": {
+          "advertiser": "CardCrush",
+          "signups": 4,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyBunny": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
@@ -1224,6 +1259,12 @@
         },
         "RoxyMoxy": {
           "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Sweet Sweeps": {
+          "advertiser": "BASHER AGENCY",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
@@ -1305,21 +1346,21 @@
       "budget": 31.13,
       "signups": 11,
       "users": 1,
-      "revenue": 59.78,
-      "profit": 28.65,
+      "revenue": 53.8,
+      "profit": 22.67,
       "advertisers": {
         "GameTime Digital": {
           "signups": 4,
           "users": 0,
-          "revenue": 9.78
+          "revenue": 8.8
         },
         "LuckyBunny direct": {
           "signups": 2,
           "users": 1,
-          "revenue": 50.0
+          "revenue": 45.0
         },
         "CardCrush": {
-          "signups": 4,
+          "signups": 3,
           "users": 0,
           "revenue": 0.0
         },
@@ -1339,19 +1380,13 @@
           "advertiser": "LuckyBunny direct",
           "signups": 2,
           "users": 1,
-          "revenue": 50.0
+          "revenue": 45.0
         },
         "Casinio": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
-          "revenue": 9.78
-        },
-        "cardcrush_direct": {
-          "advertiser": "CardCrush",
-          "signups": 4,
-          "users": 0,
-          "revenue": 0.0
+          "revenue": 8.8
         },
         "LavishLuck": {
           "advertiser": "GAMETIME DIGITAL",
@@ -1365,13 +1400,19 @@
           "users": 0,
           "revenue": 0.0
         },
-        "LuckyBunny": {
+        "Lucky.Me": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
-        "Lucky.Me": {
+        "cardcrush_direct": {
+          "advertiser": "CardCrush",
+          "signups": 3,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyBunny": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
@@ -1409,6 +1450,13 @@
           "brand": "LavishLuck",
           "signups": 1,
           "ftds": 0
+        },
+        {
+          "esp_ip": "SEG (Sendgrid) IP 2 / SH",
+          "advertiser": "GAMETIME DIGITAL",
+          "brand": "Lucky.Me",
+          "signups": 1,
+          "ftds": 0
         }
       ],
       "esp_ip_summary": {
@@ -1424,20 +1472,20 @@
       "clicked": 0,
       "unsub": 0,
       "budget": 31.13,
-      "signups": 11,
+      "signups": 10,
       "users": 1,
-      "revenue": 59.78,
-      "profit": 28.65,
+      "revenue": 53.8,
+      "profit": 22.67,
       "advertisers": {
         "GameTime Digital": {
-          "signups": 4,
+          "signups": 3,
           "users": 0,
-          "revenue": 9.78
+          "revenue": 8.8
         },
         "LuckyBunny direct": {
           "signups": 2,
           "users": 0,
-          "revenue": 50.0
+          "revenue": 45.0
         },
         "CardCrush": {
           "signups": 3,
@@ -1460,19 +1508,13 @@
           "advertiser": "LuckyBunny direct",
           "signups": 2,
           "users": 0,
-          "revenue": 50.0
+          "revenue": 45.0
         },
         "Casinio": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 0,
           "users": 0,
-          "revenue": 9.78
-        },
-        "cardcrush_direct": {
-          "advertiser": "CardCrush",
-          "signups": 3,
-          "users": 0,
-          "revenue": 0.0
+          "revenue": 8.8
         },
         "LavishLuck": {
           "advertiser": "GAMETIME DIGITAL",
@@ -1486,13 +1528,19 @@
           "users": 0,
           "revenue": 0.0
         },
-        "LuckyBunny": {
+        "Lucky.Me": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
-        "Lucky.Me": {
+        "cardcrush_direct": {
+          "advertiser": "CardCrush",
+          "signups": 3,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyBunny": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
@@ -1547,18 +1595,18 @@
       "budget": 31.13,
       "signups": 10,
       "users": 1,
-      "revenue": 59.78,
-      "profit": 28.65,
+      "revenue": 53.8,
+      "profit": 22.67,
       "advertisers": {
         "GameTime Digital": {
           "signups": 3,
           "users": 0,
-          "revenue": 9.78
+          "revenue": 8.8
         },
         "LuckyBunny direct": {
           "signups": 2,
           "users": 0,
-          "revenue": 50.0
+          "revenue": 45.0
         },
         "CardCrush": {
           "signups": 3,
@@ -1581,19 +1629,13 @@
           "advertiser": "LuckyBunny direct",
           "signups": 2,
           "users": 0,
-          "revenue": 50.0
+          "revenue": 45.0
         },
         "Casinio": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 0,
           "users": 0,
-          "revenue": 9.78
-        },
-        "cardcrush_direct": {
-          "advertiser": "CardCrush",
-          "signups": 3,
-          "users": 0,
-          "revenue": 0.0
+          "revenue": 8.8
         },
         "LavishLuck": {
           "advertiser": "GAMETIME DIGITAL",
@@ -1607,13 +1649,19 @@
           "users": 0,
           "revenue": 0.0
         },
-        "LuckyBunny": {
+        "Lucky.Me": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
           "revenue": 0.0
         },
-        "Lucky.Me": {
+        "cardcrush_direct": {
+          "advertiser": "CardCrush",
+          "signups": 3,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "LuckyBunny": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
           "users": 0,
@@ -1668,18 +1716,18 @@
       "budget": 31.13,
       "signups": 10,
       "users": 0,
-      "revenue": 59.78,
-      "profit": 28.65,
+      "revenue": 53.8,
+      "profit": 22.67,
       "advertisers": {
         "GameTime Digital": {
           "signups": 3,
           "users": 0,
-          "revenue": 9.78
+          "revenue": 8.8
         },
         "LuckyBunny direct": {
           "signups": 2,
           "users": 0,
-          "revenue": 50.0
+          "revenue": 45.0
         },
         "CardCrush": {
           "signups": 3,
@@ -1697,19 +1745,13 @@
           "advertiser": "LuckyBunny direct",
           "signups": 2,
           "users": 0,
-          "revenue": 50.0
+          "revenue": 45.0
         },
         "Casinio": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 0,
           "users": 0,
-          "revenue": 9.78
-        },
-        "cardcrush_direct": {
-          "advertiser": "CardCrush",
-          "signups": 3,
-          "users": 0,
-          "revenue": 0.0
+          "revenue": 8.8
         },
         "LavishLuck": {
           "advertiser": "GAMETIME DIGITAL",
@@ -1726,6 +1768,12 @@
         "Lucky.Me": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "cardcrush_direct": {
+          "advertiser": "CardCrush",
+          "signups": 3,
           "users": 0,
           "revenue": 0.0
         }
@@ -1771,18 +1819,18 @@
       "budget": 31.13,
       "signups": 10,
       "users": 0,
-      "revenue": 59.78,
-      "profit": 28.65,
+      "revenue": 53.8,
+      "profit": 22.67,
       "advertisers": {
         "GameTime Digital": {
           "signups": 3,
           "users": 0,
-          "revenue": 9.78
+          "revenue": 8.8
         },
         "LuckyBunny direct": {
           "signups": 2,
           "users": 0,
-          "revenue": 50.0
+          "revenue": 45.0
         },
         "CardCrush": {
           "signups": 3,
@@ -1800,19 +1848,13 @@
           "advertiser": "LuckyBunny direct",
           "signups": 2,
           "users": 0,
-          "revenue": 50.0
+          "revenue": 45.0
         },
         "Casinio": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 0,
           "users": 0,
-          "revenue": 9.78
-        },
-        "cardcrush_direct": {
-          "advertiser": "CardCrush",
-          "signups": 3,
-          "users": 0,
-          "revenue": 0.0
+          "revenue": 8.8
         },
         "LavishLuck": {
           "advertiser": "GAMETIME DIGITAL",
@@ -1829,6 +1871,12 @@
         "Lucky.Me": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "cardcrush_direct": {
+          "advertiser": "CardCrush",
+          "signups": 3,
           "users": 0,
           "revenue": 0.0
         }
@@ -1874,18 +1922,18 @@
       "budget": 31.13,
       "signups": 10,
       "users": 0,
-      "revenue": 59.78,
-      "profit": 28.65,
+      "revenue": 53.8,
+      "profit": 22.67,
       "advertisers": {
         "GameTime Digital": {
           "signups": 3,
           "users": 0,
-          "revenue": 9.78
+          "revenue": 8.8
         },
         "LuckyBunny direct": {
           "signups": 2,
           "users": 0,
-          "revenue": 50.0
+          "revenue": 45.0
         },
         "CardCrush": {
           "signups": 3,
@@ -1903,19 +1951,13 @@
           "advertiser": "LuckyBunny direct",
           "signups": 2,
           "users": 0,
-          "revenue": 50.0
+          "revenue": 45.0
         },
         "Casinio": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 0,
           "users": 0,
-          "revenue": 9.77
-        },
-        "cardcrush_direct": {
-          "advertiser": "CardCrush",
-          "signups": 3,
-          "users": 0,
-          "revenue": 0.0
+          "revenue": 8.8
         },
         "LavishLuck": {
           "advertiser": "GAMETIME DIGITAL",
@@ -1926,6 +1968,18 @@
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
           "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Lucky.Me": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "cardcrush_direct": {
+          "advertiser": "CardCrush",
+          "signups": 3,
           "users": 0,
           "revenue": 0.0
         }
@@ -1950,7 +2004,7 @@
         }
       ],
       "esp_ip_summary": {
-        "signups": 4,
+        "signups": 3,
         "ftds": 0
       }
     },
@@ -1961,21 +2015,21 @@
       "opened": 0,
       "clicked": 0,
       "unsub": 0,
-      "budget": 31.16,
+      "budget": 31.13,
       "signups": 10,
       "users": 0,
-      "revenue": 59.77,
-      "profit": 28.61,
+      "revenue": 53.8,
+      "profit": 22.67,
       "advertisers": {
         "GameTime Digital": {
           "signups": 3,
           "users": 0,
-          "revenue": 9.77
+          "revenue": 8.8
         },
         "LuckyBunny direct": {
-          "signups": 1,
+          "signups": 2,
           "users": 0,
-          "revenue": 50.0
+          "revenue": 45.0
         },
         "CardCrush": {
           "signups": 3,
@@ -1991,25 +2045,25 @@
       "brands": {
         "LuckyBunny direct": {
           "advertiser": "LuckyBunny direct",
-          "signups": 1,
+          "signups": 2,
           "users": 0,
-          "revenue": 50.0
+          "revenue": 45.0
         },
         "Casinio": {
           "advertiser": "GAMETIME DIGITAL",
           "signups": 0,
           "users": 0,
-          "revenue": 9.77
-        },
-        "cardcrush_direct": {
-          "advertiser": "CardCrush",
-          "signups": 3,
-          "users": 0,
-          "revenue": 0.0
+          "revenue": 8.8
         },
         "LavishLuck Sweepstakes Casino": {
           "advertiser": "BASHER AGENCY",
           "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "cardcrush_direct": {
+          "advertiser": "CardCrush",
+          "signups": 3,
           "users": 0,
           "revenue": 0.0
         }
@@ -2033,6 +2087,82 @@
           "ftds": 0
         }
       ],
+      "esp_ip_summary": {
+        "signups": 3,
+        "ftds": 0
+      }
+    },
+    {
+      "date": "2026-11-10",
+      "delivered": 0,
+      "bounced": 0,
+      "opened": 0,
+      "clicked": 0,
+      "unsub": 0,
+      "budget": 31.16,
+      "signups": 10,
+      "users": 0,
+      "revenue": 53.8,
+      "profit": 22.64,
+      "advertisers": {
+        "GameTime Digital": {
+          "signups": 3,
+          "users": 0,
+          "revenue": 8.8
+        },
+        "LuckyBunny direct": {
+          "signups": 2,
+          "users": 0,
+          "revenue": 45.0
+        },
+        "CardCrush": {
+          "signups": 3,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "Basher Agency": {
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        }
+      },
+      "brands": {
+        "LuckyBunny direct": {
+          "advertiser": "LuckyBunny direct",
+          "signups": 2,
+          "users": 0,
+          "revenue": 45.0
+        },
+        "Casinio": {
+          "advertiser": "GAMETIME DIGITAL",
+          "signups": 0,
+          "users": 0,
+          "revenue": 8.8
+        },
+        "LavishLuck Sweepstakes Casino": {
+          "advertiser": "BASHER AGENCY",
+          "signups": 1,
+          "users": 0,
+          "revenue": 0.0
+        },
+        "cardcrush_direct": {
+          "advertiser": "CardCrush",
+          "signups": 3,
+          "users": 0,
+          "revenue": 0.0
+        }
+      },
+      "ops": {
+        "andrea": {
+          "signups": 4,
+          "users": 0
+        },
+        "jessie": {
+          "signups": 0,
+          "users": 0
+        }
+      },
+      "esp_ip_breakdown": [],
       "esp_ip_summary": {
         "signups": 3,
         "ftds": 0
