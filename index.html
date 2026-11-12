@@ -1183,62 +1183,38 @@
       renderEspIpBreakdown(cachedDetailedBreakdownRows);
     }
 
-    // Algoritmo de asignación con REGLAS ESTRICTAS DE NEGOCIO:
-    // 1. Si Delivered <= 0 -> No se le asigna nada nuevo, se le deja lo que ya tenga originalmente.
-    // 2. Si viene originalmente con 0 -> Se queda estrictamente en 0.
-    // 3. Distribución proporcional por peso a los activos con envíos y registros originales.
-    function allocateWithStrictRules(items, totalAmount, getWeight, getDelivered, setter) {
+    // ALGORITMO DE REPARTO ENTERO EXACTO (Largest Remainder Method / Hamilton-Hare)
+    // Garantiza que la suma de las partes coincida exactamente con totalAmount sin generar decimales ni perder unidades
+    function distributeIntegerTotal(items, totalAmount, getWeight, setter) {
       if (!items || items.length === 0) return;
-
-      let remainingAmount = totalAmount;
-      const eligible = [];
-
-      items.forEach(it => {
-        const deliv = getDelivered ? (getDelivered(it) || 0) : 1;
-        const origVal = Math.max(0, getWeight(it) || 0);
-
-        if (deliv <= 0) {
-          // Si Delivered es 0: Se le deja lo que ya tenga originalmente y no recibe nada nuevo
-          setter(it, origVal);
-          remainingAmount -= origVal;
-        } else if (origVal <= 0) {
-          // Si originalmente venía con 0: Se queda estrictamente en 0
-          setter(it, 0);
-        } else {
-          // Cumple: Delivered > 0 y Original > 0
-          eligible.push(it);
-        }
-      });
-
-      remainingAmount = Math.max(0, remainingAmount);
-
-      // Si no hay candidatos o no hay remanente a repartir
-      if (eligible.length === 0 || remainingAmount === 0) {
-        eligible.forEach(it => setter(it, 0));
+      if (items.length === 1) {
+        setter(items[0], Math.max(0, totalAmount || 0));
+        return;
+      }
+      if (!totalAmount || totalAmount <= 0) {
+        items.forEach(it => setter(it, 0));
         return;
       }
 
-      const weights = eligible.map(it => Math.max(0, getWeight(it) || 0));
-      const sumW = weights.reduce((a, b) => a + b, 0);
+      const weights = items.map(it => Math.max(0, getWeight(it) || 0));
+      let sumW = weights.reduce((a, b) => a + b, 0);
 
-      if (sumW <= 0) {
-        eligible.forEach(it => setter(it, 0));
-        return;
-      }
+      // Si no hay pesos históricos definidos, se reparte equitativamente entre los destinos
+      const effectiveWeights = sumW > 0 ? weights : items.map(() => 1);
+      sumW = effectiveWeights.reduce((a, b) => a + b, 0);
 
-      // Reparto proporcional por peso (Largest Remainder Method)
-      const quotas = weights.map(w => (w / sumW) * remainingAmount);
+      const quotas = effectiveWeights.map(w => (w / sumW) * totalAmount);
       const ints = quotas.map(q => Math.floor(q));
-      let remainder = remainingAmount - ints.reduce((a, b) => a + b, 0);
+      let remainder = totalAmount - ints.reduce((a, b) => a + b, 0);
 
       const rems = quotas.map((q, idx) => ({ idx, rem: q - Math.floor(q) }));
       rems.sort((a, b) => b.rem - a.rem);
 
-      for (let i = 0; i < remainder; i++) {
+      for (let i = 0; i < remainder && i < rems.length; i++) {
         ints[rems[i].idx]++;
       }
 
-      eligible.forEach((it, idx) => setter(it, ints[idx]));
+      items.forEach((it, idx) => setter(it, ints[idx]));
     }
 
     async function updateDashboardForDateRange() {
@@ -1275,19 +1251,20 @@
             brand: br,
             signups: 0,
             ftds: 0,
-            origSig: sig, // Guarda exactamente el valor con el que venía originalmente
-            origFtd: ftd  // Guarda exactamente el valor con el que venía originalmente
+            origSig: sig,
+            origFtd: ftd
           };
         }
       });
 
-      // 2. RECONCILIACIÓN ROBUSTA MULTI-MES CON NORMALIZACIÓN DE MARCAS
+      // 2. NORMALIZACIÓN DE MARCAS: Brand Breakdown es la fuente real de la verdad
       const normalizedBrands = {};
       Object.entries(agg.brands).forEach(([bName, bData]) => {
-        const cleanKey = bName.trim().toLowerCase();
+        const cleanName = bName.trim();
+        const cleanKey = cleanName.toLowerCase();
         if (!normalizedBrands[cleanKey]) {
           normalizedBrands[cleanKey] = {
-            name: bName.trim(),
+            name: cleanName,
             advertiser: (bData.advertiser || '-').trim(),
             signups: 0,
             users: 0,
@@ -1299,7 +1276,7 @@
         normalizedBrands[cleanKey].revenue += (bData.revenue || 0);
       });
 
-      // Asegurar que la suma de marcas normalizadas cubra el 100% de agg.signups y agg.users
+      // Asegurar que la suma de marcas normalizadas cubra el 100% de los totales
       const normBrandKeys = Object.keys(normalizedBrands);
       if (normBrandKeys.length > 0) {
         let bSumSig = 0, bSumUsers = 0;
@@ -1319,27 +1296,41 @@
 
       let unassignedRotation = 0;
       const processedBrands = new Set();
-      const getEspDelivered = it => csvMap[it.esp_ip]?.delivered || 0;
 
+      // 3. ASIGNACIÓN ESTRICTA MARCA POR MARCA (Aislamiento absoluto: ninguna marca afecta a otra)
       Object.values(normalizedBrands).forEach(bData => {
         const bName = bData.name;
+        const bKey = bName.toLowerCase();
         const targetSig = bData.signups || 0;
         const targetFtd = bData.users || 0;
         const adv = bData.advertiser || '-';
-        processedBrands.add(bName.toLowerCase());
+        processedBrands.add(bKey);
 
         const matching = [];
         Object.entries(breakdownByEsp).forEach(([esp, group]) => {
           Object.values(group).forEach(item => {
-            if (item.brand.toLowerCase() === bName.toLowerCase()) {
+            if (item.brand.toLowerCase() === bKey) {
+              if (adv !== '-' && (!item.advertiser || item.advertiser === '-')) {
+                item.advertiser = adv;
+              }
               matching.push(item);
             }
           });
         });
 
+        // Si la marca no estaba presente en ningún desglose previo, se asigna a una IP activa (preferiblemente de su anunciante)
         if (matching.length === 0 && (targetSig > 0 || targetFtd > 0)) {
-          const chosenEsp = activeEsps[unassignedRotation % activeEsps.length];
-          unassignedRotation++;
+          let chosenEsp = null;
+          for (const esp of activeEsps) {
+            if (breakdownByEsp[esp] && Object.values(breakdownByEsp[esp]).some(it => it.advertiser.toLowerCase() === adv.toLowerCase())) {
+              chosenEsp = esp;
+              break;
+            }
+          }
+          if (!chosenEsp) {
+            chosenEsp = activeEsps[unassignedRotation % activeEsps.length];
+            unassignedRotation++;
+          }
 
           if (!breakdownByEsp[chosenEsp]) breakdownByEsp[chosenEsp] = {};
           const key = `${adv}___${bName}`;
@@ -1356,22 +1347,20 @@
           matching.push(newRow);
         }
 
-        // Distribución estricta de Sign Ups
-        allocateWithStrictRules(
+        // Distribución exacta de Sign Ups para esta marca
+        distributeIntegerTotal(
           matching,
           targetSig,
           it => it.origSig,
-          getEspDelivered,
           (it, val) => { it.signups = val; }
         );
 
-        // Distribución estricta de FTDs
+        // Distribución exacta de FTDs para esta marca
         const hasOrigFtds = matching.some(it => (it.origFtd || 0) > 0);
-        allocateWithStrictRules(
+        distributeIntegerTotal(
           matching,
           targetFtd,
-          it => (hasOrigFtds ? (it.origFtd || 0) : (it.origSig || 0)),
-          getEspDelivered,
+          it => (hasOrigFtds ? (it.origFtd || 0) : (it.signups || 0)),
           (it, val) => { it.ftds = val; }
         );
       });
@@ -1386,7 +1375,7 @@
         });
       });
 
-      // 3. Reconstruir filas de la tabla ESP / IP Breakdown
+      // 4. Reconstruir filas de la tabla ESP / IP Breakdown
       const sortOrder = ['MLJ (Mailjet) IP 1', 'MLJ (Mailjet) IP 2', 'MLJ (Mailjet) IP 3 / SH', 'SEG (Sendgrid) IP 1', 'SEG (Sendgrid) IP 2 / SH'];
       const allKnownEsps = Array.from(new Set([...sortOrder, ...Object.keys(breakdownByEsp)])).filter(e => !isExcludedEsp(e));
 
@@ -1419,50 +1408,6 @@
         grandSig += subSig;
         grandFtd += subFtd;
       });
-
-      // 4. CANDADO MAESTRO DE SEGURIDAD CON REGLAS ESTRICTAS
-      if ((grandSig !== agg.signups || grandFtd !== agg.users) && newBreakdownRows.length > 0) {
-        const activeRows = newBreakdownRows.filter(r => !r.is_total && !r.is_overall);
-        if (activeRows.length > 0) {
-          if (grandSig !== agg.signups) {
-            allocateWithStrictRules(
-              activeRows,
-              agg.signups,
-              it => it.origSig, // Si originalmente venía en 0, no recibe nada
-              getEspDelivered,  // Si Delivered es 0, no recibe nada nuevo
-              (it, val) => { it.signups = val; }
-            );
-          }
-          if (grandFtd !== agg.users) {
-            allocateWithStrictRules(
-              activeRows,
-              agg.users,
-              it => ((it.origFtd || 0) > 0 ? it.origFtd : it.origSig),
-              getEspDelivered,
-              (it, val) => { it.ftds = val; }
-            );
-          }
-
-          // Recalcular subtotales por ESP
-          const espSums = {};
-          activeRows.forEach(r => {
-            if (!espSums[r.esp_ip]) espSums[r.esp_ip] = { signups: 0, ftds: 0 };
-            espSums[r.esp_ip].signups += (r.signups || 0);
-            espSums[r.esp_ip].ftds += (r.ftds || 0);
-          });
-          newBreakdownRows.forEach(r => {
-            if (r.is_total && !r.is_overall) {
-              const espName = r.esp_ip.replace(/^GRAND TOTAL\s+/i, '').trim();
-              if (espSums[espName]) {
-                r.signups = espSums[espName].signups;
-                r.ftds = espSums[espName].ftds;
-              }
-            }
-          });
-          grandSig = activeRows.reduce((a, b) => a + (b.signups || 0), 0);
-          grandFtd = activeRows.reduce((a, b) => a + (b.ftds || 0), 0);
-        }
-      }
 
       if (newBreakdownRows.length > 0) {
         newBreakdownRows.push({
