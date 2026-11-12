@@ -402,10 +402,11 @@
         <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider pt-2">2. Mailbox Domain Deliverability
           Charts</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- PIE CHART MODIFICADO: DELIVERED BY DOMAIN -->
           <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 h-72 flex flex-col justify-between">
             <div>
-              <h4 class="text-xs font-bold text-slate-900 uppercase">Delivered by Domain</h4>
-              <p class="text-[11px] text-slate-500 mb-2">Total volume sent per domain</p>
+              <h4 class="text-xs font-bold text-slate-900 uppercase">Delivered by Domain (%)</h4>
+              <p class="text-[11px] text-slate-500 mb-2">Distribution & share by mailbox domain</p>
             </div>
             <div class="relative h-52"><canvas id="chartDomainDelivered"></canvas></div>
           </div>
@@ -989,14 +990,14 @@
       months.forEach(m => {
         const dailyInRange = (m.daily_records || []).filter(r => r.date >= s && r.date <= e);
 
-        // 1. CARGA BASE SIEMPRE ACTIVA (Evita que desaparezcan marcas si faltan días en el breakdown)
+        // 1. CARGA BASE MTD SIEMPRE ACTIVA (Preserva cardcrush_direct, LuckyBunny direct, etc.)
         const mtdRows = m.esp_ip_breakdown?.by_row || m.esp_mtd_totals || [];
         mtdRows.forEach(item => {
           if (item.is_total || item.is_overall) return;
           addBreakdownItem(item.esp_ip, item.advertiser, item.brand, item.signups, item.ftds);
         });
 
-        // 2. Acumulamos datos de días y marcas
+        // 2. Acumulación de métricas diarias
         dailyInRange.forEach(r => {
           agg.daysElapsedInRange++;
           agg.budget += r.budget || 0;
@@ -1179,7 +1180,7 @@
       renderEspIpBreakdown(cachedDetailedBreakdownRows);
     }
 
-    // Reparto proporcional por cuota entera exacta (Largest Remainder Method)
+    // Reparto exacto entero proporcional (Hamilton / Largest Remainder)
     function distributeExactIntegerTotal(items, targetTotal, getWeight, setter) {
       if (!items || items.length === 0) return;
       if (items.length === 1) {
@@ -1249,7 +1250,7 @@
         }
       });
 
-      // 2. NORMALIZACIÓN DE MARCAS (Brand Breakdown Table = Fuente de verdad absoluta)
+      // 2. NORMALIZACIÓN DE MARCAS (Brand Breakdown Table = Molde de la verdad absoluta)
       const normalizedBrands = {};
       Object.entries(agg.brands).forEach(([bName, bData]) => {
         const cleanName = bName.trim();
@@ -1292,7 +1293,7 @@
           });
         });
 
-        // Si la marca no estaba en el desglose, la asignamos a su ESP correspondiente fija
+        // Si la marca no estaba en el desglose, la asignamos fija a su IP correspondiente
         if (matching.length === 0) {
           let chosenEsp = null;
           if (bKey.includes('cardcrush')) chosenEsp = 'MLJ (Mailjet) IP 1';
@@ -1643,7 +1644,63 @@
       chartRefs.espVol = new Chart($('chartEspVolumen'), { type: 'bar', data: { labels: [], datasets: [{ label: 'Delivered', data: [], backgroundColor: '#2563eb' }, { label: 'Open', data: [], backgroundColor: '#10b981' }] }, options: { ...opt(v => v >= 1000 ? v / 1000 + 'k' : v), plugins: { legend: { position: 'top' } } } });
       chartRefs.espClicks = new Chart($('chartEspClicks'), { type: 'bar', data: { labels: [], datasets: [{ label: 'Clicks', data: [], backgroundColor: '#0284c7' }] }, options: opt() });
       chartRefs.espOpenRate = new Chart($('chartEspOpenRate'), { type: 'bar', data: { labels: [], datasets: [{ label: 'Open Rate (%)', data: [], backgroundColor: '#10b981' }] }, options: opt(v => v + '%') });
-      chartRefs.domDeliv = new Chart($('chartDomainDelivered'), { type: 'bar', data: { labels: ['Gmail', 'Other', 'Yahoo', 'iCloud', 'Outlook', 'Hotmail', 'Aol'], datasets: [{ data: [], backgroundColor: '#3b82f6' }] }, options: opt(v => v >= 1000 ? v / 1000 + 'k' : v) });
+
+      // PIE CHART DE DELIVERED BY DOMAIN CON PORCENTAJES (%)
+      chartRefs.domDeliv = new Chart($('chartDomainDelivered'), {
+        type: 'pie',
+        data: {
+          labels: ['Gmail', 'Other', 'Yahoo', 'iCloud', 'Outlook', 'Hotmail', 'Aol'],
+          datasets: [{
+            data: [],
+            backgroundColor: ['#2563eb', '#94a3b8', '#7c3aed', '#06b6d4', '#0284c7', '#f59e0b', '#ec4899'],
+            borderWidth: 1.5,
+            borderColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: {
+                boxWidth: 10,
+                font: { size: 9 },
+                generateLabels: function (chart) {
+                  const data = chart.data;
+                  if (data.labels.length && data.datasets.length) {
+                    const dataset = data.datasets[0];
+                    const total = dataset.data.reduce((a, b) => a + (b || 0), 0);
+                    return data.labels.map((label, i) => {
+                      const val = dataset.data[i] || 0;
+                      const pct = total > 0 ? ((val / total) * 100).toFixed(1) : '0.0';
+                      return {
+                        text: `${label}: ${pct}%`,
+                        fillStyle: dataset.backgroundColor[i],
+                        strokeStyle: dataset.backgroundColor[i],
+                        lineWidth: 0,
+                        index: i
+                      };
+                    });
+                  }
+                  return [];
+                }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  const val = context.raw || 0;
+                  const total = context.chart.data.datasets[0].data.reduce((a, b) => a + (b || 0), 0);
+                  const pct = total > 0 ? ((val / total) * 100).toFixed(2) : 0;
+                  return ` ${context.label}: ${val.toLocaleString()} (${pct}%)`;
+                }
+              }
+            }
+          }
+        }
+      });
+
       chartRefs.domOpenRate = new Chart($('chartDomainOpenRate'), { type: 'bar', data: { labels: ['iCloud', 'Outlook', 'Yahoo', 'Aol', 'Hotmail', 'Gmail', 'Other'], datasets: [{ data: [], backgroundColor: '#10b981' }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { color: '#f1f5f9' }, ticks: { callback: v => v + '%', font: { size: 9 } } }, y: { grid: { display: false }, ticks: { font: { size: 9 } } } } } });
       chartRefs.domClicks = new Chart($('chartDomainClicks'), { type: 'bar', data: { labels: ['Gmail', 'Other', 'Yahoo', 'iCloud', 'Outlook', 'Aol', 'Hotmail'], datasets: [{ data: [], backgroundColor: '#0284c7' }] }, options: opt() });
     }
@@ -1657,7 +1714,11 @@
 
       const dAgg = { Gmail: 0, Other: 0, Yahoo: 0, iCloud: 0, Outlook: 0, Hotmail: 0, Aol: 0 }, dOp = { ...dAgg }, dCl = { ...dAgg };
       (agg.esp || []).forEach(e => Object.entries(e.domains || {}).forEach(([dom, v]) => { if (dAgg[dom] !== undefined) { dAgg[dom] += v.delivered; dOp[dom] += v.opened; dCl[dom] += v.clicked; } }));
-      chartRefs.domDeliv.data.datasets[0].data = ['Gmail', 'Other', 'Yahoo', 'iCloud', 'Outlook', 'Hotmail', 'Aol'].map(d => dAgg[d]); chartRefs.domDeliv.update();
+
+      // Actualizar Pie Chart de Delivered by Domain
+      chartRefs.domDeliv.data.datasets[0].data = ['Gmail', 'Other', 'Yahoo', 'iCloud', 'Outlook', 'Hotmail', 'Aol'].map(d => dAgg[d]);
+      chartRefs.domDeliv.update();
+
       chartRefs.domOpenRate.data.datasets[0].data = ['iCloud', 'Outlook', 'Yahoo', 'Aol', 'Hotmail', 'Gmail', 'Other'].map(d => dAgg[d] > 0 ? +((dOp[d] / dAgg[d]) * 100).toFixed(2) : 0); chartRefs.domOpenRate.update();
       chartRefs.domClicks.data.datasets[0].data = ['Gmail', 'Other', 'Yahoo', 'iCloud', 'Outlook', 'Aol', 'Hotmail'].map(d => dCl[d]); chartRefs.domClicks.update();
     }
