@@ -1029,6 +1029,7 @@
           }
         });
 
+        // Si no hay breakdown diario completo, cargamos las filas MTD
         if (!hasDailyBreakdown) {
           const mtdRows = m.esp_ip_breakdown?.by_row || m.esp_mtd_totals || [];
           mtdRows.forEach(item => {
@@ -1041,7 +1042,7 @@
       const rows = [];
       let grandSig = 0, grandFtd = 0;
 
-      // Importante: No descartamos las filas con 0/0 para preservar dónde corre cada marca (ej. Mega Spinz)
+      // Preservamos todas las filas para no perder mappings originales
       Object.entries(espIpMap).forEach(([espIp, group]) => {
         let subSig = 0, subFtd = 0;
         group.order.forEach(k => {
@@ -1181,15 +1182,14 @@
       renderEspIpBreakdown(cachedDetailedBreakdownRows);
     }
 
-    // DISTRIBUCIÓN PORCENTUAL PROPORCIONAL DE FALTANTES (Largest Remainder Method)
-    function distributeProportionalWithBase(items, targetTotal, getBase, getWeight, setter) {
+    // Algoritmo matemático del Mayor Resto (Hare-Niemeyer / Hamilton)
+    function allocateProportionalIntegers(items, targetTotal, getBase, getWeight, setter) {
       if (!items || items.length === 0) return;
       if (items.length === 1) {
         setter(items[0], Math.max(0, targetTotal || 0));
         return;
       }
 
-      // 1. Asignar primero la base real leída del JSON
       let currentSum = 0;
       items.forEach(it => {
         const b = Math.max(0, getBase(it) || 0);
@@ -1201,21 +1201,20 @@
       if (remaining === 0) return;
 
       if (remaining > 0) {
-        // Se reparte el faltante dando más al que mayor peso (signups) tiene
         const weights = items.map(it => Math.max(0, getWeight(it) || 0));
         let sumW = weights.reduce((a, b) => a + b, 0);
 
-        const effectiveWeights = sumW > 0 ? weights : items.map(() => 1);
-        sumW = effectiveWeights.reduce((a, b) => a + b, 0);
+        const effWeights = sumW > 0 ? weights : items.map(() => 1);
+        sumW = effWeights.reduce((a, b) => a + b, 0);
 
-        const quotas = effectiveWeights.map(w => (w / sumW) * remaining);
+        const quotas = effWeights.map(w => (w / sumW) * remaining);
         const ints = quotas.map(q => Math.floor(q));
-        let remainderInt = remaining - ints.reduce((a, b) => a + b, 0);
+        let remInt = remaining - ints.reduce((a, b) => a + b, 0);
 
         const rems = quotas.map((q, idx) => ({ idx, rem: q - Math.floor(q) }));
         rems.sort((a, b) => b.rem - a.rem);
 
-        for (let i = 0; i < remainderInt && i < rems.length; i++) {
+        for (let i = 0; i < remInt && i < rems.length; i++) {
           ints[rems[i].idx]++;
         }
 
@@ -1223,7 +1222,6 @@
           setter(it, (getBase(it) || 0) + ints[idx]);
         });
       } else {
-        // Si la suma base superara el target (reducción proporcional por cuota)
         const currentVals = items.map(it => getBase(it) || 0);
         let sumV = currentVals.reduce((a, b) => a + b, 0);
         if (sumV > 0) {
@@ -1244,16 +1242,12 @@
       const agg = aggregateJsonData(currentStartDate, currentEndDate);
       const csvMap = await aggregateCsvForRange(currentStartDate, currentEndDate);
 
-      const espList = Object.values(csvMap)
-        .filter(e => !isExcludedEsp(e.esp) && ((e.delivered || 0) > 0 || (e.clicked || 0) > 0))
-        .sort((a, b) => (b.clicked * 10 + b.delivered) - (a.clicked * 10 + a.delivered));
+      const sortOrder = ['MLJ (Mailjet) IP 1', 'MLJ (Mailjet) IP 2', 'MLJ (Mailjet) IP 3 / SH', 'SEG (Sendgrid) IP 1', 'SEG (Sendgrid) IP 2 / SH'];
 
-      const activeEsps = espList.length > 0
-        ? espList.map(e => e.esp)
-        : ['SEG (Sendgrid) IP 2 / SH', 'SEG (Sendgrid) IP 1', 'MLJ (Mailjet) IP 2', 'MLJ (Mailjet) IP 1'];
-
-      // 1. Mapear todas las filas existentes en breakdownByEsp capturando su estado original leídos del JSON
+      // 1. Mapeo estructurado por ESP
       const breakdownByEsp = {};
+      sortOrder.forEach(e => { breakdownByEsp[e] = {}; });
+
       (agg.esp_ip_breakdown || []).forEach(r => {
         if (r.is_total || r.is_overall) return;
         const esp = (r.esp_ip || '').trim();
@@ -1271,86 +1265,85 @@
             esp_ip: esp,
             advertiser: adv,
             brand: br,
-            signups: sig,   // Dato real del JSON
-            ftds: ftd,      // Dato real del JSON
+            signups: sig,
+            ftds: ftd,
             origSig: sig,
             origFtd: ftd
           };
         }
       });
 
-      // 2. Integrar marcas que estén en agg.brands pero que no vinieran en el desglose
-      let unassignedRotation = 0;
-      Object.entries(agg.brands).forEach(([bName, bData]) => {
-        const cleanName = bName.trim();
-        const bKey = cleanName.toLowerCase();
-        const adv = (bData.advertiser || '-').trim();
-
-        let existsInSomeEsp = false;
-        Object.values(breakdownByEsp).forEach(group => {
-          Object.values(group).forEach(item => {
-            if (item.brand.toLowerCase() === bKey) existsInSomeEsp = true;
-          });
+      // 2. PASO A: CALCULAR TOTALES POR ESP Y REPARTIR LOS FALTANTES
+      // Calculamos la base real de Signups y FTDs que ya tiene cada ESP
+      const espLevelData = sortOrder.map(espName => {
+        const group = breakdownByEsp[espName] || {};
+        let bSig = 0, bFtd = 0;
+        Object.values(group).forEach(it => {
+          bSig += (it.origSig || 0);
+          bFtd += (it.origFtd || 0);
         });
-
-        if (!existsInSomeEsp && ((bData.signups || 0) > 0 || (bData.users || 0) > 0)) {
-          let chosenEsp = null;
-          for (const esp of activeEsps) {
-            if (breakdownByEsp[esp] && Object.values(breakdownByEsp[esp]).some(it => it.advertiser.toLowerCase() === adv.toLowerCase())) {
-              chosenEsp = esp;
-              break;
-            }
-          }
-          if (!chosenEsp) {
-            chosenEsp = activeEsps[unassignedRotation % activeEsps.length];
-            unassignedRotation++;
-          }
-
-          if (!breakdownByEsp[chosenEsp]) breakdownByEsp[chosenEsp] = {};
-          const key = `${adv}___${cleanName}`;
-          breakdownByEsp[chosenEsp][key] = {
-            esp_ip: chosenEsp,
-            advertiser: adv,
-            brand: cleanName,
-            signups: bData.signups || 0,
-            ftds: bData.users || 0,
-            origSig: bData.signups || 0,
-            origFtd: bData.users || 0
-          };
-        }
+        return {
+          esp: espName,
+          baseSig: bSig,
+          baseFtd: bFtd,
+          signups: bSig,
+          ftds: bFtd
+        };
       });
 
-      // Recolectar todas las filas activas
-      const allActiveRows = [];
-      Object.values(breakdownByEsp).forEach(group => {
-        Object.values(group).forEach(item => {
-          allActiveRows.push(item);
-        });
-      });
-
-      // 3. PASO MAESTRO REGLA DE NEGOCIO:
-      // a) Distribución de SIGN UPS: Base real + faltantes distribuidos dando más a quien más signups tiene
-      distributeProportionalWithBase(
-        allActiveRows,
+      // a) Reparto de SIGN UPS por ESP: base real + faltantes dando más al que más signups tiene
+      allocateProportionalIntegers(
+        espLevelData,
         agg.signups,
-        it => it.origSig,
-        it => it.origSig,
-        (it, val) => { it.signups = val; }
+        e => e.baseSig,
+        e => e.baseSig,
+        (e, val) => { e.signups = val; }
       );
 
-      // b) Distribución de FTDS / USERS: Base real + faltantes distribuidos dando más a quien más SIGN UPS tiene
-      distributeProportionalWithBase(
-        allActiveRows,
+      // b) Reparto de FTDS / PLAYERS por ESP: base real + faltantes dando más al que más SIGN UPS tiene
+      allocateProportionalIntegers(
+        espLevelData,
         agg.users,
-        it => it.origFtd,
-        it => it.signups, // Ponderación estricta por volumen de SIGN UPS
-        (it, val) => { it.ftds = val; }
+        e => e.baseFtd,
+        e => e.signups, // Ponderación estricta por volumen de SIGN UPS
+        (e, val) => { e.ftds = val; }
       );
 
-      // 4. Reconstrucción de las filas para la tabla ESP / IP Breakdown
-      const sortOrder = ['MLJ (Mailjet) IP 1', 'MLJ (Mailjet) IP 2', 'MLJ (Mailjet) IP 3 / SH', 'SEG (Sendgrid) IP 1', 'SEG (Sendgrid) IP 2 / SH'];
-      const allKnownEsps = Array.from(new Set([...sortOrder, ...Object.keys(breakdownByEsp)])).filter(e => !isExcludedEsp(e));
+      const espTotalsMap = {};
+      espLevelData.forEach(e => {
+        espTotalsMap[e.esp] = { signups: e.signups, ftds: e.ftds };
+      });
 
+      // 3. PASO B: DENTRO DE CADA ESP, REPARTIR SUS SIGNUPS Y FTDS A SUS MARCAS
+      sortOrder.forEach(espName => {
+        const group = breakdownByEsp[espName] || {};
+        const items = Object.values(group);
+        if (items.length === 0) return;
+
+        const targetEspSig = espTotalsMap[espName]?.signups || 0;
+        const targetEspFtd = espTotalsMap[espName]?.ftds || 0;
+
+        // Repartir signups a las marcas del ESP
+        allocateProportionalIntegers(
+          items,
+          targetEspSig,
+          it => it.origSig,
+          it => it.origSig,
+          (it, val) => { it.signups = val; }
+        );
+
+        // Repartir FTDs a las marcas del ESP proporcionalmente a sus Signups
+        allocateProportionalIntegers(
+          items,
+          targetEspFtd,
+          it => it.origFtd,
+          it => it.signups,
+          (it, val) => { it.ftds = val; }
+        );
+      });
+
+      // 4. Reconstrucción de filas para la tabla ESP / IP Breakdown
+      const allKnownEsps = Array.from(new Set([...sortOrder, ...Object.keys(breakdownByEsp)])).filter(e => !isExcludedEsp(e));
       const newBreakdownRows = [];
       let grandSig = 0, grandFtd = 0;
 
@@ -1395,17 +1388,7 @@
 
       agg.esp_ip_breakdown = newBreakdownRows;
 
-      // 5. Actualizar dinámicamente la tabla superior de ESP con los subtotales reconciliados
-      const espTotalsFromBreakdown = {};
-      newBreakdownRows.forEach(r => {
-        if (r.is_total && !r.is_overall) {
-          const espName = r.esp_ip.replace(/^GRAND TOTAL\s+/i, '').trim();
-          if (!isExcludedEsp(espName)) {
-            espTotalsFromBreakdown[espName] = { signups: r.signups || 0, ftds: r.ftds || 0 };
-          }
-        }
-      });
-
+      // 5. Asignar los totales a la tabla superior EMAIL PERFORMANCE BY ESP
       sortOrder.forEach(espName => {
         if (!csvMap[espName]) {
           csvMap[espName] = {
@@ -1417,7 +1400,7 @@
 
       Object.values(csvMap).forEach(item => {
         if (!isExcludedEsp(item.esp)) {
-          const bd = espTotalsFromBreakdown[item.esp] || { signups: 0, ftds: 0 };
+          const bd = espTotalsMap[item.esp] || { signups: 0, ftds: 0 };
           item.signups = bd.signups || 0;
           item.players = bd.ftds || 0;
         }
