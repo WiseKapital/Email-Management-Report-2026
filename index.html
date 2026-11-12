@@ -1,4 +1,4 @@
-html<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -1041,7 +1041,7 @@ html<!DOCTYPE html>
       const rows = [];
       let grandSig = 0, grandFtd = 0;
 
-      // Se guardan todas las filas reales sin filtrar 0/0 para no perder el mapa original de IPs
+      // Importante: No descartamos las filas con 0/0 para preservar dónde corre cada marca (ej. Mega Spinz)
       Object.entries(espIpMap).forEach(([espIp, group]) => {
         let subSig = 0, subFtd = 0;
         group.order.forEach(k => {
@@ -1181,43 +1181,63 @@ html<!DOCTYPE html>
       renderEspIpBreakdown(cachedDetailedBreakdownRows);
     }
 
-    // ALGORITMO DE REPARTO DE FALTANTES PORCENTUAL (Largest Remainder Method)
-    // Se le da más al que tenga más y menos al que tenga menos
-    function distributeProportionalDelta(items, delta, getWeight, addValue) {
-      if (!items || items.length === 0 || delta === 0) return;
-
+    // DISTRIBUCIÓN PORCENTUAL PROPORCIONAL DE FALTANTES (Largest Remainder Method)
+    function distributeProportionalWithBase(items, targetTotal, getBase, getWeight, setter) {
+      if (!items || items.length === 0) return;
       if (items.length === 1) {
-        addValue(items[0], delta);
+        setter(items[0], Math.max(0, targetTotal || 0));
         return;
       }
 
-      const weights = items.map(it => Math.max(0, getWeight(it) || 0));
-      let sumW = weights.reduce((a, b) => a + b, 0);
-
-      // Si nadie tiene peso, repartir equitativamente
-      if (sumW <= 0) {
-        const equalShare = Math.floor(delta / items.length);
-        let rem = delta % items.length;
-        items.forEach((it, idx) => {
-          addValue(it, equalShare + (idx < rem ? 1 : 0));
-        });
-        return;
-      }
-
-      const quotas = weights.map(w => (w / sumW) * delta);
-      const ints = quotas.map(q => Math.floor(q));
-      let remainder = delta - ints.reduce((a, b) => a + b, 0);
-
-      const rems = quotas.map((q, idx) => ({ idx, rem: q - Math.floor(q) }));
-      rems.sort((a, b) => b.rem - a.rem);
-
-      for (let i = 0; i < remainder && i < rems.length; i++) {
-        ints[rems[i].idx]++;
-      }
-
-      items.forEach((it, idx) => {
-        addValue(it, ints[idx]);
+      // 1. Asignar primero la base real leída del JSON
+      let currentSum = 0;
+      items.forEach(it => {
+        const b = Math.max(0, getBase(it) || 0);
+        setter(it, b);
+        currentSum += b;
       });
+
+      let remaining = targetTotal - currentSum;
+      if (remaining === 0) return;
+
+      if (remaining > 0) {
+        // Se reparte el faltante dando más al que mayor peso (signups) tiene
+        const weights = items.map(it => Math.max(0, getWeight(it) || 0));
+        let sumW = weights.reduce((a, b) => a + b, 0);
+
+        const effectiveWeights = sumW > 0 ? weights : items.map(() => 1);
+        sumW = effectiveWeights.reduce((a, b) => a + b, 0);
+
+        const quotas = effectiveWeights.map(w => (w / sumW) * remaining);
+        const ints = quotas.map(q => Math.floor(q));
+        let remainderInt = remaining - ints.reduce((a, b) => a + b, 0);
+
+        const rems = quotas.map((q, idx) => ({ idx, rem: q - Math.floor(q) }));
+        rems.sort((a, b) => b.rem - a.rem);
+
+        for (let i = 0; i < remainderInt && i < rems.length; i++) {
+          ints[rems[i].idx]++;
+        }
+
+        items.forEach((it, idx) => {
+          setter(it, (getBase(it) || 0) + ints[idx]);
+        });
+      } else {
+        // Si la suma base superara el target (reducción proporcional por cuota)
+        const currentVals = items.map(it => getBase(it) || 0);
+        let sumV = currentVals.reduce((a, b) => a + b, 0);
+        if (sumV > 0) {
+          const quotas = currentVals.map(v => (v / sumV) * targetTotal);
+          const ints = quotas.map(q => Math.floor(q));
+          let remInt = targetTotal - ints.reduce((a, b) => a + b, 0);
+          const rems = quotas.map((q, idx) => ({ idx, rem: q - Math.floor(q) }));
+          rems.sort((a, b) => b.rem - a.rem);
+          for (let i = 0; i < remInt && i < rems.length; i++) {
+            ints[rems[i].idx]++;
+          }
+          items.forEach((it, idx) => setter(it, ints[idx]));
+        }
+      }
     }
 
     async function updateDashboardForDateRange() {
@@ -1232,10 +1252,8 @@ html<!DOCTYPE html>
         ? espList.map(e => e.esp)
         : ['SEG (Sendgrid) IP 2 / SH', 'SEG (Sendgrid) IP 1', 'MLJ (Mailjet) IP 2', 'MLJ (Mailjet) IP 1'];
 
-      // 1. PASO 1: LEER LOS DATOS REALES DIRECTOS DEL JSON
-      const baseRows = [];
-      const brandEspMap = {};
-
+      // 1. Mapear todas las filas existentes en breakdownByEsp capturando su estado original leídos del JSON
+      const breakdownByEsp = {};
       (agg.esp_ip_breakdown || []).forEach(r => {
         if (r.is_total || r.is_overall) return;
         const esp = (r.esp_ip || '').trim();
@@ -1243,89 +1261,102 @@ html<!DOCTYPE html>
         const br = (r.brand || '-').trim();
         if (!esp || isExcludedEsp(esp)) return;
 
-        const row = {
-          esp_ip: esp,
-          advertiser: adv,
-          brand: br,
-          signups: Math.max(0, r.signups || 0),
-          ftds: Math.max(0, r.ftds || 0),
-          origSig: Math.max(0, r.signups || 0),
-          origFtd: Math.max(0, r.ftds || 0)
-        };
-        baseRows.push(row);
-        brandEspMap[`${adv}___${br}`] = esp;
+        const sig = r.signups || 0;
+        const ftd = r.ftds || 0;
+
+        const key = `${adv}___${br}`;
+        if (!breakdownByEsp[esp]) breakdownByEsp[esp] = {};
+        if (!breakdownByEsp[esp][key]) {
+          breakdownByEsp[esp][key] = {
+            esp_ip: esp,
+            advertiser: adv,
+            brand: br,
+            signups: sig,   // Dato real del JSON
+            ftds: ftd,      // Dato real del JSON
+            origSig: sig,
+            origFtd: ftd
+          };
+        }
       });
 
-      // Incluir marcas de agg.brands que no estuvieran en el desglose
-      let rot = 0;
+      // 2. Integrar marcas que estén en agg.brands pero que no vinieran en el desglose
+      let unassignedRotation = 0;
       Object.entries(agg.brands).forEach(([bName, bData]) => {
         const cleanName = bName.trim();
+        const bKey = cleanName.toLowerCase();
         const adv = (bData.advertiser || '-').trim();
-        const key = `${adv}___${cleanName}`;
 
-        const exists = baseRows.some(r => r.brand.toLowerCase() === cleanName.toLowerCase());
-        if (!exists) {
+        let existsInSomeEsp = false;
+        Object.values(breakdownByEsp).forEach(group => {
+          Object.values(group).forEach(item => {
+            if (item.brand.toLowerCase() === bKey) existsInSomeEsp = true;
+          });
+        });
+
+        if (!existsInSomeEsp && ((bData.signups || 0) > 0 || (bData.users || 0) > 0)) {
           let chosenEsp = null;
           for (const esp of activeEsps) {
-            if (baseRows.some(r => r.esp_ip === esp && r.advertiser.toLowerCase() === adv.toLowerCase())) {
+            if (breakdownByEsp[esp] && Object.values(breakdownByEsp[esp]).some(it => it.advertiser.toLowerCase() === adv.toLowerCase())) {
               chosenEsp = esp;
               break;
             }
           }
           if (!chosenEsp) {
-            chosenEsp = activeEsps[rot % activeEsps.length];
-            rot++;
+            chosenEsp = activeEsps[unassignedRotation % activeEsps.length];
+            unassignedRotation++;
           }
 
-          baseRows.push({
+          if (!breakdownByEsp[chosenEsp]) breakdownByEsp[chosenEsp] = {};
+          const key = `${adv}___${cleanName}`;
+          breakdownByEsp[chosenEsp][key] = {
             esp_ip: chosenEsp,
             advertiser: adv,
             brand: cleanName,
-            signups: Math.max(0, bData.signups || 0),
-            ftds: Math.max(0, bData.users || 0),
-            origSig: Math.max(0, bData.signups || 0),
-            origFtd: Math.max(0, bData.users || 0)
-          });
+            signups: bData.signups || 0,
+            ftds: bData.users || 0,
+            origSig: bData.signups || 0,
+            origFtd: bData.users || 0
+          };
         }
       });
 
-      // 2. PASO 2: DISTRIBUCIÓN PORCENTUAL DE FALTANTES DE SIGN UPS
-      // Se le da más al que tenga más sign ups y menos al que tenga menos
-      const curSumSig = baseRows.reduce((a, b) => a + b.signups, 0);
-      const deltaSig = agg.signups - curSumSig;
+      // Recolectar todas las filas activas
+      const allActiveRows = [];
+      Object.values(breakdownByEsp).forEach(group => {
+        Object.values(group).forEach(item => {
+          allActiveRows.push(item);
+        });
+      });
 
-      if (deltaSig !== 0) {
-        distributeProportionalDelta(
-          baseRows,
-          deltaSig,
-          it => (it.signups > 0 ? it.signups : (csvMap[it.esp_ip]?.delivered || 1)),
-          (it, add) => { it.signups = Math.max(0, it.signups + add); }
-        );
-      }
+      // 3. PASO MAESTRO REGLA DE NEGOCIO:
+      // a) Distribución de SIGN UPS: Base real + faltantes distribuidos dando más a quien más signups tiene
+      distributeProportionalWithBase(
+        allActiveRows,
+        agg.signups,
+        it => it.origSig,
+        it => it.origSig,
+        (it, val) => { it.signups = val; }
+      );
 
-      // 3. PASO 3: DISTRIBUCIÓN PORCENTUAL DE FALTANTES DE FTD / USERS
-      // Exactamente lo mismo: se le da más al que tenga más sign ups y menos al que tenga menos sign ups
-      const curSumFtd = baseRows.reduce((a, b) => a + b.ftds, 0);
-      const deltaFtd = agg.users - curSumFtd;
+      // b) Distribución de FTDS / USERS: Base real + faltantes distribuidos dando más a quien más SIGN UPS tiene
+      distributeProportionalWithBase(
+        allActiveRows,
+        agg.users,
+        it => it.origFtd,
+        it => it.signups, // Ponderación estricta por volumen de SIGN UPS
+        (it, val) => { it.ftds = val; }
+      );
 
-      if (deltaFtd !== 0) {
-        distributeProportionalDelta(
-          baseRows,
-          deltaFtd,
-          it => it.signups, // El peso de distribución es el volumen de Sign Ups
-          (it, add) => { it.ftds = Math.max(0, it.ftds + add); }
-        );
-      }
-
-      // 4. RECONSTRUCCIÓN DE FILAS PARA LA TABLA ESP / IP BREAKDOWN
+      // 4. Reconstrucción de las filas para la tabla ESP / IP Breakdown
       const sortOrder = ['MLJ (Mailjet) IP 1', 'MLJ (Mailjet) IP 2', 'MLJ (Mailjet) IP 3 / SH', 'SEG (Sendgrid) IP 1', 'SEG (Sendgrid) IP 2 / SH'];
-      const allKnownEsps = Array.from(new Set([...sortOrder, ...baseRows.map(r => r.esp_ip)])).filter(e => !isExcludedEsp(e));
+      const allKnownEsps = Array.from(new Set([...sortOrder, ...Object.keys(breakdownByEsp)])).filter(e => !isExcludedEsp(e));
 
       const newBreakdownRows = [];
       let grandSig = 0, grandFtd = 0;
 
       allKnownEsps.forEach(espName => {
-        const items = baseRows.filter(r => r.esp_ip === espName && (r.signups > 0 || r.ftds > 0));
+        const group = breakdownByEsp[espName] || {};
+        const items = Object.values(group).filter(it => (it.signups || 0) > 0 || (it.ftds || 0) > 0);
         if (items.length === 0) return;
 
         items.sort((a, b) => ((b.signups || 0) + (b.ftds || 0) * 10) - ((a.signups || 0) + (a.ftds || 0) * 10));
@@ -1333,8 +1364,8 @@ html<!DOCTYPE html>
         let subSig = 0, subFtd = 0;
         items.forEach(it => {
           newBreakdownRows.push(it);
-          subSig += it.signups;
-          subFtd += it.ftds;
+          subSig += (it.signups || 0);
+          subFtd += (it.ftds || 0);
         });
 
         newBreakdownRows.push({
@@ -1364,7 +1395,7 @@ html<!DOCTYPE html>
 
       agg.esp_ip_breakdown = newBreakdownRows;
 
-      // 5. ACTUALIZAR DINÁMICAMENTE LA TABLA SUPERIOR (EMAIL PERFORMANCE BY ESP)
+      // 5. Actualizar dinámicamente la tabla superior de ESP con los subtotales reconciliados
       const espTotalsFromBreakdown = {};
       newBreakdownRows.forEach(r => {
         if (r.is_total && !r.is_overall) {
