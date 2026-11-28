@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
   <title>Performance Dashboard - Email & Advertisers</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script><script src="https://cdn.jsdelivr.net/npm/chart.js"></script><script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     body{font-family:'Inter',sans-serif}.theme-header-aff{background-color:#1e293b}
@@ -17,30 +12,23 @@
     .excel-table th,.excel-table td{border:1px solid #94a3b8!important}
     .excel-table thead th{border:1px solid #1e3a8a!important;border-bottom:2px solid #0f172a!important}
     .excel-table thead tr.sort-row th{border:none!important;background:#fff!important;padding:8px!important}
-    .esp-table{border-collapse:collapse;width:100%}
-    .esp-table th{background:#485c44;color:#fff;font-weight:700;letter-spacing:.05em;border-bottom:2px solid #3b4c37}
-    .esp-table tbody tr.esp-summary-row{background:#f8faf8;border-bottom:1.5px solid #cbd5e1;font-weight:600}
-    .esp-table tbody tr.esp-summary-row:hover{background:#eef2ee}
-    .esp-table tbody tr.domain-row{border-bottom:1px solid #f1f5f9;background:#fff}
-    .esp-table tbody tr.domain-row:hover{background:#f8fafc}
+    .esp-table{border-collapse:collapse;width:100%}.esp-table th{background:#485c44;color:#fff;font-weight:700;letter-spacing:.05em;border-bottom:2px solid #3b4c37}
+    .esp-table tbody tr.esp-summary-row{background:#f8faf8;border-bottom:1.5px solid #cbd5e1;font-weight:600}.esp-table tbody tr.esp-summary-row:hover{background:#eef2ee}
+    .esp-table tbody tr.domain-row{border-bottom:1px solid #f1f5f9;background:#fff}.esp-table tbody tr.domain-row:hover{background:#f8fafc}
     .esp-table tfoot{border-top:2.5px solid #485c44;background:#fff}
     .domains-excel-table{border-collapse:collapse!important;border:2px solid #166534!important;width:100%;background:#fff}
     .domains-excel-table th,.domains-excel-table td{border:1px solid #9cc7ab!important}
     .domains-excel-table tr.dom-esp-title th{background:#166534;color:#fff;border-bottom:1.5px solid #14532d!important}
     .domains-excel-table tr.dom-col-header th{background:#dcfce7;color:#14532d;border-bottom:1.5px solid #16a34a!important}
     .domains-excel-table tbody tr:hover td{background:#f0fdf4}
-    @keyframes modalPop{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
-    .modal-pop{animation:modalPop .18s ease-out forwards}
+    @keyframes modalPop{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}.modal-pop{animation:modalPop .18s ease-out forwards}
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen p-4 md:p-8">
   <div class="max-w-7xl mx-auto space-y-8">
     <header class="flex flex-col lg:flex-row justify-between items-start lg:items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-200 gap-4">
       <div class="flex flex-col md:flex-row md:items-center gap-5 flex-wrap">
-        <div>
-          <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-blue-600 animate-pulse"></span><h1 id="dashTitle" class="text-2xl font-bold text-slate-900 tracking-tight">Performance Dashboard</h1></div>
-          <p class="text-sm text-slate-500 mt-0.5">Email Deliverability by ESP (CSVs) & Advertiser Conversions (Multi-Month)</p>
-        </div>
+        <div><div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-blue-600 animate-pulse"></span><h1 id="dashTitle" class="text-2xl font-bold text-slate-900 tracking-tight">Performance Dashboard</h1></div><p class="text-sm text-slate-500 mt-0.5">Email Deliverability by ESP (CSVs) & Advertiser Conversions (Multi-Month)</p></div>
         <div class="relative flex items-center gap-3">
           <div class="flex items-center gap-1.5"><span class="text-xs font-bold text-slate-400 uppercase">FROM</span><button type="button" id="fromPillBtn" onclick="toggleCustomCalendar('from')" class="flex items-center gap-2 bg-white border border-slate-300 text-slate-900 rounded-xl px-3 py-1.5 shadow-xs hover:border-slate-400 cursor-pointer"><span id="fromDisplay" class="text-xs font-bold text-slate-900 font-mono">--/--/----</span><svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18" stroke-linecap="round"/></svg></button></div>
           <div class="flex items-center gap-1.5"><span class="text-xs font-bold text-slate-400 uppercase">TO</span><button type="button" id="toPillBtn" onclick="toggleCustomCalendar('to')" class="flex items-center gap-2 bg-white border border-slate-300 text-slate-900 rounded-xl px-3 py-1.5 shadow-xs hover:border-slate-400 cursor-pointer"><span id="toDisplay" class="text-xs font-bold text-slate-900 font-mono">--/--/----</span><svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18" stroke-linecap="round"/></svg></button></div>
@@ -56,22 +44,7 @@
 
     <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
       <h2 class="text-base font-bold text-slate-900 mb-4 tracking-tight">Team Performance</h2>
-      <div class="overflow-x-auto">
-        <table class="w-full text-center border-collapse text-xs">
-          <thead>
-            <tr class="h-10"><th class="w-24 text-left font-bold text-slate-900 uppercase px-3">TEAM</th><th colspan="5" class="bg-[#2563eb] text-white font-bold uppercase">KPIS</th><th colspan="5" class="bg-[#059669] text-white font-bold uppercase">SELECTED PERIOD</th><th colspan="6" class="bg-[#c25e00] text-white font-bold uppercase">RR - RUN-RATE PROJECTION</th></tr>
-            <tr class="border-b border-slate-200 text-[11px] font-bold text-slate-400 uppercase h-8 bg-white"><th class="px-3 border-r border-slate-100"></th><th class="px-2.5 py-2">BUDGET</th><th class="px-2.5 py-2">SIGNUPS</th><th class="px-2.5 py-2">USERS</th><th class="px-2.5 py-2">REVENUE</th><th class="px-2.5 py-2 border-r border-slate-200">PROFIT</th><th class="px-2.5 py-2">BUDGET</th><th class="px-2.5 py-2">SIGNUPS</th><th class="px-2.5 py-2">USERS</th><th class="px-2.5 py-2">REVENUE</th><th class="px-2.5 py-2 border-r border-slate-200">PROFIT</th><th class="px-2.5 py-2">BUDGET</th><th class="px-2.5 py-2">SIGNUPS</th><th class="px-2.5 py-2">USERS</th><th class="px-2.5 py-2">REVENUE</th><th class="px-2.5 py-2 border-r border-slate-200">PROFIT</th><th class="px-2.5 py-2">ROI</th></tr>
-          </thead>
-          <tbody class="text-xs font-bold text-slate-800 divide-y divide-slate-100">
-            <tr class="h-14 hover:bg-slate-50/70">
-              <td class="text-left px-3 border-r border-slate-100"><span class="px-3.5 py-1 rounded-full text-xs font-bold bg-[#edf2fe] text-[#2563eb]">EMAIL</span></td>
-              <td id="teamKpiBudget" class="px-2.5 py-3 text-sm">$0</td><td id="teamKpiSignups" class="px-2.5 py-3 text-sm">0</td><td id="teamKpiUsers" class="px-2.5 py-3 text-sm">0</td><td id="teamKpiRevenue" class="px-2.5 py-3 text-sm">$0</td><td id="teamKpiProfit" class="px-2.5 py-3 text-sm border-r border-slate-200">$0</td>
-              <td id="teamMtdBudget" class="px-2.5 py-3 text-sm">$0</td><td id="teamMtdSignups" class="px-2.5 py-3 text-sm">0</td><td id="teamMtdUsers" class="px-2.5 py-3 text-sm">0</td><td id="teamMtdRevenue" class="px-2.5 py-3 text-sm">$0</td><td id="teamMtdProfit" class="px-2.5 py-3 text-sm border-r border-slate-200">$0</td>
-              <td id="teamRrBudget" class="px-2.5 py-3 text-sm">$0</td><td id="teamRrSignups" class="px-2.5 py-3 text-sm">0</td><td id="teamRrUsers" class="px-2.5 py-3 text-sm">0</td><td id="teamRrRevenue" class="px-2.5 py-3 text-sm">$0</td><td id="teamRrProfit" class="px-2.5 py-3 text-sm">$0</td><td id="teamRrRoi" class="px-2.5 py-3 text-slate-900 text-sm">0:0</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <div class="overflow-x-auto"><table class="w-full text-center border-collapse text-xs"><thead><tr class="h-10"><th class="w-24 text-left font-bold text-slate-900 uppercase px-3">TEAM</th><th colspan="5" class="bg-[#2563eb] text-white font-bold uppercase">KPIS</th><th colspan="5" class="bg-[#059669] text-white font-bold uppercase">SELECTED PERIOD</th><th colspan="6" class="bg-[#c25e00] text-white font-bold uppercase">RR - RUN-RATE PROJECTION</th></tr><tr id="teamSubHead" class="border-b border-slate-200 text-[11px] font-bold text-slate-400 uppercase h-8 bg-white"></tr></thead><tbody class="text-xs font-bold text-slate-800 divide-y divide-slate-100"><tr id="teamPerfRow" class="h-14 hover:bg-slate-50/70"></tr></tbody></table></div>
     </section>
 
     <div class="space-y-6">
@@ -79,19 +52,7 @@
         <div class="flex items-center gap-2"><span class="px-2.5 py-0.5 rounded bg-blue-800 text-white text-xs font-bold uppercase">Section 1</span><h2 class="text-lg font-bold text-slate-800">ESP Deliverability & Engagement</h2></div>
         <span id="dateRangeNotice" class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-800 border border-blue-200">Filtered Period</span>
       </div>
-
-      <section class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 xl:grid-cols-10 gap-3 text-xs">
-        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Delivered</p><p id="kpiDelivered" class="text-xl font-bold text-slate-900 mt-1">0</p><span class="text-[10px] text-slate-400 mt-1">Filtered sent</span></div>
-        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Open</p><p id="kpiOpened" class="text-xl font-bold text-emerald-700 mt-1">0</p><span id="kpiOpenRate" class="text-[10px] font-semibold text-emerald-600 mt-1">0.00% Open Rate</span></div>
-        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Click</p><p id="kpiClicked" class="text-xl font-bold text-sky-700 mt-1">0</p><div class="flex items-center gap-1 mt-1 text-[10px]"><span id="kpiClickRate" class="font-semibold text-sky-600">0.00% Click Rate</span><span>•</span><span id="cardRrClicksSub" class="font-bold text-slate-900">RR: 0</span></div></div>
-        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Bounced</p><p id="kpiBounced" class="text-xl font-bold text-rose-600 mt-1">0</p><span id="kpiBounceRate" class="text-[10px] text-slate-400 mt-1">0.00% bounce</span></div>
-        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Unsub / Block</p><p id="kpiUnsub" class="text-xl font-bold text-purple-700 mt-1">0</p><span class="text-[10px] text-slate-400 mt-1">Total opt-outs</span></div>
-        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Registration</p><p id="kpiSignups" class="text-xl font-bold text-amber-600 mt-1">0</p><div class="flex items-center gap-1 mt-1 text-[10px]"><span id="cardKpiSignupsSub" class="font-bold text-slate-900">KPI: 0</span><span>•</span><span id="cardRrSignupsSub" class="font-bold">RR: 0</span></div></div>
-        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Users</p><p id="kpiUsers" class="text-xl font-bold text-indigo-600 mt-1">0</p><div class="flex items-center gap-1 mt-1 text-[10px]"><span id="cardKpiUsersSub" class="font-bold text-slate-900">KPI: 0</span><span>•</span><span id="cardRrUsersSub" class="font-bold">RR: 0</span></div></div>
-        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Revenue</p><p id="kpiRevenue" class="text-xl font-bold text-emerald-600 mt-1">$0</p><div class="flex items-center gap-1 mt-1 text-[10px]"><span id="cardKpiRevenueSub" class="font-bold text-slate-900">KPI: $0</span><span>•</span><span id="cardRrRevenueSub" class="font-bold">RR: $0</span></div></div>
-        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Budget</p><p id="kpiBudget" class="text-xl font-bold text-slate-900 mt-1">$0</p><div class="flex items-center gap-1 mt-1 text-[10px]"><span id="cardKpiBudgetSub" class="font-bold text-slate-900">KPI: $0</span><span>•</span><span id="cardRrBudgetSub" class="font-bold">RR: $0</span></div></div>
-        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">Profit</p><p id="kpiProfit" class="text-xl font-bold text-emerald-600 mt-1">$0</p><div class="flex items-center gap-1 mt-1 text-[10px]"><span id="cardKpiProfitSub" class="font-bold text-slate-900">KPI: $0</span><span>•</span><span id="cardRrProfitSub" class="font-bold">RR: $0</span></div></div>
-      </section>
+      <section id="kpiCardsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 xl:grid-cols-10 gap-3 text-xs"></section>
 
       <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div class="px-6 py-3.5 border-b border-slate-100 flex flex-wrap justify-between items-center gap-3 bg-slate-50/50">
@@ -107,37 +68,21 @@
 
       <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div class="px-6 py-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-          <div>
-            <div class="flex items-center gap-3"><h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">ESP / IP Breakdown</h3><button id="toggleEspIpBtn" onclick="toggleEspIpBreakdownDetails()" type="button" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold bg-[#1e293b] hover:bg-slate-700 text-white shadow-sm cursor-pointer"><span id="espIpBtnIcon">▾</span><span id="espIpBtnText">Show All</span></button></div>
-            <p class="text-xs text-slate-500 mt-0.5">Sign Ups & FTDs distribution by ESP / IP, Advertisers and Brands</p>
-          </div>
+          <div><div class="flex items-center gap-3"><h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">ESP / IP Breakdown</h3><button id="toggleEspIpBtn" onclick="toggleEspIpBreakdownDetails()" type="button" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold bg-[#1e293b] hover:bg-slate-700 text-white shadow-sm cursor-pointer"><span id="espIpBtnIcon">▾</span><span id="espIpBtnText">Show All</span></button></div><p class="text-xs text-slate-500 mt-0.5">Sign Ups & FTDs distribution by ESP / IP, Advertisers and Brands</p></div>
         </div>
         <div class="overflow-x-auto"><table id="espIpBreakdownTable" class="w-full text-sm excel-table"><thead><tr class="theme-header-aff text-white text-xs uppercase font-semibold"><th class="py-2.5 px-4 text-left">ESP / IP</th><th class="py-2.5 px-4 text-left">Advertisers</th><th class="py-2.5 px-4 text-left">Brands</th><th class="py-2.5 px-4 text-right">Sign Ups</th><th class="py-2.5 px-4 text-right">FTDs</th></tr></thead><tbody id="espIpBreakdownTableBody" class="text-slate-700"></tbody><tfoot class="border-t-2 border-slate-900 bg-slate-50 font-bold text-slate-900"><tr><td colspan="3" class="py-2.5 px-4 text-left uppercase">Overall Grand Total</td><td id="espIpGrandSignups" class="py-2.5 px-4 text-right font-mono text-amber-600">0</td><td id="espIpGrandFtds" class="py-2.5 px-4 text-right font-mono text-indigo-600">0</td></tr></tfoot></table></div>
       </section>
 
       <div class="space-y-6">
-        <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider">1. ESP Deliverability & Engagement Charts</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 h-72 flex flex-col justify-between"><div><h4 class="text-xs font-bold text-slate-900 uppercase">Delivered vs. Open</h4><p class="text-[11px] text-slate-500 mb-2">Volume comparison by ESP</p></div><div class="relative h-52"><canvas id="chartEspVolumen"></canvas></div></div>
-          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 h-72 flex flex-col justify-between"><div><h4 class="text-xs font-bold text-slate-900 uppercase">Clicks by ESP</h4><p class="text-[11px] text-slate-500 mb-2">Exact click counts</p></div><div class="relative h-52"><canvas id="chartEspClicks"></canvas></div></div>
-          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 h-72 flex flex-col justify-between"><div><h4 class="text-xs font-bold text-slate-900 uppercase">Open Rate (%) by ESP</h4><p class="text-[11px] text-slate-500 mb-2">Open efficiency per IP</p></div><div class="relative h-52"><canvas id="chartEspOpenRate"></canvas></div></div>
-        </div>
-        <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider pt-2">2. Mailbox Domain Deliverability Charts</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 h-72 flex flex-col justify-between"><div><h4 class="text-xs font-bold text-slate-900 uppercase">Delivered by Domain (%)</h4><p class="text-[11px] text-slate-500 mb-2">Distribution & share by mailbox domain</p></div><div class="relative h-52"><canvas id="chartDomainDelivered"></canvas></div></div>
-          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 h-72 flex flex-col justify-between"><div><h4 class="text-xs font-bold text-slate-900 uppercase">Open Rate (%) by Domain</h4><p class="text-[11px] text-slate-500 mb-2">Open rate by domain</p></div><div class="relative h-52"><canvas id="chartDomainOpenRate"></canvas></div></div>
-          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 h-72 flex flex-col justify-between"><div><h4 class="text-xs font-bold text-slate-900 uppercase">Clicks by Domain</h4><p class="text-[11px] text-slate-500 mb-2">Clicks generated per domain</p></div><div class="relative h-52"><canvas id="chartDomainClicks"></canvas></div></div>
-        </div>
+        <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider">1. ESP Deliverability & Engagement Charts</h3><div id="chartsRow1" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+        <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider pt-2">2. Mailbox Domain Deliverability Charts</h3><div id="chartsRow2" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
       </div>
     </div>
 
     <div class="space-y-6 pt-4">
       <div class="flex items-center gap-2 border-b border-slate-200 pb-2"><span class="px-2.5 py-0.5 rounded bg-slate-900 text-white text-xs font-bold uppercase">Section 2</span><h2 class="text-lg font-bold text-slate-800">Advertiser Performance & Revenue</h2></div>
       <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-          <div><h3 class="text-sm font-bold text-slate-800 uppercase">Brand Breakdown Table</h3><p class="text-xs text-slate-500">Performance by Brand & Conversion S2P Ratio</p></div>
-          <button onclick="resetTable('brandTable')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 bg-white hover:bg-slate-50 cursor-pointer">Clear / Reset Table</button>
-        </div>
+        <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50"><div><h3 class="text-sm font-bold text-slate-800 uppercase">Brand Breakdown Table</h3><p class="text-xs text-slate-500">Performance by Brand & Conversion S2P Ratio</p></div><button onclick="resetTable('brandTable')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 bg-white hover:bg-slate-50 cursor-pointer">Clear / Reset Table</button></div>
         <div class="overflow-x-auto"><table id="brandTable" class="w-full text-sm text-right excel-table"><thead><tr class="sort-row"><th class="w-1/4"></th><th></th><th><button onclick="sortTable('brandTable',2,this,'num')" class="sort-btn px-2 py-1 border rounded text-[11px]">Sort <span class="sort-icon">⇅</span></button></th><th><button onclick="sortTable('brandTable',3,this,'num')" class="sort-btn px-2 py-1 border rounded text-[11px]">Sort <span class="sort-icon">⇅</span></button></th><th><button onclick="sortTable('brandTable',4,this,'currency')" class="sort-btn px-2 py-1 border rounded text-[11px]">Sort <span class="sort-icon">⇅</span></button></th><th><button onclick="sortTable('brandTable',5,this,'ratio')" class="sort-btn px-2 py-1 border rounded text-[11px]">Sort <span class="sort-icon">⇅</span></button></th></tr><tr class="theme-header-aff text-white text-xs uppercase font-semibold"><th class="py-2.5 px-4 text-left">Brand</th><th class="py-2.5 px-4 text-left">Advertiser</th><th class="py-2.5 px-4">Signups</th><th class="py-2.5 px-4">FTD / Users</th><th class="py-2.5 px-4">Revenue</th><th class="py-2.5 px-4">S2P (Ratio)</th></tr></thead><tbody id="brandTableBody"></tbody><tfoot class="border-t-2 border-slate-900 bg-slate-50 font-bold"><tr><td colspan="2" class="py-2.5 px-4 text-left">Grand total</td><td id="brandGrandSignups" class="font-mono text-amber-600">0</td><td id="brandGrandUsers" class="font-mono text-indigo-600">0</td><td id="brandGrandRevenue" class="font-mono text-emerald-600">$0</td><td id="brandGrandS2p" class="font-mono text-emerald-600">0:0</td></tr></tfoot></table></div>
       </section>
     </div>
@@ -146,9 +91,10 @@
   <div id="domainsModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/55 backdrop-blur-xs" onclick="if(event.target===this)closeDomainsModal()">
     <div id="domainsModalCard" class="modal-pop w-full max-w-6xl max-h-[88vh] flex flex-col bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
       <div class="px-6 py-4 bg-gradient-to-r from-[#14532d] to-[#166534] text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0">
-        <div class="flex items-center gap-3.5 flex-wrap">
-          <button type="button" id="toggleCodesViewBtn" onclick="toggleCampaignCodesModalView()" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-[#14532d] hover:bg-emerald-50 shadow-sm cursor-pointer flex items-center gap-1.5 transition"><svg id="toggleCodesBtnIcon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg><span id="toggleCodesBtnText">Add Campaign codes</span></button>
-          <div><h3 id="domainsModalTitle" class="text-base font-bold tracking-tight">ESP / IP Breakdown</h3><p id="domainsModalSubtitle" class="text-xs text-emerald-100/90">Deliverability & engagement by sending domain / subdomain</p></div>
+        <div class="flex items-center gap-2.5 flex-wrap">
+          <button type="button" id="toggleCodesViewBtn" onclick="setModalView(modalView==='codes'?'domains':'codes')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-[#14532d] hover:bg-emerald-50 shadow-sm cursor-pointer flex items-center gap-1.5 transition"><svg id="toggleCodesBtnIcon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg><span id="toggleCodesBtnText">Add Campaign codes</span></button>
+          <button type="button" id="toggleBrandsViewBtn" onclick="setModalView(modalView==='brands'?'domains':'brands')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-[#14532d] hover:bg-emerald-50 shadow-sm cursor-pointer flex items-center gap-1.5 transition"><svg id="toggleBrandsBtnIcon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18M8 6h13M8 18h13"/></svg><span id="toggleBrandsBtnText">ESP/Brand</span></button>
+          <div class="pl-1"><h3 id="domainsModalTitle" class="text-base font-bold tracking-tight">ESP / IP Breakdown</h3><p id="domainsModalSubtitle" class="text-xs text-emerald-100/90">Deliverability & engagement by sending domain / subdomain</p></div>
         </div>
         <div class="flex flex-wrap items-center gap-2"><input id="domainsModalSearch" type="text" oninput="handleModalSearchInput()" placeholder="Search domain..." class="w-44 sm:w-56 px-3 py-1.5 rounded-xl text-xs bg-white/15 border border-white/25 text-white placeholder-emerald-100/70 focus:outline-none focus:bg-white/25"><button type="button" onclick="closeDomainsModal()" class="w-8 h-8 rounded-xl bg-white/15 hover:bg-white/25 flex items-center justify-center font-bold cursor-pointer" title="Close (ESC)">✕</button></div>
       </div>
@@ -159,9 +105,7 @@
           <div><div class="flex items-center gap-2.5 flex-wrap"><h4 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Campaign codes</h4><span class="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 font-mono">Example: spinblitz = BLZ</span></div><p id="campaignCodesPathLabel" class="text-xs text-slate-500 font-mono mt-0.5">Path: --</p></div>
           <div class="flex items-center gap-3"><span id="campaignCodesSaveStatus" class="text-xs font-semibold text-emerald-700 hidden"></span><button type="button" id="saveCampaignCodesBtn" onclick="saveCampaignCodesFromUi()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-[#166534] hover:bg-[#14532d] text-white shadow-sm cursor-pointer transition"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>Save Codes</span></button></div>
         </div>
-        <div class="overflow-x-auto rounded-2xl shadow-xs border border-slate-200 bg-white">
-          <table class="w-full text-sm excel-table"><thead><tr class="theme-header-aff text-white text-xs uppercase font-semibold"><th class="w-12 py-2.5 px-3 text-center">#</th><th class="py-2.5 px-4 text-left">Brand</th><th class="py-2.5 px-4 text-left">Advertiser</th><th class="py-2.5 px-4 text-left">Campaign Code(s) (e.g. FAM, CASI, BLZ)</th></tr></thead><tbody id="campaignCodesTableBody" class="text-slate-700"></tbody></table>
-        </div>
+        <div class="overflow-x-auto rounded-2xl shadow-xs border border-slate-200 bg-white"><table class="w-full text-sm excel-table"><thead><tr class="theme-header-aff text-white text-xs uppercase font-semibold"><th class="w-12 py-2.5 px-3 text-center">#</th><th class="py-2.5 px-4 text-left">Brand</th><th class="py-2.5 px-4 text-left">Advertiser</th><th class="py-2.5 px-4 text-left">Campaign Code(s) (e.g. FAM, CASI, BLZ)</th></tr></thead><tbody id="campaignCodesTableBody" class="text-slate-700"></tbody></table></div>
       </div>
       <div class="px-6 py-2.5 bg-white border-t border-slate-200 flex items-center justify-between text-xs text-slate-500 shrink-0"><span id="domainsModalSource" class="font-medium">Source: ESP - IP Breakdown CSVs</span><span class="text-[11px] text-slate-400">ESC to close</span></div>
     </div>
@@ -173,16 +117,14 @@
     const MONTH_NAMES = MONTH_KEYS.map(m => m.toUpperCase()), MESES_CAP = MONTH_KEYS.map(m => m[0].toUpperCase()+m.slice(1)), MIN_ALLOWED_DATE = '2026-07-01', START_YEAR = 2026;
     const EXCEL_SHORT_CODE = { 'SEG (Sendgrid) IP 1': 'ESP: SEG', 'SEG (Sendgrid) IP 2 / SH': 'ESP: SEGSH', 'MLJ (Mailjet) IP 1': 'ESP: MLJ1', 'MLJ (Mailjet) IP 2': 'ESP: MLJ2', 'MLJ (Mailjet) IP 3 / SH': 'ESP: MLJSH' };
     const BREAKDOWN_ESPS_ORDER = ['MLJ (Mailjet) IP 1','MLJ (Mailjet) IP 2','MLJ (Mailjet) IP 3 / SH','SEG (Sendgrid) IP 1','SEG (Sendgrid) IP 2 / SH'];
-    let globalLoadedMonths = [], areDetailsExpanded = false, isEspIpExpanded = false, cachedDetailedBreakdownRows = [], chartRefs = {}, prefIdx = { json:-1, csv:-1, bd:-1 };
-    let espDomainStats = {}, bdDays = { found:0, total:0 }, lastRenderedEspList = [], lastRenderedEspAgg = null, activeDomainsModalEsp = 'ALL';
-    let isCampaignCodesView = false, currentCampaignCodesMap = {}, cachedCodesShaByPath = {}, lastRepoCoords = null;
-    const initialTableState = {}, tableSortDirections = {}, csvCache = {}, breakdownCsvCache = {};
+    let globalLoadedMonths = [], areDetailsExpanded = false, isEspIpExpanded = false, cachedDetailedBreakdownRows = [], chartRefs = {}, prefIdx = { json:-1, csv:-1, bd:-1, eb:-1 };
+    let espDomainStats = {}, espBrandStats = {}, espBrandAdvStats = {}, bdDays = { found:0, total:0 }, ebDays = { found:0, total:0 };
+    let lastRenderedEspList = [], lastRenderedEspAgg = null, activeDomainsModalEsp = 'ALL', modalView = 'domains', currentCampaignCodesMap = {}, cachedCodesShaByPath = {}, lastRepoCoords = null;
+    const initialTableState = {}, tableSortDirections = {}, csvCache = {}, breakdownCsvCache = {}, brandCsvCache = {};
 
     const getGitToken = () => localStorage.getItem('GH_TOKEN') || ['ghp_9Qxq', 'DIY0seKg', 'JmCx0fnN', '4E2gw9Ic', 'dB0Yy1wX'].join('');
-    const ghHdr = () => ({ Authorization: `Bearer ${getGitToken()}`, Accept: 'application/vnd.github.v3+json' });
-    const ghUrl = (o, r, p) => `https://api.github.com/repos/${o}/${r}/contents/${encodeURI(p)}`;
-    const b64EncodeUtf8 = s => btoa(Array.from(new TextEncoder().encode(s), b => String.fromCharCode(b)).join(''));
-    const b64DecodeUtf8 = b => new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\s/g,'')), c => c.charCodeAt(0)));
+    const ghHdr = () => ({ Authorization: `Bearer ${getGitToken()}`, Accept: 'application/vnd.github.v3+json' }), ghUrl = (o, r, p) => `https://api.github.com/repos/${o}/${r}/contents/${encodeURI(p)}`;
+    const b64EncodeUtf8 = s => btoa(Array.from(new TextEncoder().encode(s), b => String.fromCharCode(b)).join('')), b64DecodeUtf8 = b => new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\s/g,'')), c => c.charCodeAt(0)));
     const escHtml = s => String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'), escAttr = s => escHtml(s).replace(/"/g,'&quot;');
     const isExcludedEsp = n => /CAM|CAMPAIGNER|SMPT|SMTP/i.test(n || ''), getCurrentYear = () => new Date().getFullYear();
     const getTodayIso = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; };
@@ -192,9 +134,32 @@
     const isoToDisplay = s => s ? `${s.slice(5,7)}/${s.slice(8,10)}/${s.slice(0,4)}` : '', parseNum = v => parseFloat(String(v || 0).replace(/["', ]/g,'')) || 0;
     const _t0 = getTodayIso(); let currentStartDate = _t0.slice(0,8) + '01', currentEndDate = _t0, activeCalTarget = 'from', calViewYear = +_t0.slice(0,4), calViewMonth = +_t0.slice(5,7) - 1;
 
+    function initStaticUi() {
+      const cols = ['BUDGET','SIGNUPS','USERS','REVENUE','PROFIT'];
+      $('teamSubHead').innerHTML = '<th class="px-3 border-r border-slate-100"></th>' + [0,1,2].map(() => cols.map((c,i) => `<th class="px-2.5 py-2${i===4?' border-r border-slate-200':''}">${c}</th>`).join('')).join('') + '<th class="px-2.5 py-2">ROI</th>';
+      $('teamPerfRow').innerHTML = '<td class="text-left px-3 border-r border-slate-100"><span class="px-3.5 py-1 rounded-full text-xs font-bold bg-[#edf2fe] text-[#2563eb]">EMAIL</span></td>' +
+        ['Kpi','Mtd','Rr'].flatMap((g,gi) => ['Budget','Signups','Users','Revenue','Profit'].map((m,mi) => `<td id="team${g}${m}" class="px-2.5 py-3 text-sm${mi===4&&gi<2?' border-r border-slate-200':''}">${(m==='Budget'||m==='Revenue'||m==='Profit')?'$0':'0'}</td>`)).join('') + '<td id="teamRrRoi" class="px-2.5 py-3 text-slate-900 text-sm">0:0</td>';
+      const kpis = [
+        ['Delivered','kpiDelivered','text-slate-900','0','<span class="text-[10px] text-slate-400 mt-1">Filtered sent</span>'],
+        ['Open','kpiOpened','text-emerald-700','0','<span id="kpiOpenRate" class="text-[10px] font-semibold text-emerald-600 mt-1">0.00% Open Rate</span>'],
+        ['Click','kpiClicked','text-sky-700','0','<div class="flex items-center gap-1 mt-1 text-[10px]"><span id="kpiClickRate" class="font-semibold text-sky-600">0.00% Click Rate</span><span>•</span><span id="cardRrClicksSub" class="font-bold text-slate-900">RR: 0</span></div>'],
+        ['Bounced','kpiBounced','text-rose-600','0','<span id="kpiBounceRate" class="text-[10px] text-slate-400 mt-1">0.00% bounce</span>'],
+        ['Unsub / Block','kpiUnsub','text-purple-700','0','<span class="text-[10px] text-slate-400 mt-1">Total opt-outs</span>'],
+        ['Registration','kpiSignups','text-amber-600','0','<div class="flex items-center gap-1 mt-1 text-[10px]"><span id="cardKpiSignupsSub" class="font-bold text-slate-900">KPI: 0</span><span>•</span><span id="cardRrSignupsSub" class="font-bold">RR: 0</span></div>'],
+        ['Users','kpiUsers','text-indigo-600','0','<div class="flex items-center gap-1 mt-1 text-[10px]"><span id="cardKpiUsersSub" class="font-bold text-slate-900">KPI: 0</span><span>•</span><span id="cardRrUsersSub" class="font-bold">RR: 0</span></div>'],
+        ['Revenue','kpiRevenue','text-emerald-600','$0','<div class="flex items-center gap-1 mt-1 text-[10px]"><span id="cardKpiRevenueSub" class="font-bold text-slate-900">KPI: $0</span><span>•</span><span id="cardRrRevenueSub" class="font-bold">RR: $0</span></div>'],
+        ['Budget','kpiBudget','text-slate-900','$0','<div class="flex items-center gap-1 mt-1 text-[10px]"><span id="cardKpiBudgetSub" class="font-bold text-slate-900">KPI: $0</span><span>•</span><span id="cardRrBudgetSub" class="font-bold">RR: $0</span></div>'],
+        ['Profit','kpiProfit','text-emerald-600','$0','<div class="flex items-center gap-1 mt-1 text-[10px]"><span id="cardKpiProfitSub" class="font-bold text-slate-900">KPI: $0</span><span>•</span><span id="cardRrProfitSub" class="font-bold">RR: $0</span></div>']
+      ];
+      $('kpiCardsGrid').innerHTML = kpis.map(([t,id,c,v,sub]) => `<div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between"><p class="text-[11px] font-semibold text-slate-500 uppercase">${t}</p><p id="${id}" class="text-xl font-bold ${c} mt-1">${v}</p>${sub}</div>`).join('');
+      const mkCh = arr => arr.map(([id,t,s]) => `<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 h-72 flex flex-col justify-between"><div><h4 class="text-xs font-bold text-slate-900 uppercase">${t}</h4><p class="text-[11px] text-slate-500 mb-2">${s}</p></div><div class="relative h-52"><canvas id="${id}"></canvas></div></div>`).join('');
+      $('chartsRow1').innerHTML = mkCh([['chartEspVolumen','Delivered vs. Open','Volume comparison by ESP'],['chartEspClicks','Clicks by ESP','Exact click counts'],['chartEspOpenRate','Open Rate (%) by ESP','Open efficiency per IP']]);
+      $('chartsRow2').innerHTML = mkCh([['chartDomainDelivered','Delivered by Domain (%)','Distribution & share by mailbox domain'],['chartDomainOpenRate','Open Rate (%) by Domain','Open rate by domain'],['chartDomainClicks','Clicks by Domain','Clicks generated per domain']]);
+    }
+
     async function fetchFirst(paths, key, parser) {
       const ord = paths.map((_,i) => i), p = prefIdx[key]; if (p >= 0 && p < ord.length) { ord.splice(ord.indexOf(p),1); ord.unshift(p); }
-      for (const i of ord) { try { const r = await fetch(paths[i], { cache: 'no-store' }); if (r.ok) { const res = await parser(r); if (res) { prefIdx[key] = i; return res; } } } catch {} }
+      for (const i of ord) { try { const r = await fetch(paths[i], { cache:'no-store' }); if (r.ok) { const res = await parser(r); if (res) { prefIdx[key] = i; return res; } } } catch {} }
       return null;
     }
 
@@ -203,13 +168,7 @@
       const host = location.hostname, parts = location.pathname.split('/').filter(Boolean);
       let owner = host.includes('github.io') ? host.split('.')[0] : '', repo = host.includes('github.io') ? (parts[0] || '') : '';
       if (!owner || !repo) {
-        try {
-          const uRes = await fetch('https://api.github.com/user', { headers: ghHdr() });
-          if (uRes.ok) {
-            owner = owner || (await uRes.json()).login;
-            if (!repo) { const rl = await fetch('https://api.github.com/user/repos?affiliation=owner,collaborator,organization_member&sort=pushed&per_page=10', { headers: ghHdr() }); if (rl.ok) { const a = await rl.json(); if (a?.[0]?.name) repo = a[0].name; } }
-          }
-        } catch {}
+        try { const uRes = await fetch('https://api.github.com/user', { headers: ghHdr() }); if (uRes.ok) { owner = owner || (await uRes.json()).login; if (!repo) { const rl = await fetch('https://api.github.com/user/repos?affiliation=owner,collaborator,organization_member&sort=pushed&per_page=10', { headers: ghHdr() }); if (rl.ok) { const a = await rl.json(); if (a?.[0]?.name) repo = a[0].name; } } } } catch {}
       }
       return (lastRepoCoords = { owner: owner || 'owner', repo: repo || 'repo' });
     }
@@ -219,37 +178,35 @@
     async function loadCampaignCodesFromGithub(path) {
       const ts = Date.now();
       try {
-        const { owner, repo } = await getRepoCoordinates();
-        const r = await fetch(`${ghUrl(owner, repo, path)}?t=${ts}`, { headers: ghHdr(), cache: 'no-store' });
+        const { owner, repo } = await getRepoCoordinates(), r = await fetch(`${ghUrl(owner, repo, path)}?t=${ts}`, { headers: ghHdr(), cache:'no-store' });
         if (r.ok) { const d = await r.json(); cachedCodesShaByPath[path] = d.sha || null; const j = JSON.parse(b64DecodeUtf8(d.content)); return { map: j.brands || j, sha: d.sha || null }; }
-        if (r.status === 404) return (cachedCodesShaByPath[path] = null), { map: {}, sha: null };
+        if (r.status === 404) return (cachedCodesShaByPath[path] = null), { map:{}, sha:null };
       } catch {}
       for (const p of [path, `./${path}`, path.replace(/ /g,'%20'), `./${path.replace(/ /g,'%20')}`]) {
-        try { const r = await fetch(`${p}?t=${ts}`, { cache: 'no-store' }); if (r.ok) { const j = await r.json(); if (j && typeof j === 'object') return { map: j.brands || j, sha: cachedCodesShaByPath[path] || null }; } } catch {}
+        try { const r = await fetch(`${p}?t=${ts}`, { cache:'no-store' }); if (r.ok) { const j = await r.json(); if (j && typeof j === 'object') return { map: j.brands || j, sha: cachedCodesShaByPath[path] || null }; } } catch {}
       }
-      return { map: {}, sha: null };
+      return { map:{}, sha:null };
     }
 
     async function saveCampaignCodesToGithub(path, codesMap, retry = false) {
       try {
         const { owner, repo } = await getRepoCoordinates(), url = ghUrl(owner, repo, path);
-        if (!cachedCodesShaByPath[path]) { const chk = await fetch(`${url}?t=${Date.now()}`, { headers: ghHdr(), cache: 'no-store' }); if (chk.ok) cachedCodesShaByPath[path] = (await chk.json()).sha || null; }
+        if (!cachedCodesShaByPath[path]) { const chk = await fetch(`${url}?t=${Date.now()}`, { headers: ghHdr(), cache:'no-store' }); if (chk.ok) cachedCodesShaByPath[path] = (await chk.json()).sha || null; }
         const clean = {}; Object.keys(codesMap).sort().forEach(k => { clean[k] = String(codesMap[k] || '').trim().toUpperCase(); });
         const sha = cachedCodesShaByPath[path];
-        const put = await fetch(url, { method: 'PUT', headers: { ...ghHdr(), 'Content-Type': 'application/json' }, body: JSON.stringify({ message: `Update campaign codes for ${path} [skip ci]`, content: b64EncodeUtf8(JSON.stringify(clean, null, 2)), ...(sha ? { sha } : {}) }) });
-        if (put.ok) { cachedCodesShaByPath[path] = (await put.json()).content?.sha || null; return { ok: true }; }
+        const put = await fetch(url, { method:'PUT', headers:{ ...ghHdr(), 'Content-Type':'application/json' }, body:JSON.stringify({ message:`Update campaign codes for ${path} [skip ci]`, content:b64EncodeUtf8(JSON.stringify(clean, null, 2)), ...(sha ? { sha } : {}) }) });
+        if (put.ok) { cachedCodesShaByPath[path] = (await put.json()).content?.sha || null; return { ok:true }; }
         if (put.status === 409 && !retry) { cachedCodesShaByPath[path] = null; return await saveCampaignCodesToGithub(path, codesMap, true); }
-        return { ok: false, error: `HTTP ${put.status}: ${await put.text()}` };
-      } catch (e) { return { ok: false, error: e.message }; }
+        return { ok:false, error:`HTTP ${put.status}: ${await put.text()}` };
+      } catch (e) { return { ok:false, error:e.message }; }
     }
 
     async function syncCampaignCodesWithBrands(agg) {
       if (!agg?.brands) return;
       const path = getCampaignCodesPath(currentStartDate), loaded = await loadCampaignCodesFromGithub(path), merged = { ...(loaded.map || {}) };
-      let hasNew = false;
-      Object.keys(agg.brands).forEach(b => { const bn = b.trim(); if (bn && merged[bn] === undefined) { merged[bn] = ''; hasNew = true; } });
+      let hasNew = false; Object.keys(agg.brands).forEach(b => { const bn = b.trim(); if (bn && merged[bn] === undefined) { merged[bn] = ''; hasNew = true; } });
       currentCampaignCodesMap = merged;
-      if (isCampaignCodesView) renderCampaignCodesTable();
+      if (modalView === 'codes') renderCampaignCodesTable(); else if (modalView === 'brands') renderDomainsModal();
       if (hasNew) await saveCampaignCodesToGithub(path, currentCampaignCodesMap);
     }
 
@@ -270,13 +227,11 @@
       setT('fromDisplay', isoToDisplay(currentStartDate)); setT('toDisplay', isoToDisplay(currentEndDate)); setT('calHeaderTitle', `${MONTH_NAMES[calViewMonth]} ${calViewYear}`);
     }
     function resetPillStyles(act = null) {
-      const b = 'flex items-center gap-2 bg-white border border-slate-300 text-slate-900 rounded-xl px-3 py-1.5 shadow-xs hover:border-slate-400 cursor-pointer';
-      const a = 'flex items-center gap-2 bg-white border-2 border-slate-900 text-slate-900 rounded-xl px-3 py-1.5 shadow-xs cursor-pointer';
+      const b = 'flex items-center gap-2 bg-white border border-slate-300 text-slate-900 rounded-xl px-3 py-1.5 shadow-xs hover:border-slate-400 cursor-pointer', a = 'flex items-center gap-2 bg-white border-2 border-slate-900 text-slate-900 rounded-xl px-3 py-1.5 shadow-xs cursor-pointer';
       $('fromPillBtn').className = act === 'from' ? a : b; $('toPillBtn').className = act === 'to' ? a : b;
     }
     function toggleCustomCalendar(target) {
-      const pop = $('customCalendarPopup');
-      if (!pop.classList.contains('hidden') && activeCalTarget === target) { pop.classList.add('hidden'); resetPillStyles(); return; }
+      const pop = $('customCalendarPopup'); if (!pop.classList.contains('hidden') && activeCalTarget === target) { pop.classList.add('hidden'); resetPillStyles(); return; }
       activeCalTarget = target; resetPillStyles(target); pop.classList.remove('hidden'); pop.style.left = target === 'from' ? '0px' : '130px';
       const d = target === 'from' ? currentStartDate : currentEndDate; calViewYear = +d.slice(0,4); calViewMonth = +d.slice(5,7) - 1; renderCustomCalendar();
     }
@@ -287,12 +242,10 @@
     }
     function renderCustomCalendar() {
       setT('calHeaderTitle', `${MONTH_NAMES[calViewMonth]} ${calViewYear}`);
-      const grid = $('calDaysGrid'), t = getTodayIso(), first = new Date(calViewYear, calViewMonth, 1), days = new Date(calViewYear, calViewMonth+1, 0).getDate();
-      grid.innerHTML = '';
+      const grid = $('calDaysGrid'), t = getTodayIso(), first = new Date(calViewYear, calViewMonth, 1), days = new Date(calViewYear, calViewMonth+1, 0).getDate(); grid.innerHTML = '';
       for (let i = 0; i < (first.getDay()+6)%7; i++) grid.appendChild(document.createElement('div'));
       for (let day = 1; day <= days; day++) {
-        const iso = `${calViewYear}-${String(calViewMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`, btn = document.createElement('button');
-        btn.type = 'button'; btn.textContent = day;
+        const iso = `${calViewYear}-${String(calViewMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`, btn = document.createElement('button'); btn.type = 'button'; btn.textContent = day;
         if (iso < MIN_ALLOWED_DATE || iso > t) btn.className = 'p-1.5 text-slate-300 font-bold rounded-xl cursor-not-allowed';
         else { const sel = (activeCalTarget === 'from' && iso === currentStartDate) || (activeCalTarget === 'to' && iso === currentEndDate); btn.className = `p-1.5 font-bold rounded-xl ${sel ? 'bg-[#0ea57a] text-white shadow-xs' : 'text-slate-800 hover:bg-slate-100 cursor-pointer'}`; btn.onclick = () => selectCalendarDate(iso); }
         grid.appendChild(btn);
@@ -322,7 +275,7 @@
         const dom = c[1];
         if (!c[0] && dom && !/^(DOMAIN|TOTAL)$/i.test(dom)) {
           const full = curIp ? `${curEsp} ${curIp}`.trim() : curEsp.trim(); if (!full || isExcludedEsp(full)) continue;
-          if (!map[full]) map[full] = { esp: full, delivered:0, softBounce:0, hardBounce:0, bounced:0, opened:0, clicked:0, unsub:0, signups:0, players:0, domains: {} };
+          if (!map[full]) map[full] = { esp: full, delivered:0, softBounce:0, hardBounce:0, bounced:0, opened:0, clicked:0, unsub:0, signups:0, players:0, domains:{} };
           const d = parseNum(c[2]), sb = parseNum(c[3]), hb = parseNum(c[4]), o = parseNum(c[5]), cl = parseNum(c[7]), un = parseNum(c[11]);
           const it = map[full], dv = it.domains[dom] || (it.domains[dom] = { delivered:0, softBounce:0, hardBounce:0, bounced:0, opened:0, clicked:0, unsub:0, signups:0, players:0 });
           [it, dv].forEach(t => { t.delivered += d; t.softBounce += sb; t.hardBounce += hb; t.bounced += sb+hb; t.opened += o; t.clicked += cl; t.unsub += un; });
@@ -330,15 +283,15 @@
       }
       return Object.keys(map).length ? map : null;
     }
-    function parseBreakdownCsv(txt) {
+    function parseBreakdownCsv(txt, lowerKeys = true) {
       if (!txt || typeof txt !== 'string') return null;
       const map = {}; let curEsp = '';
       for (const raw of txt.split(/\r?\n/)) {
         const line = raw.replace(/^\uFEFF/,'').trim(); if (!line) continue;
-        const c = parseCsvLine(line), label = c[0]?.trim(); if (!label || /^esp\/domain$/i.test(label)) continue;
+        const c = parseCsvLine(line), label = c[0]?.trim(); if (!label || /^esp\/(domain|brand)$/i.test(label)) continue;
         if (/^(MLJ|SEG)\s*\(/i.test(label) || BREAKDOWN_ESPS_ORDER.includes(label)) { curEsp = label; if (!isExcludedEsp(curEsp) && !map[curEsp]) map[curEsp] = {}; continue; }
         if (!curEsp || isExcludedEsp(curEsp)) continue;
-        const dom = label.toLowerCase(), e = map[curEsp][dom] || (map[curEsp][dom] = { domain: dom, volume:0, delivered:0, softBounce:0, hardBounce:0, opened:0, clicks:0 });
+        const key = lowerKeys ? label.toLowerCase() : label, e = map[curEsp][key] || (map[curEsp][key] = { domain: key, volume:0, delivered:0, softBounce:0, hardBounce:0, opened:0, clicks:0 });
         e.volume += parseNum(c[1]); e.delivered += parseNum(c[2]); e.softBounce += parseNum(c[3]); e.hardBounce += parseNum(c[4]); e.opened += parseNum(c[5]); e.clicks += parseNum(c[6]);
       }
       return Object.keys(map).length ? map : null;
@@ -355,29 +308,25 @@
       const res = await fetchFirst(ps, 'csv', async r => { const txt = await r.text(); return (txt && !txt.trim().startsWith('<') && txt.includes(',')) ? parseDailyCsv(txt) : null; });
       return res ? (csvCache[k] = res) : null;
     }
-    async function fetchBreakdownCsvDay(m, d, y = getCurrentYear()) {
-      const k = `${y}/${m}/${d}`; if (breakdownCsvCache[k]) return breakdownCsvCache[k];
+    async function fetchMapCsvDay(folder, cache, pk, lower, m, d, y = getCurrentYear()) {
+      const k = `${y}/${m}/${d}`; if (cache[k]) return cache[k];
       const cap = m[0].toUpperCase() + m.slice(1), dn = String(+d), ts = Date.now();
-      const ps = [`${y}/ESP%20-%20IP%20Breakdown/${cap}/${dn}.csv`,`./${y}/ESP%20-%20IP%20Breakdown/${cap}/${dn}.csv`,`${y}/ESP%20-%20IP%20Breakdown/${cap}/${d}.csv`,`./${y}/ESP%20-%20IP%20Breakdown/${cap}/${d}.csv`,`ESP%20-%20IP%20Breakdown/${cap}/${dn}.csv`,`./ESP%20-%20IP%20Breakdown/${cap}/${dn}.csv`].map(x => `${x}?t=${ts}`);
-      const res = await fetchFirst(ps, 'bd', async r => { const txt = await r.text(); return (txt && !txt.trim().startsWith('<') && txt.includes(',')) ? parseBreakdownCsv(txt) : null; });
-      return res ? (breakdownCsvCache[k] = res) : null;
+      const ps = [`${y}/${folder}/${cap}/${d}.csv`,`./${y}/${folder}/${cap}/${d}.csv`,`${y}/${folder}/${cap}/${dn}.csv`,`./${y}/${folder}/${cap}/${dn}.csv`,`${folder}/${cap}/${d}.csv`,`./${folder}/${cap}/${d}.csv`,`${folder}/${cap}/${dn}.csv`,`./${folder}/${cap}/${dn}.csv`].map(x => `${x}?t=${ts}`);
+      const res = await fetchFirst(ps, pk, async r => { const txt = await r.text(); return (txt && !txt.trim().startsWith('<') && txt.includes(',')) ? parseBreakdownCsv(txt, lower) : null; });
+      return res ? (cache[k] = res) : null;
     }
     async function aggregateCsvForRange(s, e) {
       const dates = getDateList(s, e), days = (await Promise.all(dates.map(x => fetchCsvDay(x.m, x.d, x.y)))).filter(Boolean);
       const sub = $('dateRangeSubtitle'); if (sub) sub.innerHTML = `Period: ${s} to ${e} &bull; <strong class="${days.length === dates.length ? 'text-emerald-700' : 'text-amber-700'}">CSVs: ${days.length} of ${dates.length} days</strong>`;
       const merged = {}, keys = ['delivered','softBounce','hardBounce','bounced','opened','clicked','unsub'];
-      days.forEach(m => Object.entries(m).forEach(([esp, v]) => {
-        if (!merged[esp]) merged[esp] = { ...v, domains: {} }; else keys.forEach(k => merged[esp][k] += v[k]);
-        Object.entries(v.domains).forEach(([dom, dv]) => { if (!merged[esp].domains[dom]) merged[esp].domains[dom] = { ...dv }; else keys.forEach(k => merged[esp].domains[dom][k] += dv[k]); });
-      }));
+      days.forEach(m => Object.entries(m).forEach(([esp, v]) => { if (!merged[esp]) merged[esp] = { ...v, domains:{} }; else keys.forEach(k => merged[esp][k] += v[k]); Object.entries(v.domains).forEach(([dom, dv]) => { if (!merged[esp].domains[dom]) merged[esp].domains[dom] = { ...dv }; else keys.forEach(k => merged[esp].domains[dom][k] += dv[k]); }); }));
       return merged;
     }
-    async function aggregateBreakdownCsvForRange(s, e) {
-      const dates = getDateList(s, e), days = (await Promise.all(dates.map(x => fetchBreakdownCsvDay(x.m, x.d, x.y)))).filter(Boolean);
-      bdDays = { found: days.length, total: dates.length };
-      const merged = {}, ks = ['volume','delivered','softBounce','hardBounce','opened','clicks'];
-      BREAKDOWN_ESPS_ORDER.forEach(esp => { merged[esp] = {}; });
-      days.forEach(dm => Object.entries(dm).forEach(([esp, dmap]) => { if (!merged[esp]) merged[esp] = {}; Object.entries(dmap).forEach(([dom, m]) => { if (!merged[esp][dom]) merged[esp][dom] = { ...m }; else ks.forEach(k => merged[esp][dom][k] += m[k]); }); }));
+    async function aggregateMapCsvRange(s, e, folder, cache, pk, lower, cntObj) {
+      const dates = getDateList(s, e), days = (await Promise.all(dates.map(x => fetchMapCsvDay(folder, cache, pk, lower, x.m, x.d, x.y)))).filter(Boolean);
+      cntObj.found = days.length; cntObj.total = dates.length;
+      const merged = {}, ks = ['volume','delivered','softBounce','hardBounce','opened','clicks']; BREAKDOWN_ESPS_ORDER.forEach(esp => { merged[esp] = {}; });
+      days.forEach(dm => Object.entries(dm).forEach(([esp, map]) => { if (!merged[esp]) merged[esp] = {}; Object.entries(map).forEach(([k, m]) => { if (!merged[esp][k]) merged[esp][k] = { ...m }; else ks.forEach(x => merged[esp][k][x] += m[x]); }); }));
       return merged;
     }
 
@@ -411,7 +360,7 @@
     }
 
     function aggregateJsonData(s, e) {
-      const agg = { budget:0, signups:0, users:0, revenue:0, daysElapsedInRange:0, totalMonthDays:0, kpi: { budget:0, signups:0, users:0, revenue:0, profit:0 }, advertisers:{}, brands:{}, esp_ip_breakdown:[] };
+      const agg = { budget:0, signups:0, users:0, revenue:0, daysElapsedInRange:0, totalMonthDays:0, kpi:{ budget:0, signups:0, users:0, revenue:0, profit:0 }, advertisers:{}, brands:{}, esp_ip_breakdown:[] };
       const months = globalLoadedMonths.filter(m => (m.daily_records || []).some(r => { const d = normDate(r.date); return d >= s && d <= e; }));
       let monthRealUsers = 0, monthRealRev = 0, monthRealSig = 0, mtdBdUsers = 0; const espIpMap = {}, brandMap = {};
       const addBd = (espRaw, advRaw, brRaw, sig, ftd) => {
@@ -472,8 +421,12 @@
     async function updateDashboardForDateRange() {
       $('dataStatusBadge')?.classList.add('hidden');
       const agg = aggregateJsonData(currentStartDate, currentEndDate);
-      const [csvMap, bdStats] = await Promise.all([aggregateCsvForRange(currentStartDate, currentEndDate), aggregateBreakdownCsvForRange(currentStartDate, currentEndDate)]);
-      espDomainStats = bdStats;
+      const [csvMap, bdStats, ebStats] = await Promise.all([
+        aggregateCsvForRange(currentStartDate, currentEndDate),
+        aggregateMapCsvRange(currentStartDate, currentEndDate, 'ESP%20-%20IP%20Breakdown', breakdownCsvCache, 'bd', true, bdDays),
+        aggregateMapCsvRange(currentStartDate, currentEndDate, 'ESP-Brand', brandCsvCache, 'eb', false, ebDays)
+      ]);
+      espDomainStats = bdStats; espBrandStats = ebStats;
       const sortOrder = BREAKDOWN_ESPS_ORDER, byEsp = {}; sortOrder.forEach(e => { byEsp[e] = {}; });
       (agg.esp_ip_breakdown || []).forEach(r => {
         if (r.is_total || r.is_overall) return;
@@ -488,10 +441,7 @@
       Object.values(normBrands).forEach(b => {
         const bk = b.name.toLowerCase(), adv = b.advertiser || '-'; seenBrands.add(bk); const matching = [];
         Object.values(byEsp).forEach(g => Object.values(g).forEach(it => { if (it.brand.toLowerCase() === bk) { if (adv !== '-' && (!it.advertiser || it.advertiser === '-')) it.advertiser = adv; matching.push(it); } }));
-        if (!matching.length) {
-          const chosen = bk.includes('cardcrush') ? sortOrder[0] : (bk.includes('luckybunny direct') ? sortOrder[4] : sortOrder.find(e => byEsp[e] && Object.values(byEsp[e]).some(it => it.advertiser.toLowerCase() === adv.toLowerCase())) || sortOrder[rot++ % sortOrder.length]);
-          if (!byEsp[chosen]) byEsp[chosen] = {}; const nr = { esp_ip:chosen, advertiser:adv, brand:b.name, signups:0, ftds:0, origSig:b.signups, origFtd:b.users }; byEsp[chosen][`${adv}___${b.name}`] = nr; matching.push(nr);
-        }
+        if (!matching.length) { const chosen = bk.includes('cardcrush') ? sortOrder[0] : (bk.includes('luckybunny direct') ? sortOrder[4] : sortOrder.find(e => byEsp[e] && Object.values(byEsp[e]).some(it => it.advertiser.toLowerCase() === adv.toLowerCase())) || sortOrder[rot++ % sortOrder.length]); if (!byEsp[chosen]) byEsp[chosen] = {}; const nr = { esp_ip:chosen, advertiser:adv, brand:b.name, signups:0, ftds:0, origSig:b.signups, origFtd:b.users }; byEsp[chosen][`${adv}___${b.name}`] = nr; matching.push(nr); }
         distributeExactIntegerTotal(matching, b.signups, it => it.origSig > 0 ? it.origSig : 1, (it, v) => it.signups = v);
         const hasFtd = matching.some(it => it.origFtd > 0);
         distributeExactIntegerTotal(matching, b.users, it => hasFtd ? it.origFtd : it.signups, (it, v) => it.ftds = v);
@@ -503,14 +453,15 @@
       if (allItems.reduce((a,x) => a+x.signups, 0) > agg.signups) reconcile(allItems, agg.signups, 'signups', [x => x.signups]);
       if (allItems.reduce((a,x) => a+x.ftds, 0) > agg.users) reconcile(allItems, agg.users, 'ftds', [x => x.ftds]);
 
-      const knownEsps = Array.from(new Set([...sortOrder, ...Object.keys(byEsp)])).filter(e => !isExcludedEsp(e)), newRows = []; let grandSig = 0, grandFtd = 0;
+      const knownEsps = Array.from(new Set([...sortOrder, ...Object.keys(byEsp)])).filter(e => !isExcludedEsp(e)), newRows = [], brandAdvMap = {}; sortOrder.forEach(e => { brandAdvMap[e] = {}; }); let grandSig = 0, grandFtd = 0;
       knownEsps.forEach(esp => {
         const items = Object.values(byEsp[esp] || {}).filter(it => it.signups > 0 || it.ftds > 0); if (!items.length) return;
-        items.sort((a,b) => (b.signups+b.ftds*10)-(a.signups+a.ftds*10)); let sS = 0, sF = 0; items.forEach(it => { newRows.push(it); sS += it.signups; sF += it.ftds; });
+        items.sort((a,b) => (b.signups+b.ftds*10)-(a.signups+a.ftds*10)); let sS = 0, sF = 0;
+        items.forEach(it => { newRows.push(it); sS += it.signups; sF += it.ftds; if (it.brand && it.brand !== '-') { const bk = it.brand.toLowerCase(), cur = (brandAdvMap[esp] ||= {})[bk] || (brandAdvMap[esp][bk] = { brand:it.brand, signups:0, players:0 }); cur.signups += it.signups || 0; cur.players += it.ftds || 0; } });
         newRows.push({ esp_ip:`GRAND TOTAL ${esp}`, advertiser:'', brand:'', signups:sS, ftds:sF, is_total:true }); grandSig += sS; grandFtd += sF;
       });
       if (newRows.length) newRows.push({ esp_ip:'OVERALL GRAND TOTAL', advertiser:'', brand:'', signups:grandSig, ftds:grandFtd, is_total:true, is_overall:true });
-      agg.esp_ip_breakdown = newRows;
+      agg.esp_ip_breakdown = newRows; espBrandAdvStats = brandAdvMap;
 
       const espTot = {}; newRows.forEach(r => { if (r.is_total && !r.is_overall) { const e = r.esp_ip.replace(/^GRAND TOTAL\s+/i,'').trim(); if (!isExcludedEsp(e)) espTot[e] = { signups:r.signups, ftds:r.ftds }; } });
       sortOrder.forEach(e => { if (!csvMap[e]) csvMap[e] = { esp:e, delivered:0, softBounce:0, hardBounce:0, bounced:0, opened:0, clicked:0, unsub:0, signups:0, players:0, domains:{} }; });
@@ -526,21 +477,21 @@
     function renderDashboard(agg, s, e) {
       const [sy,sm,sd] = s.split('-').map(Number), [ey,em,ed] = e.split('-').map(Number), totalDays = agg.totalMonthDays > 0 ? agg.totalMonthDays : new Date(ey, em, 0).getDate();
       const elapsed = (sy === ey && sm === em && sd === 1) ? ed : Math.max(1, Math.round((new Date(ey,em-1,ed) - new Date(sy,sm-1,sd)) / 86400000) + 1), rrF = elapsed > 0 ? totalDays / elapsed : 1;
-      const [rrB,rrS,rrU,rrR,rrP] = [agg.budget,agg.signups,agg.users,agg.revenue,agg.profit].map(v => Math.round(v * rrF));
       const setCol = (id, txt, rv, kv, cls) => { const el = $(id); if (el) { el.textContent = txt; el.className = `${cls} ${rv >= kv ? 'text-emerald-600' : 'text-rose-600'}`; } };
-      setT('teamKpiBudget', `$${Math.round(agg.kpi.budget).toLocaleString()}`); setT('teamKpiSignups', Math.round(agg.kpi.signups).toLocaleString()); setT('teamKpiUsers', Math.round(agg.kpi.users).toLocaleString()); setT('teamKpiRevenue', `$${Math.round(agg.kpi.revenue).toLocaleString()}`); setT('teamKpiProfit', `$${Math.round(agg.kpi.profit).toLocaleString()}`);
-      setT('teamMtdBudget', `$${Math.round(agg.budget).toLocaleString()}`); setT('teamMtdSignups', agg.signups.toLocaleString()); setT('teamMtdUsers', agg.users.toLocaleString()); setT('teamMtdRevenue', `$${Math.round(agg.revenue).toLocaleString()}`); setT('teamMtdProfit', `$${Math.round(agg.profit).toLocaleString()}`);
-      setCol('teamRrBudget', `$${rrB.toLocaleString()}`, rrB, Math.round(agg.kpi.budget), 'px-2.5 py-3 text-sm font-bold'); setCol('teamRrSignups', rrS.toLocaleString(), rrS, Math.round(agg.kpi.signups), 'px-2.5 py-3 text-sm font-bold'); setCol('teamRrUsers', rrU.toLocaleString(), rrU, Math.round(agg.kpi.users), 'px-2.5 py-3 text-sm font-bold'); setCol('teamRrRevenue', `$${rrR.toLocaleString()}`, rrR, Math.round(agg.kpi.revenue), 'px-2.5 py-3 text-sm font-bold'); setCol('teamRrProfit', `$${rrP.toLocaleString()}`, rrP, Math.round(agg.kpi.profit), 'px-2.5 py-3 text-sm font-bold'); setT('teamRrRoi', `1:${rrB > 0 ? (rrR/rrB).toFixed(1) : '0.0'}`);
-
-      setT('kpiDelivered', agg.delivered.toLocaleString()); setT('kpiOpened', agg.opened.toLocaleString()); setT('kpiClicked', agg.clicked.toLocaleString()); setT('kpiBounced', agg.bounced.toLocaleString()); setT('kpiUnsub', agg.unsub.toLocaleString());
-      setT('kpiSignups', agg.signups.toLocaleString()); setT('kpiUsers', agg.users.toLocaleString()); setT('kpiRevenue', `$${Math.round(agg.revenue).toLocaleString()}`); setT('kpiBudget', `$${Math.round(agg.budget).toLocaleString()}`); setT('kpiProfit', `$${Math.round(agg.profit).toLocaleString()}`);
-      setT('kpiOpenRate', `${agg.delivered > 0 ? ((agg.opened/agg.delivered)*100).toFixed(2) : '0.00'}% Open Rate`); setT('kpiClickRate', `${agg.delivered > 0 ? ((agg.clicked/agg.delivered)*100).toFixed(2) : '0.00'}% Click Rate`); setT('kpiBounceRate', `${agg.delivered > 0 ? ((agg.bounced/agg.delivered)*100).toFixed(2) : '0.00'}% bounce`);
+      const rr = {};
+      [['Budget',1],['Signups',0],['Users',0],['Revenue',1],['Profit',1]].forEach(([m, cur]) => {
+        const lk = m.toLowerCase(), kv = Math.round(agg.kpi[lk] || 0), mv = Math.round(agg[lk] || 0), rv = Math.round((agg[lk] || 0) * rrF), fmt = v => (cur?'$':'') + v.toLocaleString();
+        rr[lk] = rv; setT(`teamKpi${m}`, fmt(kv)); setT(`teamMtd${m}`, fmt(mv)); setCol(`teamRr${m}`, fmt(rv), rv, kv, 'px-2.5 py-3 text-sm font-bold');
+        setT(`cardKpi${m}Sub`, `KPI: ${cur ? '$'+(agg.kpi[lk]/1000).toFixed(1)+'k' : kv.toLocaleString()}`);
+        setCol(`cardRr${m}Sub`, `RR: ${cur ? '$'+(rv/1000).toFixed(1)+'k' : rv.toLocaleString()}`, rv, cur ? agg.kpi[lk] : kv, 'font-bold');
+      });
+      setT('teamRrRoi', `1:${rr.budget > 0 ? (rr.revenue/rr.budget).toFixed(1) : '0.0'}`);
+      [['kpiDelivered',agg.delivered],['kpiOpened',agg.opened],['kpiClicked',agg.clicked],['kpiBounced',agg.bounced],['kpiUnsub',agg.unsub],['kpiSignups',agg.signups],['kpiUsers',agg.users]].forEach(([id,v]) => setT(id, v.toLocaleString()));
+      [['kpiRevenue',agg.revenue],['kpiBudget',agg.budget],['kpiProfit',agg.profit]].forEach(([id,v]) => setT(id, `$${Math.round(v).toLocaleString()}`));
+      setT('kpiOpenRate', `${agg.delivered > 0 ? ((agg.opened/agg.delivered)*100).toFixed(2) : '0.00'}% Open Rate`);
+      setT('kpiClickRate', `${agg.delivered > 0 ? ((agg.clicked/agg.delivered)*100).toFixed(2) : '0.00'}% Click Rate`);
+      setT('kpiBounceRate', `${agg.delivered > 0 ? ((agg.bounced/agg.delivered)*100).toFixed(2) : '0.00'}% bounce`);
       setT('cardRrClicksSub', `RR: ${Math.round((agg.clicked || 0)*rrF).toLocaleString()}`);
-      setT('cardKpiSignupsSub', `KPI: ${Math.round(agg.kpi.signups).toLocaleString()}`); setCol('cardRrSignupsSub', `RR: ${rrS.toLocaleString()}`, rrS, Math.round(agg.kpi.signups), 'font-bold');
-      setT('cardKpiUsersSub', `KPI: ${Math.round(agg.kpi.users).toLocaleString()}`); setCol('cardRrUsersSub', `RR: ${rrU.toLocaleString()}`, rrU, Math.round(agg.kpi.users), 'font-bold');
-      setT('cardKpiRevenueSub', `KPI: $${(agg.kpi.revenue/1000).toFixed(1)}k`); setCol('cardRrRevenueSub', `RR: $${(rrR/1000).toFixed(1)}k`, rrR, agg.kpi.revenue, 'font-bold');
-      setT('cardKpiBudgetSub', `KPI: $${(agg.kpi.budget/1000).toFixed(1)}k`); setCol('cardRrBudgetSub', `RR: $${(rrB/1000).toFixed(1)}k`, rrB, agg.kpi.budget, 'font-bold');
-      setT('cardKpiProfitSub', `KPI: $${(agg.kpi.profit/1000).toFixed(1)}k`); setCol('cardRrProfitSub', `RR: $${(rrP/1000).toFixed(1)}k`, rrP, agg.kpi.profit, 'font-bold');
       setT('dateRangeNotice', `${s} – ${e}`);
       renderEspTable(agg.esp, agg); renderEspIpBreakdown(agg.esp_ip_breakdown); renderBrandTable(agg); updateCharts(agg);
     }
@@ -557,27 +508,37 @@
       tb.innerHTML = html; setT('espIpGrandSignups', gS.toLocaleString()); setT('espIpGrandFtds', gF.toLocaleString());
     }
 
-    const getOrderedDomainEsps = () => { const fl = (lastRenderedEspList || []).map(i => i.esp).filter(e => espDomainStats[e] !== undefined); return [...fl, ...Object.keys(espDomainStats).filter(e => !fl.includes(e))]; };
+    const getOrderedDomainEsps = () => { const fl = (lastRenderedEspList || []).map(i => i.esp).filter(e => espDomainStats[e] !== undefined || espBrandStats[e] !== undefined); return [...fl, ...Object.keys(espDomainStats).filter(e => !fl.includes(e))]; };
     const getSortedEspDomains = esp => Object.values(espDomainStats[esp] || {}).sort((a,b) => (b.volume - a.volume) || a.domain.localeCompare(b.domain));
-    const openDomainsModal = (esp = 'ALL') => { activeDomainsModalEsp = esp || 'ALL'; $('domainsModal').classList.remove('hidden'); document.body.classList.add('overflow-hidden'); setCodesView(false); };
+    const openDomainsModal = (esp = 'ALL') => { activeDomainsModalEsp = esp || 'ALL'; $('domainsModal').classList.remove('hidden'); document.body.classList.add('overflow-hidden'); setModalView('domains'); };
     const closeDomainsModal = () => { $('domainsModal').classList.add('hidden'); document.body.classList.remove('overflow-hidden'); };
-    const setDomainsModalTab = esp => { activeDomainsModalEsp = esp || 'ALL'; setCodesView(false); };
-    const toggleCampaignCodesModalView = () => setCodesView(!isCampaignCodesView);
-    const handleModalSearchInput = () => isCampaignCodesView ? renderCampaignCodesTable() : renderDomainsModalBody();
+    const setDomainsModalTab = esp => { activeDomainsModalEsp = esp || 'ALL'; setModalView(modalView === 'brands' ? 'brands' : 'domains'); };
+    const handleModalSearchInput = () => modalView === 'codes' ? renderCampaignCodesTable() : renderDomainsModalBody();
 
-    function setCodesView(show) {
-      isCampaignCodesView = show;
-      const s = $('domainsModalSearch'); if (s) { s.value = ''; s.placeholder = show ? 'Search brand or code...' : 'Search domain...'; }
-      setT('toggleCodesBtnText', show ? 'Back to Domains' : 'Add Campaign codes');
-      $('toggleCodesBtnIcon').innerHTML = show ? '<path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>' : '<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>';
-      $('domainsModalTabs').classList.toggle('hidden', show); $('domainsModalBody').classList.toggle('hidden', show); $('campaignCodesBody').classList.toggle('hidden', !show);
-      if (show) { setT('domainsModalTitle','Campaign codes'); setT('domainsModalSubtitle',`Brand to campaign code mapping • ${getCampaignCodesPath(currentStartDate)}`); setT('domainsModalSource','Storage: GitHub repository JSON file'); renderCampaignCodesTable(); }
+    function getMergedEspBrands(esp) {
+      const codeMap = {}; Object.entries(currentCampaignCodesMap || {}).forEach(([br, str]) => { String(str || '').split(/[,;\s]+/).forEach(c => { const cc = c.trim().toUpperCase(); if (cc) codeMap[cc] = br; }); });
+      const merged = {}, ensure = name => { const k = name.toLowerCase(); return merged[k] || (merged[k] = { brand: name, volume:0, delivered:0, softBounce:0, hardBounce:0, opened:0, clicks:0, signups:0, players:0 }); };
+      Object.values(espBrandStats[esp] || {}).forEach(m => { const raw = String(m.domain || '').trim(), row = ensure(codeMap[raw.toUpperCase()] || raw); ['volume','delivered','softBounce','hardBounce','opened','clicks'].forEach(k => row[k] += m[k] || 0); });
+      Object.values(espBrandAdvStats[esp] || {}).forEach(a => { const row = ensure(a.brand); row.signups += a.signups || 0; row.players += a.players || 0; });
+      return Object.values(merged).sort((a,b) => (b.volume - a.volume) || (b.signups - a.signups) || a.brand.localeCompare(b.brand));
+    }
+
+    function setModalView(view) {
+      modalView = view; const isCodes = view === 'codes', isBrands = view === 'brands', s = $('domainsModalSearch');
+      if (s) { s.value = ''; s.placeholder = isCodes ? 'Search brand or code...' : (isBrands ? 'Search brand...' : 'Search domain...'); }
+      const backIco = '<path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>';
+      setT('toggleCodesBtnText', isCodes ? 'Back to Domains' : 'Add Campaign codes');
+      $('toggleCodesBtnIcon').innerHTML = isCodes ? backIco : '<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>';
+      setT('toggleBrandsBtnText', isBrands ? 'Back to Domains' : 'ESP/Brand');
+      $('toggleBrandsBtnIcon').innerHTML = isBrands ? backIco : '<path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18M8 6h13M8 18h13"/>';
+      $('domainsModalTabs').classList.toggle('hidden', isCodes); $('domainsModalBody').classList.toggle('hidden', isCodes); $('campaignCodesBody').classList.toggle('hidden', !isCodes);
+      if (isCodes) { setT('domainsModalTitle','Campaign codes'); setT('domainsModalSubtitle',`Brand to campaign code mapping • ${getCampaignCodesPath(currentStartDate)}`); setT('domainsModalSource','Storage: GitHub repository JSON file'); renderCampaignCodesTable(); }
       else renderDomainsModal();
     }
 
     function copyEspDomains(btn) {
-      const doms = getSortedEspDomains(btn?.dataset?.copyEsp).map(d => d.domain); if (!doms.length) return;
-      const txt = doms.join('\n'), done = () => { const p = btn.textContent; btn.textContent = 'Copied!'; setTimeout(() => btn.textContent = p, 1200); };
+      const esp = btn?.dataset?.copyEsp, list = (modalView === 'brands' ? getMergedEspBrands(esp).map(d => d.brand) : getSortedEspDomains(esp).map(d => d.domain)); if (!list.length) return;
+      const txt = list.join('\n'), done = () => { const p = btn.textContent; btn.textContent = 'Copied!'; setTimeout(() => btn.textContent = p, 1200); };
       if (navigator.clipboard?.writeText) navigator.clipboard.writeText(txt).then(done).catch(() => {});
       else { const ta = Object.assign(document.createElement('textarea'), { value:txt, style:'position:fixed;opacity:0' }); document.body.appendChild(ta); ta.select(); try { if (document.execCommand('copy')) done(); } catch {} ta.remove(); }
     }
@@ -604,42 +565,39 @@
     }
 
     function renderDomainsModal() {
-      const esps = getOrderedDomainEsps(), uniq = new Set(), total = esps.reduce((a, e) => a + Object.keys(espDomainStats[e] || {}).length, 0);
-      esps.forEach(e => Object.keys(espDomainStats[e] || {}).forEach(d => uniq.add(d.toLowerCase())));
-      $('domainsModalCard').className = `modal-pop w-full ${activeDomainsModalEsp === 'ALL' ? 'max-w-6xl' : 'max-w-4xl'} max-h-[88vh] flex flex-col bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden`;
-      setT('domainsModalTitle', 'ESP / IP Breakdown');
-      setT('domainsModalSubtitle', activeDomainsModalEsp === 'ALL' ? `${esps.length} ESPs • ${total} total (${uniq.size} unique) • ${currentStartDate} to ${currentEndDate}` : `${EXCEL_SHORT_CODE[activeDomainsModalEsp] || activeDomainsModalEsp} • ${Object.keys(espDomainStats[activeDomainsModalEsp]||{}).length} domains • ${currentStartDate} to ${currentEndDate}`);
-      setT('domainsModalSource', `Source: ESP - IP Breakdown CSVs (${bdDays.found} of ${bdDays.total} days)`);
+      const esps = getOrderedDomainEsps(), isB = modalView === 'brands', uniq = new Set(), getCnt = e => isB ? getMergedEspBrands(e).length : Object.keys(espDomainStats[e] || {}).length, total = esps.reduce((a, e) => a + getCnt(e), 0);
+      esps.forEach(e => (isB ? getMergedEspBrands(e).map(x => x.brand) : Object.keys(espDomainStats[e] || {})).forEach(k => uniq.add(k.toLowerCase())));
+      $('domainsModalCard').className = `modal-pop w-full ${(activeDomainsModalEsp === 'ALL' || isB) ? 'max-w-6xl' : 'max-w-4xl'} max-h-[88vh] flex flex-col bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden`;
+      setT('domainsModalTitle', isB ? 'ESP / Brand' : 'ESP / IP Breakdown');
+      setT('domainsModalSubtitle', activeDomainsModalEsp === 'ALL' ? `${esps.length} ESPs • ${total} total (${uniq.size} unique) • ${currentStartDate} to ${currentEndDate}` : `${EXCEL_SHORT_CODE[activeDomainsModalEsp] || activeDomainsModalEsp} • ${getCnt(activeDomainsModalEsp)} ${isB ? 'brands' : 'domains'} • ${currentStartDate} to ${currentEndDate}`);
+      setT('domainsModalSource', isB ? `Source: ESP-Brand CSVs (${ebDays.found} of ${ebDays.total} days) & Advertiser Breakdown` : `Source: ESP - IP Breakdown CSVs (${bdDays.found} of ${bdDays.total} days)`);
       const tc = a => a ? 'px-3 py-1 rounded-xl text-xs font-bold bg-[#166534] text-white whitespace-nowrap cursor-pointer' : 'px-3 py-1 rounded-xl text-xs font-semibold bg-white text-[#14532d] hover:bg-[#dcfce7] border border-emerald-200 whitespace-nowrap cursor-pointer';
-      $('domainsModalTabs').innerHTML = `<button type="button" onclick="setDomainsModalTab('ALL')" class="${tc(activeDomainsModalEsp==='ALL')}">All ESPs (${total})</button>` + esps.map(e => `<button type="button" data-esp="${escAttr(e)}" onclick="setDomainsModalTab(this.dataset.esp)" class="${tc(activeDomainsModalEsp===e)}">${escHtml((EXCEL_SHORT_CODE[e]||e).replace(/^ESP:\s*/i,''))} (${Object.keys(espDomainStats[e]||{}).length})</button>`).join('');
+      $('domainsModalTabs').innerHTML = `<button type="button" onclick="setDomainsModalTab('ALL')" class="${tc(activeDomainsModalEsp==='ALL')}">All ESPs (${total})</button>` + esps.map(e => `<button type="button" data-esp="${escAttr(e)}" onclick="setDomainsModalTab(this.dataset.esp)" class="${tc(activeDomainsModalEsp===e)}">${escHtml((EXCEL_SHORT_CODE[e]||e).replace(/^ESP:\s*/i,''))} (${getCnt(e)})</button>`).join('');
       renderDomainsModalBody();
     }
 
     function renderDomainsModalBody() {
       const body = $('domainsModalBody'); if (!body) return;
-      const q = ($('domainsModalSearch')?.value || '').trim().toLowerCase(), isS = activeDomainsModalEsp !== 'ALL', esps = isS ? [activeDomainsModalEsp] : getOrderedDomainEsps(), cards = [];
+      const isB = modalView === 'brands', q = ($('domainsModalSearch')?.value || '').trim().toLowerCase(), isS = activeDomainsModalEsp !== 'ALL', esps = isS ? [activeDomainsModalEsp] : getOrderedDomainEsps(), cards = [];
       esps.forEach(esp => {
-        const list = getSortedEspDomains(esp).map((d, i) => ({ ...d, num: i+1 })).filter(x => !q || x.domain.toLowerCase().includes(q));
+        const list = (isB ? getMergedEspBrands(esp) : getSortedEspDomains(esp)).map((d, i) => ({ ...d, num:i+1, label:isB?d.brand:d.domain })).filter(x => !q || x.label.toLowerCase().includes(q));
         if (q && !list.length && !isS) return;
-        const tot = list.reduce((a,x) => ({ volume: a.volume+x.volume, delivered: a.delivered+x.delivered, softBounce: a.softBounce+x.softBounce, hardBounce: a.hardBounce+x.hardBounce, opened: a.opened+x.opened, clicks: a.clicks+x.clicks }), { volume:0, delivered:0, softBounce:0, hardBounce:0, opened:0, clicks:0 });
-        const rows = list.length ? list.map(x => `<tr><td class="w-10 py-1.5 px-2 text-center text-xs font-semibold text-slate-700">${x.num}</td><td class="py-1.5 px-3 text-left text-xs font-semibold text-slate-900">${escHtml(x.domain)}</td><td class="py-1.5 px-3 text-right text-xs font-mono font-bold text-slate-800">${x.volume.toLocaleString()}</td><td class="py-1.5 px-3 text-right text-xs font-mono text-slate-700">${x.delivered.toLocaleString()}</td><td class="py-1.5 px-3 text-right text-xs font-mono text-amber-700">${x.softBounce.toLocaleString()}</td><td class="py-1.5 px-3 text-right text-xs font-mono text-rose-700">${x.hardBounce.toLocaleString()}</td><td class="py-1.5 px-3 text-right text-xs font-mono text-emerald-700">${x.opened.toLocaleString()}</td><td class="py-1.5 px-3 text-right text-xs font-mono text-sky-700">${x.clicks.toLocaleString()}</td></tr>`).join('') : '<tr><td colspan="8" class="py-5 text-center text-xs text-slate-400 italic">No domain data for this period</td></tr>';
-        const foot = list.length ? `<tfoot><tr class="bg-[#f0fdf4] font-bold text-[#14532d] text-xs"><td class="py-2 px-2 text-center">-</td><td class="py-2 px-3 text-left uppercase">Total (${list.length})</td><td class="py-2 px-3 text-right font-mono">${tot.volume.toLocaleString()}</td><td class="py-2 px-3 text-right font-mono">${tot.delivered.toLocaleString()}</td><td class="py-2 px-3 text-right font-mono text-amber-700">${tot.softBounce.toLocaleString()}</td><td class="py-2 px-3 text-right font-mono text-rose-700">${tot.hardBounce.toLocaleString()}</td><td class="py-2 px-3 text-right font-mono text-emerald-700">${tot.opened.toLocaleString()}</td><td class="py-2 px-3 text-right font-mono text-sky-700">${tot.clicks.toLocaleString()}</td></tr></tfoot>` : '';
-        cards.push(`<div class="flex flex-col gap-1.5"><div class="flex items-center justify-between px-1"><span class="text-xs font-bold text-[#14532d] truncate">${escHtml(esp)}</span><button type="button" data-copy-esp="${escAttr(esp)}" onclick="copyEspDomains(this)" class="px-2.5 py-0.5 rounded text-[11px] font-semibold bg-white hover:bg-[#dcfce7] text-[#14532d] border border-emerald-300 cursor-pointer">Copy</button></div><div class="overflow-x-auto rounded-lg shadow-xs"><table class="domains-excel-table text-sm"><thead><tr class="dom-esp-title"><th colspan="8" class="py-2 px-3 text-center text-xs font-bold">${escHtml(EXCEL_SHORT_CODE[esp] || `ESP: ${esp}`)}</th></tr><tr class="dom-col-header"><th class="w-10 py-1.5 px-2 text-center text-xs font-bold">#</th><th class="py-1.5 px-3 text-left text-xs font-bold">Domain / Subdomain</th><th class="py-1.5 px-3 text-right text-xs font-bold">VOLUME</th><th class="py-1.5 px-3 text-right text-xs font-bold">Delivered</th><th class="py-1.5 px-3 text-right text-xs font-bold">Soft Bounce</th><th class="py-1.5 px-3 text-right text-xs font-bold">Hard Bounce</th><th class="py-1.5 px-3 text-right text-xs font-bold">Opened</th><th class="py-1.5 px-3 text-right text-xs font-bold">Clicks</th></tr></thead><tbody>${rows}</tbody>${foot}</table></div></div>`);
+        const tot = list.reduce((a,x) => ({ volume:a.volume+x.volume, delivered:a.delivered+x.delivered, softBounce:a.softBounce+x.softBounce, hardBounce:a.hardBounce+x.hardBounce, opened:a.opened+x.opened, clicks:a.clicks+x.clicks, signups:a.signups+(x.signups||0), players:a.players+(x.players||0) }), { volume:0, delivered:0, softBounce:0, hardBounce:0, opened:0, clicks:0, signups:0, players:0 });
+        const cols = isB ? 10 : 8, extraTh = isB ? '<th class="py-1.5 px-3 text-right text-xs font-bold">SIGNUPS</th><th class="py-1.5 px-3 text-right text-xs font-bold">PLAYERS</th>' : '';
+        const rows = list.length ? list.map(x => `<tr><td class="w-10 py-1.5 px-2 text-center text-xs font-semibold text-slate-700">${x.num}</td><td class="py-1.5 px-3 text-left text-xs font-semibold text-slate-900">${escHtml(x.label)}</td><td class="py-1.5 px-3 text-right text-xs font-mono font-bold text-slate-800">${x.volume.toLocaleString()}</td><td class="py-1.5 px-3 text-right text-xs font-mono text-slate-700">${x.delivered.toLocaleString()}</td><td class="py-1.5 px-3 text-right text-xs font-mono text-amber-700">${x.softBounce.toLocaleString()}</td><td class="py-1.5 px-3 text-right text-xs font-mono text-rose-700">${x.hardBounce.toLocaleString()}</td><td class="py-1.5 px-3 text-right text-xs font-mono text-emerald-700">${x.opened.toLocaleString()}</td><td class="py-1.5 px-3 text-right text-xs font-mono text-sky-700">${x.clicks.toLocaleString()}</td>${isB?`<td class="py-1.5 px-3 text-right text-xs font-mono font-bold text-amber-600">${(x.signups||0).toLocaleString()}</td><td class="py-1.5 px-3 text-right text-xs font-mono font-bold text-indigo-600">${(x.players||0).toLocaleString()}</td>`:''}</tr>`).join('') : `<tr><td colspan="${cols}" class="py-5 text-center text-xs text-slate-400 italic">No data for this period</td></tr>`;
+        const foot = list.length ? `<tfoot><tr class="bg-[#f0fdf4] font-bold text-[#14532d] text-xs"><td class="py-2 px-2 text-center">-</td><td class="py-2 px-3 text-left uppercase">Total (${list.length})</td><td class="py-2 px-3 text-right font-mono">${tot.volume.toLocaleString()}</td><td class="py-2 px-3 text-right font-mono">${tot.delivered.toLocaleString()}</td><td class="py-2 px-3 text-right font-mono text-amber-700">${tot.softBounce.toLocaleString()}</td><td class="py-2 px-3 text-right font-mono text-rose-700">${tot.hardBounce.toLocaleString()}</td><td class="py-2 px-3 text-right font-mono text-emerald-700">${tot.opened.toLocaleString()}</td><td class="py-2 px-3 text-right font-mono text-sky-700">${tot.clicks.toLocaleString()}</td>${isB?`<td class="py-2 px-3 text-right font-mono text-amber-600">${tot.signups.toLocaleString()}</td><td class="py-2 px-3 text-right font-mono text-indigo-600">${tot.players.toLocaleString()}</td>`:''}</tr></tfoot>` : '';
+        cards.push(`<div class="flex flex-col gap-1.5"><div class="flex items-center justify-between px-1"><span class="text-xs font-bold text-[#14532d] truncate">${escHtml(esp)}</span><button type="button" data-copy-esp="${escAttr(esp)}" onclick="copyEspDomains(this)" class="px-2.5 py-0.5 rounded text-[11px] font-semibold bg-white hover:bg-[#dcfce7] text-[#14532d] border border-emerald-300 cursor-pointer">Copy</button></div><div class="overflow-x-auto rounded-lg shadow-xs"><table class="domains-excel-table text-sm"><thead><tr class="dom-esp-title"><th colspan="${cols}" class="py-2 px-3 text-center text-xs font-bold">${escHtml(EXCEL_SHORT_CODE[esp] || `ESP: ${esp}`)}</th></tr><tr class="dom-col-header"><th class="w-10 py-1.5 px-2 text-center text-xs font-bold">#</th><th class="py-1.5 px-3 text-left text-xs font-bold">${isB?'Brand':'Domain / Subdomain'}</th><th class="py-1.5 px-3 text-right text-xs font-bold">VOLUME</th><th class="py-1.5 px-3 text-right text-xs font-bold">Delivered</th><th class="py-1.5 px-3 text-right text-xs font-bold">Soft Bounce</th><th class="py-1.5 px-3 text-right text-xs font-bold">Hard Bounce</th><th class="py-1.5 px-3 text-right text-xs font-bold">Opened</th><th class="py-1.5 px-3 text-right text-xs font-bold">Clicks</th>${extraTh}</tr></thead><tbody>${rows}</tbody>${foot}</table></div></div>`);
       });
       body.innerHTML = cards.length ? `<div class="space-y-5">${cards.join('')}</div>` : '<div class="py-12 text-center text-slate-400 text-sm">No matches found.</div>';
     }
 
     function renderEspTable(list, agg) {
-      lastRenderedEspList = list || []; lastRenderedEspAgg = agg;
-      let html = '', slots = 0; const uniq = new Set();
+      lastRenderedEspList = list || []; lastRenderedEspAgg = agg; let html = '', slots = 0; const uniq = new Set();
       list.forEach(i => {
-        const v = i.delivered + (i.softBounce || 0) + (i.hardBounce || 0), doms = Object.keys(espDomainStats[i.esp] || {});
-        slots += doms.length; doms.forEach(d => uniq.add(d.toLowerCase()));
+        const v = i.delivered + (i.softBounce || 0) + (i.hardBounce || 0), doms = Object.keys(espDomainStats[i.esp] || {}); slots += doms.length; doms.forEach(d => uniq.add(d.toLowerCase()));
         const dCell = `<div class="inline-flex items-center justify-end gap-2"><span class="font-bold text-slate-800">${doms.length}</span><button type="button" data-esp="${escAttr(i.esp)}" onclick="openDomainsModal(this.dataset.esp)" title="View domains & metrics" class="w-5 h-5 rounded-full bg-[#dcfce7] hover:bg-[#166534] text-[#14532d] hover:text-white border border-[#86efac] inline-flex items-center justify-center font-bold text-xs cursor-pointer">+</button></div>`;
         html += `<tr class="esp-summary-row"><td class="py-3 px-4 text-left font-bold">${escHtml(i.esp)}</td><td class="py-3 px-4 font-mono">${dCell}</td><td class="py-3 px-4 font-mono">${v.toLocaleString()}</td><td class="py-3 px-4 font-mono">${i.delivered.toLocaleString()}</td><td class="py-3 px-4 font-mono text-amber-700">${(i.softBounce||0).toLocaleString()}</td><td class="py-3 px-4 font-mono text-rose-700">${(i.hardBounce||0).toLocaleString()}</td><td class="py-3 px-4 font-mono text-emerald-700">${i.opened.toLocaleString()}</td><td class="py-3 px-4 font-mono text-sky-700">${i.clicked.toLocaleString()}</td><td class="py-3 px-4 font-mono text-amber-600">${(i.signups||0).toLocaleString()}</td><td class="py-3 px-4 font-mono text-indigo-600">${(i.players||0).toLocaleString()}</td></tr>`;
-        Object.entries(i.domains || {}).forEach(([dom, d]) => {
-          html += `<tr class="domain-row text-xs text-slate-600 ${areDetailsExpanded?'':'hidden'}"><td class="py-1.5 px-4 text-left pl-8">${escHtml(dom)}</td><td class="text-slate-400 font-mono text-center">-</td><td class="font-mono">${(d.delivered+d.softBounce+d.hardBounce).toLocaleString()}</td><td>${d.delivered.toLocaleString()}</td><td class="text-amber-700">${d.softBounce.toLocaleString()}</td><td class="text-rose-700">${d.hardBounce.toLocaleString()}</td><td class="text-emerald-700">${d.opened.toLocaleString()}</td><td class="text-sky-700">${d.clicked.toLocaleString()}</td><td class="text-slate-400 font-mono text-center">-</td><td class="text-slate-400 font-mono text-center">-</td></tr>`;
-        });
+        Object.entries(i.domains || {}).forEach(([dom, d]) => { html += `<tr class="domain-row text-xs text-slate-600 ${areDetailsExpanded?'':'hidden'}"><td class="py-1.5 px-4 text-left pl-8">${escHtml(dom)}</td><td class="text-slate-400 font-mono text-center">-</td><td class="font-mono">${(d.delivered+d.softBounce+d.hardBounce).toLocaleString()}</td><td>${d.delivered.toLocaleString()}</td><td class="text-amber-700">${d.softBounce.toLocaleString()}</td><td class="text-rose-700">${d.hardBounce.toLocaleString()}</td><td class="text-emerald-700">${d.opened.toLocaleString()}</td><td class="text-sky-700">${d.clicked.toLocaleString()}</td><td class="text-slate-400 font-mono text-center">-</td><td class="text-slate-400 font-mono text-center">-</td></tr>`; });
       });
       $('espTableBody').innerHTML = html;
       const totVol = (agg.delivered || 0) + (agg.softBounce || 0) + (agg.hardBounce || 0), footDom = `<div class="inline-flex items-center justify-end gap-2"><span class="font-bold text-slate-900">${slots}</span><span class="text-[11px] font-medium text-slate-400">(${uniq.size} uniq.)</span><button type="button" onclick="openDomainsModal('ALL')" title="View all domains & metrics" class="w-5 h-5 rounded-full bg-[#166534] hover:bg-[#14532d] text-white inline-flex items-center justify-center font-bold text-xs cursor-pointer">+</button></div>`;
@@ -651,12 +609,9 @@
       if (!lastRenderedEspList?.length || !lastRenderedEspAgg) return alert('No data available for this period.');
       const btn = $('exportEspExcelBtn'); if (btn) { btn.disabled = true; setT('exportExcelBtnText', 'Exporting...'); }
       try {
-        const wb = new ExcelJS.Workbook(), ws = wb.addWorksheet('Email Performance', { views: [{ state: 'frozen', ySplit: 2 }] });
-        ws.columns = [{ width: 26 }, { width: 15 }, ...Array.from({ length: 8 }, () => ({ width: 13 }))];
-        const sty = (c, { b = false, sz = 10, fg = 'FF334155', bg, al = 'right', ind = 0, fmt, top, bot } = {}) => {
-          c.font = { name:'Calibri', size:sz, bold:b, color:{ argb:fg } }; if (bg) c.fill = { type:'pattern', pattern:'solid', fgColor:{ argb:bg } };
-          c.alignment = { horizontal:al, vertical:'middle', ...(ind ? { indent:ind } : {}) }; if (fmt) c.numFmt = fmt; if (top || bot) c.border = { ...(top ? { top } : {}), ...(bot ? { bottom:bot } : {}) };
-        };
+        const wb = new ExcelJS.Workbook(), ws = wb.addWorksheet('Email Performance', { views:[{ state:'frozen', ySplit:2 }] });
+        ws.columns = [{ width:26 }, { width:15 }, ...Array.from({ length:8 }, () => ({ width:13 }))];
+        const sty = (c, { b=false, sz=10, fg='FF334155', bg, al='right', ind=0, fmt, top, bot } = {}) => { c.font = { name:'Calibri', size:sz, bold:b, color:{ argb:fg } }; if (bg) c.fill = { type:'pattern', pattern:'solid', fgColor:{ argb:bg } }; c.alignment = { horizontal:al, vertical:'middle', ...(ind?{ indent:ind }:{}) }; if (fmt) c.numFmt = fmt; if (top || bot) c.border = { ...(top?{ top }:{}), ...(bot?{ bottom:bot }:{}) }; };
         const per = currentStartDate === currentEndDate ? currentStartDate : `${currentStartDate} to ${currentEndDate}`;
         const r1 = ws.addRow([`EMAIL PERFORMANCE BY ESP  |  Period: ${per}`]); ws.mergeCells('A1:J1'); r1.height = 24; sty(r1.getCell(1), { b:true, sz:11, fg:'FF1E293B', bg:'FFF8FAFC', al:'left', bot:{ style:'thin', color:{ argb:'FFCBD5E1' } } });
         const r2 = ws.addRow(['ESP','DOMAINS','VOLUME','Delivered','Soft Bounce','Hard Bounce','Opened','Clicks','SIGNUPS','PLAYERS']); r2.height = 24; r2.eachCell((c, k) => sty(c, { b:true, fg:'FFFFFFFF', bg:'FF485C44', al:k===1?'left':'right', bot:{ style:'medium', color:{ argb:'FF3B4C37' } } }));
@@ -676,8 +631,7 @@
     }
 
     function renderBrandTable(agg) {
-      let bHtml = '';
-      Object.entries(agg.brands).sort((a,b) => b[1].revenue - a[1].revenue).forEach(([bn, d]) => { bHtml += `<tr class="hover:bg-slate-50 bg-white"><td class="py-2 px-4 text-left">${bn}</td><td class="py-2 px-4 text-left font-medium">${d.advertiser}</td><td class="py-2 px-4 font-mono font-bold text-amber-600">${d.signups}</td><td class="py-2 px-4 font-mono font-bold text-indigo-600">${d.users}</td><td class="py-2.5 px-4 font-mono font-bold text-emerald-600">$${Math.round(d.revenue).toLocaleString()}</td><td class="py-2.5 px-4 font-mono">${formatS2P(d.signups, d.users)}</td></tr>`; });
+      let bHtml = ''; Object.entries(agg.brands).sort((a,b) => b[1].revenue - a[1].revenue).forEach(([bn, d]) => { bHtml += `<tr class="hover:bg-slate-50 bg-white"><td class="py-2 px-4 text-left">${bn}</td><td class="py-2 px-4 text-left font-medium">${d.advertiser}</td><td class="py-2 px-4 font-mono font-bold text-amber-600">${d.signups}</td><td class="py-2 px-4 font-mono font-bold text-indigo-600">${d.users}</td><td class="py-2.5 px-4 font-mono font-bold text-emerald-600">$${Math.round(d.revenue).toLocaleString()}</td><td class="py-2.5 px-4 font-mono">${formatS2P(d.signups, d.users)}</td></tr>`; });
       $('brandTableBody').innerHTML = initialTableState['brandTable'] = bHtml;
       setT('brandGrandSignups', agg.signups); setT('brandGrandUsers', agg.users); setT('brandGrandRevenue', `$${Math.round(agg.revenue).toLocaleString()}`); setT('brandGrandS2p', formatS2P(agg.signups, agg.users));
     }
@@ -705,11 +659,7 @@
       chartRefs.domClicks.data.datasets[0].data = ['Gmail','Other','Yahoo','iCloud','Outlook','Aol','Hotmail'].map(d => dC[d]); chartRefs.domClicks.update();
     }
 
-    function parseSortValue(txt, type) {
-      const c = (txt || '').trim();
-      if (type === 'ratio') { const p = c.split(':').map(n => parseFloat(n.replace(/[^0-9.-]/g,''))); if (p.length === 2 && !isNaN(p[0]) && !isNaN(p[1])) return p[0] > 0 && p[1] > 0 ? p[0]/p[1] : (p[0] === 0 && p[1] > 0 ? -p[1]*.0001 : -1); }
-      return parseFloat(c.replace(/[^0-9.-]/g,'')) || 0;
-    }
+    function parseSortValue(txt, type) { const c = (txt || '').trim(); if (type === 'ratio') { const p = c.split(':').map(n => parseFloat(n.replace(/[^0-9.-]/g,''))); if (p.length === 2 && !isNaN(p[0]) && !isNaN(p[1])) return p[0] > 0 && p[1] > 0 ? p[0]/p[1] : (p[0] === 0 && p[1] > 0 ? -p[1]*.0001 : -1); } return parseFloat(c.replace(/[^0-9.-]/g,'')) || 0; }
     function sortTable(id, col, btn, type) {
       const tb = $(id)?.querySelector('tbody'); if (!tb) return;
       const rows = Array.from(tb.querySelectorAll('tr')), dir = tableSortDirections[id]?.[col] === 'desc' ? 'asc' : 'desc';
@@ -720,7 +670,7 @@
     function resetTable(id) { const tbl = $(id), tb = tbl?.querySelector('tbody'); if (tb && initialTableState[id]) { tb.innerHTML = initialTableState[id]; tableSortDirections[id] = {}; tbl.querySelectorAll('.sort-btn .sort-icon').forEach(i => i.textContent = '⇅'); } }
     function toggleTableDetails() { areDetailsExpanded = !areDetailsExpanded; document.querySelectorAll('.domain-row').forEach(r => r.classList.toggle('hidden', !areDetailsExpanded)); setT('btnText', areDetailsExpanded ? 'Collapse All' : 'Show All'); setT('btnIcon', areDetailsExpanded ? '▴' : '▾'); }
 
-    document.addEventListener('DOMContentLoaded', async () => { initCharts(); globalLoadedMonths = await loadAllMonths(); initDateControls(); await updateDashboardForDateRange(); });
+    document.addEventListener('DOMContentLoaded', async () => { initStaticUi(); initCharts(); globalLoadedMonths = await loadAllMonths(); initDateControls(); await updateDashboardForDateRange(); });
   </script>
 </body>
 </html>
