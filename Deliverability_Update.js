@@ -79,11 +79,13 @@ function nuevoMapaISPs() {
 const esperar = (ms) => new Promise(r => setTimeout(r, ms));
 
 // =======================================================
-// 0. MAPA DE CÓDIGOS DE CAMPAÑA -> BRAND
+// 0. MAPA ÚNICO DE CÓDIGOS DE CAMPAÑA -> BRAND (RAÍZ)
 // =======================================================
 function cargarMapaCodigos(anioNum, mesNum) {
     const codeToBrand = {};
-    const rutaCodes = path.join(String(anioNum), 'Campaign codes', MESES_CARPETA_CAP[mesNum - 1], 'campaign_codes.json');
+    const rutaRaiz = 'campaign_codes.json';
+    const rutaLegacy = path.join(String(anioNum), 'Campaign codes', MESES_CARPETA_CAP[mesNum - 1], 'campaign_codes.json');
+    const rutaCodes = fs.existsSync(rutaRaiz) ? rutaRaiz : rutaLegacy;
     try {
         if (fs.existsSync(rutaCodes)) {
             const raw = JSON.parse(fs.readFileSync(rutaCodes, 'utf8'));
@@ -208,7 +210,6 @@ async function procesarMailjet(nombreCuenta, apiKey, secretKey, fechaStr, codeTo
         headers
     );
 
-    // Resolver CampaignID -> Draft Title -> Brand
     const campBrandMap = {};
     const campIds = [...new Set(mensajes.map(x => String(x.CampaignID || '')).filter(id => id && id !== '0'))];
     for (const cid of campIds) {
@@ -216,12 +217,13 @@ async function procesarMailjet(nombreCuenta, apiKey, secretKey, fechaStr, codeTo
             const cRes = await fetchMailjetPage(`https://api.mailjet.com/v3/REST/campaign/${cid}`, headers);
             const cObj = cRes?.Data?.[0];
             let title = cObj?.Subject || '';
-            if (cObj?.NewsLetterID) {
-                const dRes = await fetchMailjetPage(`https://api.mailjet.com/v3/REST/campaigndraft/${cObj.NewsLetterID}`, headers).catch(() => null);
+            const nlId = cObj?.NewsLetterID || String(cObj?.CustomValue || '').match(/mj\.nl=(\d+)/i)?.[1];
+            if (nlId) {
+                const dRes = await fetchMailjetPage(`https://api.mailjet.com/v3/REST/campaigndraft/${nlId}`, headers).catch(() => null);
                 if (dRes?.Data?.[0]?.Title) title = dRes.Data[0].Title;
             }
             campBrandMap[cid] = resolverBrandPorTitulo(title, codeToBrand);
-        } catch (e) {
+        } catch {
             campBrandMap[cid] = 'Unknown';
         }
     }
