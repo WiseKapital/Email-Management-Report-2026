@@ -522,10 +522,23 @@
     const handleModalSearchInput = () => modalView === 'codes' ? renderCampaignCodesTable() : renderDomainsModalBody();
 
     function getMergedEspBrands(esp) {
-      const codeMap = {}; Object.entries(currentCampaignCodesMap || {}).forEach(([br, str]) => { String(str || '').split(/[,;\s]+/).forEach(c => { const cc = c.trim().toUpperCase(); if (cc) codeMap[cc] = br; }); });
+      const codeMap = {}, jsonBrands = {};
+      Object.entries(currentCampaignCodesMap || {}).forEach(([br, str]) => {
+        jsonBrands[br.toLowerCase()] = br;
+        String(str || '').split(/[,;\s]+/).forEach(c => { const cc = c.trim().toUpperCase(); if (cc) codeMap[cc] = br; });
+      });
       const merged = {}, ensure = name => { const k = name.toLowerCase(); return merged[k] || (merged[k] = { brand: name, volume:0, delivered:0, softBounce:0, hardBounce:0, opened:0, clicks:0, signups:0, players:0 }); };
-      Object.values(espBrandStats[esp] || {}).forEach(m => { const raw = String(m.domain || '').trim(), row = ensure(codeMap[raw.toUpperCase()] || raw); ['volume','delivered','softBounce','hardBounce','opened','clicks'].forEach(k => row[k] += m[k] || 0); });
-      Object.values(espBrandAdvStats[esp] || {}).forEach(a => { const row = ensure(a.brand); row.signups += a.signups || 0; row.players += a.players || 0; });
+      Object.values(espBrandStats[esp] || {}).forEach(m => {
+        const raw = String(m.domain || '').trim(), targetBrand = codeMap[raw.toUpperCase()] || jsonBrands[raw.toLowerCase()];
+        if (!targetBrand) return;
+        const row = ensure(targetBrand);
+        ['volume','delivered','softBounce','hardBounce','opened','clicks'].forEach(k => row[k] += m[k] || 0);
+      });
+      Object.values(espBrandAdvStats[esp] || {}).forEach(a => {
+        const targetBrand = jsonBrands[a.brand.toLowerCase()];
+        if (!targetBrand) return;
+        const row = ensure(targetBrand); row.signups += a.signups || 0; row.players += a.players || 0;
+      });
       return Object.values(merged).sort((a,b) => (b.volume - a.volume) || (b.signups - a.signups) || a.brand.localeCompare(b.brand));
     }
 
