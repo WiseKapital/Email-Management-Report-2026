@@ -102,7 +102,7 @@
       <div id="domainsModalBody" class="flex-1 overflow-y-auto p-6 bg-slate-50/70"></div>
       <div id="campaignCodesBody" class="hidden flex-1 overflow-y-auto p-6 bg-slate-50/70 space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
-          <div><div class="flex items-center gap-2.5 flex-wrap"><h4 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Campaign codes</h4><span class="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 font-mono">Example: spinblitz = BLZ</span></div><p id="campaignCodesPathLabel" class="text-xs text-slate-500 font-mono mt-0.5">Path: --</p></div>
+          <div><div class="flex items-center gap-2.5 flex-wrap"><h4 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Campaign codes</h4><span class="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 font-mono">Example: spinblitz = BLZ</span></div><p id="campaignCodesPathLabel" class="text-xs text-slate-500 font-mono mt-0.5">Path: campaign_codes.json</p></div>
           <div class="flex items-center gap-3"><span id="campaignCodesSaveStatus" class="text-xs font-semibold text-emerald-700 hidden"></span><button type="button" id="saveCampaignCodesBtn" onclick="saveCampaignCodesFromUi()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-[#166534] hover:bg-[#14532d] text-white shadow-sm cursor-pointer transition"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>Save Codes</span></button></div>
         </div>
         <div class="overflow-x-auto rounded-2xl shadow-xs border border-slate-200 bg-white"><table class="w-full text-sm excel-table"><thead><tr class="theme-header-aff text-white text-xs uppercase font-semibold"><th class="w-12 py-2.5 px-3 text-center">#</th><th class="py-2.5 px-4 text-left">Brand</th><th class="py-2.5 px-4 text-left">Advertiser</th><th class="py-2.5 px-4 text-left">Campaign Code(s) (e.g. FAM, CASI, BLZ)</th></tr></thead><tbody id="campaignCodesTableBody" class="text-slate-700"></tbody></table></div>
@@ -173,7 +173,7 @@
       return (lastRepoCoords = { owner: owner || 'owner', repo: repo || 'repo' });
     }
 
-    const getCampaignCodesPath = (ref = currentStartDate) => { const [y, m] = (ref || getTodayIso()).split('-').map(Number); return `${y}/Campaign codes/${MESES_CAP[(m || 1) - 1]}/campaign_codes.json`; };
+    const getCampaignCodesPath = () => 'campaign_codes.json';
 
     async function loadCampaignCodesFromGithub(path) {
       const ts = Date.now();
@@ -194,7 +194,7 @@
         if (!cachedCodesShaByPath[path]) { const chk = await fetch(`${url}?t=${Date.now()}`, { headers: ghHdr(), cache:'no-store' }); if (chk.ok) cachedCodesShaByPath[path] = (await chk.json()).sha || null; }
         const clean = {}; Object.keys(codesMap).sort().forEach(k => { clean[k] = String(codesMap[k] || '').trim().toUpperCase(); });
         const sha = cachedCodesShaByPath[path];
-        const put = await fetch(url, { method:'PUT', headers:{ ...ghHdr(), 'Content-Type':'application/json' }, body:JSON.stringify({ message:`Update campaign codes for ${path} [skip ci]`, content:b64EncodeUtf8(JSON.stringify(clean, null, 2)), ...(sha ? { sha } : {}) }) });
+        const put = await fetch(url, { method:'PUT', headers:{ ...ghHdr(), 'Content-Type':'application/json' }, body:JSON.stringify({ message:`Update ${path} [skip ci]`, content:b64EncodeUtf8(JSON.stringify(clean, null, 2)), ...(sha ? { sha } : {}) }) });
         if (put.ok) { cachedCodesShaByPath[path] = (await put.json()).content?.sha || null; return { ok:true }; }
         if (put.status === 409 && !retry) { cachedCodesShaByPath[path] = null; return await saveCampaignCodesToGithub(path, codesMap, true); }
         return { ok:false, error:`HTTP ${put.status}: ${await put.text()}` };
@@ -203,8 +203,14 @@
 
     async function syncCampaignCodesWithBrands(agg) {
       if (!agg?.brands) return;
-      const path = getCampaignCodesPath(currentStartDate), loaded = await loadCampaignCodesFromGithub(path), merged = { ...(loaded.map || {}) };
-      let hasNew = false; Object.keys(agg.brands).forEach(b => { const bn = b.trim(); if (bn && merged[bn] === undefined) { merged[bn] = ''; hasNew = true; } });
+      const path = getCampaignCodesPath(), loaded = await loadCampaignCodesFromGithub(path);
+      let merged = { ...(loaded.map || {}) }, hasNew = false;
+      if (!loaded.sha && !Object.keys(merged).length) {
+        const [y, m] = (currentStartDate || getTodayIso()).split('-').map(Number);
+        const old = await loadCampaignCodesFromGithub(`${y}/Campaign codes/${MESES_CAP[(m || 1) - 1]}/campaign_codes.json`);
+        if (Object.keys(old.map || {}).length) { merged = { ...old.map }; hasNew = true; }
+      }
+      Object.keys(agg.brands).forEach(b => { const bn = b.trim(); if (bn && merged[bn] === undefined) { merged[bn] = ''; hasNew = true; } });
       currentCampaignCodesMap = merged;
       if (modalView === 'codes') renderCampaignCodesTable(); else if (modalView === 'brands') renderDomainsModal();
       if (hasNew) await saveCampaignCodesToGithub(path, currentCampaignCodesMap);
@@ -532,7 +538,7 @@
       setT('toggleBrandsBtnText', isBrands ? 'Back to Domains' : 'ESP/Brand');
       $('toggleBrandsBtnIcon').innerHTML = isBrands ? backIco : '<path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18M8 6h13M8 18h13"/>';
       $('domainsModalTabs').classList.toggle('hidden', isCodes); $('domainsModalBody').classList.toggle('hidden', isCodes); $('campaignCodesBody').classList.toggle('hidden', !isCodes);
-      if (isCodes) { setT('domainsModalTitle','Campaign codes'); setT('domainsModalSubtitle',`Brand to campaign code mapping • ${getCampaignCodesPath(currentStartDate)}`); setT('domainsModalSource','Storage: GitHub repository JSON file'); renderCampaignCodesTable(); }
+      if (isCodes) { setT('domainsModalTitle','Campaign codes'); setT('domainsModalSubtitle',`Brand to campaign code mapping • ${getCampaignCodesPath()}`); setT('domainsModalSource','Storage: GitHub repository (campaign_codes.json)'); renderCampaignCodesTable(); }
       else renderDomainsModal();
     }
 
@@ -544,7 +550,7 @@
     }
 
     function renderCampaignCodesTable() {
-      setT('campaignCodesPathLabel', `Path: ${getCampaignCodesPath(currentStartDate)}`);
+      setT('campaignCodesPathLabel', `Path: ${getCampaignCodesPath()}`);
       const tb = $('campaignCodesTableBody'); if (!tb) return;
       const q = ($('domainsModalSearch')?.value || '').trim().toLowerCase();
       const list = [...new Set([...Object.keys(lastRenderedEspAgg?.brands || {}), ...Object.keys(currentCampaignCodesMap || {})])].sort((a,b) => a.localeCompare(b)).filter(b => !q || b.toLowerCase().includes(q) || (currentCampaignCodesMap[b] || '').toLowerCase().includes(q));
@@ -552,7 +558,7 @@
     }
 
     async function saveCampaignCodesFromUi() {
-      const btn = $('saveCampaignCodesBtn'), st = $('campaignCodesSaveStatus'), path = getCampaignCodesPath(currentStartDate);
+      const btn = $('saveCampaignCodesBtn'), st = $('campaignCodesSaveStatus'), path = getCampaignCodesPath();
       document.querySelectorAll('#campaignCodesTableBody input[data-brand]').forEach(inp => { inp.value = inp.value.trim().toUpperCase(); currentCampaignCodesMap[inp.dataset.brand] = inp.value; });
       if (btn) { btn.disabled = true; btn.innerHTML = '<span class="inline-block animate-spin mr-1">↻</span> Saving...'; }
       if (st) { st.className = 'text-xs font-semibold text-emerald-700'; st.textContent = 'Saving to GitHub...'; }
