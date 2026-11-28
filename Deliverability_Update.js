@@ -611,7 +611,6 @@ async function procesarSendgridBrands(nombreCuenta, apiKey, fechaStr, codeToBran
         } catch {}
     }
 
-    // Asignar SoftBounce (blocks) del día entre las brands activas de SendGrid
     const activeEntries = Object.entries(porBrand);
     if (softBounceTotal > 0 && activeEntries.length > 0) {
         if (activeEntries.length === 1) {
@@ -670,7 +669,7 @@ async function obtenerEstadosCloudflare(urlBase, fechaStr) {
 // 4. GUARDAR CSVs:
 //    A) {año}/maildata/maildata_{mes}/{dia}.csv
 //    B) {año}/ESP - IP Breakdown/{Mes}/{dia}.csv
-//    C) {año}/ESP - Brand Breakdown/{Mes}/{dia}.csv
+//    C) {año}/ESP-Brand/{Mes}/{dia_2_digitos}.csv
 // =======================================================
 const pct = (n, d) => (d > 0 ? ((n / d) * 100).toFixed(2) + '%' : '0.00%');
 
@@ -748,6 +747,7 @@ async function main() {
     console.log(`Hoy Colombia: ${hoyCol} | Extrayendo unicamente fecha: ${fechaStr}`);
 
     const [anioNum, mesNum, diaNum] = fechaStr.split('-').map(Number);
+    const dia2 = String(diaNum).padStart(2, '0');
     const fechaCorta = `${MESES_CORTOS[mesNum - 1]}-${diaNum}`;
     const codeToBrand = cargarMapaCodigos(anioNum, mesNum);
 
@@ -846,7 +846,7 @@ async function main() {
     ]);
     console.log(`CSV Breakdown por dominio guardado en: ${rutaBreakdownDom}`);
 
-    const rutaBreakdownBrand = path.join(String(anioNum), 'ESP - Brand Breakdown', MESES_CARPETA_CAP[mesNum - 1], `${diaNum}.csv`);
+    const rutaBreakdownBrand = path.join(String(anioNum), 'ESP-Brand', MESES_CARPETA_CAP[mesNum - 1], `${dia2}.csv`);
     guardarBreakdownCSV(rutaBreakdownBrand, 'ESP/Brand,VOLUME,Delivered,Soft Bounce,Hard Bounce,Opened,Clicks', [
         { nombre: 'MLJ (Mailjet) IP 1', mapa: mlj1Res.porBrand },
         { nombre: 'MLJ (Mailjet) IP 2', mapa: mlj2Res.porBrand },
